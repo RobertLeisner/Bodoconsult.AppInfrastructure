@@ -1,0 +1,104 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="LocalesFiles\de.txt" />
+    <None Remove="LocalesFiles\en.txt" />
+    <None Remove="LocalesFiles\fr-FR.txt" />
+    <None Remove="LocalesFiles\pt.txt" />
+    <None Remove="Locales\de.txt" />
+    <None Remove="Locales\en.txt" />
+    <None Remove="Locales\fr-Fr.txt" />
+    <None Remove="Locales\pt.txt" />
+    <None Remove="SamplesFiles\CsvLineLocales\en.csv" />
+    <None Remove="SamplesFiles\CsvLineLocales\es.csv" />
+    <None Remove="SamplesFiles\JsonKvpLocales\en.json" />
+    <None Remove="SamplesFiles\JsonKvpLocales\es.json" />
+    <None Remove="SamplesFiles\JsonListLocales\en.json" />
+    <None Remove="SamplesFiles\JsonListLocales\es.json" />
+    <None Remove="SamplesFiles\Locales\en.txt" />
+    <None Remove="SamplesFiles\Locales\es-MX.txt" />
+    <None Remove="SamplesFiles\Locales\es.txt" />
+    <None Remove="SamplesFiles\Locales\pt-BR.txt" />
+    <None Remove="Samples\CsvLineLocales\en.csv" />
+    <None Remove="Samples\CsvLineLocales\es.csv" />
+    <None Remove="Samples\JsonKvpLocales\en.json" />
+    <None Remove="Samples\JsonKvpLocales\es.json" />
+    <None Remove="Samples\JsonListLocales\en.json" />
+    <None Remove="Samples\JsonListLocales\es.json" />
+    <None Remove="Samples\Locales\en.txt" />
+    <None Remove="Samples\Locales\es-MX.txt" />
+    <None Remove="Samples\Locales\es.txt" />
+    <None Remove="Samples\Locales\pt-BR.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="LocalesFiles\fr-FR.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LocalesFiles\de.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LocalesFiles\en.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LocalesFiles\pt.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplesFiles\JsonListLocales\en.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplesFiles\JsonListLocales\es.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Locales\de.txt" />
+    <EmbeddedResource Include="Locales\en.txt" />
+    <EmbeddedResource Include="Locales\fr-FR.txt" />
+    <EmbeddedResource Include="Locales\pt.txt" />
+    <Content Include="SamplesFiles\CsvLineLocales\en.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplesFiles\CsvLineLocales\es.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplesFiles\JsonKvpLocales\en.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SamplesFiles\JsonKvpLocales\es.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="SamplesFiles\Locales\en.txt" />
+    <EmbeddedResource Include="SamplesFiles\Locales\es-MX.txt" />
+    <EmbeddedResource Include="SamplesFiles\Locales\es.txt" />
+    <EmbeddedResource Include="SamplesFiles\Locales\pt-BR.txt" />
+    <EmbeddedResource Include="Samples\CsvLineLocales\en.csv" />
+    <EmbeddedResource Include="Samples\CsvLineLocales\es.csv" />
+    <EmbeddedResource Include="Samples\JsonKvpLocales\en.json" />
+    <EmbeddedResource Include="Samples\JsonKvpLocales\es.json" />
+    <EmbeddedResource Include="Samples\JsonListLocales\en.json" />
+    <EmbeddedResource Include="Samples\JsonListLocales\es.json" />
+    <EmbeddedResource Include="Samples\Locales\en.txt" />
+    <EmbeddedResource Include="Samples\Locales\es-MX.txt" />
+    <EmbeddedResource Include="Samples\Locales\es.txt" />
+    <EmbeddedResource Include="Samples\Locales\pt-BR.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="4.3.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bodoconsult.I18N\Bodoconsult.I18N.csproj" />
+  </ItemGroup>
+
+</Project>

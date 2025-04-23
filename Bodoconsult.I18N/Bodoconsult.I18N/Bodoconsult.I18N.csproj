@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Deterministic>False</Deterministic>
+    <!--<RepositoryUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageId>Bodoconsult.I18N</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Robert Leisner</Authors>
+    <Company>Bodoconsult EDV-Dienstleistungen GmbH</Company>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>LINQ query dynamic expression</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>I18N supporting resources from multiple assemblies and other sources</Description>
+    <PackageReleaseNotes>First draft</PackageReleaseNotes>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageProjectUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure<</PackageProjectUrl>-->
+  </PropertyGroup>
+
+</Project>
