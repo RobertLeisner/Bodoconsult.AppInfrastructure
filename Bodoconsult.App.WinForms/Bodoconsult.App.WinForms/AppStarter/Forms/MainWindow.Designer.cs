@@ -75,7 +75,7 @@ namespace Bodoconsult.App.WinForms.AppStarter.Forms
             this.AppTitle.Name = "AppTitle";
             this.AppTitle.Size = new System.Drawing.Size(131, 30);
             this.AppTitle.TabIndex = 3;
-            this.AppTitle.Text = "StSys Server";
+            this.AppTitle.Text = "App";
             // 
             // MsgServerProcessId
             // 

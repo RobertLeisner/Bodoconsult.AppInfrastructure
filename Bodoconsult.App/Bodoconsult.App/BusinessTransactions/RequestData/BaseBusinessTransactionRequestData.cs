@@ -21,7 +21,7 @@ public abstract class BaseBusinessTransactionRequestData: IBusinessTransactionRe
     public Guid TransactionGuid { get; } = Guid.NewGuid();
 
     /// <summary>
-    /// Benchmark object (see output in StSys_Benchmark.csv)
+    /// Benchmark object (see output in XXX_Benchmark.csv)
     /// Make sure to create it, addStep, and dispose it 
     /// </summary>
     public Bench Benchmark { get; set; }

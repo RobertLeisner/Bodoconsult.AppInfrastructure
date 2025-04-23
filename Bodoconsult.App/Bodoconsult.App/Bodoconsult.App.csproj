@@ -62,7 +62,6 @@
 	<ItemGroup>
 		<None Include="..\LICENSE.md" Link="LICENSE.md" />
 		<None Include="..\README.md" Link="README.md" Pack="true" PackagePath="\" />
-		<!--<None Include="CredentialManager\WindowsCredentialManager.csproj" />-->
 	</ItemGroup>
 
 	<ItemGroup>

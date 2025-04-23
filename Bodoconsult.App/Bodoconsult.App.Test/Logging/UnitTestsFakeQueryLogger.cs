@@ -2,9 +2,8 @@
 
 //using Microsoft.Extensions.Logging;
 //using NUnit.Framework;
-//using Bodoconsult EDV-Dienstleistungen GmbH.StSys.SQL.Model.Logging;
 
-//namespace Bodoconsult EDV-Dienstleistungen GmbH.StSys.SQL.StSysDB.Tests.Logging
+//namespace XXX.Tests.Logging
 //{
 //    [TestFixture]
 //    internal class UnitTestsFakeAppLogger: BaseFakeLoggerTests

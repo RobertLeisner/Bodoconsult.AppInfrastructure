@@ -49,7 +49,7 @@ public class ExceptionReplyBuilder : IExceptionReplyBuilder
         {
             reply = new DefaultBusinessTransactionReply
             {
-                ErrorCode = errorCode == 0 ? DefaultErrorCode : errorCode, //  StSysErrorCodes.ExceptionOccursCode
+                ErrorCode = errorCode == 0 ? DefaultErrorCode : errorCode, 
                 ExceptionMessage = exception.StackTrace,
                 Message = $"Exception message: {exception.Message}"
             };

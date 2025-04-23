@@ -34,7 +34,7 @@ public class BaseAppStarterUi : IAppStarterUi
 
         get
         {
-            // Check if StSys is already started
+            // Check if app is already started
             var currentProcess = Process.GetCurrentProcess();
             var runningProcess = (from process in Process.GetProcesses()
                 where

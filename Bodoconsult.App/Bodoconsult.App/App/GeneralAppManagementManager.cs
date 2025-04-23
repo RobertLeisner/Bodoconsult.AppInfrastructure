@@ -35,7 +35,7 @@ public class GeneralAppManagementManager : IGeneralAppManagementManager
         var reply = new DefaultBusinessTransactionReply
         {
             ErrorCode = 0,
-            Message = "Log dump created successfully as file C:\\ProgrammData\\SmdTower\\LogDump.zip on the StSys computer"
+            Message = "Log dump created successfully as file LogDump.zip"
         };
 
         try
@@ -64,7 +64,7 @@ public class GeneralAppManagementManager : IGeneralAppManagementManager
         var reply = new DefaultBusinessTransactionReply
         {
             ErrorCode = 0,
-            Message = "Mini dump created successfully as file C:\\ProgrammData\\SmdTower\\MiniDump.dmp on the StSys computer"
+            Message = "Mini dump created successfully as file MiniDump.dmp"
         };
 
         var dumpType = MiniDump.MiniDumpTypeEnum.MiniDumpNormal;

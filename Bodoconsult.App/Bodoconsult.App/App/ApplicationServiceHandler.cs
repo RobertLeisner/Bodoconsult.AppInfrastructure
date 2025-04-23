@@ -7,7 +7,7 @@ using Bodoconsult.App.Interfaces;
 namespace Bodoconsult.App;
 
 /// <summary>
-/// Current implementation of <see cref="IApplicationServiceHandler"/> for StSys
+/// Current implementation of <see cref="IApplicationServiceHandler"/> for console apps
 /// </summary>
 public class ApplicationServiceHandler : IApplicationServiceHandler
 {
@@ -24,7 +24,7 @@ public class ApplicationServiceHandler : IApplicationServiceHandler
     }
 
     /// <summary>
-    /// Current StSys app server
+    /// Current app server
     /// </summary>
     public IApplicationService ApplicationServer { get; private set; }
 
@@ -57,9 +57,6 @@ public class ApplicationServiceHandler : IApplicationServiceHandler
     /// </summary>
     public void StartApplication()
     {
-
-        // Should be placed here to keep StSysServerApplication free of dependency definitions
-        // register global services and delegates
 
         CheckStorageConnection();
 
@@ -105,8 +102,6 @@ public class ApplicationServiceHandler : IApplicationServiceHandler
 
         AppGlobals.Logger.LogWarning($"{AppGlobals.AppStartParameter.AppName} app is recovering from suspend mode...");
 
-        // Should be placed here to keep StSysServerApplication free of dependency definitions
-        // register global services and delegates
         RegisterGlobalAndDatabaseServices();
 
         AppGlobals.Logger = AppGlobals.DiContainer.Get<IAppLoggerProxy>();

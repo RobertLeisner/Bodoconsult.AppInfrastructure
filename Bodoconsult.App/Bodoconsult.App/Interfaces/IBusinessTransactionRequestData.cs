@@ -21,7 +21,7 @@ public interface IBusinessTransactionRequestData
 
 
     /// <summary>
-    /// Benchmark object (see output in StSys_Benchmark.csv)
+    /// Benchmark object (see output in XXX_Benchmark.csv)
     /// Make sure to create it, addStep, and dispose it 
     /// </summary>
     Bench Benchmark { get; set; }
