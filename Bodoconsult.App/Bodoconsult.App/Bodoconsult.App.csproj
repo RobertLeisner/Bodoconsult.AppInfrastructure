@@ -33,10 +33,13 @@
 
 	<ItemGroup>
 	  <Compile Remove="Bodoconsult.App\**" />
+	  <Compile Remove="NewFolder1\**" />
 	  <Compile Remove="Zip\Bodoconsult.Core.Tools.Zip\**" />
 	  <EmbeddedResource Remove="Bodoconsult.App\**" />
+	  <EmbeddedResource Remove="NewFolder1\**" />
 	  <EmbeddedResource Remove="Zip\Bodoconsult.Core.Tools.Zip\**" />
 	  <None Remove="Bodoconsult.App\**" />
+	  <None Remove="NewFolder1\**" />
 	  <None Remove="Zip\Bodoconsult.Core.Tools.Zip\**" />
 	</ItemGroup>
 
@@ -62,11 +65,6 @@
 	<ItemGroup>
 		<None Include="..\LICENSE.md" Link="LICENSE.md" />
 		<None Include="..\README.md" Link="README.md" Pack="true" PackagePath="\" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="NewFolder1\" />
-		<Folder Include="NewFolder\" />
 	</ItemGroup>
 
 </Project>

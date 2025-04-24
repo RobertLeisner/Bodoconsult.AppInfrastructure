@@ -1,28 +1,32 @@
-﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-// See https://aka.ms/new-console-template for more information
-
-using Bodoconsult.App;
-using ConsoleApp1.App;
 using System.Diagnostics;
+using System.Diagnostics.Tracing;
+using Bodoconsult.App;
+using Bodoconsult.App.BusinessTransactions.RequestData;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
-using ConsoleApp1.DiContainerProvider;
-using Bodoconsult.App.AppStarter;
-using Bodoconsult.App.BusinessTransactions.RequestData;
+using Bodoconsult.App.Logging;
+using Bodoconsult.App.WinForms.AppStarter;
+using WinFormsApp1.App;
+using WinFormsApp1.DiContainerProvider;
 
-namespace ConsoleApp1
+// ReSharper disable LocalizableElement
+
+namespace WinFormsApp1
 {
-
     internal static class Program
     {
-
-        private static void Main(string[] args)
+        /// <summary>
+        ///  The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main(string[] args)
         {
 
             Debug.Print("Hello, World!");
 
-            Console.WriteLine("ConsoleApp1 initiation starts...");
+            Console.WriteLine("WinFormsApp1 initiation starts...");
 
 
             // Prepare basic information needed for preparing the app start
@@ -49,10 +53,10 @@ namespace ConsoleApp1
 
             // Set additional app start parameters as required
             var param = provider.AppStartParameter;
-            param.AppName = "ConsoleApp1: Demo app";
+            param.AppName = "WinFormsApp1: Demo app";
             param.SoftwareTeam = "Robert Leisner";
-            param.LogoRessourcePath = "ConsoleApp1.Resources.logo.jpg";
-            param.AppFolderName = "ConsoleApp1";
+            param.LogoRessourcePath = "WinFormsApp1.Resources.logo.jpg";
+            param.AppFolderName = "WinFormsApp1";
 
             provider.LoadDefaultAppLoggerProvider();
             provider.SetValuesInAppGlobal(Globals.Instance);
@@ -82,7 +86,7 @@ namespace ConsoleApp1
             //Console.WriteLine("To proceed press any key");
             //Console.ReadLine();
 
-            var factory = new ConsoleApp1ProductionDiContainerServiceProviderPackageFactory(Globals.Instance);
+            var factory = new WinFormsApp1ProductionDiContainerServiceProviderPackageFactory(Globals.Instance);
             IApplicationServiceHandler startProcess = new ApplicationServiceHandler(factory);
 
             const string performanceToken = "--PERF";
@@ -92,14 +96,15 @@ namespace ConsoleApp1
                 startProcess.AppGlobals.AppStartParameter.IsPerformanceLoggingActivated = true;
             }
 
+            // Create the viewmodel now
+            var eventLevel = EventLevel.Warning;
+            var listener = new AppEventListener(eventLevel);
+            var viewModel = new Forms1MainWindowViewModel(listener, startProcess);
 
-            IAppStarterUi appStarter = new ConsoleAppStarterUi(startProcess)
-                {
-                    MsgHowToShutdownServer = UiMessages.MsgHowToShutdownServer,
-                    MsgConsoleWait = UiMessages.MsgAppIsReady,
-                };
+            // Inject it to UI
+            IAppStarterUi appStarter = new WinFormsStarterUi(startProcess, viewModel);
 
-            
+
             // Run as singleton app
             if (appStarter.IsAnotherInstance)
             {
@@ -117,7 +122,7 @@ namespace ConsoleApp1
 
             appStarter.Wait();
 
-            
+
             Environment.Exit(0);
         }
 
@@ -193,6 +198,4 @@ namespace ConsoleApp1
             }
         }
     }
-
 }
-

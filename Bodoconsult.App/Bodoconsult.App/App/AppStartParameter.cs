@@ -79,5 +79,10 @@ namespace Bodoconsult.App
         /// The folder name of the app in C:\ProgramData\
         /// </summary>
         public string AppFolderName { get; set; }
+
+        /// <summary>
+        /// Port the app is listening on
+        /// </summary>
+        public int Port { get; set; }
     }
 }

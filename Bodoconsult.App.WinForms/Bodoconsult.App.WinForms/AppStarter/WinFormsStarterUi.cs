@@ -7,21 +7,23 @@ using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.Logging;
 using Bodoconsult.App.WinForms.AppStarter.Forms;
 using Bodoconsult.App.WinForms.AppStarter.Forms.ViewModel;
+using Bodoconsult.App.WinForms.Interfaces;
+// ReSharper disable LocalizableElement
 
 namespace Bodoconsult.App.WinForms.AppStarter;
 
 /// <summary>
 /// Implementation of <see cref="IAppStarterUi"/> for WinForms app
 /// </summary>
-internal class WinFormsStarterUi : BaseAppStarterUi
+public class WinFormsStarterUi : BaseAppStarterUi
 {
     private readonly AppEventListener _listener;
 
     private TaskTrayApplicationContext _context;
 
-    private MainWindowViewModel _viewModel;
+    private IMainWindowViewModel _viewModel;
 
-    public WinFormsStarterUi(IApplicationServiceHandler appStarterProcessHandler): base(appStarterProcessHandler)
+    public WinFormsStarterUi(IApplicationServiceHandler appStarterProcessHandler) : base(appStarterProcessHandler)
     {
         //var minimumLogLevel = Globals.GetLoggingConfiguration().MinimumLogLevel;
 
@@ -29,11 +31,29 @@ internal class WinFormsStarterUi : BaseAppStarterUi
 
         //var eventLevel = MapLogLevelToEventLevel(minimumLogLevel);
 
-        appStarterProcessHandler.SetAppStarterUi(this);
-
-        var eventLevel = EventLevel.Error;
+        var eventLevel = EventLevel.Warning;
 
         _listener = new AppEventListener(eventLevel);
+
+    }
+
+    /// <summary>
+    /// Ctor for using a customized form as main form of the application. The <see cref="IMainWindowViewModel"/> implementation based on <see cref="MainWindowViewModel"/> has to override CreateForm() method
+    /// </summary>
+    public WinFormsStarterUi(IApplicationServiceHandler appStarterProcessHandler, IMainWindowViewModel viewModel) : base(appStarterProcessHandler)
+    {
+        //var minimumLogLevel = Globals.GetLoggingConfiguration().MinimumLogLevel;
+
+        //MinimumLogLevel = LogLevel.Debug;
+
+        //var eventLevel = MapLogLevelToEventLevel(minimumLogLevel);
+
+        var eventLevel = EventLevel.Warning;
+
+        _listener = new AppEventListener(eventLevel);
+
+        _viewModel = viewModel;
+
     }
 
     ///// <summary>
@@ -74,12 +94,8 @@ internal class WinFormsStarterUi : BaseAppStarterUi
         ConsoleHandle = GetConsoleWindow();
         ShowWindow(ConsoleHandle, ShowWindowHide);
 
-        _viewModel  = new MainWindowViewModel(_listener, AppStarterProcessHandler)
-        {
-            AppVersion = AppStarterProcessHandler.AppGlobals.AppStartParameter.AppVersion
-        };
-
-            
+        _viewModel ??= new MainWindowViewModel(_listener, AppStarterProcessHandler);
+        _viewModel.AppVersion = AppStarterProcessHandler.AppGlobals.AppStartParameter.AppVersion;
 
         Application.SetHighDpiMode(HighDpiMode.SystemAware);
         Application.EnableVisualStyles();

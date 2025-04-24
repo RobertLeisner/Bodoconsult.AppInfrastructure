@@ -11,6 +11,8 @@ public static class UiMessages
 {
     public static string MsgAppIsReady => "App is started and ready for processing workload!";
 
+    public static string MsgServerIsListeningOnPort => "StSys Server is listening on port ";
+
     public static string MsgHowToShutdownServer => "Press CTRL+C (STRG+C) to stop the app...";
 
     public static string Exit => "Do you want to stop the app?";
@@ -23,6 +25,9 @@ public static class UiMessages
 
 
     public static string MsgLicenseNotFoundNowTerminate => "License not found. Application will terminate!";
+
+
+    public static string MsgServerProcessId => "App main process ID: ";
 
     /// <summary>
     /// Handles an exception an returns a string to use in UI

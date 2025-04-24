@@ -2,18 +2,20 @@
 
 using System.ComponentModel;
 using System.Diagnostics.Tracing;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.Logging;
+using Bodoconsult.App.WinForms.Interfaces;
 
 namespace Bodoconsult.App.WinForms.AppStarter.Forms.ViewModel;
 
 /// <summary>
 /// ViewModel for MainWindow form
 /// </summary>
-public class MainWindowViewModel : INotifyPropertyChanged
+public class MainWindowViewModel : IMainWindowViewModel
 {
 
 
@@ -29,7 +31,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
     /// <summary>
     /// Current app start process handler
     /// </summary>
-    public IApplicationServiceHandler AppStarterProcessHandler { get; }
+    public IApplicationServiceHandler ApplicationServiceHandler { get; }
 
     /// <summary>
     /// Default ctor
@@ -39,7 +41,27 @@ public class MainWindowViewModel : INotifyPropertyChanged
     public MainWindowViewModel(AppEventListener listener, IApplicationServiceHandler appStarterProcessHandler)
     {
         _listener = listener;
-        AppStarterProcessHandler = appStarterProcessHandler;
+        ApplicationServiceHandler = appStarterProcessHandler;
+
+        try
+        {
+            var assembly = Assembly.GetEntryAssembly();
+
+            if (assembly != null)
+            {
+                var logoStream = assembly.GetManifestResourceStream(ApplicationServiceHandler.AppGlobals.AppStartParameter.LogoRessourcePath);
+
+                if (logoStream != null)
+                {
+                    Logo = new Bitmap(logoStream);
+                }
+            }
+
+        }
+        catch
+        {
+            // Do nothing
+        }
     }
 
 
@@ -66,10 +88,10 @@ public class MainWindowViewModel : INotifyPropertyChanged
     /// </summary>
     public string AppVersion
     {
-        get => AppStarterProcessHandler.AppGlobals.AppStartParameter.AppVersion;
+        get => ApplicationServiceHandler.AppGlobals.AppStartParameter.AppVersion;
         set
         {
-            if (value == AppStarterProcessHandler.AppGlobals.AppStartParameter.AppVersion)
+            if (value == ApplicationServiceHandler.AppGlobals.AppStartParameter.AppVersion)
             {
                 return;
             }
@@ -97,7 +119,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
     /// </summary>
     public void ShutDown()
     {
-        AppStarterProcessHandler.StopApplication();
+        ApplicationServiceHandler.StopApplication();
     }
 
     /// <summary>
@@ -106,7 +128,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
     public void CheckLogs()
     {
 
-        if (_listener==null)
+        if (_listener == null)
         {
             return;
         }
@@ -185,5 +207,28 @@ public class MainWindowViewModel : INotifyPropertyChanged
             _listener.EventLevel = _logEventLevel;
             OnPropertyChanged();
         }
+    }
+
+    /// <summary>
+    /// The logo to use for the user interface
+    /// </summary>
+    public Bitmap Logo { get; }
+
+    /// <summary>
+    /// Background color of the header line
+    /// </summary>
+    public Color HeaderBackColor { get; set; } = Color.FromArgb(58, 131, 191);
+
+    /// <summary>
+    /// Create the main form of the application
+    /// </summary>
+    /// <returns></returns>
+    public virtual Form CreateForm()
+    {
+        return new MainWindow(this)
+        {
+            Visible = true,
+            WindowState = FormWindowState.Normal
+        };
     }
 }

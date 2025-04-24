@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using Bodoconsult.App.WinForms.AppStarter.Forms.ViewModel;
+using Bodoconsult.App.WinForms.Interfaces;
 
 namespace Bodoconsult.App.WinForms.AppStarter.Forms;
 
@@ -10,9 +10,9 @@ namespace Bodoconsult.App.WinForms.AppStarter.Forms;
 public class TaskTrayApplicationContext : ApplicationContext
 {
 
-    private MainWindow _mainWindow;
+    private Form _mainWindow;
 
-    private  MainWindowViewModel _viewModel;
+    private  IMainWindowViewModel _viewModel;
 
     readonly NotifyIcon _notifyIcon = new();
 
@@ -20,16 +20,16 @@ public class TaskTrayApplicationContext : ApplicationContext
     /// Default ctor
     /// </summary>
     /// <param name="viewModel">Current view model</param>
-    public TaskTrayApplicationContext(MainWindowViewModel viewModel)
+    public TaskTrayApplicationContext(IMainWindowViewModel viewModel)
     {
         _viewModel = viewModel;
         _viewModel.ApplicationContext = this;
 
-        _mainWindow = new MainWindow(_viewModel)
-        {
-            Visible = true,
-            WindowState = FormWindowState.Normal
-        };
+
+        _mainWindow = _viewModel.CreateForm();
+            
+            
+            
 
         MainForm = _mainWindow;
 
@@ -67,13 +67,13 @@ public class TaskTrayApplicationContext : ApplicationContext
     private void Exit(object sender, EventArgs e)
     {
 
-        if (MessageBox.Show(_viewModel.MsgExit, _viewModel.AppStarterProcessHandler.AppGlobals.AppStartParameter.AppName, MessageBoxButtons.YesNo,
+        if (MessageBox.Show(_viewModel.MsgExit, _viewModel.ApplicationServiceHandler.AppGlobals.AppStartParameter.AppName, MessageBoxButtons.YesNo,
                 MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.No)
         {
             return;
         }
 
-        if (MessageBox.Show(_viewModel.MsgExit, _viewModel.AppStarterProcessHandler.AppGlobals.AppStartParameter.AppName, MessageBoxButtons.YesNo,
+        if (MessageBox.Show(_viewModel.MsgExit, _viewModel.ApplicationServiceHandler.AppGlobals.AppStartParameter.AppName, MessageBoxButtons.YesNo,
                 MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.No)
         {
             return;

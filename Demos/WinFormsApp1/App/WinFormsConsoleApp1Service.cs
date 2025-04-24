@@ -8,12 +8,12 @@ using Bodoconsult.App.Delegates;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
 
-namespace ConsoleApp1.App;
+namespace WinFormsApp1.App;
 
 /// <summary>
 /// Current implementation of <see cref="IApplicationService"/>
 /// </summary>
-public class ConsoleApp1Service : IApplicationService
+public class WinFormsApp1Service : IApplicationService
 {
     private bool _isStopped;
     private bool _isStarting;
@@ -23,7 +23,7 @@ public class ConsoleApp1Service : IApplicationService
     /// <summary>
     /// Default ctor
     /// </summary>
-    public ConsoleApp1Service(IAppLoggerProxy appLogger,
+    public WinFormsApp1Service(IAppLoggerProxy appLogger,
         IAppGlobals appGlobals)
     {
         _appLogger = appLogger;
@@ -71,10 +71,9 @@ public class ConsoleApp1Service : IApplicationService
         // Do start your workload here
         var i = 0;
 
-        Console.WriteLine("");
         while (i < 15)
         {
-            Console.WriteLine("Processing workload...");
+            _appLogger.LogWarning( "Processing workload...");
             AsyncHelper.Delay(1000);
             i++;
         }

@@ -2,12 +2,16 @@
 
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Diagnostics.Tracing;
 using System.Text;
 using Microsoft.Extensions.Logging.EventSource;
 
 namespace Bodoconsult.App.Logging;
 
+/// <summary>
+/// Listener for fetching log messages from ILogger based logging
+/// </summary>
 /// <summary>
 /// Listener for fetching log messages from ILogger based logging
 /// </summary>
@@ -56,7 +60,7 @@ public class AppEventListener : EventListener
     /// <summary>
     /// Stores the log messages for later use
     /// </summary>
-    public ConcurrentQueue<string> Messages { get; } = new();
+    public ConcurrentQueue<string> Messages { get; } = new ConcurrentQueue<string>();
 
 
     protected override void OnEventSourceCreated(EventSource eventSource)
@@ -66,7 +70,7 @@ public class AppEventListener : EventListener
             throw new ArgumentNullException(nameof(eventSource));
         }
 
-        //Debug.Print("EventSource" + eventSource.Name);
+        Debug.Print("EventSource" + eventSource.Name);
 
         if (eventSource.Name != "Microsoft-Extensions-Logging")
         {
@@ -149,11 +153,19 @@ public class AppEventListener : EventListener
                 continue;
             }
 
+
             result.Append($"{v} : ");
 
         }
 
         var s = result.ToString();
+
+        //var pos = s.IndexOf("Default : ", StringComparison.OrdinalIgnoreCase);
+
+        //if (pos>-1)
+        //{
+        //    return s[(pos + 1)..];
+        //}
 
         return s[..^3];
     }
@@ -169,9 +181,9 @@ public class AppEventListener : EventListener
         if (_eventLevel == EventLevel.Informational)
         {
             var args = new Dictionary<string, string>
-            {
-                { "FilterSpecs", "Microsoft.EntityFrameworkCore*:Warning;*" }
-            };
+                {
+                    { "FilterSpecs", "Microsoft.EntityFrameworkCore*:Warning;*" }
+                };
 
             EnableEvents(_eventSource, EventLevel, LoggingEventSource.Keywords.FormattedMessage, args);
         }

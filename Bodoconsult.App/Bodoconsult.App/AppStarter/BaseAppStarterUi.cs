@@ -19,6 +19,7 @@ public class BaseAppStarterUi : IAppStarterUi
     public BaseAppStarterUi(IApplicationServiceHandler appStarterProcessHandler)
     {
         AppStarterProcessHandler = appStarterProcessHandler;
+        appStarterProcessHandler.SetAppStarterUi(this);
     }
 
     /// <summary>

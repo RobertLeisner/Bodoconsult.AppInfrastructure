@@ -69,13 +69,13 @@ public static class AppLoggerExtensions
 
                 // Add the providers
 
-                //// Event source
-                //if (loggingConfig.UseEventSourceProvider)
-                //{
-                //    builder.AddEventSourceLogger();
-                //    //LoadedProviders.Add("EventSource");
-                //    loggingConfig.UseEventSourceProvider = true;
-                //}
+                // Event source
+                if (loggingConfig.UseEventSourceProvider)
+                {
+                    builder.AddEventSourceLogger();
+                    //LoadedProviders.Add("EventSource");
+                    loggingConfig.UseEventSourceProvider = true;
+                }
 
                 // Log4Net
                 if (loggingConfig.UseLog4NetProvider)
