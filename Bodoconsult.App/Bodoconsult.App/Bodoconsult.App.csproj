@@ -10,7 +10,7 @@
 		<Deterministic>False</Deterministic>
 
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageOutputPath>..\..\..\Nuget\</PackageOutputPath>
+		<PackageOutputPath>..\..\Nuget\</PackageOutputPath>
 		<Copyright>Bodoconsult EDV-Dienstleistungen GmbH</Copyright>
 		<Authors>Robert Leisner</Authors>
 		<VersionPrefix>1.0.0</VersionPrefix>

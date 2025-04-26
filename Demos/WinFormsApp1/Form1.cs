@@ -1,10 +1,11 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using Bodoconsult.App.WinForms.Interfaces;
+// ReSharper disable LocalizableElement
 
 namespace WinFormsApp1
 {
-    public partial class Form1 : Form
+    public sealed partial class Form1 : Form
     {
         private readonly IMainWindowViewModel _mainWindowViewModel;
 
@@ -12,6 +13,8 @@ namespace WinFormsApp1
         {
             _mainWindowViewModel = mainWindowViewModel;
             InitializeComponent();
+
+            Text = $"{_mainWindowViewModel.ApplicationServiceHandler.AppGlobals.AppStartParameter.AppName} {_mainWindowViewModel.AppVersion}";
         }
 
         private void button1_Click(object sender, EventArgs e)
