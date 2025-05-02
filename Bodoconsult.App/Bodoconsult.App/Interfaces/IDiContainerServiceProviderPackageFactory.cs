@@ -19,16 +19,6 @@ namespace Bodoconsult.App.Interfaces
         IAppGlobals AppGlobals { get; }
 
         /// <summary>
-        /// Current status message delegate
-        /// </summary>
-        StatusMessageDelegate StatusMessageDelegate { get; set; }
-
-        /// <summary>
-        /// Current license management delegate
-        /// </summary>
-        LicenseMissingDelegate LicenseMissingDelegate { get; set; }
-
-        /// <summary>
         /// Create an instance of <see cref="IDiContainerServiceProviderPackage"/>. Should be a singleton instance
         /// </summary>
         /// <returns>Singleton instance of <see cref="IDiContainerServiceProviderPackage"/></returns>

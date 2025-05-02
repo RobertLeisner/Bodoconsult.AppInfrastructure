@@ -8,7 +8,7 @@ namespace Bodoconsult.App.Helpers;
 /// <summary>
 /// Thread-safe implementation for a <see cref="IProducerConsumerQueue{TType}"/>. Supports one or many producers but only one consumer.
 /// </summary>
-public class ProducerConsumerQueue<TType> : IProducerConsumerQueue<TType> where TType : class
+public class ProducerConsumerQueue<T> : IProducerConsumerQueue<T> where T : class
 {
 
     private Thread _consumerThread;
@@ -17,12 +17,12 @@ public class ProducerConsumerQueue<TType> : IProducerConsumerQueue<TType> where 
     /// <summary>
     /// Contains the internal queue
     /// </summary>
-    public BlockingCollection<TType> InternalQueue;
+    public BlockingCollection<T> InternalQueue;
 
     /// <summary>
     /// The delegate to consume each item added to the queue
     /// </summary>
-    public ConsumerTaskDelegate<TType> ConsumerTaskDelegate { get; set; }
+    public ConsumerTaskDelegate<T> ConsumerTaskDelegate { get; set; }
 
     /// <summary>
     /// Is the queue started?
@@ -33,7 +33,7 @@ public class ProducerConsumerQueue<TType> : IProducerConsumerQueue<TType> where 
     /// Enqueue an item to the internal queue for processing as soon as possible
     /// </summary>
     /// <param name="item">Item to add to the queue</param>
-    public void Enqueue(TType item)
+    public void Enqueue(T item)
     {
         //if (InternalQueue == null)
         //{
@@ -64,7 +64,7 @@ public class ProducerConsumerQueue<TType> : IProducerConsumerQueue<TType> where 
             throw new ArgumentNullException(nameof(ConsumerTaskDelegate));
         }
 
-        InternalQueue = new BlockingCollection<TType>();
+        InternalQueue = new BlockingCollection<T>();
 
         _consumerThread = new Thread(RunInternal)
         {
@@ -81,25 +81,16 @@ public class ProducerConsumerQueue<TType> : IProducerConsumerQueue<TType> where 
     /// </summary>
     private void RunInternal()
     {
+        if (InternalQueue == null)
+        {
+            return;
+        }
+
         foreach (var item in InternalQueue.GetConsumingEnumerable())
         {
             ConsumerTaskDelegate.Invoke(item);
         }
     }
-
-    ///// <summary>
-    ///// Internal consumer method using fire-and-forget. If queue does not have any items InternalQueue.GetConsumingEnumerable waits for new items!!!!
-    ///// </summary>
-    //private void RunInternalFireAndForget()
-    //{
-    //    foreach (var item in InternalQueue.GetConsumingEnumerable())
-    //    {
-    //        AsyncHelper.FireAndForget(() =>
-    //        {
-    //            ConsumerTaskDelegate.Invoke(item);
-    //        });
-    //    }
-    //}
 
     /// <summary>
     /// Stop the consumer thread
@@ -109,7 +100,10 @@ public class ProducerConsumerQueue<TType> : IProducerConsumerQueue<TType> where 
         InternalQueue?.CompleteAdding();
 
         //Thread.Sleep(50);
-        _consumerThread?.Join();
+        if (_consumerThread.IsAlive)
+        {
+            _consumerThread?.Join();
+        }
         IsActivated = false;
         InternalQueue?.Dispose();
         InternalQueue = null;
@@ -119,7 +113,6 @@ public class ProducerConsumerQueue<TType> : IProducerConsumerQueue<TType> where 
     /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
     public void Dispose()
     {
-
         StopConsumer();
             
         IsActivated = false;

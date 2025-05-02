@@ -28,18 +28,14 @@ public class ConsoleAppStarterUi : BaseAppStarterUi
     /// <summary>
     /// Default ctor
     /// </summary>
-    public ConsoleAppStarterUi(IApplicationServiceHandler appStarterProcessHandler): base(appStarterProcessHandler)
+    public ConsoleAppStarterUi(IAppBuilder appStarterProcessHandler): base(appStarterProcessHandler)
     {
-        appStarterProcessHandler.SetAppStarterUi(this);
-
         // App is a WinForms app, therefore the console is normally hidden.
         // We access the hidden console here and make it visible 
         AllocConsole();
 
         ConsoleHandle = GetConsoleWindow();
         ShowWindow(ConsoleHandle, ShowWindowShow);
-
-
     }
 
 
@@ -52,7 +48,7 @@ public class ConsoleAppStarterUi : BaseAppStarterUi
         {
             var msg = MsgConsoleWait;
 
-            AppStarterProcessHandler.AppGlobals.Logger.LogInformation(msg);
+            AppBuilder.AppGlobals.Logger.LogInformation(msg);
             Debug.Print(msg);
             Debug.Print(MsgHowToShutdownServer);
 

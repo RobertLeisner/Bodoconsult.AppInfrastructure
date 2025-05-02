@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using Bodoconsult.App.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Bodoconsult.App.DependencyInjection;
@@ -18,8 +19,17 @@ public class DiContainer
         ServiceCollection = new ServiceCollection();
     }
 
+    /// <summary>
+    /// Ctor with a injected <see cref="ServiceCollection"/> instance
+    /// </summary>
+    public DiContainer(IServiceCollection serviceCollection)
+    {
+        ServiceCollection = serviceCollection;
+    }
 
-    public ServiceCollection ServiceCollection { get; }
+
+
+    public IServiceCollection ServiceCollection { get; }
 
 
     public IServiceProvider ServiceProvider { get; private set; }
@@ -135,5 +145,12 @@ public class DiContainer
         ServiceCollection.AddSingleton(instance);
     }
 
-
+    /// <summary>
+    /// Load an existing <see cref="IServiceProvider"/> instance to work with
+    /// </summary>
+    /// <param name="hostServices">Current service provider</param>
+    public void LoadServiceProvider(IServiceProvider hostServices)
+    {
+        ServiceProvider = hostServices;
+    }
 }

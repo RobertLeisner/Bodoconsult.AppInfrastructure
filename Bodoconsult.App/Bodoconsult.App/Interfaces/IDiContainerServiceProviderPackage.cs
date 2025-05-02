@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
-
-// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 // Licence MIT
 
 using Bodoconsult.App.DependencyInjection;
+
 
 namespace Bodoconsult.App.Interfaces
 {
@@ -16,6 +15,11 @@ namespace Bodoconsult.App.Interfaces
         /// Current app globals
         /// </summary>
         IAppGlobals AppGlobals { get; }
+
+        /// <summary>
+        /// Do not build the DI container
+        /// </summary>
+        bool DoNotBuildDiContainer { get; }
 
         /// <summary>
         /// Current list of services providers

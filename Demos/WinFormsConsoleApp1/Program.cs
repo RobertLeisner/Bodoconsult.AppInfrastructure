@@ -1,11 +1,14 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using System.Diagnostics;
+using System.Diagnostics.Tracing;
 using Bodoconsult.App;
 using Bodoconsult.App.BusinessTransactions.RequestData;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
+using Bodoconsult.App.Logging;
 using Bodoconsult.App.WinForms.AppStarter;
+using Bodoconsult.App.WinForms.AppStarter.Forms.ViewModel;
 using WinFormsConsoleApp1.App;
 using WinFormsConsoleApp1.DiContainerProvider;
 
@@ -26,95 +29,70 @@ namespace WinFormsConsoleApp1
 
             Console.WriteLine("WinFormsConsoleApp1 initiation starts...");
 
-
-            // Prepare basic information needed for preparing the app start
-            var s = typeof(Program).Assembly.Location;
-            var path = new FileInfo(s).DirectoryName;
-            var configFile = "appsettings.json";
-
-#if DEBUG
-            // Load app settings from dev app settings file in DEBUG mode
-            if (File.Exists(Path.Combine(path, "appsettings.Development.json")))
-            {
-                configFile = "appsettings.Development.json";
-            }
+#if !DEBUG
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
 #endif
 
-            // Now prepare the app start
-            var provider = new DefaultAppStartProvider
-            {
-                ConfigFile = configFile
-            };
+            var builder = new WinFormsConsoleApp1AppBuilder(Globals.Instance);
 
-            provider.LoadConfigurationProvider();
-            provider.LoadAppStartParameter();
+            // Load basic app meta data
+            builder.LoadBasicSettings(typeof(Program));
+
+            // Process the config file
+            builder.ProcessConfiguration();
+
 
             // Set additional app start parameters as required
-            var param = provider.AppStartParameter;
+            var param = builder.AppStartProvider.AppStartParameter;
             param.AppName = "WinFormsConsoleApp1: Demo app";
             param.SoftwareTeam = "Robert Leisner";
             param.LogoRessourcePath = "WinFormsConsoleApp1.Resources.logo.jpg";
             param.AppFolderName = "WinFormsConsoleApp1";
 
-            provider.LoadDefaultAppLoggerProvider();
-            provider.SetValuesInAppGlobal(Globals.Instance);
+            const string performanceToken = "--PERF";
+
+            if (args.Contains(performanceToken))
+            {
+                param.IsPerformanceLoggingActivated = true;
+            }
+
+            // Now load the globally needed settings
+            builder.LoadGlobalSettings();
 
             // Write first log entry with default logger
-            Globals.Instance.Logger.LogInformation($"{provider.AppStartParameter.AppName} {provider.AppStartParameter.AppVersion} starts...");
+            Globals.Instance.Logger.LogInformation($"{param.AppName} {param.AppVersion} starts...");
             Console.WriteLine("Logging started...");
 
             // App is ready now for doing something
-            //Console.WriteLine("Preparing app start done. To proceed press any key");
-            //Console.ReadLine();
-
-            Console.WriteLine($"Connection string loaded: {provider.AppStartParameter.DefaultConnectionString}");
+            Console.WriteLine($"Connection string loaded: {param.DefaultConnectionString}");
 
             Console.WriteLine("");
             Console.WriteLine("");
 
-            Console.WriteLine($"App name loaded: {provider.AppStartParameter.AppName}");
-            Console.WriteLine($"App version loaded: {provider.AppStartParameter.AppVersion}");
-            Console.WriteLine($"App path loaded: {provider.AppStartParameter.AppPath}");
+            Console.WriteLine($"App name loaded: {param.AppName}");
+            Console.WriteLine($"App version loaded: {param.AppVersion}");
+            Console.WriteLine($"App path loaded: {param.AppPath}");
 
             Console.WriteLine("");
             Console.WriteLine("");
 
             Console.WriteLine($"Logging config: {ObjectHelper.GetObjectPropertiesAsString(Globals.Instance.LoggingConfig)}");
 
-            //Console.WriteLine("To proceed press any key");
-            //Console.ReadLine();
+            // Prepare the DI container package
+            builder.LoadDiContainerServiceProviderPackage();
+            builder.RegisterDiServices();
+            builder.FinalizeDiContainerSetup();
 
-            var factory = new WinFormsConsoleApp1ProductionDiContainerServiceProviderPackageFactory(Globals.Instance);
-            IApplicationServiceHandler startProcess = new ApplicationServiceHandler(factory);
+            // Create the viewmodel now
+            var eventLevel = EventLevel.Warning;
+            var listener = new AppEventListener(eventLevel);
+            var viewModel = new MainWindowViewModel(listener);
 
-            const string performanceToken = "--PERF";
+            // Set the view model 
+            builder.MainWindowViewModel = viewModel;
 
-            if (args.Contains(performanceToken))
-            {
-                startProcess.AppGlobals.AppStartParameter.IsPerformanceLoggingActivated = true;
-            }
-
-
-            IAppStarterUi appStarter = new WinFormsStarterUi(startProcess);
-
-
-            // Run as singleton app
-            if (appStarter.IsAnotherInstance)
-            {
-                Console.WriteLine($"Another instance of {param.AppName} is already running! Press any key to proceed!");
-                Console.ReadLine();
-                Environment.Exit(0);
-                return;
-            }
-
-#if !DEBUG
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
-#endif
-
-            appStarter.Start();
-
-            appStarter.Wait();
-
+            // Now finally start the app and wait
+            builder.StartApplication();
 
             Environment.Exit(0);
         }
@@ -170,7 +148,7 @@ namespace WinFormsConsoleApp1
 
             try
             {
-                var appHandler = Globals.Instance.DiContainer.Get<IApplicationServiceHandler>();
+                var appHandler = Globals.Instance.DiContainer.Get<IAppBuilder>();
                 appHandler.StopApplication();
             }
             catch

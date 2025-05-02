@@ -5,7 +5,7 @@ namespace Bodoconsult.App.Interfaces
     /// <summary>
     /// Interface for app start provider implementations generating the most basic app features like AppStartParameter, app configuration handling from appsettings.json and app default logging
     /// </summary>
-    public interface IDefaultAppStartProvider
+    public interface IAppStartProvider
     {
         /// <summary>
         /// The default app configuration file

@@ -23,6 +23,11 @@ namespace Bodoconsult.App.DependencyInjection
         public IAppGlobals AppGlobals { get; }
 
         /// <summary>
+        /// Do not build the DI container
+        /// </summary>
+        public bool DoNotBuildDiContainer { get; protected set; }
+
+        /// <summary>
         /// Current list of services providers
         /// </summary>
         public IList<IDiContainerServiceProvider> ServiceProviders { get; } = new List<IDiContainerServiceProvider>();
@@ -33,8 +38,11 @@ namespace Bodoconsult.App.DependencyInjection
         /// <param name="diContainer">Current DI container</param>
         public void AddServices(DiContainer diContainer)
         {
-            // Clear the container
-            diContainer.ClearAll();
+            // Clear the container (only if needed)
+            if (!DoNotBuildDiContainer)
+            {
+                diContainer.ClearAll();
+            }
 
             // No add the app globals singleton instance as singleton to make it available for DI
             diContainer.AddSingletonInstance(AppGlobals);
@@ -45,8 +53,11 @@ namespace Bodoconsult.App.DependencyInjection
                 serviceProvider.AddServices(diContainer);
             }
 
-            // Now build the container services
-            diContainer.BuildServiceProvider();
+            // Now build the container services (only if needed)
+            if (!DoNotBuildDiContainer)
+            {
+                diContainer.BuildServiceProvider();
+            }
         }
 
         /// <summary>

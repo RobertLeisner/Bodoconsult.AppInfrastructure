@@ -14,7 +14,7 @@ namespace WinFormsApp1
             _mainWindowViewModel = mainWindowViewModel;
             InitializeComponent();
 
-            Text = $"{_mainWindowViewModel.ApplicationServiceHandler.AppGlobals.AppStartParameter.AppName} {_mainWindowViewModel.AppVersion}";
+            Text = $"{_mainWindowViewModel.AppBuilder.AppGlobals.AppStartParameter.AppName} {_mainWindowViewModel.AppVersion}";
         }
 
         private void button1_Click(object sender, EventArgs e)

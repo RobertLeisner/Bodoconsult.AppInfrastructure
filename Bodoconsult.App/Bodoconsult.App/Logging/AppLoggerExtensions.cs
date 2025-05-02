@@ -109,14 +109,12 @@ public static class AppLoggerExtensions
                 }
 
                 // EventLog
-                if (!loggingConfig.UseEventLogProvider)
+                if (loggingConfig.UseEventLogProvider)
                 {
-                    return;
+                    builder.AddEventLog(loggingConfig.EventLogSettings);
+                    //LoadedProviders.Add("EventLog");
+                    loggingConfig.UseDebugProvider = true;
                 }
-
-                builder.AddEventLog(loggingConfig.EventLogSettings);
-                //LoadedProviders.Add("EventLog");
-                loggingConfig.UseDebugProvider = true;
             }
         );
     }

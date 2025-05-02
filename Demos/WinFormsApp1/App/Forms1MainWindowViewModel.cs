@@ -11,7 +11,11 @@ namespace WinFormsApp1.App;
 /// </summary>
 public class Forms1MainWindowViewModel : MainWindowViewModel
 {
-    public Forms1MainWindowViewModel(AppEventListener listener, IApplicationServiceHandler appStarterProcessHandler) : base(listener, appStarterProcessHandler)
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="listener">Current event listener</param>
+    public Forms1MainWindowViewModel(AppEventListener listener) : base(listener)
     {
     }
 

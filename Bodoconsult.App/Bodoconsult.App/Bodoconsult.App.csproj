@@ -13,7 +13,7 @@
 		<PackageOutputPath>..\..\Nuget\</PackageOutputPath>
 		<Copyright>Bodoconsult EDV-Dienstleistungen GmbH</Copyright>
 		<Authors>Robert Leisner</Authors>
-		<VersionPrefix>1.0.0</VersionPrefix>
+		<VersionPrefix>1.0.1</VersionPrefix>
 		<Version />
 		<Company>Bodoconsult EDV-Dienstleistungen GmbH</Company>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -26,7 +26,7 @@
 		<PackageTags>Layered app basic tools</PackageTags>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Description>Package providing basic functionality like logging, application performance measuring etc. for layered apps in a client server scenario</Description>
-		<PackageReleaseNotes>Migration to .Net 8 and new namespace</PackageReleaseNotes>
+		<PackageReleaseNotes>Added IAppBuilder and base classes for it to support background services too with app infrastructure</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</PackageProjectUrl>
 		
 	</PropertyGroup>

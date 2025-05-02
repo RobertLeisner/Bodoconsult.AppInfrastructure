@@ -10,9 +10,9 @@ namespace Bodoconsult.App.WinForms.Interfaces;
 public interface IMainWindowViewModel : INotifyPropertyChanged
 {
     /// <summary>
-    /// Current app start process handler
+    /// Current app builder
     /// </summary>
-    IApplicationServiceHandler ApplicationServiceHandler { get; }
+    IAppBuilder AppBuilder { get; }
 
     /// <summary>
     /// Message shown during console is waiting
@@ -48,6 +48,14 @@ public interface IMainWindowViewModel : INotifyPropertyChanged
     /// Event level
     /// </summary>
     EventLevel LogEventLevel { get; set; }
+
+
+    /// <summary>
+    /// Load the current <see cref="IAppBuilder"/> instance to use
+    /// </summary>
+    /// <param name="appBuilder">Current <see cref="IAppBuilder"/> instance to use</param>
+    void LoadAppBuilder(IAppBuilder appBuilder);
+
 
     /// <summary>
     /// Shutdown for app

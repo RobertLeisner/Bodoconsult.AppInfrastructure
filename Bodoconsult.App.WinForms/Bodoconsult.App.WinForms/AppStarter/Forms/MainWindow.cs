@@ -37,7 +37,7 @@ namespace Bodoconsult.App.WinForms.AppStarter.Forms
 
             Text = _viewModel.AppVersion;
 
-            var appStartParameters = _viewModel.ApplicationServiceHandler.AppGlobals.AppStartParameter;
+            var appStartParameters = _viewModel.AppBuilder.AppGlobals.AppStartParameter;
 
             AppTitle.ForeColor = _viewModel.HeaderBackColor;
             AppTitle.Text = appStartParameters.AppName;
@@ -151,7 +151,7 @@ namespace Bodoconsult.App.WinForms.AppStarter.Forms
 
         private void AppTitle_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            MessageBox.Show(_viewModel.ApplicationServiceHandler.AppGlobals.AppStartParameter.SoftwareTeam, "Developer team members", MessageBoxButtons.OK);
+            MessageBox.Show(_viewModel.AppBuilder.AppGlobals.AppStartParameter.SoftwareTeam, "Developer team members", MessageBoxButtons.OK);
         }
 
         private void MainWindow_Resize(object sender, EventArgs e)

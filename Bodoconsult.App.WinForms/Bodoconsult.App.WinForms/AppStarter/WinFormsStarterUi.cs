@@ -23,7 +23,7 @@ public class WinFormsStarterUi : BaseAppStarterUi
 
     private IMainWindowViewModel _viewModel;
 
-    public WinFormsStarterUi(IApplicationServiceHandler appStarterProcessHandler) : base(appStarterProcessHandler)
+    public WinFormsStarterUi(IAppBuilder appBuilder) : base(appBuilder)
     {
         //var minimumLogLevel = Globals.GetLoggingConfiguration().MinimumLogLevel;
 
@@ -40,7 +40,7 @@ public class WinFormsStarterUi : BaseAppStarterUi
     /// <summary>
     /// Ctor for using a customized form as main form of the application. The <see cref="IMainWindowViewModel"/> implementation based on <see cref="MainWindowViewModel"/> has to override CreateForm() method
     /// </summary>
-    public WinFormsStarterUi(IApplicationServiceHandler appStarterProcessHandler, IMainWindowViewModel viewModel) : base(appStarterProcessHandler)
+    public WinFormsStarterUi(IAppBuilder appBuilder, IMainWindowViewModel viewModel) : base(appBuilder)
     {
         //var minimumLogLevel = Globals.GetLoggingConfiguration().MinimumLogLevel;
 
@@ -94,8 +94,9 @@ public class WinFormsStarterUi : BaseAppStarterUi
         ConsoleHandle = GetConsoleWindow();
         ShowWindow(ConsoleHandle, ShowWindowHide);
 
-        _viewModel ??= new MainWindowViewModel(_listener, AppStarterProcessHandler);
-        _viewModel.AppVersion = AppStarterProcessHandler.AppGlobals.AppStartParameter.AppVersion;
+        _viewModel ??= new MainWindowViewModel(_listener);
+        _viewModel.LoadAppBuilder( AppBuilder);
+        _viewModel.AppVersion = AppBuilder.AppGlobals.AppStartParameter.AppVersion;
 
         Application.SetHighDpiMode(HighDpiMode.SystemAware);
         Application.EnableVisualStyles();
@@ -129,11 +130,11 @@ public class WinFormsStarterUi : BaseAppStarterUi
         try
         {
             var msg = UiMessages.HandleException(e);
-            MessageBox.Show(msg, AppStarterProcessHandler.AppGlobals.AppStartParameter.AppName);
+            MessageBox.Show(msg, AppBuilder.AppGlobals.AppStartParameter.AppName);
         }
         catch (Exception exception)
         {
-            MessageBox.Show($"{exception.Message} {exception.StackTrace}", AppStarterProcessHandler.AppGlobals.AppStartParameter.AppName);
+            MessageBox.Show($"{exception.Message} {exception.StackTrace}", AppBuilder.AppGlobals.AppStartParameter.AppName);
 
         }
 

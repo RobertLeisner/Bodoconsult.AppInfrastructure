@@ -79,5 +79,16 @@ namespace Bodoconsult.App.Interfaces
         /// </summary>
         IAppStorageConnectionCheck AppStorageConnectionCheck { get; set; }
 
+
+        /// <summary>
+        /// Current status message delegate
+        /// </summary>
+        public StatusMessageDelegate StatusMessageDelegate { get; set; }
+
+        /// <summary>
+        /// Current license management delegate
+        /// </summary>
+        public LicenseMissingDelegate LicenseMissingDelegate { get; set; }
+
     }
 }

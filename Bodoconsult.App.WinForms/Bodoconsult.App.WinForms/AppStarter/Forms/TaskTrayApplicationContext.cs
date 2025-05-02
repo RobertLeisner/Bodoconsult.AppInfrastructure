@@ -67,13 +67,13 @@ public class TaskTrayApplicationContext : ApplicationContext
     private void Exit(object sender, EventArgs e)
     {
 
-        if (MessageBox.Show(_viewModel.MsgExit, _viewModel.ApplicationServiceHandler.AppGlobals.AppStartParameter.AppName, MessageBoxButtons.YesNo,
+        if (MessageBox.Show(_viewModel.MsgExit, _viewModel.AppBuilder.AppGlobals.AppStartParameter.AppName, MessageBoxButtons.YesNo,
                 MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.No)
         {
             return;
         }
 
-        if (MessageBox.Show(_viewModel.MsgExit, _viewModel.ApplicationServiceHandler.AppGlobals.AppStartParameter.AppName, MessageBoxButtons.YesNo,
+        if (MessageBox.Show(_viewModel.MsgExit, _viewModel.AppBuilder.AppGlobals.AppStartParameter.AppName, MessageBoxButtons.YesNo,
                 MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.No)
         {
             return;

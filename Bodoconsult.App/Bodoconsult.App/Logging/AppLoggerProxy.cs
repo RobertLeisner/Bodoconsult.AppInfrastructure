@@ -1605,7 +1605,12 @@ public class AppLoggerProxy : IAppLoggerProxy
     /// </summary>
     public void StopLogging()
     {
+        if (_logMessages == null)
+        {
+            return;
+        }
         _logMessages.StopConsumer();
+        _logMessages = null;
     }
 
 

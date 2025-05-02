@@ -8,7 +8,7 @@ namespace Bodoconsult.App
     /// <summary>
     /// Default app start provider reading configuration, creating app start parameter and creating logger as defined in configuration
     /// </summary>
-    public class DefaultAppStartProvider : IDefaultAppStartProvider
+    public class DefaultAppStartProvider : IAppStartProvider
     {
         /// <summary>
         /// The default app configuration file

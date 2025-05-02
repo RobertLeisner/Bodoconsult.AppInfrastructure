@@ -18,8 +18,6 @@ namespace Bodoconsult.App.WinForms.AppStarter.Forms.ViewModel;
 public class MainWindowViewModel : IMainWindowViewModel
 {
 
-
-
     private const int MaxNumberOfLogEntries = 100;
 
     private readonly AppEventListener _listener;
@@ -31,37 +29,16 @@ public class MainWindowViewModel : IMainWindowViewModel
     /// <summary>
     /// Current app start process handler
     /// </summary>
-    public IApplicationServiceHandler ApplicationServiceHandler { get; }
+    public IAppBuilder AppBuilder { get; private set; }
 
     /// <summary>
     /// Default ctor
     /// </summary>
     /// <param name="listener">Current EventSource listener: neede to bring logging entries to UI</param>
-    /// <param name="appStarterProcessHandler">Current app start process handler</param>
-    public MainWindowViewModel(AppEventListener listener, IApplicationServiceHandler appStarterProcessHandler)
+
+    public MainWindowViewModel(AppEventListener listener)
     {
         _listener = listener;
-        ApplicationServiceHandler = appStarterProcessHandler;
-
-        try
-        {
-            var assembly = Assembly.GetEntryAssembly();
-
-            if (assembly != null)
-            {
-                var logoStream = assembly.GetManifestResourceStream(ApplicationServiceHandler.AppGlobals.AppStartParameter.LogoRessourcePath);
-
-                if (logoStream != null)
-                {
-                    Logo = new Bitmap(logoStream);
-                }
-            }
-
-        }
-        catch
-        {
-            // Do nothing
-        }
     }
 
 
@@ -88,10 +65,10 @@ public class MainWindowViewModel : IMainWindowViewModel
     /// </summary>
     public string AppVersion
     {
-        get => ApplicationServiceHandler.AppGlobals.AppStartParameter.AppVersion;
+        get => AppBuilder.AppGlobals.AppStartParameter.AppVersion;
         set
         {
-            if (value == ApplicationServiceHandler.AppGlobals.AppStartParameter.AppVersion)
+            if (value == AppBuilder.AppGlobals.AppStartParameter.AppVersion)
             {
                 return;
             }
@@ -115,11 +92,40 @@ public class MainWindowViewModel : IMainWindowViewModel
 
 
     /// <summary>
+    /// Load the current <see cref="IAppBuilder"/> instance to use
+    /// </summary>
+    /// <param name="appBuilder">Current <see cref="IAppBuilder"/> instance to use</param>
+    public void LoadAppBuilder(IAppBuilder appBuilder)
+    {
+        AppBuilder = appBuilder;
+
+        try
+        {
+            var assembly = Assembly.GetEntryAssembly();
+
+            if (assembly != null)
+            {
+                var logoStream = assembly.GetManifestResourceStream(AppBuilder.AppGlobals.AppStartParameter.LogoRessourcePath);
+
+                if (logoStream != null)
+                {
+                    Logo = new Bitmap(logoStream);
+                }
+            }
+
+        }
+        catch
+        {
+            // Do nothing
+        }
+    }
+
+    /// <summary>
     /// Shutdown for app
     /// </summary>
     public void ShutDown()
     {
-        ApplicationServiceHandler.StopApplication();
+        AppBuilder.StopApplication();
     }
 
     /// <summary>
@@ -212,7 +218,7 @@ public class MainWindowViewModel : IMainWindowViewModel
     /// <summary>
     /// The logo to use for the user interface
     /// </summary>
-    public Bitmap Logo { get; }
+    public Bitmap Logo { get; private set; }
 
     /// <summary>
     /// Background color of the header line

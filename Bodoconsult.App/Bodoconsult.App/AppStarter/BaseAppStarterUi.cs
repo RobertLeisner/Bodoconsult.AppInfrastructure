@@ -16,16 +16,15 @@ public class BaseAppStarterUi : IAppStarterUi
     /// <summary>
     /// Default ctor
     /// </summary>
-    public BaseAppStarterUi(IApplicationServiceHandler appStarterProcessHandler)
+    public BaseAppStarterUi(IAppBuilder appBuilder)
     {
-        AppStarterProcessHandler = appStarterProcessHandler;
-        appStarterProcessHandler.SetAppStarterUi(this);
+        AppBuilder = appBuilder;
     }
 
     /// <summary>
     /// The current app start process handler
     /// </summary>
-    public IApplicationServiceHandler AppStarterProcessHandler { get; }
+    public IAppBuilder AppBuilder { get; }
 
     /// <summary>
     /// Is already another instance started?
@@ -52,7 +51,7 @@ public class BaseAppStarterUi : IAppStarterUi
 
             ConsoleHandle = GetConsoleWindow();
             ShowWindow(ConsoleHandle, ShowWindowShow);
-            Debug.Print($"{AppStarterProcessHandler.AppGlobals.AppStartParameter.AppName} is already started. Current instance terminates now. Please press any key now.");
+            Debug.Print($"{AppBuilder.AppGlobals.AppStartParameter.AppName} is already started. Current instance terminates now. Please press any key now.");
             Console.Read();
             return true;
 
@@ -95,20 +94,16 @@ public class BaseAppStarterUi : IAppStarterUi
         try
         {
             // Start app logic in a separate thread from UI
-            var appThread = new Thread(AppStarterProcessHandler.StartApplication)
+            var appThread = new Thread(AppBuilder.StartApplicationService)
             {
                 Priority = ThreadPriority.AboveNormal,
                 IsBackground = true
             };
             appThread.Start();
-
-            //// Former version until 20230810: app starting in the same thread
-            //AppStarterProcessHandler.StartApplication();
-
         }
         catch (Exception e)
         {
-            AppStarterProcessHandler.AppGlobals.Logger.LogError($"{AppStarterProcessHandler.AppGlobals.AppStartParameter.AppName} is closed due to error", e);
+            AppBuilder.AppGlobals.Logger.LogError($"{AppBuilder.AppGlobals.AppStartParameter.AppName} is closed due to error", e);
             HandleException(e);
             Environment.Exit(0);
         }

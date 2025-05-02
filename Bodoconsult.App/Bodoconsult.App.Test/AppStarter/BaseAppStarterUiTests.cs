@@ -15,15 +15,14 @@ internal class BaseAppStarterUiTests
     public void TestCtor()
     {
         // Arrange 
-        IApplicationServiceHandler h = new FakeAppStarterServiceHandler();
+        var h = new FakeAppBuilder();
 
         // Act  
-
         var b = new BaseAppStarterUi(h);
 
         // Assert
-        Assert.That(b.AppStarterProcessHandler, Is.Not.Null);
-        Assert.That(b.AppStarterProcessHandler, Is.EqualTo(h));
+        Assert.That(b.AppBuilder, Is.Not.Null);
+        Assert.That(b.AppBuilder, Is.EqualTo(h));
     }
 
 
@@ -31,7 +30,7 @@ internal class BaseAppStarterUiTests
     public void TestIsAnotherInstance()
     {
         // Arrange 
-        var h = new FakeAppStarterServiceHandler();
+        var h = new FakeAppBuilder();
 
         var b = new BaseAppStarterUi(h);
 
@@ -48,11 +47,10 @@ internal class BaseAppStarterUiTests
     public void TestStart()
     {
         // Arrange 
-        var h  = new FakeAppStarterServiceHandler();
-
-        var b = new BaseAppStarterUi(h);
+        var h = new FakeAppBuilder();
 
         Assert.That(!h.WasStartApplication);
+        var b = new BaseAppStarterUi(h);
 
         // Act  
         b.Start();

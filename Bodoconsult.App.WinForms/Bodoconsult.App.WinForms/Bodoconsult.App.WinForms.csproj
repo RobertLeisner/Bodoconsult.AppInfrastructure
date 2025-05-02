@@ -13,7 +13,7 @@
 		<PackageOutputPath>..\..\Nuget\</PackageOutputPath>
 		<Copyright>Bodoconsult EDV-Dienstleistungen GmbH</Copyright>
 		<Authors>Robert Leisner</Authors>
-		<VersionPrefix>1.0.0</VersionPrefix>
+		<VersionPrefix>1.0.1</VersionPrefix>
 		<Version />
 		<Company>Bodoconsult EDV-Dienstleistungen GmbH</Company>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -24,8 +24,8 @@
 		<RepositoryUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</RepositoryUrl>
 		<PackageId>Bodoconsult.App.WinForms</PackageId>
 		<PackageTags>App;WinForm;</PackageTags>
-		<Description>Basic app features for WinForm based apps</Description>
-		<PackageReleaseNotes>Migration to .Net 8 and new namespace</PackageReleaseNotes>
+		<Description>Added IAppBuilder and base classes for it to support background services too with app infrastructure</Description>
+		<PackageReleaseNotes>Added I</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</PackageProjectUrl>
 	</PropertyGroup>
 

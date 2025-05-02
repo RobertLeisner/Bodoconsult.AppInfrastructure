@@ -8,7 +8,7 @@ namespace Bodoconsult.App
     /// <summary>
     /// App start provider used for unit testing reading configuration, creating app start parameter and creating logger suitable for unit tests
     /// </summary>
-    public class DebugAppStartProvider : IDefaultAppStartProvider
+    public class DebugAppStartProvider : IAppStartProvider
     {
         /// <summary>
         /// The default app configuration file

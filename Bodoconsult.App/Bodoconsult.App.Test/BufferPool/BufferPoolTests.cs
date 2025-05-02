@@ -1,8 +1,10 @@
-﻿using Bodoconsult.App.BufferPool;
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+
+using Bodoconsult.App.BufferPool;
 
 namespace Bodoconsult.App.Test.BufferPool;
 
-internal class UnitTestBufferPool
+internal class BufferPoolTests
 {
     private const int NumberOfItems = 1000;
 
