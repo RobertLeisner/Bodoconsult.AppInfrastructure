@@ -1,6 +1,10 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
+using System;
+using Bodoconsult.App.BusinessTransactions.RequestData;
+using Bodoconsult.App.Test.App;
 
 namespace Bodoconsult.App.Test.AppStarter
 {
@@ -9,10 +13,16 @@ namespace Bodoconsult.App.Test.AppStarter
     /// </summary>
     internal class FakeAppBuilder : IAppBuilder
     {
+
+        public FakeAppBuilder(IAppGlobals appGlobals)
+        {
+            AppGlobals=appGlobals;
+        }
+
         /// <summary>
         /// Global app settings
         /// </summary>
-        public IAppGlobals AppGlobals { get; set; }
+        public IAppGlobals AppGlobals { get;  }
 
         /// <summary>
         /// Current app path
@@ -147,6 +157,76 @@ namespace Bodoconsult.App.Test.AppStarter
         public void LoadAppStarterUi(IAppStarter appStarter)
         {
             AppStarter = appStarter;
+        }
+
+        /// <summary>
+        /// Handle an unhandled exception
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Arguments</param>
+        public void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            // Report the crash
+            ReportCrash((Exception)e.ExceptionObject);
+            AsyncHelper.Delay(1000);
+
+            var ex = (Exception)e.ExceptionObject;
+            throw ex;
+        }
+
+        private void ReportCrash(Exception unhandledException)
+        {
+
+            var gms = AppGlobals.DiContainer.Get<IGeneralAppManagementManager>();
+
+            var fileName = Path.Combine(AppGlobals.AppStartParameter.DataPath, $"{AppGlobals.AppStartParameter.AppFolderName}_Crash.log");
+
+            var request = new EmptyBusinessTransactionRequestData();
+            // ToDo: fill request with useful information
+
+            var logger = AppGlobals.DiContainer.Get<IAppLoggerProxy>();
+
+            try
+            {
+                const string logMessage = "Unhandled exception caught";
+                logger?.LogCritical(unhandledException, logMessage);
+
+                File.AppendAllText(fileName, $"Crash at {DateTime.Now}: {unhandledException}{Environment.NewLine}");
+
+                var result = gms?.CreateLogDump(request);
+
+                if (result == null)
+                {
+                    return;
+                }
+
+                logger?.LogWarning(fileName, $"CreateLogDump after crash: error code {result.ErrorCode}: {result.Message}");
+            }
+            catch (Exception e)
+            {
+                LogFinalException(fileName, e);
+            }
+
+            try
+            {
+                StopApplication();
+            }
+            catch
+            {
+                //
+            }
+        }
+
+        private static void LogFinalException(string fileName, Exception e)
+        {
+            try
+            {
+                File.AppendAllText(fileName, $"Crash at {DateTime.Now}: {e}{Environment.NewLine}");
+            }
+            catch
+            {
+                // Do nothing
+            }
         }
     }
 }

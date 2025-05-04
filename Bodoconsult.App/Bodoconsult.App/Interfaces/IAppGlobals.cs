@@ -14,10 +14,6 @@ namespace Bodoconsult.App.Interfaces
     /// </summary>
     public interface IAppGlobals: IDisposable
     {
-        /// <summary>
-        /// Is the app started as singleton?
-        /// </summary>
-        public bool IsSingletonApp { get; set; }
 
         /// <summary>
         /// This event is set if the application is started only as singleton
@@ -40,7 +36,7 @@ namespace Bodoconsult.App.Interfaces
         LoggingConfig LoggingConfig { get; set; }
 
         /// <summary>
-        /// Current app logger. Use this instance only if no DI container is available. Otherwise use DiContainer.Get&lt;IAppLoggerProxy&gt; to fetch the default app logger from DI container. Don't forget to load it during DI setup!
+        /// Current app logger. Use this instance only if no DI container is available. Nonetheless, use DiContainer.Get&lt;IAppLoggerProxy&gt; to fetch the default app logger from DI container. Don't forget to load it during DI setup!
         /// </summary>
         IAppLoggerProxy Logger { get; set; }
 
@@ -49,25 +45,7 @@ namespace Bodoconsult.App.Interfaces
         /// </summary>
         DiContainer DiContainer { get; set; }
 
-        /// <summary>
-        /// Base path, where the app stores data created by the app like backups, migrations logs and normal log files.
-        /// </summary>
-        string DataPath { get; set; }
 
-        /// <summary>
-        /// Folder to to store log files. Normally the folder <see cref="DataPath"/> to make log dump creation easier
-        /// </summary>
-        string LogfilePath { get; set; }
-
-        /// <summary>
-        /// Folder to to store migration log files and SQL scripts in. Normally a subfolder of the folder <see cref="DataPath"/> 
-        /// </summary>
-        string MigrationLogfilePath { get; set; }
-
-        /// <summary>
-        /// Folder to to store backups in. Normally a subfolder of the folder <see cref="DataPath"/>
-        /// </summary>
-        string BackupPath { get; set; }
 
         /// <summary>
         /// Delegate called if a fatale app exception has been raised and a message to the UI has to be sent before app terminates

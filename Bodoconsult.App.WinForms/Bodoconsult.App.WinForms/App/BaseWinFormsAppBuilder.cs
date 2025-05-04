@@ -32,7 +32,7 @@ namespace Bodoconsult.App.WinForms.App
             AppStarter = appStarter;
 
             // Run as singleton app
-            if (appStarter.IsAnotherInstance)
+            if (AppGlobals.AppStartParameter.IsSingletonApp && appStarter.IsAnotherInstance)
             {
                 Console.WriteLine($"Another instance of {AppGlobals.AppStartParameter.AppName} is already running! Press any key to proceed!");
                 Console.ReadLine();

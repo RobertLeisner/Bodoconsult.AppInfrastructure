@@ -1,15 +1,17 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using Bodoconsult.App.AppStarter;
+using Bodoconsult.App.BusinessTransactions.RequestData;
 using Bodoconsult.App.Exceptions;
+using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
 
 namespace Bodoconsult.App;
 
 /// <summary>
-/// Base class for <see cref="IAppBuilder"/> implementations
-/// </summary>
-public class BaseAppBuilder : IAppBuilder
+    /// Base class for <see cref="IAppBuilder"/> implementations
+    /// </summary>
+    public class BaseAppBuilder : IAppBuilder
 {
     /// <summary>
     /// Default ctor
@@ -44,7 +46,7 @@ public class BaseAppBuilder : IAppBuilder
     /// <summary>
     /// Current app start provider
     /// </summary>
-    public IAppStartProvider AppStartProvider { get; private set; }
+    public IAppStartProvider AppStartProvider { get; protected set; }
 
     /// <summary>
     /// Package with all DI container services to load for uasge in the app
@@ -76,9 +78,9 @@ public class BaseAppBuilder : IAppBuilder
     }
 
     /// <summary>
-    /// Process the configuration from <see cref="IAppBuilder.ConfigFile"/>
+    /// Process the configuration from <see cref="IAppBuilder.ConfigFile"/>. Uses the <see cref="DefaultAppStartProvider"/>.
     /// </summary>
-    public void ProcessConfiguration()
+    public virtual void ProcessConfiguration()
     {
         // Now prepare the app start
         AppStartProvider = new DefaultAppStartProvider
@@ -161,7 +163,7 @@ public class BaseAppBuilder : IAppBuilder
         AppStarter = appStarter;
 
         // Run as singleton app
-        if (appStarter.IsAnotherInstance)
+        if (AppGlobals.AppStartParameter.IsSingletonApp && appStarter.IsAnotherInstance)
         {
             Console.WriteLine($"Another instance of {AppGlobals.AppStartParameter.AppName} is already running! Press any key to proceed!");
             Console.ReadLine();
@@ -239,6 +241,76 @@ public class BaseAppBuilder : IAppBuilder
     public void LoadAppStarterUi(IAppStarter appStarter)
     {
         AppStarter = appStarter;
+    }
+
+    /// <summary>
+    /// Handle an unhandled exception
+    /// </summary>
+    /// <param name="sender">Sender</param>
+    /// <param name="e">Arguments</param>
+    public void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+    {
+        // Report the crash
+        ReportCrash((Exception)e.ExceptionObject);
+        AsyncHelper.Delay(1000);
+
+        var ex = (Exception)e.ExceptionObject;
+        throw ex;
+    }
+
+    private void ReportCrash(Exception unhandledException)
+    {
+
+        var gms = AppGlobals.DiContainer.Get<IGeneralAppManagementManager>();
+
+        var fileName = Path.Combine(AppGlobals.AppStartParameter.DataPath, $"{AppGlobals.AppStartParameter.AppFolderName}_Crash.log");
+
+        var request = new EmptyBusinessTransactionRequestData();
+        // ToDo: fill request with useful information
+
+        var logger = AppGlobals.DiContainer.Get<IAppLoggerProxy>();
+
+        try
+        {
+            const string logMessage = "Unhandled exception caught";
+            logger?.LogCritical(unhandledException, logMessage);
+
+            File.AppendAllText(fileName, $"Crash at {DateTime.Now}: {unhandledException}{Environment.NewLine}");
+
+            var result = gms?.CreateLogDump(request);
+
+            if (result == null)
+            {
+                return;
+            }
+
+            logger?.LogWarning(fileName, $"CreateLogDump after crash: error code {result.ErrorCode}: {result.Message}");
+        }
+        catch (Exception e)
+        {
+            LogFinalException(fileName, e);
+        }
+
+        try
+        {
+            StopApplication();
+        }
+        catch
+        {
+            //
+        }
+    }
+
+    private static void LogFinalException(string fileName, Exception e)
+    {
+        try
+        {
+            File.AppendAllText(fileName, $"Crash at {DateTime.Now}: {e}{Environment.NewLine}");
+        }
+        catch
+        {
+            // Do nothing
+        }
     }
 
     private void RequestApplicationStop()

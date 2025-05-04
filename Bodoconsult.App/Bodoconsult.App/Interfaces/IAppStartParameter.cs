@@ -11,6 +11,11 @@ namespace Bodoconsult.App.Interfaces
     public interface IAppStartParameter
     {
         /// <summary>
+        /// Is the app started as singleton?
+        /// </summary>
+        public bool IsSingletonApp { get; set; }
+
+        /// <summary>
         /// Clear text name of the app to show in windows and message boxes
         /// </summary>
         string AppName { get; set; }
@@ -64,5 +69,30 @@ namespace Bodoconsult.App.Interfaces
         /// Port the app is listening on
         /// </summary>
         int Port { get; set; }
+
+        /// <summary>
+        /// Base path to a folder in C:\ProgramData\ where the app stores data created by the app like backups, migrations logs and normal log files: C:\ProgramData\<see cref="AppFolderName"/>
+        /// </summary>
+        string DataPath { get; set; }
+
+        /// <summary>
+        /// Folder to to store log files. Normally the folder <see cref="DataPath"/> to make log dump creation easier
+        /// </summary>
+        string LogfilePath { get; set; }
+
+        /// <summary>
+        /// Folder to store migration log files and SQL scripts in. Normally a subfolder of the folder <see cref="DataPath"/> 
+        /// </summary>
+        string MigrationLogfilePath { get; set; }
+
+        /// <summary>
+        /// Folder to store backups in. Normally a subfolder of the folder <see cref="DataPath"/>
+        /// </summary>
+        string BackupPath { get; set; }
+
+        /// <summary>
+        /// Number of old backups to keep
+        /// </summary>
+        int NumberOfBackupsToKeep { get; set; }
     }
 }

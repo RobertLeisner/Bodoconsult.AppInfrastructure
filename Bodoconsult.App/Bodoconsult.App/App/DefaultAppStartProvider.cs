@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using System.Globalization;
 using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.Logging;
+using Microsoft.Diagnostics.Tracing.Parsers.FrameworkEventSource;
 
 namespace Bodoconsult.App
 {
@@ -57,6 +59,66 @@ namespace Bodoconsult.App
                 DefaultConnectionString = AppConfigurationProvider.ReadDefaultConnection()
             };
 
+            var section = AppConfigurationProvider.ReadAppStartParameterSection();
+            if (section == null)
+            {
+                return;
+            }
+
+            // Read AppName
+            var calue = section["AppName"];
+            if (!string.IsNullOrEmpty(calue))
+            {
+                AppStartParameter.AppName = calue;
+            }
+
+            // Read AppFolderName
+            calue = section["AppFolderName"];
+            if (!string.IsNullOrEmpty(calue))
+            {
+                AppStartParameter.AppFolderName = calue;
+            }
+
+            // Read port
+            calue = section["Port"];
+            if (!string.IsNullOrEmpty(calue))
+            {
+                var iResult = 0;
+                try
+                {
+                    iResult = Convert.ToInt32(calue);
+                }
+                catch //(Exception e)
+                {
+                    // Do nothing
+                }
+
+                AppStartParameter.Port = iResult;
+            }
+
+            // Read backup path
+            calue = section["BackupPath"];
+            if (!string.IsNullOrEmpty(calue))
+            {
+                AppStartParameter.BackupPath = calue;
+            }
+
+            // Read NumberOfBackupsToKeep
+            calue = section["NumberOfBackupsToKeep"];
+            if (!string.IsNullOrEmpty(calue))
+            {
+                var iResult = 0;
+                try
+                {
+                    iResult = Convert.ToInt32(calue);
+                }
+                catch //(Exception e)
+                {
+                    // Do nothing
+                }
+
+                AppStartParameter.NumberOfBackupsToKeep = iResult;
+            }
         }
 
         /// <summary>
@@ -78,7 +140,6 @@ namespace Bodoconsult.App
         /// </summary>
         public void LoadDefaultAppLoggerProvider()
         {
-
             DefaultAppLoggerProvider = new DefaultAppLoggerProvider(AppConfigurationProvider);
             DefaultAppLoggerProvider.LoadLoggingConfigFromConfiguration();
             DefaultAppLoggerProvider.LoadDefaultLogger();
@@ -95,8 +156,8 @@ namespace Bodoconsult.App
             appInstance.LoggingConfig = DefaultAppLoggerProvider.LoggingConfig;
             appInstance.LogDataFactory = appInstance.LoggingConfig.LogDataFactory;
 
-            appInstance.DataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), AppStartParameter.AppFolderName);
-            appInstance.LogfilePath = appInstance.DataPath;
+            appInstance.AppStartParameter.DataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), AppStartParameter.AppFolderName);
+            appInstance.AppStartParameter.LogfilePath = appInstance.AppStartParameter.DataPath;
 
         }
     }

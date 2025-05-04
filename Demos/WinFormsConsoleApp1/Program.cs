@@ -29,11 +29,11 @@ namespace WinFormsConsoleApp1
 
             Console.WriteLine("WinFormsConsoleApp1 initiation starts...");
 
-#if !DEBUG
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
-#endif
-
             var builder = new WinFormsConsoleApp1AppBuilder(Globals.Instance);
+
+#if !DEBUG
+            AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
+#endif
 
             // Load basic app meta data
             builder.LoadBasicSettings(typeof(Program));

@@ -92,8 +92,8 @@ namespace Bodoconsult.App
             appInstance.LoggingConfig = DefaultAppLoggerProvider.LoggingConfig;
             appInstance.LogDataFactory = appInstance.LoggingConfig.LogDataFactory;
 
-            appInstance.DataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), AppStartParameter.AppFolderName);
-            appInstance.LogfilePath = appInstance.DataPath;
+            appInstance.AppStartParameter.DataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), AppStartParameter.AppFolderName);
+            appInstance.AppStartParameter.LogfilePath = appInstance.AppStartParameter.DataPath;
         }
     }
 }

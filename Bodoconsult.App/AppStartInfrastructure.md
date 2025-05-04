@@ -1,16 +1,24 @@
 # App start infrastructure for console and Winforms apps
 
-The Bodoconsult.App contains the infrastructure to set up a console with commonly used features like
+The Bodoconsult.App contains the infrastructure to set up certain types of apps with commonly used features like
 
 -   Reading appsettings.json, keep it in memory for later usage and extract connection string and logging settings from it
-
 -   Setup a central logger
-
 -   Setup DI containers for production and testing environment
-
 -   Start the console app and run workload in a separate thread
+-   Unhandled exception handling
 
-Base classes for app start infrastructure are the BaseAppBuilder class for console app, BasWinFormsAppBuilder class for WinForms based projects and XXX for windows services.
+Bodoconsult.App supports the following MS Windows apps:
+
+-   Console app
+-   WinForms apps (classical WinForms app or service-like app with a very limited WinForms based UI)
+-   Windows background service
+
+Base classes for app start infrastructure are the 
+
+-   BaseAppBuilder class for console app, 
+-   BaseWinFormsAppBuilder class for WinForms based projects and 
+-   BaseBackgroundServiceAppBuilder for windows services.
 
 You have to derive a class from one of this base classes and implement the method LoadDiContainerServiceProviderPackage to load a IDiContainerServiceProviderPackage base implementation providing your DI container setup.
 
@@ -46,11 +54,11 @@ Here a sample from Program.cs Main() how to setup the console app in project Con
 
 ``` csharp
 
- #if !DEBUG
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
-#endif
-
             IAppBuilder builder = new ConsoleApp1AppBuilder(Globals.Instance);
+
+#if !DEBUG
+            AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
+#endif
 
             // Load basic app meta data
             builder.LoadBasicSettings(typeof(Program));
@@ -120,18 +128,17 @@ Here a sample from Program.cs Main() how to setup the console app in project Win
 
 ``` csharp
 
-#if !DEBUG
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
-#endif
-
             var builder = new WinFormsConsoleApp1AppBuilder(Globals.Instance);
+
+#if !DEBUG
+            AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
+#endif
 
             // Load basic app meta data
             builder.LoadBasicSettings(typeof(Program));
 
             // Process the config file
             builder.ProcessConfiguration();
-
 
             // Set additional app start parameters as required
             var param = builder.AppStartProvider.AppStartParameter;
@@ -198,11 +205,11 @@ Here a sample from Program.cs Main() how to setup the console app in project Win
 
 ``` csharp
 
-#if !DEBUG
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
-#endif
-
             var builder = new WinFormsApp1AppBuilder(Globals.Instance);
+
+#if !DEBUG
+            AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
+#endif
 
             // Load basic app meta data
             builder.LoadBasicSettings(typeof(Program));
@@ -276,7 +283,64 @@ Here a sample from Program.cs Main() how to setup the console app in project Wor
 
 ``` csharp
 
+        IAppBuilder builder = new WorkerService1AppBuilder(Globals.Instance);
 
+#if !DEBUG
+            AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
+#endif
+
+        // Load basic app meta data
+        builder.LoadBasicSettings(typeof(Program));
+
+        // Process the config file
+        builder.ProcessConfiguration();
+
+
+        // Set additional app start parameters as required
+        var param = builder.AppStartProvider.AppStartParameter;
+        param.AppName = "WorkerService1: Demo app";
+        param.SoftwareTeam = "Robert Leisner";
+        param.LogoRessourcePath = "WorkerService1.Resources.logo.jpg";
+        param.AppFolderName = "WorkerService1";
+
+        const string performanceToken = "--PERF";
+
+        if (args.Contains(performanceToken))
+        {
+            param.IsPerformanceLoggingActivated = true;
+        }
+
+        // Now load the globally needed settings
+        builder.LoadGlobalSettings();
+
+        // Write first log entry with default logger
+        Globals.Instance.Logger.LogInformation($"{param.AppName} {param.AppVersion} starts...");
+        Console.WriteLine("Logging started...");
+
+        // App is ready now for doing something
+        Console.WriteLine($"Connection string loaded: {param.DefaultConnectionString}");
+
+        Console.WriteLine("");
+        Console.WriteLine("");
+
+        Console.WriteLine($"App name loaded: {param.AppName}");
+        Console.WriteLine($"App version loaded: {param.AppVersion}");
+        Console.WriteLine($"App path loaded: {param.AppPath}");
+
+        Console.WriteLine("");
+        Console.WriteLine("");
+
+        Console.WriteLine($"Logging config: {ObjectHelper.GetObjectPropertiesAsString(Globals.Instance.LoggingConfig)}");
+
+        // Prepare the DI container package
+        builder.LoadDiContainerServiceProviderPackage();
+        builder.RegisterDiServices();
+        // builder.FinalizeDiContainerSetup(); Do call this method for a background service. It is too early for it
+
+        // Now finally start the app and wait
+        builder.StartApplication();
+
+        Environment.Exit(0);
 
 ```
 
@@ -327,4 +391,64 @@ public class Globals : IAppGlobals
 
 ```
 
-For a sample implementation see poject WinFormsApp1.
+For a sample implementation see project WinFormsApp1.
+
+## Loading app start parameters from appsettings.json
+
+Certain properties existing in IAppStartParameters and its implementations can be loaded from appsettings.json at app start.
+
+See the following example of appsettings.json from project WinFormsApp1 with all possible properties loaded:
+
+
+``` json
+
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=(LocalDB)\\MSSQLLocalDb;Initial Catalog=XYDatabase;Integrated Security=true;MultipleActiveResultSets=True;App=WinFormsApp1"
+  },
+  "AppStartParameter": {
+    "AppName": "Your app name",
+    "AppFolderName": "YorAppName",
+    "Port": "",
+    "BackupPath": "",
+    "NumberOfBackupsToKeep": "25"
+  },
+  //"TowerRuns": {
+  //  "TrialRunCancellationPolicy": "DEFAULT"
+  //},
+  "Logging": {
+    "MinimumLogLevel": "Debug",
+    "LogLevel": {
+      "Default": "Information",
+      "System": "Information",
+      "Microsoft": "Information",
+      "Microsoft.EntityFrameworkCore": "Warning"
+    },
+    "Log4Net": {
+      "LogLevel": {
+        "Default": "Debug"
+      }
+    },
+    //"Console": {
+    //  "IncludeScopes": true,
+    // "DisableColors": false
+    //},
+    //, "EventLog": {
+    // "SourceName": "MyApp"
+    // "LogName": "MyLogName"
+    // "MachineName": "MyMachineName"
+    //},
+    "Debug": {
+      "LogLevel": {
+        "Default": "Debug"
+      }
+    },
+    "EventSource": {
+      "LogLevel": {
+        "Default": "Error"
+      }
+    }
+  }
+}
+
+```

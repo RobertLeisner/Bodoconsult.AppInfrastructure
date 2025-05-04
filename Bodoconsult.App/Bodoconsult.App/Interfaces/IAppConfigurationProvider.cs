@@ -41,6 +41,12 @@ public interface IAppConfigurationProvider
     IConfigurationSection ReadLoggingSection();
 
     /// <summary>
+    /// Read the app start parameter section
+    /// </summary>
+    /// <returns>App start parameter section</returns>
+    IConfigurationSection ReadAppStartParameterSection();
+
+    /// <summary>
     /// Read a section by its name
     /// </summary>
     /// <param name="sectionName">Section name requested</param>

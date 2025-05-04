@@ -28,7 +28,7 @@ public class GeneralAppManagementService : IGeneralAppManagementService
     {
 
         // Create log dump now
-        var path = _appGlobals.DataPath;
+        var path = _appGlobals.AppStartParameter.DataPath;
 
         if (path == null)
         {
@@ -47,7 +47,7 @@ public class GeneralAppManagementService : IGeneralAppManagementService
     /// </summary>
     public void CreateMiniDump()
     {
-        var path = _appGlobals.DataPath;
+        var path = _appGlobals.AppStartParameter.DataPath;
 
         if (path == null)
         {
@@ -64,7 +64,7 @@ public class GeneralAppManagementService : IGeneralAppManagementService
     /// </summary>
     public void CreateMiniDump(MiniDump.MiniDumpTypeEnum dumpType)
     {
-        var path = _appGlobals.DataPath;
+        var path = _appGlobals.AppStartParameter.DataPath;
 
         if (path == null)
         {

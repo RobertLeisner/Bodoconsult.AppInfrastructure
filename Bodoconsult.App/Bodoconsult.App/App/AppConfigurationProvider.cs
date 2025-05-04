@@ -81,6 +81,16 @@ namespace Bodoconsult.App
         }
 
         /// <summary>
+        /// Read the app start parameter section
+        /// </summary>
+        /// <returns>App start parameter section</returns>
+        public IConfigurationSection ReadAppStartParameterSection()
+        {
+            return Configuration?.GetSection("AppStartParameter");
+        }
+
+
+        /// <summary>
         /// Read a section by its name
         /// </summary>
         /// <param name="sectionName">Section name requested</param>

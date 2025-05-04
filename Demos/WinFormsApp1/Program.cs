@@ -25,11 +25,11 @@ namespace WinFormsApp1
 
             Console.WriteLine("WinFormsApp1 initiation starts...");
 
-#if !DEBUG
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
-#endif
-
             var builder = new WinFormsApp1AppBuilder(Globals.Instance);
+
+#if !DEBUG
+            AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
+#endif
 
             // Load basic app meta data
             builder.LoadBasicSettings(typeof(Program));
@@ -38,12 +38,12 @@ namespace WinFormsApp1
             builder.ProcessConfiguration();
 
 
-            // Set additional app start parameters as required
+            // Set additional app start parameters as required. Take some settings from appsettings.json here
             var param = builder.AppStartProvider.AppStartParameter;
-            param.AppName = "WinFormsApp1: Demo app";
+            //param.AppName = "WinFormsApp1: Demo app"; // from appsettings.json
             param.SoftwareTeam = "Robert Leisner";
             param.LogoRessourcePath = "WinFormsApp1.Resources.logo.jpg";
-            param.AppFolderName = "WinFormsApp1";
+            //param.AppFolderName = "WinFormsApp1"; // from appsettings.json
 
             const string performanceToken = "--PERF";
 

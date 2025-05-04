@@ -114,4 +114,10 @@ public interface IAppBuilder
     /// <param name="appStarter">Current app starter instance</param>
     void LoadAppStarterUi(IAppStarter appStarter);
 
+    /// <summary>
+    /// Handle an unhandled exception
+    /// </summary>
+    /// <param name="sender">Sender</param>
+    /// <param name="e">Arguments</param>
+    void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e);
 }

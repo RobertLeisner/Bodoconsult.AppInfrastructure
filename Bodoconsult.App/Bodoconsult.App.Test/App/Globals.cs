@@ -83,7 +83,7 @@ public class Globals : IAppGlobals
     public LoggingConfig LoggingConfig { get; set; }
 
     /// <summary>
-    /// Current app logger. Use this instance only if no DI container is available. Otherwise use DiContainer.Get&lt;IAppLoggerProxy&gt; to fetch the default app logger from DI container. Don't forget to load it during DI setup!
+    /// Current app logger. Use this instance only if no DI container is available. Nonetheless, use DiContainer.Get&lt;IAppLoggerProxy&gt; to fetch the default app logger from DI container. Don't forget to load it during DI setup!
     /// </summary>
     public IAppLoggerProxy Logger { get; set; }
 
@@ -98,19 +98,21 @@ public class Globals : IAppGlobals
     public string DataPath { get; set; }
 
     /// <summary>
-    /// Folder to to store log files. Normally the folder <see cref="DataPath"/> to make log dump creation easier
+    /// Folder to store log files. Normally the folder <see cref="DataPath"/> to make log dump creation easier
     /// </summary>
     public string LogfilePath { get; set; }
 
     /// <summary>
-    /// Folder to to store migration log files and SQL scripts in. Normally a subfolder of the folder <see cref="DataPath"/> 
+    /// Folder to store migration log files and SQL scripts in. Normally a subfolder of the folder <see cref="DataPath"/> 
     /// </summary>
     public string MigrationLogfilePath { get; set; }
 
     /// <summary>
-    /// Folder to to store backups in. Normally a subfolder of the folder <see cref="DataPath"/>
+    /// Folder to store backups in. Normally a subfolder of the folder <see cref="DataPath"/>
     /// </summary>
     public string BackupPath { get; set; }
+
+    public int NumberOfBackupsToKeep { get; set; }
 
     /// <summary>
     /// Delegate called if a fatale app exception has been raised and a message to the UI has to be sent before app terminates

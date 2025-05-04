@@ -23,11 +23,11 @@ internal static class Program
 
         Debug.Print("WorkerService1 initiation starts...");
 
-#if !DEBUG
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
-#endif
-
         IAppBuilder builder = new WorkerService1AppBuilder(Globals.Instance);
+
+#if !DEBUG
+            AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
+#endif
 
         // Load basic app meta data
         builder.LoadBasicSettings(typeof(Program));
@@ -82,79 +82,8 @@ internal static class Program
 
         Environment.Exit(0);
     }
-
-
-    private static void CurrentDomainOnUnhandledException(object sender,
-        UnhandledExceptionEventArgs unhandledExceptionEventArgs)
-    {
-
-        // Report the crash
-        ReportCrash((Exception)unhandledExceptionEventArgs.ExceptionObject);
-
-        AsyncHelper.Delay(1000);
-
-        var ex = (Exception)unhandledExceptionEventArgs.ExceptionObject;
-        throw ex;
-
-    }
-
-    private static void ReportCrash(Exception unhandledException)
-    {
-
-        var gms = Globals.Instance.DiContainer.Get<IGeneralAppManagementManager>();
-
-        const string fileName = "C:\\ProgramData\\WorkerService1\\WorkerService1_Crash.log";
-
-        var request = new EmptyBusinessTransactionRequestData();
-        // ToDo: fill request with useful information
-
-        var logger = Globals.Instance.DiContainer.Get<IAppLoggerProxy>();
-
-        try
-        {
-            const string logMessage = "Unhandled exception caught";
-            logger?.LogCritical(unhandledException, logMessage);
-
-            File.AppendAllText(fileName, $"Crash at {DateTime.Now}: {unhandledException}{Environment.NewLine}");
-
-            var result = gms?.CreateLogDump(request);
-
-            if (result == null)
-            {
-                return;
-            }
-
-            logger?.LogWarning(fileName, $"CreateLogDump after crash: error code {result.ErrorCode}: {result.Message}");
-        }
-        catch (Exception e)
-        {
-            LogFinalException(fileName, e);
-        }
-
-
-        try
-        {
-            var appHandler = Globals.Instance.DiContainer.Get<IAppBuilder>();
-            appHandler.StopApplication();
-        }
-        catch
-        {
-            //
-        }
-    }
-
-    private static void LogFinalException(string fileName, Exception e)
-    {
-        try
-        {
-            File.AppendAllText(fileName, $"Crash at {DateTime.Now}: {e}{Environment.NewLine}");
-        }
-        catch
-        {
-            // Do nothing
-        }
-    }
 }
+
 
 
 

@@ -21,11 +21,11 @@ namespace ConsoleApp1
 
             Console.WriteLine("ConsoleApp1 initiation starts...");
 
-#if !DEBUG
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
-#endif
-
             IAppBuilder builder = new ConsoleApp1AppBuilder(Globals.Instance);
+
+#if !DEBUG
+            AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
+#endif
 
             // Load basic app meta data
             builder.LoadBasicSettings(typeof(Program));
