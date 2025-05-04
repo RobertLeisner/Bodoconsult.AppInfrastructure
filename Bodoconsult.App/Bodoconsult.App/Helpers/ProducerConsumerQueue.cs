@@ -100,7 +100,7 @@ public class ProducerConsumerQueue<T> : IProducerConsumerQueue<T> where T : clas
         InternalQueue?.CompleteAdding();
 
         //Thread.Sleep(50);
-        if (_consumerThread.IsAlive)
+        if (_consumerThread is { IsAlive: true })
         {
             _consumerThread?.Join();
         }

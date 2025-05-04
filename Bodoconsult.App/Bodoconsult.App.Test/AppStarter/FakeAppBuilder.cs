@@ -123,7 +123,8 @@ namespace Bodoconsult.App.Test.AppStarter
         /// </summary>
         public void StartApplicationService()
         {
-            throw new NotImplementedException();
+            // Do nothing
+            WasStartApplication = true;
         }
 
         /// <summary>

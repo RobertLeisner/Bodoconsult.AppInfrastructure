@@ -4,6 +4,7 @@
 using Bodoconsult.App.AppStarter;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
+using Bodoconsult.App.Test.App;
 
 namespace Bodoconsult.App.Test.AppStarter;
 
@@ -15,7 +16,7 @@ internal class BaseAppStarterUiTests
     public void TestCtor()
     {
         // Arrange 
-        var h = new FakeAppBuilder();
+        var h = new FakeAppBuilder(Globals.Instance);
 
         // Act  
         var b = new BaseAppStarterUi(h);
@@ -30,7 +31,7 @@ internal class BaseAppStarterUiTests
     public void TestIsAnotherInstance()
     {
         // Arrange 
-        var h = new FakeAppBuilder();
+        var h = new FakeAppBuilder(Globals.Instance);
 
         var b = new BaseAppStarterUi(h);
 
@@ -47,7 +48,7 @@ internal class BaseAppStarterUiTests
     public void TestStart()
     {
         // Arrange 
-        var h = new FakeAppBuilder();
+        var h = new FakeAppBuilder(Globals.Instance);
 
         Assert.That(!h.WasStartApplication);
         var b = new BaseAppStarterUi(h);
