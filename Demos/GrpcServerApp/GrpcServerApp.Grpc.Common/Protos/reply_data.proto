@@ -1,0 +1,68 @@
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+
+syntax = "proto3";
+
+/// <summary>
+/// Reply message for delivering a list of object names
+/// </summary>
+message EmptyReply {
+
+}
+
+/// <summary>
+/// Reply message for delivering an object ID
+/// </summary>
+message ObjectIdReply
+{
+	int32 ObjectId = 2;
+}
+
+/// <summary>
+/// Reply message for delivering an bool value
+/// </summary>
+message BoolReply
+{
+    bool Value = 1;
+}
+
+/// <summary>
+/// Reply message for delivering an integer value
+/// </summary>
+message IntegerReply
+{
+    int64 Value = 1;
+}
+
+/// <summary>
+/// Reply message for delivering an long value. May be used to transfer date as long via ToFileTimeUtc
+/// </summary>
+message LongReply
+{
+    int64 Value = 1;
+}
+
+
+
+/// <summary>
+/// Reply message for delivering an object UID
+/// </summary>
+message ObjectUidReply
+{
+	string ObjectUid = 2;
+}
+
+/// <summary>
+/// Reply message for delivering a list of object names
+/// </summary>
+message ObjectNamesReply {
+	repeated string ObjectNames = 2;
+}
+
+/// <summary>
+/// Reply message for a object ID and a name
+/// </summary>
+message ObjectIdWithNameReply
+{
+	int32 objectId = 1;
+	string name = 2;
+}

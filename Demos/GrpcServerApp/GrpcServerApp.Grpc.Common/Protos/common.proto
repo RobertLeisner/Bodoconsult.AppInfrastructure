@@ -1,0 +1,19 @@
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+
+syntax = "proto3";
+import "google/protobuf/struct.proto";
+
+message NullableBoolean {
+  oneof kind {
+    google.protobuf.NullValue null = 1;
+    bool boolValue = 2;
+  }
+}
+
+
+message NullableString {
+  oneof kind {
+    google.protobuf.NullValue null = 1;
+    string stringValue = 2;
+  }
+}

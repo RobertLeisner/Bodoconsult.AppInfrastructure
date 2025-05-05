@@ -1,0 +1,31 @@
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+
+syntax = "proto3";
+import "google/protobuf/any.proto";
+
+service BusinessTransactionService {
+
+	// Start a business transaction
+	rpc StartTransaction(BusinessTransactionRequest) returns  (BusinessTransactionReply){}
+
+}
+
+/// <summary>
+/// Request message to run a business transaction
+/// </summary>
+message BusinessTransactionRequest {
+	 int32 TransactionId = 1;
+	 google.protobuf.Any RequestData = 2;
+}
+
+/// <summary>
+/// Reply to a request to run a business transaction
+/// </summary>
+message BusinessTransactionReply {
+
+	int32 TransactionId = 1;
+	int32 ErrorCode = 2;
+	string LogMessage = 3;
+	string ExceptionMessage = 4;
+	optional google.protobuf.Any ReplyData = 5;
+}

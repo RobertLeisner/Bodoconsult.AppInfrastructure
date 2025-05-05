@@ -1,0 +1,143 @@
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+
+syntax = "proto3";
+import "google/protobuf/any.proto";
+
+
+/// <summary>
+/// Empty request message
+/// </summary>
+message EmptyRequest{
+
+}
+
+/// <summary>
+/// Empty request message returning a list of data
+/// </summary>
+message EmptyListRequest{
+	int32 page = 1;
+	int32 pageSize = 2;
+}
+
+/// <summary>
+/// Request message returning a list of data with search results
+/// </summary>
+message SearchExpressionListRequest{
+	string SearchExpression = 1;
+	int32 page = 2;
+	int32 pageSize = 3;
+}
+
+/// <summary>
+/// Request message for delivering an object ID
+/// </summary>
+message ObjectIdRequest
+{
+	int32 objectId = 1;
+}
+
+/// <summary>
+/// Request message for delivering an object ID
+/// </summary>
+message ObjectIdListRequest
+{
+	int32 ObjectId = 1;
+	int32 page = 2;
+	int32 pageSize = 3;
+}
+
+/// <summary>
+/// Request message for delivering two object IDs
+/// </summary>
+message TwoObjectIdRequest
+{
+	int32 objectId1 = 1;
+    int32 objectId2 = 2;
+}
+
+/// <summary>
+/// Request message for delivering an object ID and a string value
+/// </summary>
+message ObjectIdStringRequest
+{
+	int32 ObjectId = 1;
+    string Value = 2;
+}
+
+/// <summary>
+/// Request message for delivering an object ID and a integer value
+/// </summary>
+message ObjectIdIntRequest
+{
+	int32 ObjectId = 1;
+    int32 Value = 2;
+}
+
+/// <summary>
+/// Request message for delivering an object UID
+/// </summary>
+message ObjectUidRequest
+{
+	string objectUid = 1;
+}
+
+/// <summary>
+/// Request message for delivering two object UIDs
+/// </summary>
+message TwoObjectUidRequest
+{
+	string objectUid1 = 1;
+    string objectUid2 = 2;
+}
+
+/// <summary>
+/// Request message for delivering a list of data related to an object UID
+/// </summary>
+message ObjectUidListRequest
+{
+	string ObjectUid = 1;
+	int32 page = 2;
+	int32 pageSize = 3;
+}
+
+/// <summary>
+// For requests based on a name of an object
+/// </summary>
+message ObjectNameRequest
+{
+	string Name = 1;
+}
+
+/// <summary>
+// For requests providing a data list based on a name of an object
+/// </summary>
+message ObjectNameListRequest
+{
+	string Name = 1;
+	int32 page = 2;
+	int32 pageSize = 3;
+}
+
+/// <summary>
+// For requests based on a name of an object and string message applying to this object
+/// </summary>
+message ObjectNameStringRequest
+{
+	string Name = 1;
+	string Value = 2;
+}
+
+
+/// <summary>
+/// Request transporting a string 
+/// </summary>
+message StringRequest{
+	string Message=1;
+}
+
+/// <summary>
+/// Reply transporting a string 
+/// </summary>
+message StringReply{
+	string Message = 1;
+}

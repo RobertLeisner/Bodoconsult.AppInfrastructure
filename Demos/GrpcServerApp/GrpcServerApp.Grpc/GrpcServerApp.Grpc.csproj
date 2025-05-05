@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.30.2" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.71.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Bodoconsult.App\Bodoconsult.App\Bodoconsult.App.csproj" />
+    <ProjectReference Include="..\GrpcServerApp.BusinessLogic\GrpcServerApp.BusinessLogic.csproj" />
+    <ProjectReference Include="..\GrpcServerApp.Grpc.Common\GrpcServerApp.Grpc.Common.csproj" />
+  </ItemGroup>
+
+</Project>
