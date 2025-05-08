@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 
+using Bodoconsult.App.BackgroundService.AppStarter;
 using Bodoconsult.App.DependencyInjection;
 using Bodoconsult.App.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 namespace Bodoconsult.App.BackgroundService.App
 {
     /// <summary>
-    /// Base class for <see cref="IAppBuilder"/> implementations running a background service
+    /// Base class for <see cref="IAppBuilder"/> implementations running a background service but not using GRPC
     /// </summary>
     public class BaseBackgroundServiceAppBuilder: BaseAppBuilder
     {

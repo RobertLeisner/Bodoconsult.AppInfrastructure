@@ -92,41 +92,140 @@ public class BusinessTransaction
 An app using the business transactions should define a set of IBusinessTransactionProvider based classes providing the logic for the required business transactions. 
 This set of providers has to be loaded once  with the method AddProvider() to the BusinessTransActionManager class on app start.
 
+After usage the IBusinessTransactionProvider implementations are removed from memory. Only the transactions loaded stay in the memory.
 
 ``` csharp
 
-internal class TestTransactionProvider: IBusinessTransactionProvider
+internal class TestBusinessTransactionProvider: IBusinessTransactionProvider
 {
+
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    public TestBusinessTransactionProvider(SampleBusinessLogicLayer sampleBusinessLogicLayer)
+    {
+        SampleBusinessLogic = sampleBusinessLogicLayer;
+
+        CreateBusinessTransactionDelegates.Add(1000, CreateTnr1000);
+    }
+
     /// <summary>
     /// A dictionary containing delegates for creating business transactions.
     /// The key of the dictionary is the int tarnsaction ID
     /// </summary>
     public Dictionary<int, CreateBusinessTransactionDelegate> CreateBusinessTransactionDelegates { get; } = new();
 
+    /// <summary>
+    /// Business logic dependency
+    /// </summary>
     public SampleBusinessLogicLayer SampleBusinessLogic { get; } 
 
-
-    public TestTransactionProvider()
+    /// <summary>
+    /// Create business transcation 1000. Public for unit testing. Do not use directly in production
+    /// </summary>
+    /// <returns>Business transaction</returns>
+    public BusinessTransaction CreateTnr1000()
     {
-        SampleBusinessLogic = new SampleBusinessLogicLayer();
-
-        CreateBusinessTransactionDelegates.Add(1000, CreateTnr1000);
-    }
-
-    private BusinessTransaction CreateTnr1000()
-    {
-        return new BusinessTransaction
+        var bt =  new BusinessTransaction
         {
             Id = 1000,
             Name = "Testtransaction",
             RunBusinessTransactionDelegate = SampleBusinessLogic.EmptyRequest
         };
+
+        bt.AllowedRequestDataTypes.Add(nameof(EmptyBusinessTransactionRequestData));
+
+        return bt;
     }
 }
 
 ```
 
-Here a simple example how to setup and to use the business transactions:
+Add a unit tests for the provider. See typical examples here:
+
+``` csharp
+
+/// <summary>
+/// Helper method to set up provider. May require mocking of dependencies
+/// </summary>
+/// <returns></returns>
+private static TestBusinessTransactionProvider CreateProvider()
+{
+    var dependency = new SampleBusinessLogicLayer();
+    var prov = new TestBusinessTransactionProvider(dependency);
+    return prov;
+}
+
+[Test]
+public void CheckAll_ValidSetup_Success()
+{
+    // Arrange 
+    var prov = CreateProvider();
+
+    // Act  
+    foreach (var item in prov.CreateBusinessTransactionDelegates)
+    {
+
+        var transaction = item.Value.Invoke();
+
+        Assert.That(item.Key, Is.EqualTo(transaction.Id));
+
+    }
+}
+
+[Test]
+public void CreateBusinessTransactionDelegates_DefaultSetup_ReturnsTransaction()
+{
+    // Arrange 
+    const int tnr = 1000;
+
+    var prov = CreateProvider();
+
+    // Act  
+    prov.CreateBusinessTransactionDelegates.TryGetValue(tnr, out var test);
+    prov = null; // Kill the provider to see if the static delegate method is called correctly
+
+    // Assert
+    Assert.That(test, Is.Not.Null);
+
+    var result = test.Invoke();
+
+    Assert.That(result, Is.Not.Null);
+
+}
+
+[Test]
+public void Ctor_ValidSetup_Success()
+{
+    // Arrange
+    var dependency = new SampleBusinessLogicLayer();
+    // Act
+    var prov = new TestBusinessTransactionProvider(dependency);
+
+    // Assert
+    Assert.That(prov.SampleBusinessLogic, Is.Not.Null);
+    Assert.That(prov.SampleBusinessLogic, Is.SameAs(dependency));
+}
+
+[Test]
+public void Transaction1000_TestTransaction_ValidSetup_Success()
+{
+    // Arrange 
+    var prov = CreateProvider();
+
+    // Act  
+    var result = prov.CreateTnr1000();
+
+    // Assert
+    Assert.That(result, Is.Not.Null);
+    Assert.That(result.Id, Is.EqualTo(1000));
+    Assert.That(result.RunBusinessTransactionDelegate, Is.Not.Null);
+    Assert.That(result.AllowedRequestDataTypes.Count, Is.Not.EqualTo(0));
+}
+
+```
+
+Here a simple example how to set up and to use the business transactions:
 
 ``` csharp
 
@@ -138,6 +237,78 @@ var m = new BusinessTransactionManager(_logger, aes);
 var p = new TestTransactionProvider();
 
 m.AddProvider(p);
+
+IBusinessTransactionRequestData requestData = new EmptyBusinessTransactionRequestData();
+
+// Act  
+var t = m.RunBusinessTransaction(transactionId, requestData);
+
+// Assert
+Assert.That(t, Is.Not.Null);
+Assert.That(m.TransactionCache, Has.Count.EqualTo(1));
+Assert.That(t.RequestData, Is.EqualTo(requestData));
+
+```
+
+## Sample implementation of a business transaction loader handling multiple business transaction providers
+
+If you have multiple providers for business transactions you should implement IBusinessTransactionLoader. It allows easier handling of multiple espacially if using a DI container.
+
+After usage the IBusinessTransactionLoader and IBusinessTransactionProvider implementations are removed from memory. Only the transactions loaded stay in the memory.
+
+
+``` csharp
+
+internal class TestBusinessTransactionLoader: IBusinessTransactionLoader
+{
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    public TestBusinessTransactionLoader(IBusinessTransactionManager businessTransactionManager, SampleBusinessLogicLayer sampleBusinessLogicLayer)
+    {
+        BusinessTransactionManager = businessTransactionManager;
+        SampleBusinessLogic = sampleBusinessLogicLayer;
+    }
+
+    /// <summary>
+    /// Current <see cref="IBusinessTransactionManager"/> impl to load the providers in
+    /// </summary>
+    public IBusinessTransactionManager BusinessTransactionManager { get; }
+
+    /// <summary>
+    /// Business logic dependency
+    /// </summary>
+    public SampleBusinessLogicLayer SampleBusinessLogic { get; }
+
+    /// <summary>
+    /// Load the providers
+    /// </summary>
+    public void LoadProviders()
+    {
+        var provider = new TestBusinessTransactionProvider(SampleBusinessLogic);
+        BusinessTransactionManager.AddProvider(provider);
+
+        // Add more providers
+    }
+}
+
+```
+
+Here an example how to use the IBusinessTransactionLoader instance:
+
+``` csharp
+
+// Arrange 
+var aes = TestHelper.CreateAppEventSource();
+var logger = TestHelper.GetFakeAppLoggerProxy();
+
+const int transactionId = 1000;
+var m = new BusinessTransactionManager(logger, aes);
+
+var dependency = new SampleBusinessLogicLayer();
+var p = new TestBusinessTransactionLoader(m, dependency);
+
+p.LoadProviders();
 
 IBusinessTransactionRequestData requestData = new EmptyBusinessTransactionRequestData();
 

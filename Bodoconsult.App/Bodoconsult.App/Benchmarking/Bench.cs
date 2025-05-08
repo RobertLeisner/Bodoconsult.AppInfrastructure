@@ -6,7 +6,7 @@ using Bodoconsult.App.Interfaces;
 namespace Bodoconsult.App.Benchmarking
 {
     /// <summary>
-    /// Log Bench entity class for benchmark viewer https://github.com/crep4ever/benchmark-viewer
+    /// Log Bench entity class for benchmark viewer https://github.com/crep4ever/benchmark-viewer. Implementation by Freddy Darsonville
     /// </summary>
     public class Bench: IDisposable
     {

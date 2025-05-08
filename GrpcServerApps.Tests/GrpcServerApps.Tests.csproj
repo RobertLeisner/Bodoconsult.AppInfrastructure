@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -11,6 +11,12 @@
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.30.2" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.71.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.71.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="NUnit" Version="3.14.0" />
     <PackageReference Include="NUnit.Analyzers" Version="3.9.0" />
@@ -19,8 +25,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Demos\GrpcServerApp\GrpcServerApp.BusinessLogic\GrpcServerApp.BusinessLogic.csproj" />
+    <ProjectReference Include="..\Demos\GrpcServerApp\GrpcServerApp.Common\GrpcServerApp.Common.csproj" />
     <ProjectReference Include="..\Demos\GrpcServerApp\GrpcServerApp.Grpc.Common\GrpcServerApp.Grpc.Common.csproj" />
     <ProjectReference Include="..\Demos\GrpcServerApp\GrpcServerApp.Grpc\GrpcServerApp.Grpc.csproj" />
+    <ProjectReference Include="..\Demos\GrpcServerApp\GrpcServerApp\GrpcServerApp.csproj" />
   </ItemGroup>
 
   <ItemGroup>

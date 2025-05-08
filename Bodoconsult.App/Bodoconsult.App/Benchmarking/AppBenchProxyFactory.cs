@@ -7,7 +7,7 @@ namespace Bodoconsult.App.Benchmarking
 {
 
     /// <summary>
-    /// Factory for creating <see cref="AppBenchProxy"/> instances logging data for benchmark viewer https://github.com/crep4ever/benchmark-viewer
+    /// Factory for creating <see cref="AppBenchProxy"/> instances logging data for benchmark viewer https://github.com/crep4ever/benchmark-viewer. Implementation by Freddy Darsonville
     /// </summary>
     public class AppBenchProxyFactory : IAppBenchProxyFactory
     {

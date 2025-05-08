@@ -10,11 +10,4 @@
     <PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
   </ItemGroup>
 
-	<ItemGroup>
-		<Protobuf Include="Protos\common.proto" GrpcServices="Server" />
-		<Protobuf Include="Protos\reply_data.proto" GrpcServices="Server" />
-		<Protobuf Include="Protos\request_data.proto" GrpcServices="Server" />
-		<Protobuf Include="Protos\business_transaction_description.proto" GrpcServices="Server" />
-	</ItemGroup>
-
 </Project>

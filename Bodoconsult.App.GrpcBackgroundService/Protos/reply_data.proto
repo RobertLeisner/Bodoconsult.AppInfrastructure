@@ -1,0 +1,82 @@
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+
+// GRPC Copyright 2019 The gRPC Authors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+
+/// <summary>
+/// Reply message for delivering a list of object names
+/// </summary>
+message EmptyReply {
+
+}
+
+/// <summary>
+/// Reply message for delivering an object ID
+/// </summary>
+message ObjectIdReply
+{
+	int32 ObjectId = 2;
+}
+
+/// <summary>
+/// Reply message for delivering an bool value
+/// </summary>
+message BoolReply
+{
+    bool Value = 1;
+}
+
+/// <summary>
+/// Reply message for delivering an integer value
+/// </summary>
+message IntegerReply
+{
+    int64 Value = 1;
+}
+
+/// <summary>
+/// Reply message for delivering an long value. May be used to transfer date as long via ToFileTimeUtc
+/// </summary>
+message LongReply
+{
+    int64 Value = 1;
+}
+
+
+
+/// <summary>
+/// Reply message for delivering an object UID
+/// </summary>
+message ObjectUidReply
+{
+	string ObjectUid = 2;
+}
+
+/// <summary>
+/// Reply message for delivering a list of object names
+/// </summary>
+message ObjectNamesReply {
+	repeated string ObjectNames = 2;
+}
+
+/// <summary>
+/// Reply message for a object ID and a name
+/// </summary>
+message ObjectIdWithNameReply
+{
+	int32 objectId = 1;
+	string name = 2;
+}

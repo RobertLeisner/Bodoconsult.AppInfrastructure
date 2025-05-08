@@ -1,6 +1,5 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.App;
 using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.WinForms.App;
 using WinFormsConsoleApp1.DiContainerProvider;

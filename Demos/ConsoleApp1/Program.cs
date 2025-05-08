@@ -27,7 +27,7 @@ namespace ConsoleApp1
             AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
 #endif
 
-            // Load basic app meta data
+            // Load basic app metadata
             builder.LoadBasicSettings(typeof(Program));
 
             // Process the config file

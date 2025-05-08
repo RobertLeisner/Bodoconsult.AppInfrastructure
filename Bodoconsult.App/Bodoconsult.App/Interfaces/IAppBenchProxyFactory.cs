@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 namespace Bodoconsult.App.Interfaces
 {
     /// <summary>
-    /// Interface for creating an instance of a <see cref="IAppBenchProxy"/> implementation logging data for benchmark viewer https://github.com/crep4ever/benchmark-viewer
+    /// Interface for creating an instance of a <see cref="IAppBenchProxy"/> implementation logging data for benchmark viewer https://github.com/crep4ever/benchmark-viewer. Implementation by Freddy Darsonville
     /// </summary>
     public interface IAppBenchProxyFactory
     {

@@ -4,7 +4,7 @@
 namespace Bodoconsult.App.BusinessTransactions.RequestData
 {
     /// <summary>
-    /// The request data for an paged empty business transaction request (containing only request meta data)
+    /// The request data for an paged empty business transaction request (containing only request metadata)
     /// </summary>
     public class PagedEmptyBusinessTransactionRequestData : BaseBusinessTransactionRequestData
     {

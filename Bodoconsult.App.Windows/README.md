@@ -55,7 +55,7 @@ The source code contain a NUnit test classes, the following source code is extra
             Assert.That(File.Exists(iconDocx));
             Assert.That(File.Exists(iconXlsx));
 
-## Meta data services
+## metadata services
 
 ### DNS (via AD and CIM)
 

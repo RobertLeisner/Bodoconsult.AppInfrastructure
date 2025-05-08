@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using System.Diagnostics.Tracing;
 using Bodoconsult.App.Interfaces;
-using Bodoconsult.App.Logging;
 using Bodoconsult.App.WinForms.AppStarter;
 using Bodoconsult.App.WinForms.Interfaces;
 
@@ -10,6 +8,10 @@ using Bodoconsult.App.WinForms.Interfaces;
 
 namespace Bodoconsult.App.WinForms.App
 {
+
+    /// <summary>
+    /// Base class for WinForms based <see cref="IAppBuilder"/> implementations
+    /// </summary>
     public class BaseWinFormsAppBuilder: BaseAppBuilder
     {
         public BaseWinFormsAppBuilder(IAppGlobals appGlobals) : base(appGlobals)

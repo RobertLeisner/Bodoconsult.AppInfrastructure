@@ -3,7 +3,6 @@
 
 using Bodoconsult.App.AppStarter;
 using Bodoconsult.App.Helpers;
-using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.Test.App;
 
 namespace Bodoconsult.App.Test.AppStarter;

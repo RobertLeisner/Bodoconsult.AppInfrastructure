@@ -28,27 +28,27 @@ public interface IBusinessTransactionRequestData
 
 
     /// <summary>
-    /// Request meta data: client GUID
+    /// Request metadata: client GUID
     /// </summary>
     public Guid MetaDataClientGuid { get; set; }
 
     /// <summary>
-    /// Request meta data: client name
+    /// Request metadata: client name
     /// </summary>
     public string MetaDataClientName { get; set; }
 
     /// <summary>
-    /// Request meta data: IP address the request is coming from
+    /// Request metadata: IP address the request is coming from
     /// </summary>
     public string MetaDataIpAddress { get; set; }
 
     /// <summary>
-    /// Request meta data: user name in cleartext
+    /// Request metadata: user name in cleartext
     /// </summary>
     public string MetaDataUserName { get; set; }
 
     /// <summary>
-    /// Request meta data: User ID
+    /// Request metadata: User ID
     /// </summary>
     public int MetaDataUserId { get; set; }
 

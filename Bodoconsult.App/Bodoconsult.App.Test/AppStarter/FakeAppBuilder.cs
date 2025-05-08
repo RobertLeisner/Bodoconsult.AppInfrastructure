@@ -2,9 +2,7 @@
 
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
-using System;
 using Bodoconsult.App.BusinessTransactions.RequestData;
-using Bodoconsult.App.Test.App;
 
 namespace Bodoconsult.App.Test.AppStarter
 {

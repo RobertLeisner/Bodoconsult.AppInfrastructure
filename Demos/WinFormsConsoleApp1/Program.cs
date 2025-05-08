@@ -2,15 +2,12 @@
 
 using System.Diagnostics;
 using System.Diagnostics.Tracing;
-using Bodoconsult.App;
 using Bodoconsult.App.BusinessTransactions.RequestData;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.Logging;
-using Bodoconsult.App.WinForms.AppStarter;
 using Bodoconsult.App.WinForms.AppStarter.Forms.ViewModel;
 using WinFormsConsoleApp1.App;
-using WinFormsConsoleApp1.DiContainerProvider;
 
 // ReSharper disable LocalizableElement
 
@@ -35,7 +32,7 @@ namespace WinFormsConsoleApp1
             AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
 #endif
 
-            // Load basic app meta data
+            // Load basic app metadata
             builder.LoadBasicSettings(typeof(Program));
 
             // Process the config file

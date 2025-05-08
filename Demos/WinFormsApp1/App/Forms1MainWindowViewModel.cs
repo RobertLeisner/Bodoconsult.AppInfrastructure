@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.Logging;
 using Bodoconsult.App.WinForms.AppStarter.Forms.ViewModel;
 

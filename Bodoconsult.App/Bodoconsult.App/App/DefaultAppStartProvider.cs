@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using System.Globalization;
 using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.Logging;
-using Microsoft.Diagnostics.Tracing.Parsers.FrameworkEventSource;
 
 namespace Bodoconsult.App
 {

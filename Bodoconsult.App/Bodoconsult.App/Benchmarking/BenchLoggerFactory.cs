@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace Bodoconsult.App.Benchmarking
 {
     /// <summary>
-    /// Server logger factory for benchmark logging
+    /// Server logger factory for benchmark logging. Implementation by Freddy Darsonville
     /// </summary>
     public class BenchLoggerFactory : IMonitorLoggerFactory
     {

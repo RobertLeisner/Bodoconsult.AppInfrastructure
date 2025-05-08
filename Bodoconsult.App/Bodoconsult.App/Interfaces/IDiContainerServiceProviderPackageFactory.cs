@@ -3,8 +3,6 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 // Licence MIT
 
-using Bodoconsult.App.Delegates;
-
 namespace Bodoconsult.App.Interfaces
 {
     /// <summary>

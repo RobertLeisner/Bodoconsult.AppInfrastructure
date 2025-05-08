@@ -1,14 +1,9 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 using System.Diagnostics;
-using Bodoconsult.App.BusinessTransactions.RequestData;
-using Bodoconsult.App;
-using Bodoconsult.App.BackgroundService;
-using Bodoconsult.App.DependencyInjection;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
 using WorkerService1.App;
-using WorkerService1.DiContainerProvider;
 
 namespace WorkerService1;
 
@@ -29,7 +24,7 @@ internal static class Program
             AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
 #endif
 
-        // Load basic app meta data
+        // Load basic app metadata
         builder.LoadBasicSettings(typeof(Program));
 
         // Process the config file

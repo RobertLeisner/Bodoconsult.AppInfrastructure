@@ -11,7 +11,7 @@ namespace Bodoconsult.App.Benchmarking;
 
 /// <summary>
 /// Current implementation of <see cref="IAppBenchProxy"/> for benchmark viewer https://github.com/crep4ever/benchmark-viewer.
-/// Collect logging messages and write them in an separate job
+/// Collect logging messages and write them in a separate job. Implementation by Freddy Darsonville
 /// </summary>
 public class AppBenchProxy : IAppBenchProxy
 {

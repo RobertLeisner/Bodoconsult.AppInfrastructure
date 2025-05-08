@@ -1,14 +1,13 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 // Licence MIT
 
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Bodoconsult.App.Interfaces;
 
 namespace Bodoconsult.App.AppStarter;
 
 /// <summary>
-/// Base class for <see cref="IAppStarterUi"/> implementations
+/// Base class for <see cref="IAppStarterUi"/> implementations used for Econsole apps and WinForms based apps
 /// </summary>
 public class BaseAppStarterUi : IAppStarterUi
 {
@@ -34,25 +33,34 @@ public class BaseAppStarterUi : IAppStarterUi
 
         get
         {
-            // Check if app is already started
-            var currentProcess = Process.GetCurrentProcess();
-            var runningProcess = (from process in Process.GetProcesses()
-                where
-                    process.Id != currentProcess.Id &&
-                    process.ProcessName.Equals(
-                        currentProcess.ProcessName,
-                        StringComparison.Ordinal)
-                select process).FirstOrDefault();
-                
-            if (runningProcess == null)
+            if (!AppBuilder.AppGlobals.AppStartParameter.IsSingletonApp)
             {
                 return false;
             }
 
+            AppBuilder.AppGlobals.EventWaitHandle = new EventWaitHandle(true, EventResetMode.ManualReset, $"Global\\{AppBuilder.AppGlobals.AppStartParameter.AppName}", out var created);
+            if (created)
+            {
+                return false;
+            }
+
+            //// Check if app is already started
+            //var currentProcess = Process.GetCurrentProcess();
+            //var runningProcess = (from process in Process.GetProcesses()
+            //    where
+            //        process.Id != currentProcess.Id &&
+            //        process.ProcessName.Equals(
+            //            currentProcess.ProcessName,
+            //            StringComparison.Ordinal)
+            //    select process).FirstOrDefault();
+
+            //if (runningProcess == null)
+            //{
+            //    return false;
+            //}
+
             ConsoleHandle = GetConsoleWindow();
             ShowWindow(ConsoleHandle, ShowWindowShow);
-            Debug.Print($"{AppBuilder.AppGlobals.AppStartParameter.AppName} is already started. Current instance terminates now. Please press any key now.");
-            Console.Read();
             return true;
 
         }

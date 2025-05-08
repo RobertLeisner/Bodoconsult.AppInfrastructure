@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using Bodoconsult.App.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Bodoconsult.App.DependencyInjection;
@@ -90,7 +89,7 @@ public class DiContainer
 
 
     /// <summary>
-    /// Add aservice as a singleton
+    /// Add a service as a singleton
     /// </summary>
     /// <typeparam name="TInterface">Service interface</typeparam>
     /// <typeparam name="TInstanceType">Instance type implementing service interface</typeparam>

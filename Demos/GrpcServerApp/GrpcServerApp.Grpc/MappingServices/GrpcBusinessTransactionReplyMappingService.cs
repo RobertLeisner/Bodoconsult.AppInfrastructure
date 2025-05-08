@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 using Bodoconsult.App.BusinessTransactions.Replies;
+using Bodoconsult.App.GrpcBackgroundService.Interfaces;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
-using GrpcServerApp.Grpc.Interfaces;
 
 namespace GrpcServerApp.Grpc.MappingServices
 {

@@ -2,29 +2,28 @@
 
 using System.Diagnostics;
 using Bodoconsult.App.Helpers;
-using Bodoconsult.App.Interfaces;
-using GrpcServerApp.App;
+using GrpcServerApp.Grpc.App;
 
 namespace GrpcServerApp;
 
-
-internal static class Program
+public static class Program
 {
+    private static GrpcServerAppAppBuilder builder;
 
-    private static void Main(string[] args)
+    public static void Main(string[] args)
     {
 
         Debug.Print("Hello, World!");
 
         Debug.Print("GrpcServerApp initiation starts...");
 
-        IAppBuilder builder = new GrpcServerAppAppBuilder(Globals.Instance);
+        builder = new GrpcServerAppAppBuilder(Globals.Instance, args);
 
 #if !DEBUG
-            AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
+        AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
 #endif
 
-        // Load basic app meta data
+        // Load basic app metadata
         builder.LoadBasicSettings(typeof(Program));
 
         // Process the config file
@@ -68,8 +67,15 @@ internal static class Program
         Console.WriteLine($"Logging config: {ObjectHelper.GetObjectPropertiesAsString(Globals.Instance.LoggingConfig)}");
 
         // Prepare the DI container package
+        builder.RegisterGrpcDiServices();
         builder.LoadDiContainerServiceProviderPackage();
         builder.RegisterDiServices();
+
+        // Now configure GRPC IP, port, protocol
+        builder.ConfigureGrpc();
+
+        // Proto services load in GrpcServerAppAppBuilder.RegisterProtoServices()
+
         // builder.FinalizeDiContainerSetup(); Do call this method for a background service. It is too early for it
 
         // Now finally start the app and wait
@@ -77,6 +83,15 @@ internal static class Program
 
         Environment.Exit(0);
     }
+
+    /// <summary>
+    /// Shutdown the app (intended for testing)
+    /// </summary>
+    public static void Shutdown()
+    {
+        builder?.StopApplication();
+    }
+
 }
 
 
