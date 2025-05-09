@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using Bodoconsult.App.Extensions;
 using Bodoconsult.App.Test.App;
 
 namespace Bodoconsult.App.Test
@@ -16,18 +17,33 @@ namespace Bodoconsult.App.Test
         [OneTimeSetUp]
         public static void AssemblyStartUp()
         {
-            var provider = new DebugAppStartProvider();
-            provider.LoadConfigurationProvider();
-            provider.LoadAppStartParameter();
-            
-            var param = provider.AppStartParameter;
-            param.AppName = "ConsoleApp1: Demo app";
-            param.SoftwareTeam = "Robert Leisner";
-            param.LogoRessourcePath = "ConsoleApp1.Resources.logo.jpg";
-            param.AppFolderName = "ConsoleApp1";
 
-            provider.LoadDefaultAppLoggerProvider();
-            provider.SetValuesInAppGlobal(Globals.Instance);
+            var globals = Globals.Instance;
+            globals.LoggingConfig.AddDefaultLoggerProviderConfiguratorsForUiApp();
+
+            // Set additional app start parameters as required
+            var param = globals.AppStartParameter;
+            param.AppName = "WinFormsConsoleApp1: Demo app";
+            param.SoftwareTeam = "Robert Leisner";
+            param.LogoRessourcePath = "WinFormsConsoleApp1.Resources.logo.jpg";
+            param.AppFolderName = "WinFormsConsoleApp1";
+
+
+            // Now start the app building process
+            var builder = new MyDebugAppBuilder(globals);
+#if !DEBUG
+            AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
+#endif
+
+            // Load basic app metadata
+
+            builder.LoadBasicSettings(typeof(AssemblySetup));
+
+            // Process the config file
+            builder.ProcessConfiguration();
+
+            // Now load the globally needed settings
+            builder.LoadGlobalSettings();
 
             Globals.Instance.Logger.LogInformation("Starting tests...");
 

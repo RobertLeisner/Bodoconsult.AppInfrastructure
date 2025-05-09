@@ -1,4 +1,6 @@
-﻿/*
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+
+/*
 MIT License
 
 Copyright (c) 2018 Simon Cropp

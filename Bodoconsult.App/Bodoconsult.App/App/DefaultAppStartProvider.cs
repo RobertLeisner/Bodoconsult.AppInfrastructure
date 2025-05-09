@@ -10,10 +10,20 @@ namespace Bodoconsult.App
     /// </summary>
     public class DefaultAppStartProvider : IAppStartProvider
     {
+        public DefaultAppStartProvider(IAppGlobals appGlobals)
+        {
+            AppGlobals=appGlobals;
+        }
+
         /// <summary>
         /// The default app configuration file
         /// </summary>
         public string ConfigFile { get; set; } = "appsettings.json";
+
+        /// <summary>
+        /// Global app settings
+        /// </summary>
+        public IAppGlobals AppGlobals { get; }
 
         /// <summary>
         /// Current <see cref="IAppConfigurationProvider"/> instance to use
@@ -21,14 +31,14 @@ namespace Bodoconsult.App
         public IAppConfigurationProvider AppConfigurationProvider { get; private set; }
 
         /// <summary>
-        /// Current <see cref="IAppStartParameter"/> to use
-        /// </summary>
-        public IAppStartParameter AppStartParameter { get; private set; }
-
-        /// <summary>
         /// Current instance of <see cref="IDefaultAppLoggerProvider"/> to use
         /// </summary>
         public IDefaultAppLoggerProvider DefaultAppLoggerProvider { get; set; }
+
+        /// <summary>
+        /// Current logger provider instances to use for logger creation
+        /// </summary>
+        public IList<ILoggerProviderConfigurator> LoggerProviderConfigurators { get; set; }
 
         /// <summary>
         /// Load the default app configuration provider reading from appsettings.json
@@ -52,7 +62,7 @@ namespace Bodoconsult.App
                 throw new ArgumentNullException(nameof(AppConfigurationProvider));
             }
 
-            AppStartParameter = new AppStartParameter
+            AppGlobals.AppStartParameter ??= new AppStartParameter
             {
                 DefaultConnectionString = AppConfigurationProvider.ReadDefaultConnection()
             };
@@ -67,14 +77,14 @@ namespace Bodoconsult.App
             var calue = section["AppName"];
             if (!string.IsNullOrEmpty(calue))
             {
-                AppStartParameter.AppName = calue;
+                AppGlobals.AppStartParameter.AppName = calue;
             }
 
             // Read AppFolderName
             calue = section["AppFolderName"];
             if (!string.IsNullOrEmpty(calue))
             {
-                AppStartParameter.AppFolderName = calue;
+                AppGlobals.AppStartParameter.AppFolderName = calue;
             }
 
             // Read port
@@ -91,14 +101,14 @@ namespace Bodoconsult.App
                     // Do nothing
                 }
 
-                AppStartParameter.Port = iResult;
+                AppGlobals.AppStartParameter.Port = iResult;
             }
 
             // Read backup path
             calue = section["BackupPath"];
             if (!string.IsNullOrEmpty(calue))
             {
-                AppStartParameter.BackupPath = calue;
+                AppGlobals.AppStartParameter.BackupPath = calue;
             }
 
             // Read NumberOfBackupsToKeep
@@ -115,30 +125,17 @@ namespace Bodoconsult.App
                     // Do nothing
                 }
 
-                AppStartParameter.NumberOfBackupsToKeep = iResult;
+                AppGlobals.AppStartParameter.NumberOfBackupsToKeep = iResult;
             }
         }
 
-        /// <summary>
-        /// Load customized app start parameter
-        /// </summary>
-        public void LoadAppStartParameter(IAppStartParameter appStartParameter)
-        {
-            if (AppConfigurationProvider == null)
-            {
-                throw new ArgumentNullException(nameof(AppConfigurationProvider));
-            }
-
-            AppStartParameter = appStartParameter ?? throw new ArgumentNullException(nameof(appStartParameter));
-            AppStartParameter.DefaultConnectionString = AppConfigurationProvider.ReadDefaultConnection();
-        }
 
         /// <summary>
         /// Load the current <see cref="IDefaultAppLoggerProvider"/> implementation
         /// </summary>
         public void LoadDefaultAppLoggerProvider()
         {
-            DefaultAppLoggerProvider = new DefaultAppLoggerProvider(AppConfigurationProvider);
+            DefaultAppLoggerProvider = new DefaultAppLoggerProvider(AppConfigurationProvider, AppGlobals.LoggingConfig);
             DefaultAppLoggerProvider.LoadLoggingConfigFromConfiguration();
             DefaultAppLoggerProvider.LoadDefaultLogger();
         }
@@ -146,17 +143,13 @@ namespace Bodoconsult.App
         /// <summary>
         /// Set central values in <see cref="IAppGlobals"/> instance
         /// </summary>
-        /// <param name="appInstance">Current app globals instance</param>
-        public void SetValuesInAppGlobal(IAppGlobals appInstance)
+        public void SetValuesInAppGlobal()
         {
-            appInstance.AppStartParameter = AppStartParameter;
-            appInstance.Logger = DefaultAppLoggerProvider.DefaultLogger;
-            appInstance.LoggingConfig = DefaultAppLoggerProvider.LoggingConfig;
-            appInstance.LogDataFactory = appInstance.LoggingConfig.LogDataFactory;
-
-            appInstance.AppStartParameter.DataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), AppStartParameter.AppFolderName);
-            appInstance.AppStartParameter.LogfilePath = appInstance.AppStartParameter.DataPath;
-
+            AppGlobals.Logger = DefaultAppLoggerProvider.DefaultLogger;
+            AppGlobals.LoggingConfig = DefaultAppLoggerProvider.LoggingConfig;
+            AppGlobals.LogDataFactory = AppGlobals.LoggingConfig.LogDataFactory;
+            AppGlobals.AppStartParameter.DataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), AppGlobals.AppStartParameter.AppFolderName);
+            AppGlobals.AppStartParameter.LogfilePath = AppGlobals.AppStartParameter.DataPath;
         }
     }
 }

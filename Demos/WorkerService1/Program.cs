@@ -1,6 +1,7 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 using System.Diagnostics;
+using Bodoconsult.App.Extensions;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
 using WorkerService1.App;
@@ -18,21 +19,11 @@ internal static class Program
 
         Debug.Print("WorkerService1 initiation starts...");
 
-        IAppBuilder builder = new WorkerService1AppBuilder(Globals.Instance);
-
-#if !DEBUG
-            AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
-#endif
-
-        // Load basic app metadata
-        builder.LoadBasicSettings(typeof(Program));
-
-        // Process the config file
-        builder.ProcessConfiguration();
-
+        var globals = Globals.Instance;
+        globals.LoggingConfig.AddDefaultLoggerProviderConfiguratorsForBackgroundServiceApp();
 
         // Set additional app start parameters as required
-        var param = builder.AppStartProvider.AppStartParameter;
+        var param = globals.AppStartParameter;
         param.AppName = "WorkerService1: Demo app";
         param.SoftwareTeam = "Robert Leisner";
         param.LogoRessourcePath = "WorkerService1.Resources.logo.jpg";
@@ -44,6 +35,18 @@ internal static class Program
         {
             param.IsPerformanceLoggingActivated = true;
         }
+
+        // Now start app buiding process
+        IAppBuilder builder = new WorkerService1AppBuilder(globals);
+#if !DEBUG
+            AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
+#endif
+
+        // Load basic app metadata
+        builder.LoadBasicSettings(typeof(Program));
+
+        // Process the config file
+        builder.ProcessConfiguration();
 
         // Now load the globally needed settings
         builder.LoadGlobalSettings();

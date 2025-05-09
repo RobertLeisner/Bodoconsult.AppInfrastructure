@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using Bodoconsult.App.Extensions;
 using Bodoconsult.App.Logging;
 
 namespace Bodoconsult.App.Test.Logging
@@ -14,11 +15,14 @@ namespace Bodoconsult.App.Test.Logging
         public void Ctor_DefaultSetup_PropsSetCorrectly()
         {
             // Arrange 
+            var config = new LoggingConfig();
+            config.AddDefaultLoggerProviderConfiguratorsForDebugging();
+
             var configProvider = new AppConfigurationProvider();
             configProvider.LoadConfigurationFromConfigFile();
             
             // Act  
-            var provider = new DefaultAppLoggerProvider(configProvider);
+            var provider = new DefaultAppLoggerProvider(configProvider, config);
             
             // Assert
             Assert.That(provider.AppConfigurationProvider, Is.Not.Null);
@@ -31,10 +35,13 @@ namespace Bodoconsult.App.Test.Logging
         public void LoadLoggingConfigFromConfiguration_DefaultSetup_LoggingConfigNotNull()
         {
             // Arrange 
+            var config = new LoggingConfig();
+            config.AddDefaultLoggerProviderConfiguratorsForDebugging();
+
             var configProvider = new AppConfigurationProvider();
             configProvider.LoadConfigurationFromConfigFile();
 
-            var provider = new DefaultAppLoggerProvider(configProvider);
+            var provider = new DefaultAppLoggerProvider(configProvider, config);
             
             // Act  
             provider.LoadLoggingConfigFromConfiguration();
@@ -49,10 +56,13 @@ namespace Bodoconsult.App.Test.Logging
         public void LoadDefaultLogger_DefaultSetup_LoggingConfigNotNull()
         {
             // Arrange 
+            var config = new LoggingConfig();
+            config.AddDefaultLoggerProviderConfiguratorsForDebugging();
+
             var configProvider = new AppConfigurationProvider();
             configProvider.LoadConfigurationFromConfigFile();
 
-            var provider = new DefaultAppLoggerProvider(configProvider);
+            var provider = new DefaultAppLoggerProvider(configProvider, config);
 
             provider.LoadLoggingConfigFromConfiguration();
             

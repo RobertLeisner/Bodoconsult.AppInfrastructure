@@ -1,6 +1,7 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 using System.Diagnostics;
+using Bodoconsult.App.Extensions;
 using Bodoconsult.App.Helpers;
 using GrpcServerApp.Grpc.App;
 
@@ -8,7 +9,7 @@ namespace GrpcServerApp;
 
 public static class Program
 {
-    private static GrpcServerAppAppBuilder builder;
+    private static GrpcServerAppAppBuilder _builder;
 
     public static void Main(string[] args)
     {
@@ -17,21 +18,11 @@ public static class Program
 
         Debug.Print("GrpcServerApp initiation starts...");
 
-        builder = new GrpcServerAppAppBuilder(Globals.Instance, args);
-
-#if !DEBUG
-        AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
-#endif
-
-        // Load basic app metadata
-        builder.LoadBasicSettings(typeof(Program));
-
-        // Process the config file
-        builder.ProcessConfiguration();
-
+        var globals = Globals.Instance;
+        globals.LoggingConfig.AddDefaultLoggerProviderConfiguratorsForBackgroundServiceApp();
 
         // Set additional app start parameters as required
-        var param = builder.AppStartProvider.AppStartParameter;
+        var param = globals.AppStartParameter;
         param.AppName = "GrpcServerApp: Demo app";
         param.SoftwareTeam = "Robert Leisner";
         param.LogoRessourcePath = "GrpcServerApp.Resources.logo.jpg";
@@ -44,8 +35,21 @@ public static class Program
             param.IsPerformanceLoggingActivated = true;
         }
 
+        // Now start app buiding process
+        _builder = new GrpcServerAppAppBuilder(globals, args);
+
+#if !DEBUG
+        AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
+#endif
+
+        // Load basic app metadata
+        _builder.LoadBasicSettings(typeof(Program));
+
+        // Process the config file
+        _builder.ProcessConfiguration();
+
         // Now load the globally needed settings
-        builder.LoadGlobalSettings();
+        _builder.LoadGlobalSettings();
 
         // Write first log entry with default logger
         Globals.Instance.Logger.LogInformation($"{param.AppName} {param.AppVersion} starts...");
@@ -67,19 +71,19 @@ public static class Program
         Console.WriteLine($"Logging config: {ObjectHelper.GetObjectPropertiesAsString(Globals.Instance.LoggingConfig)}");
 
         // Prepare the DI container package
-        builder.RegisterGrpcDiServices();
-        builder.LoadDiContainerServiceProviderPackage();
-        builder.RegisterDiServices();
+        _builder.RegisterGrpcDiServices();
+        _builder.LoadDiContainerServiceProviderPackage();
+        _builder.RegisterDiServices();
 
         // Now configure GRPC IP, port, protocol
-        builder.ConfigureGrpc();
+        _builder.ConfigureGrpc();
 
         // Proto services load in GrpcServerAppAppBuilder.RegisterProtoServices()
 
         // builder.FinalizeDiContainerSetup(); Do call this method for a background service. It is too early for it
 
         // Now finally start the app and wait
-        builder.StartApplication();
+        _builder.StartApplication();
 
         Environment.Exit(0);
     }
@@ -89,7 +93,7 @@ public static class Program
     /// </summary>
     public static void Shutdown()
     {
-        builder?.StopApplication();
+        _builder?.StopApplication();
     }
 
 }

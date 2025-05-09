@@ -13,19 +13,24 @@ namespace Bodoconsult.App.Interfaces
         string ConfigFile { get; set; }
 
         /// <summary>
+        /// Global app settings
+        /// </summary>
+        IAppGlobals AppGlobals { get; }
+
+        /// <summary>
         /// Current <see cref="IAppConfigurationProvider"/> instance to use
         /// </summary>
         IAppConfigurationProvider AppConfigurationProvider { get; }
 
         /// <summary>
-        /// Current <see cref="IAppStartParameter"/> to use
-        /// </summary>
-        IAppStartParameter AppStartParameter { get; }
-
-        /// <summary>
         /// Current instance of <see cref="IDefaultAppLoggerProvider"/> to use
         /// </summary>
         IDefaultAppLoggerProvider DefaultAppLoggerProvider { get; set; }
+
+        /// <summary>
+        /// Current logger provider instances to use for logger creation
+        /// </summary>
+        public IList<ILoggerProviderConfigurator> LoggerProviderConfigurators { get; set; }
 
         /// <summary>
         /// Load the default app configuration provider reading from appsettings.json
@@ -38,19 +43,13 @@ namespace Bodoconsult.App.Interfaces
         void LoadAppStartParameter();
 
         /// <summary>
-        /// Load customized app start parameter
-        /// </summary>
-        void LoadAppStartParameter(IAppStartParameter appStartParameter);
-
-        /// <summary>
         /// Load the current <see cref="IDefaultAppLoggerProvider"/> implementation
         /// </summary>
         void LoadDefaultAppLoggerProvider();
 
         /// <summary>
-        /// Set central values in <see cref="IAppGlobals"/> instance
+        /// Set central values in <see cref="AppGlobals"/> instance
         /// </summary>
-        /// <param name="appInstance">Current app globals instance</param>
-        void SetValuesInAppGlobal(IAppGlobals appInstance);
+        void SetValuesInAppGlobal();
     }
 }

@@ -23,6 +23,12 @@ namespace Bodoconsult.App.Test.AppStarter
         public IAppGlobals AppGlobals { get;  }
 
         /// <summary>
+        /// Logging configurators to use
+        /// </summary>
+        public IList<ILoggerProviderConfigurator> LoggerProviderConfigurators { get; } =
+            new List<ILoggerProviderConfigurator>();
+
+        /// <summary>
         /// Current app path
         /// </summary>
         public string AppPath { get; set; }

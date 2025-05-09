@@ -17,21 +17,21 @@ public class BaseDebugAppBuilder : BaseAppBuilder
     {
     }
 
-    /// <summary>
-    /// Process the configuration from <see cref="IAppBuilder.ConfigFile"/>. Uses the <see cref="DebugAppStartProvider"/>.
-    /// </summary>
-    public override void ProcessConfiguration()
-    {
-        // Now prepare the app start
-        AppStartProvider = new DebugAppStartProvider
-        {
-            ConfigFile = ConfigFile
-        };
+    ///// <summary>
+    ///// Process the configuration from <see cref="IAppBuilder.ConfigFile"/>. Uses the <see cref="DefaultAppStartProvider"/>.
+    ///// </summary>
+    //public override void ProcessConfiguration()
+    //{
+    //    // Now prepare the app start
+    //    AppStartProvider = new DefaultAppStartProvider
+    //    {
+    //        ConfigFile = ConfigFile
+    //    };
 
-        AppStartProvider.LoadConfigurationProvider();
-        AppStartProvider.LoadAppStartParameter();
+    //    AppStartProvider.LoadConfigurationProvider();
+    //    AppStartProvider.LoadAppStartParameter();
 
-    }
+    //}
 
     /// <summary>
     /// Start the application

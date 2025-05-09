@@ -13,10 +13,12 @@ namespace Bodoconsult.App.Test.DiContainerProvider
         
         private static DefaultAppLoggerProvider CreateLoggerProvider()
         {
+            var config = new LoggingConfig();
+
             var configProvider = new AppConfigurationProvider();
             configProvider.LoadConfigurationFromConfigFile();
 
-            var loggerProvider = new DefaultAppLoggerProvider(configProvider);
+            var loggerProvider = new DefaultAppLoggerProvider(configProvider, config);
             loggerProvider.LoadLoggingConfigFromConfiguration();
             loggerProvider.LoadDefaultLogger();
             return loggerProvider;

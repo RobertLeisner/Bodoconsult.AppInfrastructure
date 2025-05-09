@@ -16,8 +16,6 @@ namespace Bodoconsult.App.Logging
         {
             LoggingConfig = new LoggingConfig
             {
-                UseLog4NetProvider = true,
-                UseDebugProvider = true,
                 MinimumLogLevel = LogLevel.Debug,
                 LogDataFactory = new LogDataFactory()
             };

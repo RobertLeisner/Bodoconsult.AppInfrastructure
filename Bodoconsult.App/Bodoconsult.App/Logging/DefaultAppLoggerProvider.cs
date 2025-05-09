@@ -5,7 +5,6 @@ using Bodoconsult.App.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
 
 namespace Bodoconsult.App.Logging
 {
@@ -17,9 +16,10 @@ namespace Bodoconsult.App.Logging
         /// <summary>
         /// Default ctor
         /// </summary>
-        public DefaultAppLoggerProvider(IAppConfigurationProvider appConfigurationProvider)
+        public DefaultAppLoggerProvider(IAppConfigurationProvider appConfigurationProvider, LoggingConfig loggingConfig)
         {
             AppConfigurationProvider = appConfigurationProvider;
+            LoggingConfig = loggingConfig;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Bodoconsult.App.Logging
         /// <summary>
         /// Current logging config
         /// </summary>
-        public LoggingConfig LoggingConfig { get; private set; }
+        public LoggingConfig LoggingConfig { get; }
 
         /// <summary>
         /// The app default logger instance create by the provider
@@ -43,91 +43,18 @@ namespace Bodoconsult.App.Logging
         /// </summary>
         public void LoadLoggingConfigFromConfiguration()
         {
-            LoggingConfig = new LoggingConfig
-            {
-                LogDataFactory = new LogDataFactory()
-            };
+            LoggingConfig .LogDataFactory = new LogDataFactory();
 
             var config = AppConfigurationProvider.ReadLoggingSection();
 
             var kids = config.GetChildren().ToList();
 
-            // Add minimum log level from config
-            var minLevel = kids.FirstOrDefault(x => x.Key == "MinimumLogLevel");
+            AddMinimumLogLevel(kids);
 
-            if (minLevel != null)
-            {
-                Enum.TryParse(minLevel.Value, ignoreCase: true, result: out LogLevel logLevelValue);
-                LoggingConfig.MinimumLogLevel = logLevelValue;
-            }
+            AddFilters(kids);
 
-            // Add filters from config
-            var logLevels = config.GetSection("LogLevel").GetChildren();
-            foreach (var logLevel in logLevels)
-            {
-                Enum.TryParse(logLevel.Value, ignoreCase: true, result: out LogLevel logLevelValue);
-                LoggingConfig.Filters.Add(logLevel.Key, logLevelValue);
-            }
+            AddLoggerProviders(kids);
 
-            // EventSource provider
-            var section = config.GetChildren().FirstOrDefault(item => item.Key == "EventSource");
-            if (section != null)
-            {
-                LoggingConfig.UseEventSourceProvider = true;
-
-                // Privide only errors to UI
-                LoggingConfig.EventLogSettings.Filter = (s, level) => level <= LogLevel.Error;
-            }
-
-
-            // Debug provider
-            section = kids.FirstOrDefault(item => item.Key == "Debug");
-            if (section != null)
-            {
-                LoggingConfig.UseDebugProvider = true;
-            }
-
-            // Log4Net provider
-            section = kids.FirstOrDefault(item => item.Key == "Log4Net");
-            if (section != null)
-            {
-                LoggingConfig.UseLog4NetProvider = true;
-            }
-
-            IConfigurationSection oValue;
-
-            // Console provider settings
-            section = kids.FirstOrDefault(item => item.Key == "Console");
-            if (section != null)
-            {
-                LoggingConfig.UseConsoleProvider = true;
-
-                oValue = section.GetChildren().FirstOrDefault(x => x.Key == "DisableColors");
-                LoggingConfig.ConsoleConfigurationSettings.ColorBehavior = 
-                    oValue != null && oValue.Value.ToUpperInvariant() != "FALSE" ? LoggerColorBehavior.Enabled: LoggerColorBehavior.Disabled;
-
-                oValue = section.GetChildren().FirstOrDefault(x => x.Key == "IncludeScopes");
-                LoggingConfig.ConsoleConfigurationSettings.IncludeScopes =
-                    oValue != null && oValue.Value.ToUpperInvariant() != "FALSE";
-            }
-
-            // EventLog provider
-            section = kids.FirstOrDefault(item => item.Key == "EventLog");
-            if (section == null)
-            {
-                return;
-            }
-
-            LoggingConfig.UseEventLogProvider = true;
-
-            oValue = section.GetChildren().FirstOrDefault(x => x.Key == "SourceName");
-            LoggingConfig.EventLogSettings.SourceName = oValue?.Value;
-
-            oValue = section.GetChildren().FirstOrDefault(x => x.Key == "LogName");
-            LoggingConfig.EventLogSettings.LogName = oValue?.Value;
-
-            oValue = section.GetChildren().FirstOrDefault(x => x.Key == "MachineName");
-            LoggingConfig.EventLogSettings.MachineName = oValue?.Value;
         }
 
         /// <summary>
@@ -143,6 +70,54 @@ namespace Bodoconsult.App.Logging
 
             DefaultLogger = new AppLoggerProxy(logFactory, LoggingConfig.LogDataFactory);
         }
+
+        private void AddLoggerProviders(List<IConfigurationSection> kids)
+        {
+            foreach (var configurator in LoggingConfig.LoggerProviderConfigurators)
+            {
+                var section = kids.FirstOrDefault(item => item.Key == configurator.SectionNameAppSettingsJson);
+                if (section == null)
+                {
+                    return;
+                }
+
+                configurator.Section = section;
+            }
+        }
+
+        private void AddFilters(List<IConfigurationSection> kids)
+        {
+            var section = kids.FirstOrDefault(item => item.Key == "LogLevel");
+
+            if (section == null)
+            {
+                return;
+            }
+            
+            // Add filters from config
+            var logLevels = section.GetChildren();
+            foreach (var logLevel in logLevels)
+            {
+                Enum.TryParse(logLevel.Value, ignoreCase: true, result: out LogLevel logLevelValue);
+                LoggingConfig.Filters.Add(logLevel.Key, logLevelValue);
+            }
+        }
+
+        private void AddMinimumLogLevel(List<IConfigurationSection> kids)
+        {
+            // Add minimum log level from config
+            var minLevel = kids.FirstOrDefault(x => x.Key == "MinimumLogLevel");
+
+            if (minLevel == null)
+            {
+                return;
+            }
+
+            Enum.TryParse(minLevel.Value, ignoreCase: true, result: out LogLevel logLevelValue);
+            LoggingConfig.MinimumLogLevel = logLevelValue;
+        }
+
+
 
     }
 }

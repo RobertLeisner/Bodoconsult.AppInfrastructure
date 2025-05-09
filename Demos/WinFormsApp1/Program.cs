@@ -3,6 +3,7 @@
 using System.Diagnostics;
 using System.Diagnostics.Tracing;
 using Bodoconsult.App.BusinessTransactions.RequestData;
+using Bodoconsult.App.Extensions;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.Logging;
@@ -25,21 +26,11 @@ namespace WinFormsApp1
 
             Console.WriteLine("WinFormsApp1 initiation starts...");
 
-            var builder = new WinFormsApp1AppBuilder(Globals.Instance);
-
-#if !DEBUG
-            AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
-#endif
-
-            // Load basic app metadata
-            builder.LoadBasicSettings(typeof(Program));
-
-            // Process the config file
-            builder.ProcessConfiguration();
-
+            var globals = Globals.Instance;
+            globals.LoggingConfig.AddDefaultLoggerProviderConfiguratorsForUiApp();
 
             // Set additional app start parameters as required. Take some settings from appsettings.json here
-            var param = builder.AppStartProvider.AppStartParameter;
+            var param = globals.AppStartParameter;
             //param.AppName = "WinFormsApp1: Demo app"; // from appsettings.json
             param.SoftwareTeam = "Robert Leisner";
             param.LogoRessourcePath = "WinFormsApp1.Resources.logo.jpg";
@@ -51,6 +42,18 @@ namespace WinFormsApp1
             {
                 param.IsPerformanceLoggingActivated = true;
             }
+
+            // Now start app buiding process
+            var builder = new WinFormsApp1AppBuilder(Globals.Instance);
+#if !DEBUG
+            AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
+#endif
+
+            // Load basic app metadata
+            builder.LoadBasicSettings(typeof(Program));
+
+            // Process the config file
+            builder.ProcessConfiguration();
 
             // Now load the globally needed settings
             builder.LoadGlobalSettings();
@@ -91,78 +94,6 @@ namespace WinFormsApp1
             builder.StartApplication();
 
             Environment.Exit(0);
-        }
-
-
-        private static void CurrentDomainOnUnhandledException(object sender,
-            UnhandledExceptionEventArgs unhandledExceptionEventArgs)
-        {
-
-            // Report the crash
-            ReportCrash((Exception)unhandledExceptionEventArgs.ExceptionObject);
-
-            AsyncHelper.Delay(1000);
-
-            var ex = (Exception)unhandledExceptionEventArgs.ExceptionObject;
-            throw ex;
-
-        }
-
-        private static void ReportCrash(Exception unhandledException)
-        {
-
-            var gms = Globals.Instance.DiContainer.Get<IGeneralAppManagementManager>();
-
-            const string fileName = "C:\\ProgramData\\ConsoleApp1\\ConsoleApp1_Crash.log";
-
-            var request = new EmptyBusinessTransactionRequestData();
-            // ToDo: fill request with useful information
-
-            var logger = Globals.Instance.DiContainer.Get<IAppLoggerProxy>();
-
-            try
-            {
-                const string logMessage = "Unhandled exception caught";
-                logger?.LogCritical(unhandledException, logMessage);
-
-                File.AppendAllText(fileName, $"Crash at {DateTime.Now}: {unhandledException}{Environment.NewLine}");
-
-                var result = gms?.CreateLogDump(request);
-
-                if (result == null)
-                {
-                    return;
-                }
-
-                logger?.LogWarning(fileName, $"CreateLogDump after crash: error code {result.ErrorCode}: {result.Message}");
-            }
-            catch (Exception e)
-            {
-                LogFinalException(fileName, e);
-            }
-
-
-            try
-            {
-                var appHandler = Globals.Instance.DiContainer.Get<IAppBuilder>();
-                appHandler.StopApplication();
-            }
-            catch
-            {
-                //
-            }
-        }
-
-        private static void LogFinalException(string fileName, Exception e)
-        {
-            try
-            {
-                File.AppendAllText(fileName, $"Crash at {DateTime.Now}: {e}{Environment.NewLine}");
-            }
-            catch
-            {
-                // Do nothing
-            }
         }
     }
 }

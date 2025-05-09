@@ -24,11 +24,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Demos\GrpcServerApp\GrpcServerApp.BusinessLogic\GrpcServerApp.BusinessLogic.csproj" />
-    <ProjectReference Include="..\Demos\GrpcServerApp\GrpcServerApp.Common\GrpcServerApp.Common.csproj" />
-    <ProjectReference Include="..\Demos\GrpcServerApp\GrpcServerApp.Grpc.Common\GrpcServerApp.Grpc.Common.csproj" />
-    <ProjectReference Include="..\Demos\GrpcServerApp\GrpcServerApp.Grpc\GrpcServerApp.Grpc.csproj" />
-    <ProjectReference Include="..\Demos\GrpcServerApp\GrpcServerApp\GrpcServerApp.csproj" />
+    <ProjectReference Include="..\Demos\GrpcClientServer\GrpcServerApp\GrpcServerApp.BusinessLogic\GrpcServerApp.BusinessLogic.csproj" />
+    <ProjectReference Include="..\Demos\GrpcClientServer\GrpcServerApp\GrpcServerApp.Common\GrpcServerApp.Common.csproj" />
+    <ProjectReference Include="..\Demos\GrpcClientServer\GrpcServerApp\GrpcServerApp.Grpc.Common\GrpcServerApp.Grpc.Common.csproj" />
+    <ProjectReference Include="..\Demos\GrpcClientServer\GrpcServerApp\GrpcServerApp.Grpc\GrpcServerApp.Grpc.csproj" />
+    <ProjectReference Include="..\Demos\GrpcClientServer\GrpcServerApp\GrpcServerApp\GrpcServerApp.csproj" />
   </ItemGroup>
 
   <ItemGroup>

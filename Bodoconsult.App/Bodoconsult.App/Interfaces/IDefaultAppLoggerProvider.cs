@@ -13,7 +13,7 @@ namespace Bodoconsult.App.Interfaces
         /// <summary>
         /// Current app configuration provider
         /// </summary>
-        public IAppConfigurationProvider AppConfigurationProvider { get;  }
+        IAppConfigurationProvider AppConfigurationProvider { get;  }
 
         /// <summary>
         /// Current logging config

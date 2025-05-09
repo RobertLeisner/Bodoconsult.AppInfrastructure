@@ -70,7 +70,7 @@ public class Globals : IAppGlobals
     /// <summary>
     /// App start parameter
     /// </summary>
-    public IAppStartParameter AppStartParameter { get; set; }
+    public IAppStartParameter AppStartParameter { get; set; } = new AppStartParameter();
 
     /// <summary>
     /// Current log data entry factory
@@ -80,7 +80,7 @@ public class Globals : IAppGlobals
     /// <summary>
     /// Current logging config
     /// </summary>
-    public LoggingConfig LoggingConfig { get; set; }
+    public LoggingConfig LoggingConfig { get; set; } = new();
 
     /// <summary>
     /// Current app logger. Use this instance only if no DI container is available. Nonetheless, use DiContainer.Get&lt;IAppLoggerProxy&gt; to fetch the default app logger from DI container. Don't forget to load it during DI setup!

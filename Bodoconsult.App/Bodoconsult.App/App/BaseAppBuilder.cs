@@ -5,6 +5,7 @@ using Bodoconsult.App.BusinessTransactions.RequestData;
 using Bodoconsult.App.Exceptions;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
+using System.Collections.Generic;
 
 namespace Bodoconsult.App;
 
@@ -27,6 +28,12 @@ namespace Bodoconsult.App;
     /// Global app settings
     /// </summary>
     public IAppGlobals AppGlobals { get; }
+
+    /// <summary>
+    /// Logging configurators to use
+    /// </summary>
+    public IList<ILoggerProviderConfigurator> LoggerProviderConfigurators { get; } =
+        new List<ILoggerProviderConfigurator>();
 
     /// <summary>
     /// Current app path
@@ -83,9 +90,10 @@ namespace Bodoconsult.App;
     public virtual void ProcessConfiguration()
     {
         // Now prepare the app start
-        AppStartProvider = new DefaultAppStartProvider
+        AppStartProvider = new DefaultAppStartProvider(AppGlobals)
         {
-            ConfigFile = ConfigFile
+            ConfigFile = ConfigFile,
+            LoggerProviderConfigurators = LoggerProviderConfigurators,
         };
 
         AppStartProvider.LoadConfigurationProvider();
@@ -99,7 +107,7 @@ namespace Bodoconsult.App;
     public void LoadGlobalSettings()
     {
         AppStartProvider.LoadDefaultAppLoggerProvider();
-        AppStartProvider.SetValuesInAppGlobal(AppGlobals);
+        AppStartProvider.SetValuesInAppGlobal();
     }
 
     /// <summary>
