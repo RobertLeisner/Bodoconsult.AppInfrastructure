@@ -3,9 +3,9 @@
 using Bodoconsult.App;
 using Bodoconsult.App.Benchmarking;
 using Bodoconsult.App.BusinessTransactions;
+using Bodoconsult.App.ClientNotifications;
 using Bodoconsult.App.Delegates;
 using Bodoconsult.App.DependencyInjection;
-using Bodoconsult.App.EventCounters;
 using Bodoconsult.App.Factories;
 using Bodoconsult.App.GrpcBackgroundService.Interfaces;
 using Bodoconsult.App.Interfaces;
@@ -51,7 +51,7 @@ namespace GrpcServerApp.Grpc.DiContainerProvider
             // Factories to create instance related objects (should be singletons)
             diContainer.AddSingletonInstance(Globals.Instance.LogDataFactory);
             diContainer.AddSingleton<IAppLoggerProxyFactory, AppLoggerProxyFactory>();
-            diContainer.AddSingleton<IAppEventSource, AppApmEventSource>();
+            diContainer.AddSingleton<IAppEventSourceFactory, AppApmEventSourceFactory>();
 
             // benchmark
             var benchProxy = AppBenchProxy.CreateAppBenchProxy(_benchmarkFileName, Globals.Instance.LogDataFactory);
@@ -67,13 +67,18 @@ namespace GrpcServerApp.Grpc.DiContainerProvider
 
             diContainer.AddSingleton(factory);
             diContainer.AddSingleton<IApplicationService, GrpcServerAppService>();
-            
+
+
             diContainer.AddSingleton<IBusinessTransactionManager, BusinessTransactionManager>();
             diContainer.AddSingleton<IBusinessTransactionLoader, GrpcServerAppBusinessTransactionLoader>();
 
             diContainer.AddSingleton<IDemoBl, DemoBl>();
             diContainer.AddSingleton<IGrpcBusinessTransactionRequestMappingService, GrpcBusinessTransactionRequestMappingService>();
             diContainer.AddSingleton<IGrpcBusinessTransactionReplyMappingService, GrpcBusinessTransactionReplyMappingService>();
+
+            diContainer.AddSingleton<IClientNotificationLicenseManager, FakeClientNotificationLicenseManager>();
+            diContainer.AddSingleton<IClientMessagingService, GrpcClientMessagingService>();
+            diContainer.AddSingleton<IClientManager, ClientManager>();
 
             // ...
 

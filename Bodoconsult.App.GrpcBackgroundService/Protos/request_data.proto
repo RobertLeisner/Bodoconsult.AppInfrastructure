@@ -17,6 +17,7 @@
 syntax = "proto3";
 // import "google/protobuf/any.proto";
 
+package Bodoconsult.App.GrpcBackgroundService;
 
 /// <summary>
 /// Empty request message

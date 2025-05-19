@@ -19,7 +19,7 @@ internal class BusinessTransactionManagerTests
     public void TestCtor()
     {
         // Arrange 
-        var aes = TestHelper.CreateAppEventSource();
+        var aes = TestHelper.CreateAppEventSourceFactory();
 
         // Act  
         var m = new BusinessTransactionManager(_logger, aes);
@@ -35,7 +35,7 @@ internal class BusinessTransactionManagerTests
     public void TestAddProvider()
     {
         // Arrange 
-        var aes = TestHelper.CreateAppEventSource();
+        var aes = TestHelper.CreateAppEventSourceFactory();
 
         var m = new BusinessTransactionManager(_logger, aes);
 
@@ -54,7 +54,7 @@ internal class BusinessTransactionManagerTests
     public void TestCheckForBusinessTransactionSuccess()
     {
         // Arrange 
-        var aes = TestHelper.CreateAppEventSource();
+        var aes = TestHelper.CreateAppEventSourceFactory();
 
         const int transactionId = 1000;
         var m = new BusinessTransactionManager(_logger, aes);
@@ -76,7 +76,7 @@ internal class BusinessTransactionManagerTests
     public void TestCheckForBusinessTransactionRepeatedSuccess()
     {
         // Arrange 
-        var aes = TestHelper.CreateAppEventSource();
+        var aes = TestHelper.CreateAppEventSourceFactory();
 
         const int transactionId = 1000;
         var m = new BusinessTransactionManager(_logger, aes);
@@ -99,7 +99,7 @@ internal class BusinessTransactionManagerTests
     public void TestCheckForBusinessTransactionNoSuccess()
     {
         // Arrange 
-        var aes = TestHelper.CreateAppEventSource();
+        var aes = TestHelper.CreateAppEventSourceFactory();
 
         const int transactionId = 1000;
         var m = new BusinessTransactionManager(_logger, aes);
@@ -119,7 +119,7 @@ internal class BusinessTransactionManagerTests
     public void TestRunBusinessTransactionSuccess()
     {
         // Arrange 
-        var aes = TestHelper.CreateAppEventSource();
+        var aes = TestHelper.CreateAppEventSourceFactory();
 
         const int transactionId = 1000;
         var m = new BusinessTransactionManager(_logger, aes);

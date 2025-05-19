@@ -17,7 +17,7 @@ public interface IBusinessTransactionRequestData
     /// <summary>
     /// Unique GUID of the current transaction
     /// </summary>
-    Guid TransactionGuid { get; }
+    Guid TransactionGuid { get; set; }
 
 
     /// <summary>

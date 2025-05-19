@@ -6,7 +6,6 @@ using ConsoleApp1.App;
 using System.Diagnostics;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
-using Bodoconsult.App.BusinessTransactions.RequestData;
 using Bodoconsult.App.Extensions;
 
 namespace ConsoleApp1

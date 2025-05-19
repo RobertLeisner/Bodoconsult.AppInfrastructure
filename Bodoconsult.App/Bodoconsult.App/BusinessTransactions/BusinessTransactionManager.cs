@@ -22,11 +22,11 @@ public class BusinessTransactionManager : IBusinessTransactionManager
     /// Default ctor
     /// </summary>
     /// <param name="logger">Current app logger</param>
-    /// <param name="eventSource">Current event source for tracing events</param>
-    public BusinessTransactionManager(IAppLoggerProxy logger, IAppEventSource eventSource)
+    /// <param name="appEventSourceFactory">Current factory for an <see cref="IAppEventSource"/>> for tracing events</param>
+    public BusinessTransactionManager(IAppLoggerProxy logger, IAppEventSourceFactory appEventSourceFactory)
     {
         _logger = logger;
-        _eventSource = eventSource;
+        _eventSource = appEventSourceFactory.CreateInstance();
     }
 
     /// <summary>

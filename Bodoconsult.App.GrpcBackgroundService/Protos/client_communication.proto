@@ -1,0 +1,65 @@
+
+
+// Copyright 2019 The gRPC Authors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/timestamp.proto";
+
+package Bodoconsult.App.GrpcBackgroundService;
+
+service ClientCommunicationService {
+
+	rpc CheckServer (google.protobuf.Empty) returns (google.protobuf.Empty);
+  
+	rpc ServerNotification (NotificationIntervalMessage) returns (stream ServerNotificationMessage);
+
+
+	rpc StartServerStream (StartCommunicationMessage) returns (stream ClientNotificationMessage);
+
+	rpc StartBidirectionalStream (stream ClientNotificationMessage) returns (stream ClientNotificationMessage);
+}
+
+message NotificationIntervalMessage {
+	int32 interval_ms = 1;
+}
+
+message ServerNotificationMessage {
+	google.protobuf.Timestamp server_time = 1;
+}
+
+message ClientNotificationMessage {
+	
+	google.protobuf.Any Dto = 1;
+	int64 ID = 2;
+}
+
+message StartCommunicationMessage {
+	string ClientId= 1;
+}
+
+message SimpleClientNotificationMessage {
+	string Message = 1;
+}
+
+/// <summary>
+/// 
+/// </summary>
+message ErrorClientNotificationMessage {
+	string Message = 1;
+	int32 ErrorCode = 2;
+	string ExceptionMessage = 3;
+}

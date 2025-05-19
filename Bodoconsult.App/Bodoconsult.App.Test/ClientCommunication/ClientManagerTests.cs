@@ -18,9 +18,10 @@ internal class ClientManagerTests
     {
         // Arrange 
         var licManager = TestHelper.GetFakeLicenceManager();
+        var clientMessagingService = new FakeClientMessagingService();
 
         // Act  
-        var cm = new ClientManager(licManager, _logger);
+        var cm = new ClientManager(licManager, _logger, clientMessagingService);
 
         // Assert
         Assert.That(cm.AllConnectedClients, Is.Not.Null);
@@ -34,7 +35,8 @@ internal class ClientManagerTests
     {
         // Arrange 
         var licManager = TestHelper.GetFakeLicenceManager();
-        var cm = new ClientManager(licManager, _logger);
+        var clientMessagingService = new FakeClientMessagingService();
+        var cm = new ClientManager(licManager, _logger, clientMessagingService);
 
         Assert.That(cm.AllConnectedClients, Is.Not.Null);
         Assert.That(cm.AllConnectedClients.Count, Is.EqualTo(0));
@@ -57,7 +59,8 @@ internal class ClientManagerTests
     {
         // Arrange 
         var licManager = TestHelper.GetFakeLicenceManager();
-        var cm = new ClientManager(licManager, _logger);
+        var clientMessagingService = new FakeClientMessagingService();
+        var cm = new ClientManager(licManager, _logger, clientMessagingService);
 
         Assert.That(cm.AllConnectedClients, Is.Not.Null);
         Assert.That(cm.AllConnectedClients.Count, Is.EqualTo(0));
@@ -75,37 +78,13 @@ internal class ClientManagerTests
 
     }
 
-    //[Test]
-    //public void TestAddClientWebserviceNoLicense()
-    //{
-    //    // Arrange 
-    //    var licManager = TestHelper.GetFakeLicenceManager();
-    //    ((FakeLicenseManager)licManager).RemoveClient(MyClientTypeEnum.Webservice);
-
-    //    var cm = new ClientManager(licManager, _logger);
-
-    //    Assert.That(cm.AllConnectedClients);
-    //    Assert.That(0, cm.AllConnectedClients.Count);
-
-    //    var client = new FakeClient
-    //    {
-    //        ClientData = new FakeLoginData { Type = (int)MyClientTypeEnum.Webservice }
-    //    };
-
-    //    // Act  
-    //    cm.AddClient(client);
-
-    //    // Assert
-    //    Assert.That(0, cm.AllConnectedClients.Count);
-
-    //}
-
     [Test]
     public void TestAddClientDisplay()
     {
         // Arrange 
         var licManager = TestHelper.GetFakeLicenceManager();
-        var cm = new ClientManager(licManager, _logger);
+        var clientMessagingService = new FakeClientMessagingService();
+        var cm = new ClientManager(licManager, _logger, clientMessagingService);
 
         Assert.That(cm.AllConnectedClients, Is.Not.Null);
         Assert.That(cm.AllConnectedClients.Count, Is.EqualTo(0));
@@ -129,7 +108,8 @@ internal class ClientManagerTests
     {
         // Arrange 
         var licManager = TestHelper.GetFakeLicenceManager();
-        var cm = new ClientManager(licManager, _logger);
+        var clientMessagingService = new FakeClientMessagingService();
+        var cm = new ClientManager(licManager, _logger, clientMessagingService);
 
         Assert.That(cm.AllConnectedClients, Is.Not.Null);
         Assert.That(cm.AllConnectedClients.Count, Is.EqualTo(0));
@@ -156,7 +136,8 @@ internal class ClientManagerTests
     {
         // Arrange 
         var licManager = TestHelper.GetFakeLicenceManager();
-        var cm = new ClientManager(licManager, _logger);
+        var clientMessagingService = new FakeClientMessagingService();
+        var cm = new ClientManager(licManager, _logger, clientMessagingService);
 
         Assert.That(cm.AllConnectedClients, Is.Not.Null);
         Assert.That(cm.AllConnectedClients.Count, Is.EqualTo(0));

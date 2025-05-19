@@ -34,7 +34,7 @@ namespace Bodoconsult.App.GrpcBackgroundService.App
     public class BaseGrpcBackgroundServiceAppBuilder : BaseAppBuilder
     {
         protected readonly WebApplicationBuilder Builder;
-        protected WebApplication? GrpcServer;
+        protected WebApplication GrpcServer;
 
         public BaseGrpcBackgroundServiceAppBuilder(IAppGlobals appGlobals, string[] args) : base(appGlobals)
         {

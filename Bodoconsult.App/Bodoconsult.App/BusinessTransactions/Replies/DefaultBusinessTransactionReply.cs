@@ -28,4 +28,9 @@ public class DefaultBusinessTransactionReply: IBusinessTransactionReply
     /// Current error message provided by the business transaction
     /// </summary>
     public string ExceptionMessage { get; set; }
+
+    /// <summary>
+    /// The notification object to send via GRPC etc to the client
+    /// </summary>
+    public object NotificationObjectToSend { get; set; }
 }

@@ -4,7 +4,6 @@ using Bodoconsult.App.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
-using static System.Collections.Specialized.BitVector32;
 
 namespace Bodoconsult.App.Logging.LoggingConfigurators;
 

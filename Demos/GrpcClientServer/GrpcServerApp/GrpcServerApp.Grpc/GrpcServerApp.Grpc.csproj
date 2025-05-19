@@ -16,5 +16,4 @@
     <ProjectReference Include="..\GrpcServerApp.BusinessLogic\GrpcServerApp.BusinessLogic.csproj" />
     <ProjectReference Include="..\GrpcServerApp.Grpc.Common\GrpcServerApp.Grpc.Common.csproj" />
   </ItemGroup>
-
 </Project>

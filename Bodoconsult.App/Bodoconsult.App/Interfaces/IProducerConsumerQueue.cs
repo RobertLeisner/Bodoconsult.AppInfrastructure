@@ -7,8 +7,8 @@ namespace Bodoconsult.App.Interfaces;
 /// A delegate for consumer task used in <see cref="IProducerConsumerQueue{TType}"/>. Supports many producers but only one consumer.
 /// </summary>
 /// <typeparam name="T">A class type</typeparam>
-/// <param name="type">Current instance of TType</param>
-public delegate void ConsumerTaskDelegate<in T>(T type) where T : class;
+/// <param name="clientNotification">Current instance of TType</param>
+public delegate void ConsumerTaskDelegate<in T>(T clientNotification) where T : class;
 
 
 /// <summary>

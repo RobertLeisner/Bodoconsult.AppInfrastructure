@@ -22,6 +22,7 @@ using Bodoconsult.App.GrpcBackgroundService;
 using Bodoconsult.App.GrpcBackgroundService.App;
 using Bodoconsult.App.Interfaces;
 using GrpcServerApp.Grpc.DiContainerProvider;
+using GrpcServerApp.Grpc.ProtobufServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -87,6 +88,7 @@ public class GrpcServerAppAppBuilder : BaseGrpcBackgroundServiceAppBuilder
 
         // Configure the HTTP request pipeline.
         GrpcServer.MapGrpcService<BusinessTransactionServiceImpl>().RequireHost("*:50051");
+        GrpcServer.MapGrpcService<ClientCommunicationServiceImpl>().RequireHost("*:50051");
         GrpcServer.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
     }
 }

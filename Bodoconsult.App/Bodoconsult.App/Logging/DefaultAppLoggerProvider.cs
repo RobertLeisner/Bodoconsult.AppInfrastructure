@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 // Licence MIT
 
+using System.Diagnostics;
 using Bodoconsult.App.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -99,7 +100,14 @@ namespace Bodoconsult.App.Logging
             foreach (var logLevel in logLevels)
             {
                 Enum.TryParse(logLevel.Value, ignoreCase: true, result: out LogLevel logLevelValue);
-                LoggingConfig.Filters.Add(logLevel.Key, logLevelValue);
+                if (LoggingConfig.Filters.ContainsKey(logLevel.Key))
+                {
+                    LoggingConfig.Filters.Add(logLevel.Key, logLevelValue);
+                }
+                else
+                {
+                    Debug.Print($"LogLevel {logLevel.Key} already exists");
+                }
             }
         }
 

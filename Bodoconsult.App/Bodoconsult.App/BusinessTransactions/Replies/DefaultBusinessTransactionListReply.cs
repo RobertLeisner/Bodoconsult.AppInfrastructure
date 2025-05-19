@@ -39,5 +39,10 @@ namespace Bodoconsult.App.BusinessTransactions.Replies
         /// Current number of rows provided by this call (if applicable)
         /// </summary>
         public int RowCount { get; set; }
+
+        /// <summary>
+        /// The notification object to send via GRPC etc to the client
+        /// </summary>
+        public object NotificationObjectToSend { get; set; }
     }
 }

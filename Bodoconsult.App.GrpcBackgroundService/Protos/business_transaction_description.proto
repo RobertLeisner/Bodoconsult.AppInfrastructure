@@ -16,7 +16,11 @@
 
 
 syntax = "proto3";
+
 import "google/protobuf/any.proto";
+
+package Bodoconsult.App.GrpcBackgroundService;
+
 
 service BusinessTransactionService {
 
@@ -30,7 +34,8 @@ service BusinessTransactionService {
 /// </summary>
 message BusinessTransactionRequest {
 	 int32 TransactionId = 1;
-	 google.protobuf.Any RequestData = 2;
+	 string TransactionUid = 2;
+	 google.protobuf.Any RequestData = 3;
 }
 
 /// <summary>
@@ -39,8 +44,9 @@ message BusinessTransactionRequest {
 message BusinessTransactionReply {
 
 	int32 TransactionId = 1;
-	int32 ErrorCode = 2;
-	string LogMessage = 3;
-	string ExceptionMessage = 4;
-	optional google.protobuf.Any ReplyData = 5;
+	string TransactionUid = 2;
+	int32 ErrorCode = 3;
+	string LogMessage = 4;
+	string ExceptionMessage = 5;
+	optional google.protobuf.Any ReplyData = 6;
 }

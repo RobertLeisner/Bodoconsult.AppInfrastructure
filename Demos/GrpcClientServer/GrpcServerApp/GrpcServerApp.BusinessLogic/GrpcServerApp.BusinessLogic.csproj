@@ -11,4 +11,7 @@
     <ProjectReference Include="..\GrpcServerApp.Common\GrpcServerApp.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
+  </ItemGroup>
 </Project>

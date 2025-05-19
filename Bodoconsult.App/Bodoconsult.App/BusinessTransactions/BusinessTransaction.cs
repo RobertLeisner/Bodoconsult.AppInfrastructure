@@ -6,12 +6,12 @@ using Bodoconsult.App.Interfaces;
 namespace Bodoconsult.App.BusinessTransactions;
 
 /// <summary>
-    /// Represents a business transaction that can be called from a client the current app
-    /// </summary>
-    public class BusinessTransaction
+/// Represents a business transaction that can be called from a client the current app
+/// </summary>
+public class BusinessTransaction
 {
     /// <summary>
-    /// A unique transaction ID. Transaction are called by this ID by the client
+    /// A unique transaction ID. Transactions are called by this ID by the client
     /// </summary>
     public int Id { get; set; }
 

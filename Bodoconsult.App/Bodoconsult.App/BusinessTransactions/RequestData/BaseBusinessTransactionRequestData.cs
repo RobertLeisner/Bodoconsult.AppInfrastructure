@@ -18,7 +18,7 @@ public abstract class BaseBusinessTransactionRequestData: IBusinessTransactionRe
     /// <summary>
     /// Unique GUID of the transaction
     /// </summary>
-    public Guid TransactionGuid { get; } = Guid.NewGuid();
+    public Guid TransactionGuid { get; set; } = Guid.NewGuid();
 
     /// <summary>
     /// Benchmark object (see output in XXX_Benchmark.csv)

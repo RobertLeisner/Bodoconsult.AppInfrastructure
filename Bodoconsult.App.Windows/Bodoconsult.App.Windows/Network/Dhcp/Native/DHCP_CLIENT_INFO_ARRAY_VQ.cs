@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+#pragma warning disable CS0649 // Field is never assigned to, and will always have its default value
 
 namespace Bodoconsult.App.Windows.Network.Dhcp.Native;
 
@@ -22,7 +23,12 @@ internal readonly struct DhcpClientInfoArrayVq : IDisposable
     /// <summary>
     /// Pointer to the first element in the array of DHCP_CLIENT_INFO_VQ structures.
     /// </summary>
-    private readonly IntPtr ClientsPointer;
+    private readonly IntPtr ClientsPointer = IntPtr.Zero;
+
+    public DhcpClientInfoArrayVq()
+    {
+        NumElements = 0;
+    }
 
     public IEnumerable<ClientTuple> Clients
     {

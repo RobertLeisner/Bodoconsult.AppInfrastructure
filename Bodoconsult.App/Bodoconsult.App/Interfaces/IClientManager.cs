@@ -8,7 +8,7 @@ namespace Bodoconsult.App.Interfaces;
 /// <summary>
 /// Interface for client connection manager implementations
 /// </summary>
-public interface IClientManager
+public interface IClientManager: IDisposable
 {
     /// <summary>
     /// Current license manager
@@ -19,6 +19,12 @@ public interface IClientManager
     /// Current logger
     /// </summary>
     IAppLoggerProxy AppLogger { get; }
+
+    /// <summary>
+    /// Current instance of <see cref="IClientMessagingService"/> to convert notifications to final format
+    /// </summary>
+
+    IClientMessagingService ClientMessagingService { get; }
 
 
     /// <summary>
@@ -44,6 +50,5 @@ public interface IClientManager
     /// </summary>
     /// <param name="notification">Notification to send to the clients</param>
     void DoNotifyAllClients(IClientNotification notification);
-
 
 }

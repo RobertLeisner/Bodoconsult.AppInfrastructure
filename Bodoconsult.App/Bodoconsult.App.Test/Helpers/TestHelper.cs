@@ -10,21 +10,21 @@ using Bodoconsult.App.Logging;
 using Bodoconsult.App.Test.App;
 using System.Diagnostics;
 using System.Reflection;
+using Bodoconsult.App.Factories;
 
 namespace Bodoconsult.App.Test.Helpers;
 
-internal static class TestHelper
+public static class TestHelper
 {
     /// <summary>
     /// Create a <see cref="IAppEventSource"/> instance
     /// </summary>
     /// <returns><see cref="IAppEventSource"/> instance based on <see cref="AppApmEventSource"/></returns>
-    internal static IAppEventSource CreateAppEventSource()
+    internal static AppApmEventSourceFactory CreateAppEventSourceFactory()
     {
         var logger = GetFakeAppLoggerProxy();
 
-        var aes = new AppApmEventSource(logger);
-        aes.AddProvider(new BusinessTransactionEventSourceProvider());
+        var aes = new AppApmEventSourceFactory(logger);
 
         return aes;
     }

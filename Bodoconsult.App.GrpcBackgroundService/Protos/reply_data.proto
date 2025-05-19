@@ -16,6 +16,8 @@
 
 syntax = "proto3";
 
+package Bodoconsult.App.GrpcBackgroundService;
+
 /// <summary>
 /// Reply message for delivering a list of object names
 /// </summary>

@@ -8,7 +8,7 @@
 		<PackageOutputPath>..\Nuget\</PackageOutputPath>
 		<Copyright>Bodoconsult EDV-Dienstleistungen GmbH</Copyright>
 		<Authors>Robert Leisner</Authors>
-		<VersionPrefix>1.0.1</VersionPrefix>
+		<VersionPrefix>1.0.2</VersionPrefix>
 		<Version />
 		<Company>Bodoconsult EDV-Dienstleistungen GmbH</Company>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -20,7 +20,7 @@
 		<PackageId>Bodoconsult.App.BackgroundService</PackageId>
 		<PackageTags>Layered app basic tools for Windows background services</PackageTags>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Description>Package providing basic functionality like logging, application performance measuring etc. for layered apps in a client server scenario</Description>
+		<Description>Package providing basic functionality like logging, application performance measuring etc. for layered apps in a background service scenario</Description>
 		<PackageReleaseNotes>Added app infrastructure for Windows background services</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</PackageProjectUrl>
 	</PropertyGroup>

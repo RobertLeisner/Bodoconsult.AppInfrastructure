@@ -2,14 +2,15 @@
 
 using Grpc.Net.Client;
 using System.Diagnostics;
+using Bodoconsult.App.GrpcBackgroundService;
 
 namespace GrpcServerApps.Tests
 {
-    public class GrpcServerTests
+    public class GrpcServerUnaryRequestsTests
     {
         private readonly GrpcChannel _channel;
 
-        public GrpcServerTests()
+        public GrpcServerUnaryRequestsTests()
         {
             // Start the server
             string[] args = [];
@@ -32,7 +33,7 @@ namespace GrpcServerApps.Tests
             };
             thread.Start();
 
-            Task.Delay(5000);
+            Task.Delay(5000).Wait();
 
             _channel = GrpcChannel.ForAddress("http://localhost:50051");
             
@@ -80,7 +81,8 @@ namespace GrpcServerApps.Tests
             var request = new BusinessTransactionRequest
             {
                 TransactionId = 1,
-                RequestData = Google.Protobuf.WellKnownTypes.Any.Pack(requestData)
+                RequestData = Google.Protobuf.WellKnownTypes.Any.Pack(requestData),
+                TransactionUid = Guid.NewGuid().ToString()
             };
 
             // Act  
@@ -106,7 +108,8 @@ namespace GrpcServerApps.Tests
             var request = new BusinessTransactionRequest
             {
                 TransactionId = 2,
-                RequestData = Google.Protobuf.WellKnownTypes.Any.Pack(requestData)
+                RequestData = Google.Protobuf.WellKnownTypes.Any.Pack(requestData),
+                TransactionUid = Guid.NewGuid().ToString()
             };
 
             // Act  

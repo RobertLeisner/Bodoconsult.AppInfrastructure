@@ -2,12 +2,12 @@
 
 using Bodoconsult.App.Interfaces;
 
-namespace Bodoconsult.App.Test.ClientCommunication.FakeImpls;
+namespace Bodoconsult.App.ClientNotifications;
 
 /// <summary>
 /// Fake implementation of <see cref="IClientLoginData"/>
 /// </summary>
-internal class FakeLoginData : IClientLoginData
+public class FakeLoginData : IClientLoginData
 {
     /// <summary>
     /// Id of the Client
@@ -17,6 +17,6 @@ internal class FakeLoginData : IClientLoginData
     /// <summary>
     /// Type of the client. 
     /// </summary>
-    /// <remarks>Int data type was choosen to stay independent from an unflexible enum.</remarks>
+    /// <remarks>Int data type was choosen to stay independent of an unflexible enum</remarks>
     public int Type { get; set; }
 }

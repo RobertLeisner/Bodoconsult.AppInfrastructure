@@ -29,7 +29,7 @@ namespace Bodoconsult.App.GrpcBackgroundService.Interfaces
     {
 
         /// <summary>
-        /// Map a internal reply instance <see cref="IBusinessTransactionReply"/> to a <see cref="BusinessTransactionReply"/> message
+        /// Map an internal reply instance <see cref="IBusinessTransactionReply"/> to a <see cref="BusinessTransactionReply"/> message
         /// </summary>
         /// <param name="internalReply">Internal business transaction reply</param>
         /// <returns>Protobuf business transaction reply</returns>

@@ -18,7 +18,7 @@ internal class BusinessTransactionLoaderTests
     public void LoadProviders_ValidSetup_Success()
     {
         // Arrange 
-        var aes = TestHelper.CreateAppEventSource();
+        var aes = TestHelper.CreateAppEventSourceFactory();
         var logger = TestHelper.GetFakeAppLoggerProxy();
 
         const int transactionId = 1000;

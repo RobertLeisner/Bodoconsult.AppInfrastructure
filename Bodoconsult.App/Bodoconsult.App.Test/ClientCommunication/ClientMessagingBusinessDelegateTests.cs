@@ -25,7 +25,8 @@ public class ClientMessagingBusinessDelegateTests
         };
 
         var licManager = TestHelper.GetFakeLicenceManager();
-        var clientManager = new ClientManager(licManager, _logger);
+        var clientMessagingService = new FakeClientMessagingService();
+        var clientManager = new ClientManager(licManager, _logger, clientMessagingService);
         clientManager.AddClient(client);
 
         // Act  
@@ -50,7 +51,8 @@ public class ClientMessagingBusinessDelegateTests
         };
 
         var licManager = TestHelper.GetFakeLicenceManager();
-        var clientManager = new ClientManager(licManager, _logger);
+        var clientMessagingService = new FakeClientMessagingService();
+        var clientManager = new ClientManager(licManager, _logger, clientMessagingService);
         clientManager.AddClient(client);
 
         var cmdb = new ClientMessagingBusinessDelegate(cms, clientManager);
@@ -78,7 +80,8 @@ public class ClientMessagingBusinessDelegateTests
         };
 
         var licManager = TestHelper.GetFakeLicenceManager();
-        var clientManager = new ClientManager(licManager, _logger);
+        var clientMessagingService = new FakeClientMessagingService();
+        var clientManager = new ClientManager(licManager, _logger, clientMessagingService);
         clientManager.AddClient(client);
 
         var cmdb = new ClientMessagingBusinessDelegate(cms, clientManager);
@@ -108,7 +111,8 @@ public class ClientMessagingBusinessDelegateTests
         };
 
         var licManager = TestHelper.GetFakeLicenceManager();
-        var clientManager = new ClientManager(licManager, _logger);
+        var clientMessagingService = new FakeClientMessagingService();
+        var clientManager = new ClientManager(licManager, _logger, clientMessagingService);
         clientManager.AddClient(client);
 
         var cmdb = new ClientMessagingBusinessDelegate(cms, clientManager);

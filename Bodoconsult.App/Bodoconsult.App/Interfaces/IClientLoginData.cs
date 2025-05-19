@@ -16,7 +16,7 @@ public interface IClientLoginData
     /// <summary>
     /// Type of the client. 
     /// </summary>
-    /// <remarks>Int data type was choosen to stay independent from an unflexible enum.</remarks>
+    /// <remarks>Int data type was choosen to stay independent of an unflexible enum</remarks>
     public int Type { get; set; }
 
 }

@@ -17,6 +17,8 @@
 syntax = "proto3";
 import "google/protobuf/struct.proto";
 
+package Bodoconsult.App.GrpcBackgroundService;
+
 message NullableBoolean {
   oneof kind {
     google.protobuf.NullValue null = 1;

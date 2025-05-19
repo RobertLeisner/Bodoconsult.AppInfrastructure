@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Royotech. All rights reserved.
 
 using System.Collections.Concurrent;
+using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
 
 namespace Bodoconsult.App.ClientNotifications;
@@ -10,15 +11,41 @@ namespace Bodoconsult.App.ClientNotifications;
 /// </summary>
 public class ClientManager : IClientManager
 {
+    private ProducerConsumerQueue<IClientNotification> waitingQueue = new();
+
     /// <summary>
     /// Default ctor
     /// </summary>
     /// <param name="licenseManager">Current license manager</param>
     /// <param name="appLogger">Current app logger</param>
-    public ClientManager(IClientNotificationLicenseManager licenseManager, IAppLoggerProxy appLogger)
+    /// <param name="clientMessagingService">Current client messaging service</param>
+    public ClientManager(IClientNotificationLicenseManager licenseManager, IAppLoggerProxy appLogger, IClientMessagingService clientMessagingService)
     {
         LicenseManager = licenseManager;
         AppLogger = appLogger;
+        ClientMessagingService = clientMessagingService;
+        waitingQueue.ConsumerTaskDelegate = ConsumerTaskDelegate;
+        waitingQueue.StartConsumer();
+    }
+
+    private void ConsumerTaskDelegate(IClientNotification notification)
+    {
+        // Check if there are missing objects to send
+        if (notification.NotificationObjectToSend == null)
+        {
+            // Create the transport level object and store it in the notification
+            var message = ClientMessagingService.Convert(notification);
+            notification.NotificationObjectToSend = message;
+        }
+
+        foreach (var connectedClient in AllConnectedClients.Values)
+        {
+            if (!connectedClient.CheckNotification(notification))
+            {
+                continue;
+            }
+            connectedClient.DoNotifyClient(notification);
+        }
     }
 
     /// <summary>
@@ -30,6 +57,11 @@ public class ClientManager : IClientManager
     /// Current logger
     /// </summary>
     public IAppLoggerProxy AppLogger { get; }
+
+    /// <summary>
+    /// Current instance of <see cref="IClientMessagingService"/> to convert notifications to final format
+    /// </summary>
+    public IClientMessagingService ClientMessagingService { get; }
 
     /// <summary>
     /// Currently connected clients
@@ -71,13 +103,13 @@ public class ClientManager : IClientManager
     /// <param name="notification">Notification to send to the clients</param>
     public void DoNotifyAllClients(IClientNotification notification)
     {
-        foreach (var connectedClient in AllConnectedClients.Values)
-        {
-            if (!connectedClient.CheckNotification(notification))
-            {
-                continue;
-            }
-            connectedClient.DoNotifyClient(notification);
-        }
+        waitingQueue.Enqueue(notification);
+    }
+
+    /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
+    public void Dispose()
+    {
+        waitingQueue.StopConsumer();
+        waitingQueue?.Dispose();
     }
 }

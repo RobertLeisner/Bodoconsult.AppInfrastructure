@@ -5,7 +5,7 @@ namespace Bodoconsult.App.Interfaces;
 /// <summary>
 /// Basic content of a business transaction reply
 /// </summary>
-public interface IBusinessTransactionReply
+public interface IBusinessTransactionReply: IClientNotification
 {
 
     /// <summary>
