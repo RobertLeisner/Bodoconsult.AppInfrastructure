@@ -1,58 +1,175 @@
+Bodoconsult.App.WinForms nuget package
+============
+
 # What does the library
 
 Bodoconsult.App is a library with basic functionality for multilayered monolithic applications like database based client server apps or windows services. 
 
-Bodoconsult.App.GrpcBackgroundServices enhances the functionality of Bodoconsult.App for Windows services using GRPC.
 
-It delivers the following main functionality:
-
-1. App start infrastructure for Windows services apps using GRPC
-
-# How to use the library
-
-The source code contains NUnit test classes the following source code is extracted from. The samples below show the most helpful use cases for the library.
-
-# App start infrastructure details
+# App start infrastructure basics
 
 See page [app start infrastructure](../Bodoconsult.App/AppStartInfrastructure.md) for details.
 
-# Using Protobuf definitions (protos) from Bodoconsult.App.GrpcBackgroundServices in GRPC clients
+## Using app start infrastructure for a OS service like WinForms based apps
 
-## Using the source code
+If you want to implement a OS service like application without implementing a real OS service you can use WinFormsStarterUi class. 
 
-You can integrate the protos to your project directly from repo. Simply copy the files to your project and used it same as your own protos.
+By default WinFormsStarterUi class loads the app as a simple window not shown on Windows task bar but task tray. The app can be closed only with keys STRC + C / CTRL + C or from task tray.
 
-## Using the Bodoconsult.App.GrpcBackgroundServices nuget package
+Here a sample from Program.cs Main() how to setup the console app in project WinFormsConsoleApp1 contained in this repo:
 
-See https://github.com/grpc/grpc/blob/master/src/csharp/BUILD-INTEGRATION.md#proto-only-nuget
+``` csharp
 
-Bodoconsult.App.GrpcBackgroundServices contains the following protos:
+            var globals = Globals.Instance;
+            globals.LoggingConfig.AddDefaultLoggerProviderConfiguratorsForUiApp();
 
--	Protos\business_transaction_description.proto
--	Protos\common.proto
--	Protos\reply_data.proto
--	Protos\request_data.proto
+            // Set additional app start parameters as required
+            var param = globals.AppStartParameter;
+            param.AppName = "WinFormsConsoleApp1: Demo app";
+            param.SoftwareTeam = "Robert Leisner";
+            param.LogoRessourcePath = "WinFormsConsoleApp1.Resources.logo.jpg";
+            param.AppFolderName = "WinFormsConsoleApp1";
 
-Consuming the .proto file at client side:
+            const string performanceToken = "--PERF";
 
--	Install the Bodoconsult.App.GrpcBackgroundServices Nuget package in your gRPC client project.
--	Add GeneratePathProperty="true" property to package reference in your gRPC client project file.
--	Add prefix $(PkgBodoconsult_App_GrpcBackgroundServices)\content\ while including the Protobuf reference. ('\content' is the directory name where all the content files are available by default.)
+            if (args.Contains(performanceToken))
+            {
+                param.IsPerformanceLoggingActivated = true;
+            }
 
-Note that, $(PkgBodoconsult_App_GrpcBackgroundServices) is by conventions where $(PkgGrpc_Shared) will be resolved to Grpc.Shared Nuget directory (the variable name starts with Pkg and is followed by the package name when . is replaced by _)
+            // Now start app buiding process
+            var builder = new WinFormsConsoleApp1AppBuilder(globals);
+#if !DEBUG
+            AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
+#endif
 
-``` xml
+            // Load basic app metadata
+            
+            builder.LoadBasicSettings(typeof(Program));
 
-	<ItemGroup>
-		<Protobuf Include="$(PkgBodoconsult_App_GrpcBackgroundServices)\content\Protos\business_transaction_description.proto" GrpcServices="Client" Link="Protos\business_transaction_description.proto" />
-		<Protobuf Include="$(PkgBodoconsult_App_GrpcBackgroundServices)\content\Protos\common.proto" Protos\common.proto" GrpcServices="Client"  Link="Protos\common.proto" />
-		<Protobuf Include="$(PkgBodoconsult_App_GrpcBackgroundServices)\content\Protos\reply_data.proto" GrpcServices="Client"  Link="Protos\reply_data.proto" />
-		<Protobuf Include="$(PkgBodoconsult_App_GrpcBackgroundServices)\content\Protos\request_data.proto" GrpcServices="Client"  Link="Protos\request_data.proto" />
-	</ItemGroup>
+            // Process the config file
+            builder.ProcessConfiguration();
+
+            // Now load the globally needed settings
+            builder.LoadGlobalSettings();
+
+            // Write first log entry with default logger
+            Globals.Instance.Logger.LogInformation($"{param.AppName} {param.AppVersion} starts...");
+            Console.WriteLine("Logging started...");
+
+            // App is ready now for doing something
+            Console.WriteLine($"Connection string loaded: {param.DefaultConnectionString}");
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            Console.WriteLine($"App name loaded: {param.AppName}");
+            Console.WriteLine($"App version loaded: {param.AppVersion}");
+            Console.WriteLine($"App path loaded: {param.AppPath}");
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            Console.WriteLine($"Logging config: {ObjectHelper.GetObjectPropertiesAsString(Globals.Instance.LoggingConfig)}");
+
+            // Prepare the DI container package
+            builder.LoadDiContainerServiceProviderPackage();
+            builder.RegisterDiServices();
+            builder.FinalizeDiContainerSetup();
+
+            // Create the viewmodel now
+            var eventLevel = EventLevel.Warning;
+            var listener = new AppEventListener(eventLevel);
+            var viewModel = new MainWindowViewModel(listener);
+
+            // Set the view model 
+            builder.MainWindowViewModel = viewModel;
+
+            // Now finally start the app and wait
+            builder.StartApplication();
+
+            Environment.Exit(0);
 
 ```
 
-Source: https://sanket-naik.medium.com/sharing-grpc-proto-files-with-nuget-packages-made-easy-dd366a094b25
+## Using app start infrastructure for a classical WinForms based apps
+
+Here a sample from Program.cs Main() how to setup the WinForms app with a main form Forms1 in project WinFormsApp1 contained in this repo:
+
+``` csharp
+
+            var globals = Globals.Instance;
+            globals.LoggingConfig.AddDefaultLoggerProviderConfiguratorsForUiApp();
+
+            // Set additional app start parameters as required. Take some settings from appsettings.json here
+            var param = globals.AppStartParameter;
+            //param.AppName = "WinFormsApp1: Demo app"; // from appsettings.json
+            param.SoftwareTeam = "Robert Leisner";
+            param.LogoRessourcePath = "WinFormsApp1.Resources.logo.jpg";
+            //param.AppFolderName = "WinFormsApp1"; // from appsettings.json
+
+            const string performanceToken = "--PERF";
+
+            if (args.Contains(performanceToken))
+            {
+                param.IsPerformanceLoggingActivated = true;
+            }
+
+            // Now start app buiding process
+            var builder = new WinFormsApp1AppBuilder(Globals.Instance);
+#if !DEBUG
+            AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
+#endif
+
+            // Load basic app metadata
+            builder.LoadBasicSettings(typeof(Program));
+
+            // Process the config file
+            builder.ProcessConfiguration();
+
+            // Now load the globally needed settings
+            builder.LoadGlobalSettings();
+
+            // Write first log entry with default logger
+            Globals.Instance.Logger.LogInformation($"{param.AppName} {param.AppVersion} starts...");
+            Console.WriteLine("Logging started...");
+
+            // App is ready now for doing something
+            Console.WriteLine($"Connection string loaded: {param.DefaultConnectionString}");
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            Console.WriteLine($"App name loaded: {param.AppName}");
+            Console.WriteLine($"App version loaded: {param.AppVersion}");
+            Console.WriteLine($"App path loaded: {param.AppPath}");
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            Console.WriteLine($"Logging config: {ObjectHelper.GetObjectPropertiesAsString(Globals.Instance.LoggingConfig)}");
+
+            // Prepare the DI container package
+            builder.LoadDiContainerServiceProviderPackage();
+            builder.RegisterDiServices();
+            builder.FinalizeDiContainerSetup();
+
+            // Create the viewmodel now
+            var eventLevel = EventLevel.Warning;
+            var listener = new AppEventListener(eventLevel);
+            var viewModel = new Forms1MainWindowViewModel(listener);
+
+            // Set the view model 
+            builder.MainWindowViewModel = viewModel;
+
+            // Now finally start the app and wait
+            builder.StartApplication();
+
+            Environment.Exit(0);
+
+```
+
+Start by creating your own viewmodel class similar to Forms1MainWindowViewModel
 
 
 # About us
