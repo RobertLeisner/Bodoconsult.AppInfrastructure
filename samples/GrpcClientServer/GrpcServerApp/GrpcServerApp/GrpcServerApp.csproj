@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-GrpcServerApp-4ffa3f79-42d2-472c-8520-f215369b8e12</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\Bodoconsult.App.GrpcBackgroundService\Bodoconsult.App.GrpcBackgroundService.csproj" />
+    <ProjectReference Include="..\..\..\..\src\Bodoconsult.App\Bodoconsult.App.csproj" />
+    <ProjectReference Include="..\GrpcServerApp.BusinessLogic\GrpcServerApp.BusinessLogic.csproj" />
+    <ProjectReference Include="..\GrpcServerApp.Grpc\GrpcServerApp.Grpc.csproj" />
+  </ItemGroup>
+</Project>

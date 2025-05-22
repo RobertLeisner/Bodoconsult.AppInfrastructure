@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\Bodoconsult.App.GrpcBackgroundService\Bodoconsult.App.GrpcBackgroundService.csproj" />
+    <ProjectReference Include="..\..\..\..\src\Bodoconsult.App\Bodoconsult.App.csproj" />
+    <ProjectReference Include="..\GrpcServerApp.BusinessLogic\GrpcServerApp.BusinessLogic.csproj" />
+    <ProjectReference Include="..\GrpcServerApp.Grpc.Common\GrpcServerApp.Grpc.Common.csproj" />
+  </ItemGroup>
+</Project>

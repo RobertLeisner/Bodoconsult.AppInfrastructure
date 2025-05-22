@@ -4,11 +4,11 @@ Bodoconsult.AppInfrastructure is a repository containing multiple libraries with
 
 Content:
 
--   [Bodoconsult.App: basic features mearly every app needs like logging](Bodoconsult.App/README.md)
+>   [Bodoconsult.App: basic features mearly every app needs like logging](doc/Bodoconsult.App/README.md)
 
--   [Bodoconsult.App.Windows: MS Window specific tools](Bodoconsult.App.Windows/README.md)
+>   [Bodoconsult.App.Windows: MS Window specific tools](doc/Bodoconsult.App.Windows/README.md)
 
--   [Bodoconsult.I18N: internationalisation for apps](Bodoconsult.I18N/README.md)
+>   [Bodoconsult.I18N: internationalisation for apps](doc/Bodoconsult.I18N/README.md)
 
 # About us
 

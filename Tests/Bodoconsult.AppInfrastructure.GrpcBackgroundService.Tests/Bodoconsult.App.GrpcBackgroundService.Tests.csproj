@@ -18,9 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Bodoconsult.App.GrpcBackgroundService\Bodoconsult.App.GrpcBackgroundService.csproj" />
-    <ProjectReference Include="..\..\Bodoconsult.App\Bodoconsult.App.Test\Bodoconsult.App.Test.csproj" />
-    <ProjectReference Include="..\..\Bodoconsult.App\Bodoconsult.App\Bodoconsult.App.csproj" />
+    <ProjectReference Include="..\..\src\Bodoconsult.App.GrpcBackgroundService\Bodoconsult.App.GrpcBackgroundService.csproj" />
+    <ProjectReference Include="..\..\tests\Bodoconsult.App.Test\Bodoconsult.App.Test.csproj" />
+    <ProjectReference Include="..\..\src\Bodoconsult.App\Bodoconsult.App.csproj" />
   </ItemGroup>
 
   <ItemGroup>

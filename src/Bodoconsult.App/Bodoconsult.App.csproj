@@ -1,0 +1,71 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+		<Deterministic>False</Deterministic>
+
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageOutputPath>..\..\Nuget\</PackageOutputPath>
+		<Copyright>Bodoconsult EDV-Dienstleistungen GmbH</Copyright>
+		<Authors>Robert Leisner</Authors>
+		<VersionPrefix>1.0.2</VersionPrefix>
+		<Version />
+		<Company>Bodoconsult EDV-Dienstleistungen GmbH</Company>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<RepositoryType>git</RepositoryType>
+		<NeutralLanguage>en</NeutralLanguage>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+
+		<RepositoryUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</RepositoryUrl>
+		<PackageId>Bodoconsult.App</PackageId>
+		<PackageTags>Layered app basic tools</PackageTags>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Description>Package providing basic functionality like logging, application performance measuring etc. for layered apps in a client server scenario</Description>
+		<PackageReleaseNotes>Added IAppBuilder and base classes for it to support background services too with app infrastructure</PackageReleaseNotes>
+		<PackageProjectUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</PackageProjectUrl>
+		
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Bodoconsult.App\**" />
+	  <Compile Remove="NewFolder1\**" />
+	  <Compile Remove="Zip\Bodoconsult.Core.Tools.Zip\**" />
+	  <EmbeddedResource Remove="Bodoconsult.App\**" />
+	  <EmbeddedResource Remove="NewFolder1\**" />
+	  <EmbeddedResource Remove="Zip\Bodoconsult.Core.Tools.Zip\**" />
+	  <None Remove="Bodoconsult.App\**" />
+	  <None Remove="NewFolder1\**" />
+	  <None Remove="Zip\Bodoconsult.Core.Tools.Zip\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="log4net" Version="3.0.3" />
+		<PackageReference Include="Microsoft.Diagnostics.NETCore.Client" Version="0.2.553101" />
+		<PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="3.1.18" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.EventSource" Version="9.0.0" />
+		<PackageReference Include="Microsoft.Win32.Primitives" Version="4.3.0" />
+		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.106">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="System.Text.Json" Version="9.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\LICENSE.md" Link="LICENSE.md">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="..\..\doc\Bodoconsult.App\README.md" Link="README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+</Project>

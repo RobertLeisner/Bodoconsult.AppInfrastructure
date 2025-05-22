@@ -3,29 +3,29 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{682A2D92-F409-43D5-9342-8DF5256F06CE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{682A2D92-F409-43D5-9342-8DF5256F06CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App", "Bodoconsult.App\Bodoconsult.App\Bodoconsult.App.csproj", "{D5FED76C-2B11-4067-86F8-022CB06DCB60}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App", "src\Bodoconsult.App\Bodoconsult.App.csproj", "{D5FED76C-2B11-4067-86F8-022CB06DCB60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.WinForms", "Bodoconsult.App.WinForms\Bodoconsult.App.WinForms\Bodoconsult.App.WinForms.csproj", "{C21D3EAC-B788-4FF8-BB87-D6C9DCC352BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.WinForms", "src\Bodoconsult.App.WinForms\Bodoconsult.App.WinForms.csproj", "{C21D3EAC-B788-4FF8-BB87-D6C9DCC352BF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demos", "Demos", "{6A52BEBE-4E44-41AC-8D1B-748DFA27D902}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{6A52BEBE-4E44-41AC-8D1B-748DFA27D902}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "Demos\ConsoleApp1\ConsoleApp1.csproj", "{317E0AE0-4243-4238-8BAF-1E44AE97AA9B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "samples\ConsoleApp1\ConsoleApp1.csproj", "{317E0AE0-4243-4238-8BAF-1E44AE97AA9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.Test", "Bodoconsult.App\Bodoconsult.App.Test\Bodoconsult.App.Test.csproj", "{05A17D64-9B2A-410E-888F-9C7989F81506}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.Test", "tests\Bodoconsult.App.Test\Bodoconsult.App.Test.csproj", "{05A17D64-9B2A-410E-888F-9C7989F81506}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.I18N", "Bodoconsult.I18N\Bodoconsult.I18N\Bodoconsult.I18N.csproj", "{D52376C0-97A8-48A2-A632-5713B2FC1BA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.I18N", "src\Bodoconsult.I18N\Bodoconsult.I18N.csproj", "{D52376C0-97A8-48A2-A632-5713B2FC1BA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.I18N.Test", "Bodoconsult.I18N\Bodoconsult.I18N.Test\Bodoconsult.I18N.Test.csproj", "{79B54E4E-6423-427D-997D-103F3F7AC31D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.I18N.Test", "tests\Bodoconsult.I18N.Test\Bodoconsult.I18N.Test.csproj", "{79B54E4E-6423-427D-997D-103F3F7AC31D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.Windows", "Bodoconsult.App.Windows\Bodoconsult.App.Windows\Bodoconsult.App.Windows.csproj", "{2162D628-81EC-463B-B938-487AD8B73D9B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.Windows", "src\Bodoconsult.App.Windows\Bodoconsult.App.Windows.csproj", "{2162D628-81EC-463B-B938-487AD8B73D9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.Windows.Test", "Bodoconsult.App.Windows\Bodoconsult.App.Windows.Test\Bodoconsult.App.Windows.Test.csproj", "{5331EB87-AF76-4A4F-B779-C18D6C785EF3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.Windows.Test", "tests\Bodoconsult.App.Windows.Test\Bodoconsult.App.Windows.Test.csproj", "{5331EB87-AF76-4A4F-B779-C18D6C785EF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsConsoleApp1", "Demos\WinFormsConsoleApp1\WinFormsConsoleApp1.csproj", "{18EA930B-CCB6-4CC1-BF9D-8BD3C2E452B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsConsoleApp1", "samples\WinFormsConsoleApp1\WinFormsConsoleApp1.csproj", "{18EA930B-CCB6-4CC1-BF9D-8BD3C2E452B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsApp1", "Demos\WinFormsApp1\WinFormsApp1.csproj", "{94E7253B-A2AF-46D0-A788-93A367C9C15D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsApp1", "samples\WinFormsApp1\WinFormsApp1.csproj", "{94E7253B-A2AF-46D0-A788-93A367C9C15D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projektmappenelemente", "Projektmappenelemente", "{84D27F74-D2BA-6C25-2661-968F101900D9}"
 	ProjectSection(SolutionItems) = preProject
@@ -34,33 +34,33 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projektmappenelemente", "Pr
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService1", "Demos\WorkerService1\WorkerService1.csproj", "{4FEA5F3D-58AA-4F54-9E9C-5E60EAB60BC0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService1", "samples\WorkerService1\WorkerService1.csproj", "{4FEA5F3D-58AA-4F54-9E9C-5E60EAB60BC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.BackgroundService", "Bodoconsult.App.BackgroundService\Bodoconsult.App.BackgroundService.csproj", "{8CBB5DB0-AE9B-460F-A0D5-E0DDBFA62900}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.BackgroundService", "src\Bodoconsult.App.BackgroundService\Bodoconsult.App.BackgroundService.csproj", "{8CBB5DB0-AE9B-460F-A0D5-E0DDBFA62900}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GrpcServerApp", "GrpcServerApp", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServerApp", "Demos\GrpcClientServer\GrpcServerApp\GrpcServerApp\GrpcServerApp.csproj", "{06C495C2-CC49-7B04-85F7-EA7C1B03167F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServerApp", "samples\GrpcClientServer\GrpcServerApp\GrpcServerApp\GrpcServerApp.csproj", "{06C495C2-CC49-7B04-85F7-EA7C1B03167F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServerApp.Grpc", "Demos\GrpcClientServer\GrpcServerApp\GrpcServerApp.Grpc\GrpcServerApp.Grpc.csproj", "{33694C1A-D701-4ADD-9395-33E5E6A32079}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServerApp.Grpc", "samples\GrpcClientServer\GrpcServerApp\GrpcServerApp.Grpc\GrpcServerApp.Grpc.csproj", "{33694C1A-D701-4ADD-9395-33E5E6A32079}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServerApp.BusinessLogic", "Demos\GrpcClientServer\GrpcServerApp\GrpcServerApp.BusinessLogic\GrpcServerApp.BusinessLogic.csproj", "{ABCA5875-1BB7-4E32-A6B0-12B35F0C2649}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServerApp.BusinessLogic", "samples\GrpcClientServer\GrpcServerApp\GrpcServerApp.BusinessLogic\GrpcServerApp.BusinessLogic.csproj", "{ABCA5875-1BB7-4E32-A6B0-12B35F0C2649}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServerApp.Grpc.Common", "Demos\GrpcClientServer\GrpcServerApp\GrpcServerApp.Grpc.Common\GrpcServerApp.Grpc.Common.csproj", "{6E9639EA-CD5D-4A30-9E4E-C23929FC5DFC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServerApp.Grpc.Common", "samples\GrpcClientServer\GrpcServerApp\GrpcServerApp.Grpc.Common\GrpcServerApp.Grpc.Common.csproj", "{6E9639EA-CD5D-4A30-9E4E-C23929FC5DFC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2F77925E-6661-4CD4-AFD9-65D3A6DB6C49}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServerApps.Tests", "samples\GrpcClientServer\Tests\GrpcServerApps.Tests\GrpcServerApps.Tests.csproj", "{A1BE94EA-93CA-4FD9-9AFC-A65DEB7D2EE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServerApps.Tests", "Demos\GrpcClientServer\Tests\GrpcServerApps.Tests\GrpcServerApps.Tests.csproj", "{A1BE94EA-93CA-4FD9-9AFC-A65DEB7D2EE6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.GrpcBackgroundService", "src\Bodoconsult.App.GrpcBackgroundService\Bodoconsult.App.GrpcBackgroundService.csproj", "{39125BEF-5FE8-4C26-894C-E47A4F2F9D74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.GrpcBackgroundService", "Bodoconsult.App.GrpcBackgroundService\Bodoconsult.App.GrpcBackgroundService.csproj", "{39125BEF-5FE8-4C26-894C-E47A4F2F9D74}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServerApp.Common", "Demos\GrpcClientServer\GrpcServerApp\GrpcServerApp.Common\GrpcServerApp.Common.csproj", "{FFB794B2-156E-4603-A916-E30365F710E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServerApp.Common", "samples\GrpcClientServer\GrpcServerApp\GrpcServerApp.Common\GrpcServerApp.Common.csproj", "{FFB794B2-156E-4603-A916-E30365F710E2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GrpcClientServer", "GrpcClientServer", "{C6043D8C-C340-429F-B214-1F7E7CF3B805}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GrpcClientApp", "GrpcClientApp", "{19D3151C-0C81-4C9D-9F55-06158204B937}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.GrpcBackgroundService.Tests", "Tests\Bodoconsult.AppInfrastructure.GrpcBackgroundService.Tests\Bodoconsult.App.GrpcBackgroundService.Tests.csproj", "{8AD87934-D64F-4036-A4D7-F8F3FB9396F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.GrpcBackgroundService.Tests", "tests\Bodoconsult.AppInfrastructure.GrpcBackgroundService.Tests\Bodoconsult.App.GrpcBackgroundService.Tests.csproj", "{8AD87934-D64F-4036-A4D7-F8F3FB9396F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{68310C5A-62F2-40F4-A5C6-0314FDAC28E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -153,20 +153,25 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{D5FED76C-2B11-4067-86F8-022CB06DCB60} = {68310C5A-62F2-40F4-A5C6-0314FDAC28E1}
+		{C21D3EAC-B788-4FF8-BB87-D6C9DCC352BF} = {68310C5A-62F2-40F4-A5C6-0314FDAC28E1}
 		{317E0AE0-4243-4238-8BAF-1E44AE97AA9B} = {6A52BEBE-4E44-41AC-8D1B-748DFA27D902}
 		{05A17D64-9B2A-410E-888F-9C7989F81506} = {682A2D92-F409-43D5-9342-8DF5256F06CE}
+		{D52376C0-97A8-48A2-A632-5713B2FC1BA3} = {68310C5A-62F2-40F4-A5C6-0314FDAC28E1}
 		{79B54E4E-6423-427D-997D-103F3F7AC31D} = {682A2D92-F409-43D5-9342-8DF5256F06CE}
+		{2162D628-81EC-463B-B938-487AD8B73D9B} = {68310C5A-62F2-40F4-A5C6-0314FDAC28E1}
 		{5331EB87-AF76-4A4F-B779-C18D6C785EF3} = {682A2D92-F409-43D5-9342-8DF5256F06CE}
 		{18EA930B-CCB6-4CC1-BF9D-8BD3C2E452B9} = {6A52BEBE-4E44-41AC-8D1B-748DFA27D902}
 		{94E7253B-A2AF-46D0-A788-93A367C9C15D} = {6A52BEBE-4E44-41AC-8D1B-748DFA27D902}
 		{4FEA5F3D-58AA-4F54-9E9C-5E60EAB60BC0} = {6A52BEBE-4E44-41AC-8D1B-748DFA27D902}
+		{8CBB5DB0-AE9B-460F-A0D5-E0DDBFA62900} = {68310C5A-62F2-40F4-A5C6-0314FDAC28E1}
 		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {C6043D8C-C340-429F-B214-1F7E7CF3B805}
 		{06C495C2-CC49-7B04-85F7-EA7C1B03167F} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{33694C1A-D701-4ADD-9395-33E5E6A32079} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{ABCA5875-1BB7-4E32-A6B0-12B35F0C2649} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{6E9639EA-CD5D-4A30-9E4E-C23929FC5DFC} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
-		{2F77925E-6661-4CD4-AFD9-65D3A6DB6C49} = {C6043D8C-C340-429F-B214-1F7E7CF3B805}
-		{A1BE94EA-93CA-4FD9-9AFC-A65DEB7D2EE6} = {2F77925E-6661-4CD4-AFD9-65D3A6DB6C49}
+		{A1BE94EA-93CA-4FD9-9AFC-A65DEB7D2EE6} = {682A2D92-F409-43D5-9342-8DF5256F06CE}
+		{39125BEF-5FE8-4C26-894C-E47A4F2F9D74} = {68310C5A-62F2-40F4-A5C6-0314FDAC28E1}
 		{FFB794B2-156E-4603-A916-E30365F710E2} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{C6043D8C-C340-429F-B214-1F7E7CF3B805} = {6A52BEBE-4E44-41AC-8D1B-748DFA27D902}
 		{19D3151C-0C81-4C9D-9F55-06158204B937} = {C6043D8C-C340-429F-B214-1F7E7CF3B805}

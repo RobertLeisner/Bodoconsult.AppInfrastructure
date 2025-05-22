@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8-windows</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="TestData\Test.docx" />
+    <None Remove="TestData\Test.xlsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="TestData\Test.docx" />
+    <Content Include="TestData\Test.xlsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NUnit" Version="4.3.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Bodoconsult.App\Bodoconsult.App.csproj" />
+    <ProjectReference Include="..\..\src\Bodoconsult.App.Windows\Bodoconsult.App.Windows.csproj" />
+  </ItemGroup>
+
+</Project>
