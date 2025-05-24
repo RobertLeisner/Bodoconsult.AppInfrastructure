@@ -8,11 +8,6 @@ namespace Bodoconsult.App.Interfaces
     public interface IAppStartProvider
     {
         /// <summary>
-        /// The default app configuration file
-        /// </summary>
-        string ConfigFile { get; set; }
-
-        /// <summary>
         /// Global app settings
         /// </summary>
         IAppGlobals AppGlobals { get; }

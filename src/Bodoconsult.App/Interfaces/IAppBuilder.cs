@@ -12,16 +12,6 @@ public interface IAppBuilder
     IAppGlobals AppGlobals { get;  }
 
     /// <summary>
-    /// Current app path
-    /// </summary>
-    string AppPath { get; }
-
-    /// <summary>
-    /// Current config file
-    /// </summary>
-    string ConfigFile { get; }
-
-    /// <summary>
     /// Current <see cref="IAppStarterUi"/> instance
     /// </summary>
     public IAppStarter AppStarter { get; }
@@ -49,7 +39,7 @@ public interface IAppBuilder
     void LoadBasicSettings(Type appStartType);
 
     /// <summary>
-    /// Process the configuration from <see cref="ConfigFile"/>
+    /// Process the configuration from <see cref="IAppStartParameter.ConfigFile"/>
     /// </summary>
     void ProcessConfiguration();
 

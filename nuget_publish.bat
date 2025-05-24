@@ -1,4 +1,4 @@
-set version=1.0.2
+set version=1.0.3
 
 dotnet nuget push nuget\Bodoconsult.App.%version%.nupkg --source https://api.nuget.org/v3/index.json
 dotnet nuget push nuget\Bodoconsult.App.WinForms.%version%.nupkg --source https://api.nuget.org/v3/index.json

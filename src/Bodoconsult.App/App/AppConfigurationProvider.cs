@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using System.Reflection;
 using Bodoconsult.App.Interfaces;
 using Microsoft.Extensions.Configuration;
 
@@ -15,28 +14,16 @@ namespace Bodoconsult.App
         /// <summary>
         /// Default ctor
         /// </summary>
-        public AppConfigurationProvider()
+        public AppConfigurationProvider(string configFile)
         {
-            var ass = Assembly.GetEntryAssembly();
-
-            if (ass == null)
-            {
-                ass = GetType().Assembly;
-            }
-
-            var s = ass.Location;
-            ConfigFilePath = new FileInfo(s).DirectoryName;
+            ConfigFile = configFile;
         }
 
-        /// <summary>
-        /// The file path to the config file. Default value is the current app path
-        /// </summary>
-        public string ConfigFilePath { get; set; }
 
         /// <summary>
-        /// Name of the config file to use. Default: appsettings.json
+        /// Full path to the JSON config file to use for the current app
         /// </summary>
-        public string ConfigFile { get; set; } = "appsettings.json";
+        public string ConfigFile { get; }
 
         /// <summary>
         /// Current configuration loaded from <see cref="IAppConfigurationProvider.ConfigFile"/>
@@ -54,8 +41,16 @@ namespace Bodoconsult.App
             //                "appsettings.Development.json" :
             //                "appsettings.json";
             //#endif
+
+            var configFilePath = new FileInfo(ConfigFile).DirectoryName;
+            if (configFilePath == null)
+            {
+                throw new ArgumentNullException(nameof(configFilePath));
+            }
+
+
             Configuration = new ConfigurationBuilder()
-                .SetBasePath(ConfigFilePath)
+                .SetBasePath(configFilePath)
                 .AddJsonFile(ConfigFile)
                 //.AddEnvironmentVariables()
                 //.AddCommandLine(args)

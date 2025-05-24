@@ -6,17 +6,10 @@ namespace Bodoconsult.App.Interfaces;
 
 public interface IAppConfigurationProvider
 {
-
     /// <summary>
-    /// The file path to the config file
+    /// Full path to the JSON config file to use for the current app
     /// </summary>
-    string ConfigFilePath { get; set; }
-
-
-    /// <summary>
-    /// Name of the config file to use. Default: appsettings.json
-    /// </summary>
-    string ConfigFile { get; set; }
+    string ConfigFile { get; }
 
     /// <summary>
     /// Current configuration loaded from <see cref="ConfigFile"/>

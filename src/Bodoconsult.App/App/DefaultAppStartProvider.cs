@@ -15,10 +15,6 @@ namespace Bodoconsult.App
             AppGlobals=appGlobals;
         }
 
-        /// <summary>
-        /// The default app configuration file
-        /// </summary>
-        public string ConfigFile { get; set; } = "appsettings.json";
 
         /// <summary>
         /// Global app settings
@@ -45,10 +41,7 @@ namespace Bodoconsult.App
         /// </summary>
         public void LoadConfigurationProvider()
         {
-            AppConfigurationProvider = new AppConfigurationProvider
-            {
-                ConfigFile = ConfigFile
-            };
+            AppConfigurationProvider = new AppConfigurationProvider(AppGlobals.AppStartParameter.ConfigFile);
             AppConfigurationProvider.LoadConfigurationFromConfigFile();
         }
 

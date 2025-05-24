@@ -13,7 +13,7 @@
 		<PackageOutputPath>..\..\nuget\</PackageOutputPath>
 		<Copyright>Bodoconsult EDV-Dienstleistungen GmbH</Copyright>
 		<Authors>Robert Leisner</Authors>
-		<VersionPrefix>1.0.2</VersionPrefix>
+		<VersionPrefix>1.0.3</VersionPrefix>
 		<Version />
 		<Company>Bodoconsult EDV-Dienstleistungen GmbH</Company>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -25,8 +25,11 @@
 		<PackageId>Bodoconsult.App.WinForms</PackageId>
 		<PackageTags>App;WinForm;</PackageTags>
 		<Description>Added IAppBuilder and base classes for it to support background services too with app infrastructure</Description>
-		<PackageReleaseNotes>Added I</PackageReleaseNotes>
+		<PackageReleaseNotes>Bugfixes and improvements</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</PackageProjectUrl>
+
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -75,7 +75,7 @@ public class Globals : IAppGlobals
     /// <summary>
     /// Current log data entry factory
     /// </summary>
-    public ILogDataFactory LogDataFactory { get; set; }
+    public ILogDataFactory LogDataFactory { get; set; } = new LogDataFactory();
 
     /// <summary>
     /// Current logging config

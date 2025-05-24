@@ -3,6 +3,7 @@
 using Bodoconsult.App.DependencyInjection;
 using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.Logging;
+using Bodoconsult.App.Test.App;
 using Microsoft.Extensions.Logging;
 
 namespace Bodoconsult.App.Test.AppTests;
@@ -16,7 +17,9 @@ internal class DefaultAppLoggerDiContainerProviderTests
     private static DefaultAppLoggerProvider CreateLoggerProvider()
     {
 
-        var configProvider = new AppConfigurationProvider();
+        var configPath = Globals.Instance.AppStartParameter.ConfigFile;
+
+        var configProvider = new AppConfigurationProvider(configPath);
 
         configProvider.LoadConfigurationFromConfigFile();
 
@@ -88,7 +91,9 @@ internal class DefaultAppLoggerDiContainerProviderTests
     {
 
         // Arrange
-        IAppConfigurationProvider appConfigurationProvider = new AppConfigurationProvider();
+        var configPath = Globals.Instance.AppStartParameter.ConfigFile;
+
+        IAppConfigurationProvider appConfigurationProvider = new AppConfigurationProvider(configPath);
         var loggerProvider = new DefaultAppLoggerProvider(appConfigurationProvider, Config);
         loggerProvider.LoadDefaultLogger();
 

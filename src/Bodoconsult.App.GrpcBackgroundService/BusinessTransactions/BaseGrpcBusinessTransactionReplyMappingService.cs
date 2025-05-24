@@ -29,11 +29,13 @@ public class BaseGrpcBusinessTransactionReplyMappingService : IGrpcBusinessTrans
         Containers.Add(nameof(ObjectUidBusinessTransactionReply), CreateObjectUidReply);
         Containers.Add(nameof(StringBusinessTransactionReply), CreateStringBusinessTransactionReply);
         Containers.Add(nameof(StringListBusinessTransactionReply), CreateStringListBusinessTransactionReply);
-        //_containers.Add(nameof(UidListBusinessTransactionReply), CreateUidListBusinessTransactionReply);
+        Containers.Add(nameof(UidListBusinessTransactionReply), CreateUidListBusinessTransactionReply);
         Containers.Add(nameof(BoolBusinessTransactionReply), CreateBoolBusinessTransactionReply);
         Containers.Add(nameof(DateBusinessTransactionReply), CreateDateBusinessTransactionReply);
         Containers.Add(nameof(IntegerBusinessTransactionReply), CreateIntegerBusinessTransactionReply);
     }
+
+
 
     /// <summary>
     /// Map an internal reply instance <see cref="IBusinessTransactionReply"/> to a <see cref="BusinessTransactionReply"/> message
@@ -82,6 +84,26 @@ public class BaseGrpcBusinessTransactionReplyMappingService : IGrpcBusinessTrans
         containerDelegate.Invoke(result, internalReply);
         return result;
     }
+
+
+    public void CreateUidListBusinessTransactionReply(BusinessTransactionReply reply, IBusinessTransactionReply internalReply)
+    {
+        if (internalReply is not UidListBusinessTransactionReply sr)
+        {
+            return;
+        }
+
+        var ir = new ObjectNamesReply();
+
+        foreach (var uid in sr.Uids)
+        {
+            ir.ObjectNames.Add(uid.ToString());
+        }
+
+        reply.ReplyData = Google.Protobuf.WellKnownTypes.Any.Pack(ir);
+
+    }
+
 
     public void CreateDateBusinessTransactionReply(BusinessTransactionReply reply, IBusinessTransactionReply internalReply)
     {

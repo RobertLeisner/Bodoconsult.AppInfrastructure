@@ -13,7 +13,7 @@
 		<PackageOutputPath>..\..\Nuget\</PackageOutputPath>
 		<Copyright>Bodoconsult EDV-Dienstleistungen GmbH</Copyright>
 		<Authors>Robert Leisner</Authors>
-		<VersionPrefix>1.0.2</VersionPrefix>
+		<VersionPrefix>1.0.3</VersionPrefix>
 		<Version />
 		<Company>Bodoconsult EDV-Dienstleistungen GmbH</Company>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -26,21 +26,24 @@
 		<PackageTags>Layered app basic tools</PackageTags>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Description>Package providing basic functionality like logging, application performance measuring etc. for layered apps in a client server scenario</Description>
-		<PackageReleaseNotes>Added IAppBuilder and base classes for it to support background services too with app infrastructure</PackageReleaseNotes>
+		<PackageReleaseNotes>Bugfixes and improvements</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</PackageProjectUrl>
-		
+
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Bodoconsult.App\**" />
-	  <Compile Remove="NewFolder1\**" />
-	  <Compile Remove="Zip\Bodoconsult.Core.Tools.Zip\**" />
-	  <EmbeddedResource Remove="Bodoconsult.App\**" />
-	  <EmbeddedResource Remove="NewFolder1\**" />
-	  <EmbeddedResource Remove="Zip\Bodoconsult.Core.Tools.Zip\**" />
-	  <None Remove="Bodoconsult.App\**" />
-	  <None Remove="NewFolder1\**" />
-	  <None Remove="Zip\Bodoconsult.Core.Tools.Zip\**" />
+		<Compile Remove="Bodoconsult.App\**" />
+		<Compile Remove="NewFolder1\**" />
+		<Compile Remove="Zip\Bodoconsult.Core.Tools.Zip\**" />
+		<EmbeddedResource Remove="Bodoconsult.App\**" />
+		<EmbeddedResource Remove="NewFolder1\**" />
+		<EmbeddedResource Remove="Zip\Bodoconsult.Core.Tools.Zip\**" />
+		<None Remove="Bodoconsult.App\**" />
+		<None Remove="NewFolder1\**" />
+		<None Remove="Zip\Bodoconsult.Core.Tools.Zip\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -63,7 +66,7 @@
 
 	<ItemGroup>
 		<None Include="..\..\LICENSE.md" Link="LICENSE.md">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Include="..\..\doc\Bodoconsult.App\README.md" Link="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>

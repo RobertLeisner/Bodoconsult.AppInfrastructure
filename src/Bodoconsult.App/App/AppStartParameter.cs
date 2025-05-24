@@ -8,27 +8,6 @@ namespace Bodoconsult.App
 {
     public class AppStartParameter: IAppStartParameter
     {
-        /// <summary>
-        /// Default ctor
-        /// </summary>
-        public AppStartParameter()
-        {
-            var ass = Assembly.GetEntryAssembly();
-
-            if (ass == null)
-            {
-                throw new ArgumentNullException(nameof(ass));
-            }
-
-            var assemName = ass.GetName();
-            SoftwareRevision = assemName.Version;
-
-            AppVersion = $"{assemName.Name}, Version {SoftwareRevision}";
-
-            var fi = new FileInfo(ass.Location);
-
-            AppPath = fi.DirectoryName;
-        }
 
         /// <summary>
         /// Is the app started as singleton?
@@ -43,12 +22,12 @@ namespace Bodoconsult.App
         /// <summary>
         /// String with the current app version
         /// </summary>
-        public string AppVersion { get; }
+        public string AppVersion { get; set; }
 
         /// <summary>
         /// Current software version
         /// </summary>
-        public Version SoftwareRevision { get; }
+        public Version SoftwareRevision { get; set; }
 
         /// <summary>
         /// Should the logging of performance counters to logfile be activated
@@ -58,7 +37,12 @@ namespace Bodoconsult.App
         /// <summary>
         /// Application path
         /// </summary>
-        public string AppPath { get; }
+        public string AppPath { get; set; }
+
+        /// <summary>
+        /// Full path to the current config file
+        /// </summary>
+        public string ConfigFile { get; set; }
 
         /// <summary>
         /// Default conenction string

@@ -68,7 +68,7 @@ message ObjectUidReply
 }
 
 /// <summary>
-/// Reply message for delivering a list of object names
+/// Reply message for delivering a list of object names. Name may be a UID too.
 /// </summary>
 message ObjectNamesReply {
 	repeated string ObjectNames = 2;

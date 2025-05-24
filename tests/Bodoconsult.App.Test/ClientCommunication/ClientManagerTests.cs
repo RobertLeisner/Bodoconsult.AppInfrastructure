@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 using Bodoconsult.App.ClientNotifications;
+using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.Test.ClientCommunication.FakeImpls;
 using Bodoconsult.App.Test.Helpers;
@@ -155,6 +156,7 @@ internal class ClientManagerTests
         // Act  
             
         cm.DoNotifyAllClients(notification);
+        Wait.Until(() => client.WasFired);
 
         // Assert
         Assert.That(client.WasFired);

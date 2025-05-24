@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 using Bodoconsult.App.ClientNotifications;
+using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.Test.ClientCommunication.FakeImpls;
 using Bodoconsult.App.Test.Helpers;
@@ -93,6 +94,7 @@ public class ClientMessagingBusinessDelegateTests
 
         // Act  
         cmdb.Runner();
+        Wait.Until(() => client.WasFired);
 
         // Assert
         Assert.That(client.WasFired, Is.True);
@@ -124,6 +126,7 @@ public class ClientMessagingBusinessDelegateTests
 
         // Act  
         cmdb.Runner();
+        Wait.Until(() => client.WasFired);
 
         // Assert
         Assert.That( client.WasFired, Is.True);

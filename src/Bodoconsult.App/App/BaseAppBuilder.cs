@@ -34,15 +34,6 @@ namespace Bodoconsult.App;
     public IList<ILoggerProviderConfigurator> LoggerProviderConfigurators { get; } =
         new List<ILoggerProviderConfigurator>();
 
-    /// <summary>
-    /// Current app path
-    /// </summary>
-    public string AppPath { get; private set; }
-
-    /// <summary>
-    /// Current config file
-    /// </summary>
-    public string ConfigFile { get; private set; }
 
     /// <summary>
     /// Current <see cref="IAppStarterUi"/> instance
@@ -71,27 +62,35 @@ namespace Bodoconsult.App;
     public void LoadBasicSettings(Type appStartType)
     {
         var s = appStartType.Assembly.Location;
-        AppPath = new FileInfo(s).DirectoryName;
-        ConfigFile = Path.Combine(AppPath, "appsettings.json");
+
+        var assemName = appStartType.Assembly.GetName();
+
+        var param = AppGlobals.AppStartParameter;
+        param.SoftwareRevision = assemName.Version;
+
+        param.AppVersion = $"{assemName.Name}, Version {param.SoftwareRevision}";
+
+        var currentDir = new FileInfo(s).DirectoryName;
+        param.AppPath = currentDir;
+        param.ConfigFile = Path.Combine(currentDir, "appsettings.json");
 
 #if DEBUG
         // Load app settings from dev app settings file in DEBUG mode
-        if (File.Exists(Path.Combine(AppPath, "appsettings.Development.json")))
+        if (File.Exists(Path.Combine(currentDir, "appsettings.Development.json")))
         {
-            ConfigFile = Path.Combine(AppPath, "appsettings.Development.json");
+            param.ConfigFile = Path.Combine(currentDir, "appsettings.Development.json");
         }
 #endif
     }
 
     /// <summary>
-    /// Process the configuration from <see cref="IAppBuilder.ConfigFile"/>. Uses the <see cref="DefaultAppStartProvider"/>.
+    /// Process the configuration from <see cref="IAppStartParameter.ConfigFile"/>. Uses the <see cref="DefaultAppStartProvider"/>.
     /// </summary>
     public virtual void ProcessConfiguration()
     {
         // Now prepare the app start
         AppStartProvider = new DefaultAppStartProvider(AppGlobals)
         {
-            ConfigFile = ConfigFile,
             LoggerProviderConfigurators = LoggerProviderConfigurators,
         };
 

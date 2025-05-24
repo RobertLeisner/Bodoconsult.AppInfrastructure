@@ -23,12 +23,12 @@ namespace Bodoconsult.App.Interfaces
         /// <summary>
         /// String with the current app version
         /// </summary>
-        string AppVersion { get; }
+        string AppVersion { get; set; }
 
         /// <summary>
         /// Current software version
         /// </summary>
-        Version SoftwareRevision { get; }
+        Version SoftwareRevision { get; set; }
 
         /// <summary>
         /// Should the logging of performance counters to logfile be activated
@@ -38,7 +38,12 @@ namespace Bodoconsult.App.Interfaces
         /// <summary>
         /// Application path
         /// </summary>
-        string AppPath { get; }
+        string AppPath { get; set; }
+
+        /// <summary>
+        /// Full path to the current config file
+        /// </summary>
+        string ConfigFile { get; set; }
 
         /// <summary>
         /// Default conenction string

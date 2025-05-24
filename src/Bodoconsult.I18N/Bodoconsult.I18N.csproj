@@ -23,6 +23,9 @@
 		<Description>I18N supporting resources from multiple assemblies and other sources</Description>
 		<PackageReleaseNotes>Migration to .Net 8 and new namespace</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</PackageProjectUrl>
+
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>

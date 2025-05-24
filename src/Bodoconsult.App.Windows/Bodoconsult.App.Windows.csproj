@@ -24,6 +24,9 @@
 		<Description>MS Windows related tools like icon extraction, reading data from url-files, put text into clipboard, Network, getting metadata from DNS or DHCP or Active Directory</Description>
 		<PackageReleaseNotes>Migration to .Net 8 and new namespace</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</PackageProjectUrl>
+
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using Bodoconsult.App.Logging;
+using Bodoconsult.App.Test.App;
 
 namespace Bodoconsult.App.Test.AppTests;
 
@@ -8,12 +9,13 @@ namespace Bodoconsult.App.Test.AppTests;
 internal class DefaultAppLoggerProviderTests
 {
     static readonly LoggingConfig Config = new();
+    private readonly string _configPath = Globals.Instance.AppStartParameter.ConfigFile;
 
     [Test]
     public void Ctor_DefaultSetup_PropsSetCorrectly()
     {
         // Arrange 
-        var configProvider = new AppConfigurationProvider();
+        var configProvider = new AppConfigurationProvider(_configPath);
         configProvider.LoadConfigurationFromConfigFile();
 
         // Act  
@@ -30,7 +32,7 @@ internal class DefaultAppLoggerProviderTests
     public void LoadLoggingConfigFromConfiguration_DefaultSetup_LoggingConfigNotNull()
     {
         // Arrange 
-        var configProvider = new AppConfigurationProvider();
+        var configProvider = new AppConfigurationProvider(_configPath);
         configProvider.LoadConfigurationFromConfigFile();
 
         var provider = new DefaultAppLoggerProvider(configProvider, Config);
@@ -48,7 +50,7 @@ internal class DefaultAppLoggerProviderTests
     public void LoadDefaultLogger_DefaultSetup_LoggingConfigNotNull()
     {
         // Arrange 
-        var configProvider = new AppConfigurationProvider();
+        var configProvider = new AppConfigurationProvider(_configPath);
         configProvider.LoadConfigurationFromConfigFile();
 
         var provider = new DefaultAppLoggerProvider(configProvider, Config);
