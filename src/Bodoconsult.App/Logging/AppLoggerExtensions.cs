@@ -34,7 +34,7 @@ public static class AppLoggerExtensions
                 // Add filters from config
                 foreach (var filter in loggingConfig.Filters)
                 {
-                    var key = filter.Key.ToUpperInvariant() == "Default" ? null : filter.Key;
+                    var key = filter.Key.ToUpperInvariant() == "DEFAULT" ? null : filter.Key;
                     builder.AddFilter(key, filter.Value);
                 }
 

@@ -81,7 +81,7 @@ public static class TestHelper
     }
 
     /// <summary>
-    /// Get a fully setup fake logger
+    /// Get a fully set up fake logger
     /// </summary>
     /// <returns>Logger instance</returns>
     public static AppLoggerProxy GetFakeAppLoggerProxy()

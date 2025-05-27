@@ -62,6 +62,14 @@ namespace Bodoconsult.App
                 AppGlobals.AppStartParameter.DefaultConnectionString = AppConfigurationProvider.ReadDefaultConnection();
             }
 
+            if (AppGlobals is IAppGlobalsWithDatabase withDatabase)
+            {
+                if (withDatabase.ContextConfig != null)
+                {
+                    withDatabase.ContextConfig.ConnectionString = AppGlobals.AppStartParameter.DefaultConnectionString;
+                }
+            }
+
             var section = AppConfigurationProvider.ReadAppStartParameterSection();
             if (section == null)
             {

@@ -100,11 +100,7 @@ namespace Bodoconsult.App.Logging
             foreach (var logLevel in logLevels)
             {
                 Enum.TryParse(logLevel.Value, ignoreCase: true, result: out LogLevel logLevelValue);
-                if (LoggingConfig.Filters.ContainsKey(logLevel.Key))
-                {
-                    LoggingConfig.Filters.Add(logLevel.Key, logLevelValue);
-                }
-                else
+                if (!LoggingConfig.Filters.TryAdd(logLevel.Key, logLevelValue))
                 {
                     Debug.Print($"LogLevel {logLevel.Key} already exists");
                 }
