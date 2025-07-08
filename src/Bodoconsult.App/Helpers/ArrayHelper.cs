@@ -11,10 +11,10 @@ namespace Bodoconsult.App.Helpers;
 public static class ArrayHelper
 {
     /// <summary>
-    /// Compare two allocation arrays
+    /// Compare two integer arrays
     /// </summary>
-    /// <param name="array1">Allocation array 1</param>
-    /// <param name="array2">Allocation array 2</param>
+    /// <param name="array1">Array 1</param>
+    /// <param name="array2">Array 2</param>
     /// <returns>True if both arrays have the same values, else false.</returns>
     public static bool ArrayCompare(int[,,] array1, int[,,] array2)
     {

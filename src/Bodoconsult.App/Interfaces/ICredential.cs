@@ -1,7 +1,6 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using System.Security;
-using Bodoconsult.App.CredentialManager;
 
 namespace Bodoconsult.App.Interfaces;
 

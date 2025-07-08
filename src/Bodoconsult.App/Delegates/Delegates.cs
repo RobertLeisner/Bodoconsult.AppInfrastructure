@@ -51,3 +51,10 @@ public delegate IBusinessTransactionReply RunBusinessTransactionDelegate(IBusine
 /// <param name="notification">Current notification</param>
 /// <returns>Target object to transfer to the client</returns>
 public delegate object NotificationToTargetTransferObjectDelegate(IClientNotification notification);
+
+/// <summary>
+/// Delegate to read a string input from console, UI, etc.
+/// </summary>
+/// <param name="message">Message to show to user inputting the string</param>
+/// <returns>Read string input</returns>
+public delegate string ReadStringDelegate(string message);

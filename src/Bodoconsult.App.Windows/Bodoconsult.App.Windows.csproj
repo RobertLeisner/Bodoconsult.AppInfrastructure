@@ -1,16 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8</TargetFramework>
+		<TargetFramework>net8-windows</TargetFramework>
 		<Nullable>disable</Nullable>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<Deterministic>False</Deterministic>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageOutputPath>..\..\nuget\</PackageOutputPath>
 		<Copyright>Bodoconsult EDV-Dienstleistungen GmbH</Copyright>
 		<Authors>Robert Leisner</Authors>
-		<VersionPrefix>1.0.0</VersionPrefix>
+		<VersionPrefix>1.0.1</VersionPrefix>
 		<Version />
 		<Company>Bodoconsult EDV-Dienstleistungen GmbH</Company>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -20,9 +21,9 @@
 
 		<RepositoryUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</RepositoryUrl>
 		<PackageId>Bodoconsult.App.Windows</PackageId>
-		<PackageTags>Network, DNS, DHCP, Active Directory</PackageTags>
-		<Description>MS Windows related tools like icon extraction, reading data from url-files, put text into clipboard, Network, getting metadata from DNS or DHCP or Active Directory</Description>
-		<PackageReleaseNotes>Migration to .Net 8 and new namespace</PackageReleaseNotes>
+		<PackageTags>Eventlog;Logging;Windows;File;</PackageTags>
+		<Description>Additonal tools for app infrastructure like eventlog logging and file tools for Windows OS</Description>
+		<PackageReleaseNotes>Moved AD, DNS and DHCP related classes to Bodoconsult.Network repo to reduce footprint</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</PackageProjectUrl>
 
 		<IncludeSymbols>true</IncludeSymbols>
@@ -30,11 +31,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Logging.EventLog" Version="9.0.4" />
-		<PackageReference Include="Microsoft.Management.Infrastructure" Version="3.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.EventLog" Version="9.0.6" />
 		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
-		<PackageReference Include="Microsoft.Windows.Compatibility" Version="9.0.0" />
-		<PackageReference Include="System.Drawing.Common" Version="9.0.0" />
+		<PackageReference Include="System.Drawing.Common" Version="9.0.6" />
+		<PackageReference Include="System.Security.Cryptography.ProtectedData" Version="9.0.6" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="..\..\LICENSE.md" Link="LICENSE.md" />

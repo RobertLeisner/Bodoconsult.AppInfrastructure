@@ -22,7 +22,7 @@ public class DataProtectionService
     /// <summary>
     /// Byte array containing entropy data to be used for encryption.
     /// </summary>
-    public byte[] EntropyBytes { get; set; } = { 0, 1, 2, 3, 4, 1, 2, 3, 4 };
+    public byte[] EntropyBytes { get; set; } = [0, 1, 2, 3, 4, 1, 2, 3, 4, 9];
 
 
     /// <summary>
@@ -93,4 +93,8 @@ public class DataProtectionService
         var result = Unprotect(data);
         return Encoding.Unicode.GetString(result);
     }
+
+
+
+
 }

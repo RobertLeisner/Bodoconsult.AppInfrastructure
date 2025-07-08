@@ -23,10 +23,10 @@ namespace Bodoconsult.App.Test
 
             // Set additional app start parameters as required
             var param = globals.AppStartParameter;
-            param.AppName = "WinFormsConsoleApp1: Demo app";
+            param.AppName = "WinAppTests: Demo app";
             param.SoftwareTeam = "Robert Leisner";
-            param.LogoRessourcePath = "WinFormsConsoleApp1.Resources.logo.jpg";
-            param.AppFolderName = "WinFormsConsoleApp1";
+            //param.LogoRessourcePath = "WinFormsConsoleApp1.Resources.logo.jpg";
+            param.AppFolderName = "WinAppTests";
 
 
             // Now start the app building process

@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using Bodoconsult.App.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Bodoconsult.App.DependencyInjection;
@@ -151,5 +152,35 @@ public class DiContainer
     public void LoadServiceProvider(IServiceProvider hostServices)
     {
         ServiceProvider = hostServices;
+    }
+
+    /// <summary>
+    /// Updates all currently loaded services implementing <see cref="IServiceRequiresAppSettingsUpdate"/>
+    /// </summary>
+    public List<string> UpdateServices()
+    {
+
+        var result = new List<string>();
+
+        foreach (var x in ServiceCollection)
+        {
+
+            var type = x.ServiceType;
+
+            if (type == null ||
+                !typeof(IServiceRequiresAppSettingsUpdate).IsAssignableFrom(type))
+            {
+                continue;
+            }
+
+            var instance = (IServiceRequiresAppSettingsUpdate)ServiceProvider.GetService(type);
+
+            instance.UpdateService();
+
+            result.Add(instance.GetType().Name);
+
+        }
+
+        return result;
     }
 }

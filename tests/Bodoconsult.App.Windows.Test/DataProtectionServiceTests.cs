@@ -64,5 +64,6 @@ public class DataProtectionServiceTests
 
 
         Assert.That(originalData, Is.EqualTo(secret));
+
     }
 }

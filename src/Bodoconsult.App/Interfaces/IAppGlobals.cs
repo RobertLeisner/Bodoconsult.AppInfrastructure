@@ -45,8 +45,6 @@ namespace Bodoconsult.App.Interfaces
         /// </summary>
         DiContainer DiContainer { get; set; }
 
-
-
         /// <summary>
         /// Delegate called if a fatale app exception has been raised and a message to the UI has to be sent before app terminates
         /// </summary>
