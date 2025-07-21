@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Royotech. All rights reserved.
 
 using System.Collections.Concurrent;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Helpers;
-using Bodoconsult.App.Interfaces;
 
 namespace Bodoconsult.App.ClientNotifications;
 

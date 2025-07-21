@@ -2,8 +2,8 @@
 // Licence MIT
 
 using System.Diagnostics;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Helpers;
-using Bodoconsult.App.Interfaces;
 
 namespace Bodoconsult.App.AppStarter;
 

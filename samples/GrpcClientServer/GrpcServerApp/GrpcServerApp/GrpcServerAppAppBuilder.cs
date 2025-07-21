@@ -18,9 +18,9 @@
 
 #endregion
 using System.Net;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.GrpcBackgroundService;
 using Bodoconsult.App.GrpcBackgroundService.App;
-using Bodoconsult.App.Interfaces;
 using GrpcServerApp.Grpc.DiContainerProvider;
 using GrpcServerApp.Grpc.ProtobufServices;
 using Microsoft.AspNetCore.Builder;

@@ -4,8 +4,8 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Helpers;
-using Bodoconsult.App.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Bodoconsult.App.Logging;

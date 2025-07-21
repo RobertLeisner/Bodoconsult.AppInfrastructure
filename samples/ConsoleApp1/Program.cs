@@ -4,8 +4,8 @@
 
 using ConsoleApp1.App;
 using System.Diagnostics;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Helpers;
-using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.Extensions;
 
 namespace ConsoleApp1

@@ -1,10 +1,5 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Bodoconsult.App.DataProtection;
 using Bodoconsult.App.Test.App;
 
@@ -17,7 +12,7 @@ namespace Bodoconsult.App.Test.DataProtection
         private const string AppName = "MyApp";
 
         [Test]
-        public void CreateInstanc_ValidPath_InstanceCreated()
+        public void CreateInstance_ValidPath_InstanceCreated()
         {
             // Arrange 
             var path = Globals.Instance.AppStartParameter.DataPath;

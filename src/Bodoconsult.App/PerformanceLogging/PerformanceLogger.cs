@@ -3,7 +3,7 @@
 using System.Diagnostics;
 using System.Diagnostics.Tracing;
 using System.Text;
-using Bodoconsult.App.Interfaces;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Microsoft.Diagnostics.NETCore.Client;
 using Microsoft.Diagnostics.Tracing;
 

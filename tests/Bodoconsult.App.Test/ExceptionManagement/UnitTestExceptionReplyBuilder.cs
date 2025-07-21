@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 // Licence MIT
 
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.ExceptionManagement;
 using Bodoconsult.App.Interfaces;
 

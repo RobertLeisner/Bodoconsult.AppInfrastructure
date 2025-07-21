@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 // Licence MIT
 
-using Bodoconsult.App.Benchmarking;
+using Bodoconsult.App.Abstractions.Benchmarking;
 using Bodoconsult.App.Interfaces;
 
 namespace Bodoconsult.App.BusinessTransactions.RequestData

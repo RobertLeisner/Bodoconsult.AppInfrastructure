@@ -1,16 +1,8 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.DataProtection.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
-using Microsoft.Extensions.DependencyInjection;
-using Bodoconsult.App.Interfaces;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 // https://duendesoftware.com/blog/20250313-data-protection-aspnetcore-duende-identityserver
 
@@ -20,20 +12,26 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Bodoconsult.App.DataProtection
 {
+    /// <summary>
+    /// Current implementation of IDataProtectionService
+    /// </summary>
     public class DataProtectionService : IDataProtectionService
     {
         private readonly IDataProtectionProvider _dataProtectionProvider;
 
-        private readonly IKeyManager _keyManager;
-
-
+        /// <summary>
+        /// Static factory method for creating a DataProtectionService instance without a DI container
+        /// </summary>
+        /// <param name="destinationFolderPath"></param>
+        /// <param name="appName"></param>
+        /// <returns></returns>
         public static DataProtectionService CreateInstance(string destinationFolderPath, string appName)
         {
             var dirInfo = new DirectoryInfo(destinationFolderPath);
 
             var provider = BodoDataProtectionProvider.Create(dirInfo, appName);
 
-            var service = new DataProtectionService(destinationFolderPath, provider.Item1, provider.Item2);
+            var service = new DataProtectionService(destinationFolderPath, provider);
 
             return service;
         }
@@ -44,12 +42,10 @@ namespace Bodoconsult.App.DataProtection
         /// </summary>
         /// <param name="destinationFolderPath">The folder path the encrypted file is stored in</param>
         /// <param name="dataProtectionProvider"></param>
-        /// <param name="keyManager"></param>
-        public DataProtectionService(string destinationFolderPath, IDataProtectionProvider dataProtectionProvider, IKeyManager keyManager)
+        public DataProtectionService(string destinationFolderPath, IDataProtectionProvider dataProtectionProvider)
         {
             DestinationFolderPath = destinationFolderPath;
             _dataProtectionProvider = dataProtectionProvider;
-            _keyManager = keyManager;
         }
 
         /// <summary>

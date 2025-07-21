@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 using System.Diagnostics;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.GrpcBackgroundService;
 using Bodoconsult.App.Helpers;
-using Bodoconsult.App.Interfaces;
 using Grpc.Core;
 using GrpcServerApp.BusinessLogic.Notifications;
 

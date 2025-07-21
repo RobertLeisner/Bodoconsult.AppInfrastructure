@@ -2,7 +2,7 @@
 // Licence MIT
 
 using System.Runtime.InteropServices;
-using Bodoconsult.App.Interfaces;
+using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace Bodoconsult.App.AppStarter;
 

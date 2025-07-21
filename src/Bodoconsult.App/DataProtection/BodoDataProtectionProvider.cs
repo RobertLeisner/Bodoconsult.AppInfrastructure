@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using System.Configuration;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.DataProtection;
@@ -22,7 +21,7 @@ public static class BodoDataProtectionProvider
     /// <param name="keyDirectory">The <see cref="DirectoryInfo"/> in which keys should be stored. This may
     /// represent a directory on a local disk or a UNC share.</param>
     /// <param name="appName">An identifier that uniquely discriminates this application from all other applications on the machine.</param>
-    public static (IDataProtectionProvider, IKeyManager) Create(DirectoryInfo keyDirectory, string appName)
+    public static IDataProtectionProvider Create(DirectoryInfo keyDirectory, string appName)
     {
         ArgumentNullThrowHelper.ThrowIfNull(keyDirectory);
 
@@ -38,7 +37,7 @@ public static class BodoDataProtectionProvider
     /// <param name="applicationName">An identifier that uniquely discriminates this application from all other
     /// applications on the machine.</param>
     /// <param name="certificate">The <see cref="X509Certificate2"/> to be used for encryption.</param>
-    public static (IDataProtectionProvider, IKeyManager) Create(
+    public static IDataProtectionProvider Create(
         DirectoryInfo keyDirectory,
         string applicationName,
         X509Certificate2 certificate)
@@ -58,7 +57,7 @@ public static class BodoDataProtectionProvider
     /// <param name="setupAction">An optional callback which provides further configuration of the data protection
     /// system. See <see cref="IDataProtectionBuilder"/> for more information.</param>
     /// <param name="certificate">The <see cref="X509Certificate2"/> to be used for encryption.</param>
-    public static (IDataProtectionProvider, IKeyManager) Create(
+    public static IDataProtectionProvider Create(
         DirectoryInfo keyDirectory,
         Action<IDataProtectionBuilder> setupAction,
         X509Certificate2 certificate)
@@ -70,7 +69,7 @@ public static class BodoDataProtectionProvider
         return CreateProvider(keyDirectory, setupAction, certificate);
     }
 
-    internal static (IDataProtectionProvider, IKeyManager) CreateProvider(
+    internal static IDataProtectionProvider CreateProvider(
         DirectoryInfo keyDirectory,
         Action<IDataProtectionBuilder> setupAction,
         X509Certificate2 certificate)
@@ -99,6 +98,6 @@ public static class BodoDataProtectionProvider
         var service = serviceCollection.BuildServiceProvider();
 
         // extract the provider instance from the service collection
-        return (service.GetRequiredService<IDataProtectionProvider>(), service.GetRequiredService<IKeyManager>());
+        return service.GetRequiredService<IDataProtectionProvider>();
     }
 }

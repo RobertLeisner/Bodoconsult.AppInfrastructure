@@ -3,13 +3,12 @@
 
 using System;
 
-namespace Bodoconsult.I18N
+namespace Bodoconsult.I18N;
+
+public class I18NException : Exception
 {
-    public class I18NException : Exception
+    public I18NException(string message, Exception innerException = null) : base(message, innerException)
     {
-        public I18NException(string message, Exception innerException = null) : base(message, innerException)
-        {
             
-        }
     }
 }

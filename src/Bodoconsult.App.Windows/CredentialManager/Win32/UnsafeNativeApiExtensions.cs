@@ -4,7 +4,7 @@
 
 using System;
 using Bodoconsult.App.Windows.CredentialManager.Win32.Types;
-using CredentialType = Bodoconsult.App.Interfaces.CredentialType;
+using CredentialType = Bodoconsult.App.Abstractions.Interfaces.CredentialType;
 
 namespace Bodoconsult.App.Windows.CredentialManager.Win32;
 

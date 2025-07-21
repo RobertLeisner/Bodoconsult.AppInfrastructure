@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using Bodoconsult.App.Delegates;
-using Bodoconsult.App.DependencyInjection;
-using Bodoconsult.App.Interfaces;
+using Bodoconsult.App.Abstractions.Delegates;
+using Bodoconsult.App.Abstractions.DependencyInjection;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Logging;
 
 namespace Bodoconsult.App.Test.App;

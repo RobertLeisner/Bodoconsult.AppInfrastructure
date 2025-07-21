@@ -3,8 +3,8 @@
 // Copyright (c) 2020 Widauer Patrick. All rights reserved.
 
 using System.Security;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Extensions;
-using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.Windows.CredentialManager;
 using NUnit.Framework;
 

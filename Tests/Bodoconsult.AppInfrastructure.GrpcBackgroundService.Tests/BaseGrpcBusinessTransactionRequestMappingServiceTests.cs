@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.BusinessTransactions.RequestData;
 using Grpc.Core;
 using Bodoconsult.App.GrpcBackgroundService.BusinessTransactions;
 using Bodoconsult.App.Test.Helpers;
-using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.GrpcBackgroundService.Tests.Helpers;
 
 namespace Bodoconsult.App.GrpcBackgroundService.Tests

@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Bodoconsult.App.Abstractions\Bodoconsult.App.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\Bodoconsult.App.GrpcBackgroundService\Bodoconsult.App.GrpcBackgroundService.csproj" />
     <ProjectReference Include="..\..\tests\Bodoconsult.App.Test\Bodoconsult.App.Test.csproj" />
     <ProjectReference Include="..\..\src\Bodoconsult.App\Bodoconsult.App.csproj" />

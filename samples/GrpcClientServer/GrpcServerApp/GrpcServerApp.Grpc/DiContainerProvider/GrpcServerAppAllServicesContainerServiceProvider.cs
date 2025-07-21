@@ -1,11 +1,12 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 using Bodoconsult.App;
+using Bodoconsult.App.Abstractions.Delegates;
+using Bodoconsult.App.Abstractions.DependencyInjection;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Benchmarking;
 using Bodoconsult.App.BusinessTransactions;
 using Bodoconsult.App.ClientNotifications;
-using Bodoconsult.App.Delegates;
-using Bodoconsult.App.DependencyInjection;
 using Bodoconsult.App.Factories;
 using Bodoconsult.App.GrpcBackgroundService.Interfaces;
 using Bodoconsult.App.Interfaces;

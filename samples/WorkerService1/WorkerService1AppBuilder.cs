@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.BackgroundService.App;
-using Bodoconsult.App.Interfaces;
 using WorkerService1.DiContainerProvider;
 
 namespace WorkerService1;

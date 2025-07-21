@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Extensions;
-using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.Windows.CredentialManager.Win32;
 using Bodoconsult.App.Windows.CredentialManager.Win32.Blobs;
 using Bodoconsult.App.Windows.CredentialManager.Win32.SafeHandles;
 using Bodoconsult.App.Windows.CredentialManager.Win32.Types;
-using CredentialType = Bodoconsult.App.Interfaces.CredentialType;
+using CredentialType = Bodoconsult.App.Abstractions.Interfaces.CredentialType;
 
 namespace Bodoconsult.App.Windows.CredentialManager;
 

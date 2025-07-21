@@ -1,11 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using Bodoconsult.App.Helpers;
-using Bodoconsult.App.Interfaces;
-using Microsoft.AspNetCore.DataProtection;
-using System.Net.Sockets;
 using System.Text;
-using Bodoconsult.App.Delegates;
+using Bodoconsult.App.Abstractions.Delegates;
+using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace Bodoconsult.App.DataProtection;
 

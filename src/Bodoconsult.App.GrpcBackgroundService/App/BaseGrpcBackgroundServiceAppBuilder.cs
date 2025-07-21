@@ -18,9 +18,9 @@
 
 #endregion
 
-using Bodoconsult.App.DependencyInjection;
+using Bodoconsult.App.Abstractions.DependencyInjection;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.GrpcBackgroundService.AppStarter;
-using Bodoconsult.App.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 

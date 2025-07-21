@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 // License MIT
 
-using Bodoconsult.App.EventCounters;
-using Bodoconsult.App.Interfaces;
+using Bodoconsult.App.Abstractions.EventCounters;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Logging;
 using Microsoft.Extensions.Logging;
 

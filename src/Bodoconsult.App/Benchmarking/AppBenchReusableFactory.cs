@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.App.Interfaces;
+using Bodoconsult.App.Abstractions.Benchmarking;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Bodoconsult.App.Benchmarking;

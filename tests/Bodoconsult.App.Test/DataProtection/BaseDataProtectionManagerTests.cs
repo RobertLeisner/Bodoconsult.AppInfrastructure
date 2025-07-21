@@ -2,8 +2,8 @@
 
 using Bodoconsult.App.DataProtection;
 using Bodoconsult.App.Helpers;
-using Bodoconsult.App.Interfaces;
 using System.Diagnostics;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Test.App;
 
 namespace Bodoconsult.App.Test.DataProtection;

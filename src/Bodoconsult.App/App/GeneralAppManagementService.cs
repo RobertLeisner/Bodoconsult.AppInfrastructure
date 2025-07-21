@@ -1,8 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.General;
-using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.Zip;
+using IGeneralAppManagementService = Bodoconsult.App.Interfaces.IGeneralAppManagementService;
 
 namespace Bodoconsult.App;
 

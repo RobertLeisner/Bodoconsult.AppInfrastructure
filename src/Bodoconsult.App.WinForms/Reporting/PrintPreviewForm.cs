@@ -2,7 +2,8 @@
 
 
 using System.Globalization;
-using Bodoconsult.App.Interfaces;
+using Bodoconsult.App.Abstractions.Interfaces;
+
 // ReSharper disable LocalizableElement
 
 namespace Bodoconsult.App.WinForms.Reporting

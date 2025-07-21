@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.DependencyInjection;
-using Bodoconsult.App.Interfaces;
 
 namespace GrpcServerApp.Grpc.DiContainerProvider
 {

@@ -34,7 +34,8 @@ Interface IAppGlobals requires basic properties like logging config, central app
 
 ``` csharp
 /// <summary>
-/// Interface for global app settings with lifetime for the whole app lifetime. I
+/// Interface for global app settings with lifetime for the whole app lifetime. 
+/// It requires basic properties like logging config, central app logger or the DI container used for the app etc. often needed in apps to be implemented
 /// </summary>
 public interface IAppGlobals: IDisposable
 {

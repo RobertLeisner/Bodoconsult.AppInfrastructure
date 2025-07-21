@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 using System.Diagnostics.Tracing;
-using Bodoconsult.App.Interfaces;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.WinForms.AppStarter.Forms;
 
 namespace Bodoconsult.App.WinForms.Interfaces;

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using System.Diagnostics;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.ClientNotifications;
 using Bodoconsult.App.GrpcBackgroundService;
 using Bodoconsult.App.GrpcBackgroundService.Interfaces;

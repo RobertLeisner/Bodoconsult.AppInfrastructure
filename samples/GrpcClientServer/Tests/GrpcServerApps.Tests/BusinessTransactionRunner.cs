@@ -3,8 +3,8 @@
 using Bodoconsult.App.BusinessTransactions.RequestData;
 using Bodoconsult.App.GrpcBackgroundService;
 using Bodoconsult.App.Helpers;
-using Bodoconsult.App.Interfaces;
 using System.Diagnostics;
+using Bodoconsult.App.Interfaces;
 
 namespace GrpcServerApps.Tests;
 

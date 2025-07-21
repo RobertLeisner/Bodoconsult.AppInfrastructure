@@ -1,9 +1,9 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 using System.Diagnostics;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Extensions;
 using Bodoconsult.App.Helpers;
-using Bodoconsult.App.Interfaces;
 using WorkerService1.App;
 
 namespace WorkerService1;

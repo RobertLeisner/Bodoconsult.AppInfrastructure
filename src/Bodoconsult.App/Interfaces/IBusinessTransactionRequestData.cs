@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using Bodoconsult.App.Benchmarking;
+using Bodoconsult.App.Abstractions.Benchmarking;
 
 namespace Bodoconsult.App.Interfaces;
 

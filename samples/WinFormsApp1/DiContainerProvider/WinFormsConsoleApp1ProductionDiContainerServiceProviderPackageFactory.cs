@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using Bodoconsult.App.Delegates;
-using Bodoconsult.App.Interfaces;
+using Bodoconsult.App.Abstractions.Delegates;
+using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace WinFormsApp1.DiContainerProvider
 {

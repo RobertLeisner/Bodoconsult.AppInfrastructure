@@ -1,18 +1,22 @@
+Bodoconsult.I18N
+=================
+
 # What does the library
 
-Bodoconsult.Core.I18N library is a simple localization library based on I18N-Portable <https://github.com/xleon/I18N-Portable> by Diego Ponce de León (xleon).
+Bodoconsult.I18N library is a simple localization library based on I18N-Portable <https://github.com/xleon/I18N-Portable> by Diego Ponce de León (xleon).
 
 To use I18N-Portable directly was not possible for us. We required a localization library supporting resources from multiple assemblies and sources. I18N-Portable did not support this. 
 But the general idea of I18N-Portable is cool. Therefore we decided to develop an own I18N-Portable derivative with similar published interfaces but working a bit different behind the scenes.
 
-Our implementation was intended for using it with console apps, WinForms apps or WPF apps under .NetCore 3.1 . All other uses case may work but are not tested.
+Bodoconsult.I18N library currently supports I18N for apps with one currently loaded language only. Apps with multiple UI theads running on different languages are not supported currently.
 
-* Simple to use: "key".Translate().
+Our implementation was intended for using it with console apps, WinForms apps or WPF apps under .Net8 or later. All other uses case may work but are not tested.
+
+* Usable with a DI container
 * Simple initialization setup.
 * Readable and lean locale files (UTF8 .txt with key/value pairs).
 * Support for custom file formats via ILocalesProvider interface (json, xml, etc)
 * Light weight
-* No dependencies.
 * Well tested
 
 
@@ -51,7 +55,7 @@ The source code contain NUnit test classes, the following source code is extract
         Line Two
         Line Three
 
-### Fluent initialization
+## Fluent initialization
 
 ```csharp
 			I18N.Current
@@ -61,58 +65,100 @@ The source code contain NUnit test classes, the following source code is extract
 				.SetLogger(text => Debug.WriteLine(text)) // action to output traces
 ```
 
-### Usage
+## Using I18N without depencency injection
 
 The following code does not use Fluent to show the single steps necessary. It may be shortene by using Fluent. 
 
 ```csharp
+// **** Load all resources from one or more sources ****
+// Add provider 1
+ILocalesProvider provider = new I18NEmbeddedResourceLocalesProvider(GetType().Assembly,
+    "Bodoconsult.I18N.Test.Samples.Locales");
 
-            // **** Load all resources from one or more sources ****
-            // Add provider 1
-            ILocalesProvider provider = new I18NEmbeddedResourceLocalesProvider(GetType().Assembly,
-                "Bodoconsult.Core.I18N.Test.Samples.Locales");
+I18N.Current.AddProvider(provider);
 
-            I18N.Current.AddProvider(provider);
+// Add provider 2
+provider = new I18NEmbeddedResourceLocalesProvider(GetType().Assembly,
+    "Bodoconsult.I18N.Test.Locales");
 
-            // Add provider 2
-            provider = new I18NEmbeddedResourceLocalesProvider(GetType().Assembly,
-                "Bodoconsult.Core.I18N.Test.Locales");
+I18N.Current.AddProvider(provider);
 
-            I18N.Current.AddProvider(provider);
+Assert.IsTrue(I18N.Current.Languages.Any());
 
-            Assert.IsTrue(I18N.Current.Languages.Any());
+// **** Initialize all ****
+// Set a fallback locale for the case current thread language is not available in the resources
+I18N.Current.SetFallbackLocale("en");
 
-            // **** Initialize all ****
-            // Set a fallback locale for the case current thread language is not available in the resources
-            I18N.Current.SetFallbackLocale("en");
-
-            // Load the default language from thread culture
-            I18N.Current.Init();
-
-
-            // **** Use it ****
-            // change to spanish (not necessary if thread language is ok)
-            I18N.Current.Locale = "es";
-
-            var translation = I18N.Current.Translate("one");
-            Assert.AreEqual("uno", translation);
-
-            translation = "Contains".Translate();
-            Assert.AreEqual("Contains", translation);
+// Load the default language from thread culture
+I18N.Current.Init();
 
 
-            // Change to english
-            I18N.Current.Locale = "en";
+// **** Use it ****
+// change to spanish (not necessary if thread language is ok)
+I18N.Current.Locale = "es";
 
-            translation = I18N.Current.Translate("one");
-            Assert.AreEqual("one", translation);
+var translation = I18N.Current.Translate("one");
+Assert.AreEqual("uno", translation);
 
-            translation = "Contains".Translate();
-            Assert.AreEqual("Contains", translation);
+translation = "Contains".Translate();
+Assert.AreEqual("Contains", translation);
+
+
+// Change to english
+I18N.Current.Locale = "en";
+
+translation = I18N.Current.Translate("one");
+Assert.AreEqual("one", translation);
+
+translation = "Contains".Translate();
+Assert.AreEqual("Contains", translation);
+```
+
+## Using I18N with depencency injection and Bodoconsult.App.Abstractions.DiContainer class
+
+### Create your I18N factory based on BaseI18NFactory class
+
+The I18N factories based on BaseI18NFactory class are intended to create fully configured I18N instances with all locales loaded as required by your app. 
+To configure the I18N instance create an override for method CreateInstance() loading all providers as required.
+
+``` csharp
+/// <summary>
+/// Factory to create a fully configured I18N factory
+/// </summary>
+public class TestI18NFactory: BaseI18NFactory
+{
+    /// <summary>
+    /// Creating a configured II18N instance
+    /// </summary>
+    /// <returns>An II18N instance</returns>
+    public override II18N CreateInstance()
+    {
+        // Set the fallback language
+        I18NInstance.SetFallbackLocale("en");
+
+        // Load a provider
+        var provider = new I18NEmbeddedResourceLocalesProvider(TestHelper.CurrentAssembly,
+            "Bodoconsult.I18N.Test.Samples.Locales");
+
+        I18NInstance.AddProvider(provider);
+
+        // Load more providers if necessary
+        // ...
+
+        // Init instance with lanugae from running thread
+        I18NInstance.Init();
+
+        // Return the instance
+        return I18NInstance;
+    }
+}
+```
+
+``` csharp
 
 ```
 
-### Data binding
+## Data binding
 
 `I18N` implements `INotifyPropertyChanged` and it has an indexer to translate keys. For instance, you could translate a key like:
 

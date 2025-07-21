@@ -2,8 +2,8 @@
 // Licence MIT
 
 using System.Diagnostics.Tracing;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.AppStarter;
-using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.Logging;
 using Bodoconsult.App.WinForms.AppStarter.Forms;
 using Bodoconsult.App.WinForms.AppStarter.Forms.ViewModel;

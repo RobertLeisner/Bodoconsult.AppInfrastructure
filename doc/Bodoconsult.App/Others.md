@@ -5,11 +5,13 @@ More tools for developers
 
 > [Basic watchdog implementation IWatchDog / WatchDog as replacement for timers for non-time critical tasks](#iwatchdog--watchdog)
 
-> [BufferPool\<T\> for reusing frequently used tiny to medium size classes](#bufferpoolt)
+> [BufferPool\<T\> for reusing frequently used tiny to medium size classes](#bufferpoolt) to reduce garbage collection pressure
 
-> [ProducerConsumerQueue/<T/> implementing the producer-consumer-pattern for one or many producers but only one consumer](#producerconsumerqueue)
+> [ProducerConsumerQueue<T/> implementing the producer-consumer-pattern for one or many producers but only one consumer](#producerconsumerqueue) with running the consumer always on the same thread
 
 > [DataProtectionManager for protecting secrets like credentials](#dataprotectionmanager-for-protecting-secrets-like-credentials)
+
+> [Protecting entities: EntityProtectionService class](#protecting-entities-entityprotectionservice-class)
 
 
 # IWatchDog / WatchDog
@@ -22,7 +24,6 @@ The runner method is fired and processed until done. Then the watchdog waits for
 For time critical tasks WatchDog is not a good solution. If you have to ensure that your task is running i.e. every minute exactly, you better should use a Timer.
 
 The runner method is running always on the same separated background thread.
-
 
 ``` csharp
 WatchDogRunnerDelegate runner = Runner;
@@ -68,9 +69,9 @@ myPool.Enqueue(buffer);
 Assert.That(myPool.LengthOfQueue, Is.EqualTo(NumberOfItems));
 ```
 
-# ProducerConsumerQueue/<T/>
+# ProducerConsumerQueue<T/>
 
-ProducerConsumerQueue/<T/> implements the producer-consumer-pattern for one or many producers but only one consumer. This may be helpful if the consumer is maybe a database or a file which should not be accessed by multiple threads at the same time.
+ProducerConsumerQueue<T/> implements the producer-consumer-pattern for one or many producers but only one consumer with running the consumer always on the same thread. This may be helpful if the consumer is maybe a database or a file which should not be accessed by multiple threads at the same time.
 
 ``` csharp
 const string s1 = "Blubb";
@@ -104,9 +105,17 @@ private void ConsumerTaskDelegate(string value)
 }
 ```
 
-# DataProtectionManager for protecting secrets like credentials
+# Data protection
+
+## DataProtectionManager for protecting secrets like credentials
 
 DataProtectionManager implements a file based solution for save storage of sensitive data based on Microsoft.AspNetCore.DataProtection to be used in console apps etc. without the need of more sophisticated tools like Azure Vault etc..
+
+Important: unprotecting data is possible only on the machine the data protection was done.
+
+### Using without DI container
+
+See the following example for how to use DataProtectionManager without DI container:
 
 ``` csharp
 [Test]
@@ -133,6 +142,122 @@ public void Unprotect_ValidSetup_SecretUnprotectedCorrectly()
     Assert.That(result, Is.EqualTo(Secret));
     dpm.Dispose();
 }
+```
+
+### Using with DI container
+
+See the following example for how to use DataProtectionManager without DI container:
+
+``` csharp
+private static SimpleDataProtectionDiContainerServiceProvider CreateProvider()
+{
+    var destinationFolderPath = TestHelper.TempPath;
+    var provider = new SimpleDataProtectionDiContainerServiceProvider(destinationFolderPath);
+    return provider;
+}
+
+[Test]
+public void CreateInstance_DefaultSetup_InstanceCreated()
+{
+    // Arrange
+    var filePath = Path.Combine(TestHelper.TempPath, "blubb.dat");
+
+    var provider = CreateProvider();
+
+    var container = new DiContainer();
+
+    Assert.That(container.ServiceCollection.Count, Is.EqualTo(0));
+
+    provider.AddServices(container);
+    container.BuildServiceProvider();
+
+    Assert.That(container.ServiceCollection.Count, Is.Not.EqualTo(0));
+
+    var dpm = container.Get<IDataProtectionManagerFactory>();
+    Assert.That(dpm, Is.Not.Null);
+
+    // Act 
+    var instance = dpm.CreateInstance(filePath);
+
+    // Assert
+    Assert.That(instance, Is.Not.Null);
+}
+```
+There is another implementation NoDataProtectionDiContainerServiceProvider of IDiContainerServiceProvider to load a data protection solution letting the file itself unprotected but not the secrets stored in the file.
+
+Please use SimpleDataProtectionDiContainerServiceProvider normally.
+
+## Protecting entities: EntityProtectionService class
+
+If you want to protect properties of an entity use EntityProtectionService class. 
+
+You have to prepare your entity class with two attributes DataProtectionKey and DataProtectionSecret:
+
+``` csharp
+internal class EntityWithUidWithSecrets
+{
+    [DataProtectionKey]
+    public Guid Uid { get; set; }
+
+    [DataProtectionSecret]
+    public string Secret { get; set; }
+
+    [DataProtectionSecret]
+    public string Secret2 { get; set; }
+}
+```
+
+The DataProtectionKey attribute has to be set once. 
+
+The following sample shows how to use 
+
+``` csharp
+private readonly EntityProtectionService _entityProtectionService;
+
+protected const string AppName = "MyApp";
+
+public EntityProtectionServiceTests()
+{
+    var path = Globals.Instance.AppStartParameter.DataPath;
+    var dataProtectionService = DataProtectionService.CreateInstance(path, AppName);
+    _entityProtectionService = new EntityProtectionService(dataProtectionService);
+}
+
+[Test]
+public void Unprotect_MultipleSecretsWithUid_PropsWithDataProtectionSecretAttributeProtected()
+{
+    // Arrange 
+    const string secret = "Secret";
+    const string secret2 = "Secret2";
+    var uid = Guid.NewGuid();
+
+    var entity = new EntityWithUidWithSecrets
+    {
+        Uid = uid,
+        Secret = secret,
+        Secret2 = secret2
+    };
+
+    _entityProtectionService.Protect(entity);
+
+    Assert.That(entity.Uid, Is.EqualTo(uid));
+    Assert.That(entity.Secret, Is.Not.EqualTo(secret));
+    Assert.That(entity.Secret2, Is.Not.EqualTo(secret2));
+    Assert.That(entity.Secret, Is.Not.EqualTo(entity.Secret2));
+
+    // Act  
+    _entityProtectionService.Unprotect(entity);
+
+    // Assert
+    Assert.That(entity.Uid, Is.EqualTo(uid));
+    Assert.That(entity.Secret, Is.EqualTo(secret));
+    Assert.That(entity.Secret2, Is.EqualTo(secret2));
+}
+```
+
+``` csharp
+
+
 ```
 
 # IExceptionReplyBuilder / ExceptionReplyBuilder

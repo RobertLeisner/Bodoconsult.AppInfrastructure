@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.App.Delegates;
+using Bodoconsult.App.Abstractions.Delegates;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.GrpcBackgroundService;
-using Bodoconsult.App.Interfaces;
 using GrpcServerApp.BusinessLogic.Notifications;
 
 namespace GrpcServerApp.Grpc.MappingServices;

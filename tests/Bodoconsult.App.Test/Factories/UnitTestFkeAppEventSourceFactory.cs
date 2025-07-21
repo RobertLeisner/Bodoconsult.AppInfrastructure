@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using Bodoconsult.App.EventCounters;
+using Bodoconsult.App.Abstractions.EventCounters;
 using Bodoconsult.App.Factories;
 
 namespace Bodoconsult.App.Test.Factories;

@@ -3,12 +3,12 @@
 
 using Bodoconsult.App.Benchmarking;
 using Bodoconsult.App.ClientNotifications;
-using Bodoconsult.App.EventCounters;
-using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.Logging;
 using Bodoconsult.App.Test.App;
 using System.Diagnostics;
 using System.Reflection;
+using Bodoconsult.App.Abstractions.EventCounters;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Factories;
 
 namespace Bodoconsult.App.Test.Helpers;
