@@ -2,7 +2,6 @@
 
 using System;
 using System.Reflection;
-using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace Bodoconsult.I18N;
 
@@ -12,22 +11,17 @@ namespace Bodoconsult.I18N;
 public static class I18NStringExtensions
 {
     /// <summary>
-    ///  Current II18N instance to use
-    /// </summary>
-    public static II18N Instance { get; set; } = I18N.Current;
-
-    /// <summary>
     /// Get a translation from a key, formatting the string with the given params, if any
     /// </summary>
     public static string Translate(this string key, params object[] args)
-        => Instance.Translate(key, args);
+        => I18N.Current.Translate(key, args);
 
     /// <summary>
     /// Get a translation from a key, formatting the string with the given params, if any. 
     /// It will return null when the translation is not found
     /// </summary>
     public static string TranslateOrNull(this string key, params object[] args)
-        => Instance.TranslateOrNull(key, args);
+        => I18N.Current.TranslateOrNull(key, args);
 
     /// <summary>
     /// Capitalize the first letter of a string

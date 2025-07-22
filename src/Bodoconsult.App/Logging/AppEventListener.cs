@@ -70,7 +70,7 @@ public class AppEventListener : EventListener
             throw new ArgumentNullException(nameof(eventSource));
         }
 
-        Debug.Print("EventSource" + eventSource.Name);
+        Debug.Print($"EventSource{eventSource.Name}");
 
         if (eventSource.Name != "Microsoft-Extensions-Logging")
         {

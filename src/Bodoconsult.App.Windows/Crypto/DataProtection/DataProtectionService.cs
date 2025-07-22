@@ -34,8 +34,6 @@ public class DataProtectionService
     {
         try
         {
-            // 
-            // 
             return ProtectedData.Protect(data, EntropyBytes, CurrentDataProtectionScope);
         }
         catch (CryptographicException e)

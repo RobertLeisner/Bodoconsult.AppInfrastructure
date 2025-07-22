@@ -9,7 +9,7 @@ using Bodoconsult.App.Abstractions.DependencyInjection;
 namespace Bodoconsult.App.Abstractions.Interfaces
 {
     /// <summary>
-    /// Interface for global app settings with lifetime for the whole app lifetime. I
+    /// Interface for global app settings with lifetime for the whole app lifetime
     /// </summary>
     public interface IAppGlobals: IDisposable
     {
@@ -54,7 +54,6 @@ namespace Bodoconsult.App.Abstractions.Interfaces
         /// </summary>
         IAppStorageConnectionCheck AppStorageConnectionCheck { get; set; }
 
-
         /// <summary>
         /// Current status message delegate
         /// </summary>
@@ -64,6 +63,16 @@ namespace Bodoconsult.App.Abstractions.Interfaces
         /// Current license management delegate
         /// </summary>
         public LicenseMissingDelegate LicenseMissingDelegate { get; set; }
+
+        /// <summary>
+        /// Delegate to handle I18N translations
+        /// </summary>
+        TranslateDelegate TranslateDelegate { get; set; }
+
+        /// <summary>
+        /// Delegate to handle I18N translations with parameters to fill in translated text
+        /// </summary>
+        TranslateWithParamsDelegate TranslateWithParamsDelegate { get; set; }
 
     }
 }

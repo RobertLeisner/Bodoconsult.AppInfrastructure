@@ -4,7 +4,6 @@ using Bodoconsult.App;
 using Bodoconsult.App.Abstractions.Delegates;
 using Bodoconsult.App.Abstractions.DependencyInjection;
 using Bodoconsult.App.Abstractions.Interfaces;
-using Bodoconsult.App.Logging;
 
 namespace WorkerService1.App;
 
@@ -98,4 +97,14 @@ public class Globals : IAppGlobals
     /// Current license management delegate
     /// </summary>
     public LicenseMissingDelegate LicenseMissingDelegate { get; set; }
+
+    /// <summary>
+    /// Delegate to handle I18N translations
+    /// </summary>
+    public TranslateDelegate TranslateDelegate { get; set; }
+
+    /// <summary>
+    /// Delegate to handle I18N translations with parameters to fill in translated text
+    /// </summary>
+    public TranslateWithParamsDelegate TranslateWithParamsDelegate { get; set; }
 }

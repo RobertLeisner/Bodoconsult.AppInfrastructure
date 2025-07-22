@@ -70,7 +70,14 @@ public interface II18N : INotifyPropertyChanged, IDisposable
     /// Translate the given key. If key is not existing an empty string is returned
     /// </summary>
     /// <param name="key">Key to translate</param>
-    /// <param name="args">Optinal args</param>
+    /// <returns>Translated key as string</returns>
+    string Translate(string key);
+
+    /// <summary>
+    /// Translate the given key. If key is not existing an empty string is returned
+    /// </summary>
+    /// <param name="key">Key to translate</param>
+    /// <param name="args">Optional args</param>
     /// <returns>Translated key as string</returns>
     string Translate(string key, params object[] args);
 

@@ -3,12 +3,6 @@
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.I18N.DependencyInjection;
 using Bodoconsult.I18N.LocalesProviders;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Bodoconsult.I18N.Test.Helpers;
 
 namespace Bodoconsult.I18N.Test.Samples

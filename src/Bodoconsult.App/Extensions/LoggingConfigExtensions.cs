@@ -2,7 +2,6 @@
 
 using System.Diagnostics;
 using Bodoconsult.App.Abstractions.Interfaces;
-using Bodoconsult.App.Logging;
 using Bodoconsult.App.Logging.LoggingConfigurators;
 
 namespace Bodoconsult.App.Extensions;

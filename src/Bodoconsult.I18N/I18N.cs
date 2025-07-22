@@ -48,7 +48,12 @@ public class I18N : II18N
 
 
     private readonly Dictionary<string, string> _translations = new();
+
+    /// <summary>
+    /// All loaded providers
+    /// </summary>
     public IList<ILocalesProvider> Providers { get; } = new List<ILocalesProvider>();
+
     private readonly List<string> _locales = new();
     private bool _throwWhenKeyNotFound;
     private string _notFoundSymbol = "?";
@@ -371,8 +376,27 @@ public class I18N : II18N
     #region Translations
 
     /// <summary>
-    /// Get a translation from a key, formatting the string with the given params, if any
+    /// Translate the given key. If key is not existing an empty string is returned
     /// </summary>
+    /// <param name="key">Key to translate</param>
+    /// <returns>Translated key as string</returns>
+    public string Translate(string key)
+    {
+        if (_translations.TryGetValue(key, out var translate))
+        {
+            return translate;
+        }
+
+        if (_throwWhenKeyNotFound)
+        {
+            throw new KeyNotFoundException($"[{nameof(I18N)}] key '{key}' not found in the current language '{_locale}'");
+        }
+
+        return $"{_notFoundSymbol}{key}{_notFoundSymbol}";
+    }
+
+
+
     public string Translate(string key, params object[] args)
     {
         if (_translations.ContainsKey(key))
@@ -384,8 +408,7 @@ public class I18N : II18N
 
         if (_throwWhenKeyNotFound)
         {
-            throw new KeyNotFoundException(
-                $"[{nameof(I18N)}] key '{key}' not found in the current language '{_locale}'");
+            throw new KeyNotFoundException($"[{nameof(I18N)}] key '{key}' not found in the current language '{_locale}'");
         }
 
         return $"{_notFoundSymbol}{key}{_notFoundSymbol}";

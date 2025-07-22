@@ -22,7 +22,7 @@ public class MainWindowViewModel : IMainWindowViewModel
 
     private readonly AppEventListener _listener;
 
-    private readonly IList<string> _logData = new List<string>();
+    private readonly List<string> _logData = new();
 
     private EventLevel _logEventLevel;
 
@@ -103,14 +103,16 @@ public class MainWindowViewModel : IMainWindowViewModel
         {
             var assembly = Assembly.GetEntryAssembly();
 
-            if (assembly != null)
+            if (assembly == null)
             {
-                var logoStream = assembly.GetManifestResourceStream(AppBuilder.AppGlobals.AppStartParameter.LogoRessourcePath);
+                return;
+            }
 
-                if (logoStream != null)
-                {
-                    Logo = new Bitmap(logoStream);
-                }
+            var logoStream = assembly.GetManifestResourceStream(AppBuilder.AppGlobals.AppStartParameter.LogoRessourcePath);
+
+            if (logoStream != null)
+            {
+                Logo = new Bitmap(logoStream);
             }
 
         }

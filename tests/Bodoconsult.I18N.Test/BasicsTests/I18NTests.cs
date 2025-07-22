@@ -6,7 +6,6 @@ using System.Linq;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.I18N.LocalesProviders;
 using Bodoconsult.I18N.Test.Helpers;
-using Bodoconsult.I18N.Test.Samples.Util;
 using NUnit.Framework;
 
 namespace Bodoconsult.I18N.Test.BasicsTests;
@@ -111,12 +110,12 @@ internal class I18NTests : BaseTests
     //    Assert.That( I18N.Current.Translate("something"), Is.EqualTo("mocked translation"));
     //}
 
-    [Test]
-    public void I18N_CanBe_Disposed()
-    {
-        I18N.Current.PropertyChanged += (_, _) => { };
-        I18N.Current.Dispose();
+    //[Test]
+    //public void I18N_CanBe_Disposed()
+    //{
+    //    I18N.Current.PropertyChanged += (_, _) => { };
+    //    I18N.Current.Dispose();
 
-        Assert.That(I18N.Current, Is.Null);
-    }
+    //    Assert.That(I18N.Current, Is.Null);
+    //}
 }

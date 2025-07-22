@@ -29,10 +29,6 @@ public delegate void LicenseMissingDelegate(string message);
 /// <returns>A string to shown to the user on UI before app terminates</returns>
 public delegate string HandleFatalExceptionDelegate(Exception e);
 
-
-
-
-
 /// <summary>
 /// A delegate for converting a notification to the target object to transfer to the client
 /// </summary>
@@ -46,3 +42,18 @@ public delegate object NotificationToTargetTransferObjectDelegate(IClientNotific
 /// <param name="message">Message to show to user inputting the string</param>
 /// <returns>Read string input</returns>
 public delegate string ReadStringDelegate(string message);
+
+/// <summary>
+/// Translate a string given by a key value
+/// </summary>
+/// <param name="key">The key of the string to translate</param>
+/// <returns>Translated string</returns>
+public delegate string TranslateDelegate(string key);
+
+/// <summary>
+/// Translate a string given by a key value
+/// </summary>
+/// <param name="key">The key of the string to translate</param>
+/// <param name="args">Optional args</param>
+/// <returns>Translated string</returns>
+public delegate string TranslateWithParamsDelegate(string key, params object[] args);

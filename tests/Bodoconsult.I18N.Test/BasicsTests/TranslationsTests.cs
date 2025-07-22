@@ -13,6 +13,7 @@ namespace Bodoconsult.I18N.Test.BasicsTests;
 [TestFixture]
 internal class TranslationsTests : BaseTests
 {
+
     [TestCase("en", "one", "one")]
     [TestCase("en", "two", "two")]
     [TestCase("en", "three", "three")]
@@ -32,20 +33,115 @@ internal class TranslationsTests : BaseTests
     [TestCase("es", "Animals.Rat", "Rata")]
     [TestCase("es", "Fruit.Orange", "gran naranja")]
     [TestCase("es", "Fruit.Apple", "manzana grande")]
-    public void Keys_ShouldBe_Translated(string locale, string key, string translation)
+    public void KeyTranslate_ShouldBe_Translated(string locale, string key, string translation)
     {
         var provider = new I18NEmbeddedResourceLocalesProvider(TestHelper.CurrentAssembly,
             "Bodoconsult.I18N.Test.Samples.Locales");
 
+        I18N.Current.Reset();
+        I18N.Current.AddProvider(provider);
+
+        I18N.Current.Locale = locale;
+
+        Assert.That(key.Translate(), Is.EqualTo(translation));
+    }
+
+
+    [TestCase("en", "one", "one")]
+    [TestCase("en", "two", "two")]
+    [TestCase("en", "three", "three")]
+    [TestCase("en", "Animals", "List of animals")]
+    [TestCase("en", "Animals.Dog", "Dog")]
+    [TestCase("en", "Animals.Cat", "Cat")]
+    [TestCase("en", "Animals.Rat", "Rat")]
+    [TestCase("en", "Fruit.Orange", "great orange")]
+    [TestCase("en", "Fruit.Apple", "big apple")]
+    // --
+    [TestCase("es", "one", "uno")]
+    [TestCase("es", "two", "dos")]
+    [TestCase("es", "three", "tres")]
+    [TestCase("es", "Animals", "Lista de animales")]
+    [TestCase("es", "Animals.Dog", "Perro")]
+    [TestCase("es", "Animals.Cat", "Gato")]
+    [TestCase("es", "Animals.Rat", "Rata")]
+    [TestCase("es", "Fruit.Orange", "gran naranja")]
+    [TestCase("es", "Fruit.Apple", "manzana grande")]
+    public void KeyTranslateOrNull_ShouldBe_Translated(string locale, string key, string translation)
+    {
+        var provider = new I18NEmbeddedResourceLocalesProvider(TestHelper.CurrentAssembly,
+            "Bodoconsult.I18N.Test.Samples.Locales");
+
+        I18N.Current.Reset();
+        I18N.Current.AddProvider(provider);
+
+        I18N.Current.Locale = locale;
+
+        Assert.That(key.TranslateOrNull(), Is.EqualTo(translation));
+    }
+
+    [TestCase("en", "one", "one")]
+    [TestCase("en", "two", "two")]
+    [TestCase("en", "three", "three")]
+    [TestCase("en", "Animals", "List of animals")]
+    [TestCase("en", "Animals.Dog", "Dog")]
+    [TestCase("en", "Animals.Cat", "Cat")]
+    [TestCase("en", "Animals.Rat", "Rat")]
+    [TestCase("en", "Fruit.Orange", "great orange")]
+    [TestCase("en", "Fruit.Apple", "big apple")]
+    // --
+    [TestCase("es", "one", "uno")]
+    [TestCase("es", "two", "dos")]
+    [TestCase("es", "three", "tres")]
+    [TestCase("es", "Animals", "Lista de animales")]
+    [TestCase("es", "Animals.Dog", "Perro")]
+    [TestCase("es", "Animals.Cat", "Gato")]
+    [TestCase("es", "Animals.Rat", "Rata")]
+    [TestCase("es", "Fruit.Orange", "gran naranja")]
+    [TestCase("es", "Fruit.Apple", "manzana grande")]
+    public void I18NTranslate_ShouldBe_Translated(string locale, string key, string translation)
+    {
+        var provider = new I18NEmbeddedResourceLocalesProvider(TestHelper.CurrentAssembly,
+            "Bodoconsult.I18N.Test.Samples.Locales");
+
+        I18N.Current.Reset();
         I18N.Current.AddProvider(provider);
 
         I18N.Current.Locale = locale;
 
         Assert.That(I18N.Current.Translate(key), Is.EqualTo(translation));
         Assert.That(I18N.Current[key], Is.EqualTo(translation));
-        Assert.That(key.Translate(), Is.EqualTo(translation));
-        Assert.That(key.TranslateOrNull(), Is.EqualTo(translation));
+    }
 
+    [TestCase("en", "one", "one")]
+    [TestCase("en", "two", "two")]
+    [TestCase("en", "three", "three")]
+    [TestCase("en", "Animals", "List of animals")]
+    [TestCase("en", "Animals.Dog", "Dog")]
+    [TestCase("en", "Animals.Cat", "Cat")]
+    [TestCase("en", "Animals.Rat", "Rat")]
+    [TestCase("en", "Fruit.Orange", "great orange")]
+    [TestCase("en", "Fruit.Apple", "big apple")]
+    // --
+    [TestCase("es", "one", "uno")]
+    [TestCase("es", "two", "dos")]
+    [TestCase("es", "three", "tres")]
+    [TestCase("es", "Animals", "Lista de animales")]
+    [TestCase("es", "Animals.Dog", "Perro")]
+    [TestCase("es", "Animals.Cat", "Gato")]
+    [TestCase("es", "Animals.Rat", "Rata")]
+    [TestCase("es", "Fruit.Orange", "gran naranja")]
+    [TestCase("es", "Fruit.Apple", "manzana grande")]
+    public void I18NIndexer_ShouldBe_Translated(string locale, string key, string translation)
+    {
+        var provider = new I18NEmbeddedResourceLocalesProvider(TestHelper.CurrentAssembly,
+            "Bodoconsult.I18N.Test.Samples.Locales");
+
+        I18N.Current.Reset();
+        I18N.Current.AddProvider(provider);
+
+        I18N.Current.Locale = locale;
+
+        Assert.That(I18N.Current[key], Is.EqualTo(translation));
     }
 
     [TestCase("en", "Mailbox.Notification", "Hello Marta, you've got 56 emails")]
@@ -55,6 +151,7 @@ internal class TranslationsTests : BaseTests
         var provider = new I18NEmbeddedResourceLocalesProvider(TestHelper.CurrentAssembly,
             "Bodoconsult.I18N.Test.Samples.Locales");
 
+        I18N.Current.Reset();
         I18N.Current.AddProvider(provider);
 
         I18N.Current.Locale = locale;
@@ -72,6 +169,7 @@ internal class TranslationsTests : BaseTests
         var provider = new I18NEmbeddedResourceLocalesProvider(TestHelper.CurrentAssembly,
             "Bodoconsult.I18N.Test.Samples.Locales");
 
+        I18N.Current.Reset();
         I18N.Current.AddProvider(provider);
 
         I18N.Current.Locale = locale;
@@ -91,6 +189,7 @@ internal class TranslationsTests : BaseTests
         var provider = new I18NEmbeddedResourceLocalesProvider(TestHelper.CurrentAssembly,
             "Bodoconsult.I18N.Test.Samples.Locales");
 
+        I18N.Current.Reset();
         I18N.Current.AddProvider(provider);
 
         I18N.Current.Locale = locale;
@@ -106,6 +205,7 @@ internal class TranslationsTests : BaseTests
         var provider = new I18NEmbeddedResourceLocalesProvider(TestHelper.CurrentAssembly,
             "Bodoconsult.I18N.Test.Samples.Locales");
 
+        I18N.Current.Reset();
         I18N.Current.AddProvider(provider);
 
         I18N.Current.Locale = locale;
@@ -121,6 +221,7 @@ internal class TranslationsTests : BaseTests
         var provider = new I18NEmbeddedResourceLocalesProvider(TestHelper.CurrentAssembly,
             "Bodoconsult.I18N.Test.Samples.Locales");
 
+        I18N.Current.Reset();
         I18N.Current.AddProvider(provider);
 
         I18N.Current.Locale = "es";
@@ -138,6 +239,7 @@ internal class TranslationsTests : BaseTests
         var provider = new I18NEmbeddedResourceLocalesProvider(TestHelper.CurrentAssembly,
             "Bodoconsult.I18N.Test.Samples.Locales");
 
+        I18N.Current.Reset();
         I18N.Current.AddProvider(provider);
 
         I18N.Current.Locale = "en";
@@ -161,6 +263,7 @@ internal class TranslationsTests : BaseTests
         var provider = new I18NEmbeddedResourceLocalesProvider(TestHelper.CurrentAssembly,
             "Bodoconsult.I18N.Test.Samples.Locales");
 
+        I18N.Current.Reset();
         I18N.Current.AddProvider(provider);
 
         I18N.Current.Locale = "en";
@@ -181,6 +284,7 @@ internal class TranslationsTests : BaseTests
 
         //I18N.Current.AddProvider(provider);
 
+        I18N.Current.Reset();
         I18N.Current.SetNotFoundSymbol("$$");
         var nonExistent = I18N.Current.Translate("nonExistentKey");
 

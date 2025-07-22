@@ -119,6 +119,13 @@ public class I18NMock : II18N
     /// Translate the given key. If key is not existing an empty string is returned
     /// </summary>
     /// <param name="key">Key to translate</param>
+    /// <returns>Translated key as string</returns>
+    public string Translate(string key) => "mocked translation";
+
+    /// <summary>
+    /// Translate the given key. If key is not existing an empty string is returned
+    /// </summary>
+    /// <param name="key">Key to translate</param>
     /// <param name="args">Optinal args</param>
     /// <returns>Translated key as string</returns>
     public string Translate(string key, params object[] args) => "mocked translation";

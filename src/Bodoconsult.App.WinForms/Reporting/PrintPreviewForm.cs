@@ -1,8 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-
+using Bodoconsult.App.Abstractions.Delegates;
 using System.Globalization;
-using Bodoconsult.App.Abstractions.Interfaces;
 
 // ReSharper disable LocalizableElement
 
@@ -10,17 +9,24 @@ namespace Bodoconsult.App.WinForms.Reporting
 {
     public sealed partial class PrintPreviewForm : Form
     {
-        public System.Drawing.Printing.PrintDocument Document;
-        public int NumberOfPages;
 
-        public PrintPreviewForm(II18NFacade i18NFacade)
+        /// <summary>
+        /// Current document
+        /// </summary>
+        public System.Drawing.Printing.PrintDocument Document;
+
+        /// <summary>
+        /// The number of pages in the preview
+        /// </summary>
+        public int NumberOfPages { get; set; }
+
+        public PrintPreviewForm(TranslateDelegate translateDelegate)
         {
 
             InitializeComponent();
 
-            if (i18NFacade == null)
+            if (translateDelegate == null)
             {
-
                 Text = "Print preview";
                 buttonPrint.Text = "Print";
                 buttonExit.Text = "Exit";
@@ -28,11 +34,10 @@ namespace Bodoconsult.App.WinForms.Reporting
                 return;
             }
 
-
-            Text = i18NFacade.Translate("Bodoconsult.App.WinForms.Reporting.PrintPreviewForm.Title");
-            buttonPrint.Text = i18NFacade.Translate("Bodoconsult.App.WinForms.Reporting.PrintPreviewForm.PrintButton");
-            buttonExit.Text = i18NFacade.Translate("Bodoconsult.App.WinForms.Reporting.PrintPreviewForm.ExitButton"); 
-            Duplex.Text = i18NFacade.Translate("Bodoconsult.App.WinForms.Reporting.PrintPreviewForm.DuplexPrint");
+            Text = translateDelegate.Invoke("Bodoconsult.App.WinForms.Reporting.PrintPreviewForm.Title");
+            buttonPrint.Text = translateDelegate.Invoke("Bodoconsult.App.WinForms.Reporting.PrintPreviewForm.PrintButton");
+            buttonExit.Text = translateDelegate.Invoke("Bodoconsult.App.WinForms.Reporting.PrintPreviewForm.ExitButton"); 
+            Duplex.Text = translateDelegate.Invoke("Bodoconsult.App.WinForms.Reporting.PrintPreviewForm.DuplexPrint");
         }
 
         /// <summary>

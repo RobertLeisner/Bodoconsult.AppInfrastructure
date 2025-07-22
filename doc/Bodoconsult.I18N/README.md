@@ -26,7 +26,7 @@ The source code contain NUnit test classes, the following source code is extract
 
 ## Setup locales
 
-- In your NetCore project, create a directory called "Locales".
+- In your Net8 project, create a directory called "Locales".
 - Create a `{languageCode}.txt` file for each language you want to support. `languageCode` can be a two letter ISO code or a culture name like "en-US". See [full list here](https://msdn.microsoft.com/en-us/library/ee825488%28v=cs.20%29.aspx).
 - Set "Build Action" to "Embedded Resource" on the properties of each file
 
