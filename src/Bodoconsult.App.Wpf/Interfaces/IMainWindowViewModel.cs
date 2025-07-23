@@ -48,8 +48,14 @@ public interface IMainWindowViewModel : INotifyPropertyChanged
     /// </summary>
     string MsgHowToShutdownServer { get; set; }
 
+    /// <summary>
+    /// Message on what port the app is listening
+    /// </summary>
     string MsgServerIsListeningOnPort { get; set; }
 
+    /// <summary>
+    /// Message with the current process ID
+    /// </summary>
     string MsgServerProcessId { get; set; }
 
     /// <summary>

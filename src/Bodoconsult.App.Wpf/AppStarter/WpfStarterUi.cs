@@ -22,6 +22,10 @@ public class WpfStarterUi : BaseAppStarterUi
 
     private IMainWindowViewModel _viewModel;
 
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="appBuilder">Current IAppBuilder instance</param>
     public WpfStarterUi(IAppBuilder appBuilder) : base(appBuilder)
     {
         //var minimumLogLevel = Globals.GetLoggingConfiguration().MinimumLogLevel;
@@ -104,6 +108,11 @@ public class WpfStarterUi : BaseAppStarterUi
         window.Show();
     }
 
+    /// <summary>
+    /// Show a message and then terminate the app
+    /// </summary>
+    /// <param name="message">Message to show before app termination</param>
+    /// <param name="appTitle">App title to set</param>
     public override void TerminateAppWithMessage(string message, string appTitle)
     {
         MessageBox.Show(message, appTitle);

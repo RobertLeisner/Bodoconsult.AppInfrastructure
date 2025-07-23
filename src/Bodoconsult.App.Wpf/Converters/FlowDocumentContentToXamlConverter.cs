@@ -7,6 +7,9 @@ using System.Windows.Markup;
 
 namespace Bodoconsult.App.Wpf.Converters
 {
+    /// <summary>
+    /// Converts the content of a FlowDocument to XAML
+    /// </summary>
     [ValueConversion(typeof(string), typeof(FlowDocument))]
     public class FlowDocumentContentToXamlConverter : BaseConverter, IValueConverter
     {
@@ -20,7 +23,10 @@ namespace Bodoconsult.App.Wpf.Converters
             /* See http://stackoverflow.com/questions/897505/getting-a-flowdocument-from-a-xaml-template-file */
 
 
-            if (value == null) return new FlowDocument();
+            if (value == null)
+            {
+                return new FlowDocument();
+            }
             var xamlText =
                 $"<FlowDocument xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'>{(string)value}</FlowDocument>";
 
@@ -38,7 +44,10 @@ namespace Bodoconsult.App.Wpf.Converters
              * indent the XAML in a text box, see http://www.knowdotnet.com/articles/indentxml.html */
 
             // Exit if FlowDocument is null
-            if (value == null) return string.Empty;
+            if (value == null)
+            {
+                return string.Empty;
+            }
 
             // Get flow document from value passed in
             var flowDocument = (FlowDocument)value;
@@ -48,7 +57,7 @@ namespace Bodoconsult.App.Wpf.Converters
 
             var i = erg.IndexOf(">", StringComparison.CurrentCultureIgnoreCase);
 
-            erg = erg.Substring(i + 1);
+            erg = erg[(i + 1)..];
 
             return erg;
         }

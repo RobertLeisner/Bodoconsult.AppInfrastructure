@@ -14,6 +14,10 @@ namespace Bodoconsult.App.Wpf.App
     /// </summary>
     public class BaseWpfAppBuilder: BaseAppBuilder
     {
+        /// <summary>
+        /// Default ctor
+        /// </summary>
+        /// <param name="appGlobals">Current IAppGlobals instance</param>
         public BaseWpfAppBuilder(IAppGlobals appGlobals) : base(appGlobals)
         { }
 

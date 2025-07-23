@@ -112,6 +112,7 @@ public class MainWindowViewModel : IMainWindowViewModel
     }
 
 
+    /// <summary>Occurs when a property value changes.</summary>
     public event PropertyChangedEventHandler PropertyChanged;
 
     /// <summary>
@@ -140,6 +141,9 @@ public class MainWindowViewModel : IMainWindowViewModel
         }
     }
 
+    /// <summary>
+    /// Message on what port the app is listening
+    /// </summary>
     public string MsgServerIsListeningOnPort
     {
         get => _msgServerIsListeningOnPort;
@@ -154,6 +158,9 @@ public class MainWindowViewModel : IMainWindowViewModel
         }
     }
 
+    /// <summary>
+    /// Message with the current process ID
+    /// </summary>
     public string MsgServerProcessId
     {
         get => _msgServerProcessId;
@@ -278,7 +285,10 @@ public class MainWindowViewModel : IMainWindowViewModel
         }
     }
 
-
+    /// <summary>
+    /// Implements property changed pattern
+    /// </summary>
+    /// <param name="propertyName">Property name or null</param>
     [NotifyPropertyChangedInvocator]
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
@@ -520,6 +530,9 @@ public class MainWindowViewModel : IMainWindowViewModel
         }
     }
 
+    /// <summary>
+    /// Background color of the form body
+    /// </summary>
     public Color BodyBackColor
     {
         get => _bodyBackColor;
@@ -547,6 +560,9 @@ public class MainWindowViewModel : IMainWindowViewModel
         };
     }
 
+    /// <summary>
+    /// Start the event listener
+    /// </summary>
     public void StartEventListener()
     {
         _dispatcherTimer = new System.Windows.Threading.DispatcherTimer();

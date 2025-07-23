@@ -6,8 +6,11 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Bodoconsult.App.Wpf.Helpers
 {
+    /// <summary>
+    /// Helper class for OS standard dialogs for WPF
+    /// </summary>
     [SupportedOSPlatform("windows")]
-    public class WpfStandardDialogHelper
+    public static class WpfStandardDialogHelper
     {
         /// <summary>
         /// Select a folder and returns the path to the selected folder

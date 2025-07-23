@@ -30,6 +30,9 @@ namespace Bodoconsult.App.Wpf.Converters
     //}
 
 
+    /// <summary>
+    /// Comvert a FlowDocument to XAML
+    /// </summary>
     [ValueConversion(typeof(string), typeof(FlowDocument))]
     public class FlowDocumentToXamlConverter : BaseConverter, IValueConverter
     {
@@ -43,11 +46,13 @@ namespace Bodoconsult.App.Wpf.Converters
             /* See http://stackoverflow.com/questions/897505/getting-a-flowdocument-from-a-xaml-template-file */
 
             var flowDocument = new FlowDocument();
-            if (value != null)
+            if (value == null)
             {
-                var xamlText = (string)value;
-                flowDocument = (FlowDocument)XamlReader.Parse(xamlText);
+                return flowDocument;
             }
+
+            var xamlText = (string)value;
+            flowDocument = (FlowDocument)XamlReader.Parse(xamlText);
 
             // Set return value
             return flowDocument;
@@ -62,7 +67,10 @@ namespace Bodoconsult.App.Wpf.Converters
              * indent the XAML in a text box, see http://www.knowdotnet.com/articles/indentxml.html */
 
             // Exit if FlowDocument is null
-            if (value == null) return string.Empty;
+            if (value == null)
+            {
+                return string.Empty;
+            }
 
             // Get flow document from value passed in
             var flowDocument = (FlowDocument)value;
