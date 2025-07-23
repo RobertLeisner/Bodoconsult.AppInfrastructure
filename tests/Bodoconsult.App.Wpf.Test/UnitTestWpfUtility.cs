@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.Versioning;
 using System.Threading;
 using System.Windows.Controls;
-using Bodoconsult.App.Wpf.Utilities;
+using Bodoconsult.App.Wpf.Helpers;
 using NUnit.Framework;
 
 namespace Bodoconsult.Wpf.Application.Test
@@ -33,7 +33,7 @@ namespace Bodoconsult.Wpf.Application.Test
 
             var button = new Button { Content = "Hallo" };
 
-            WpfUtility.SaveElementAsXamlFile(button, xamlFile);
+            WpfHelper.SaveElementAsXamlFile(button, xamlFile);
 
             Assert.That(File.Exists(xamlFile));
 
@@ -53,11 +53,11 @@ namespace Bodoconsult.Wpf.Application.Test
 
             var button = new Button { Content = "Hallo" };
 
-            WpfUtility.SaveElementAsXamlFile(button, xamlFile);
+            WpfHelper.SaveElementAsXamlFile(button, xamlFile);
 
             Assert.That(File.Exists(xamlFile));
 
-            var buttonErg = (Button)WpfUtility.LoadElementFromXamlFile(xamlFile);
+            var buttonErg = (Button)WpfHelper.LoadElementFromXamlFile(xamlFile);
 
             Assert.That(buttonErg != null);
             Assert.That(buttonErg.Content.ToString() == "Hallo");

@@ -1,5 +1,5 @@
 ﻿using System.Windows.Media;
-using Bodoconsult.App.Wpf.Utilities;
+using Bodoconsult.App.Wpf.Helpers;
 
 namespace Bodoconsult.App.Wpf.Models
 {
@@ -15,7 +15,7 @@ namespace Bodoconsult.App.Wpf.Models
         /// </summary>
         public VisualExportData()
         {
-            ImageFormat = WpfUtility.ImageFormat.Png;
+            ImageFormat = WpfHelper.ImageFormat.Png;
             Width = 1024;
             Height = 768;
         }
@@ -28,7 +28,7 @@ namespace Bodoconsult.App.Wpf.Models
         /// <summary>
         /// Image format for the chart export
         /// </summary>
-        public WpfUtility.ImageFormat ImageFormat { get; set; }
+        public WpfHelper.ImageFormat ImageFormat { get; set; }
 
         /// <summary>
         /// path to save the exported chart

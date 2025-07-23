@@ -39,6 +39,11 @@ namespace Bodoconsult.App
         public string AppPath { get; set; }
 
         /// <summary>
+        /// App executable file name
+        /// </summary>
+        public string AppExe { get; set; }
+
+        /// <summary>
         /// Full path to the current config file
         /// </summary>
         public string ConfigFile { get; set; }

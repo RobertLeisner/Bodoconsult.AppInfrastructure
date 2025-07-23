@@ -7,7 +7,7 @@ using System.Windows.Media;
 using Bodoconsult.App.Extensions;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Logging;
-using Bodoconsult.App.Wpf.AppStarter.Forms.ViewModel;
+using Bodoconsult.App.Wpf.AppStarter.ViewModels;
 using WpfConsoleApp1.AppData;
 // ReSharper disable LocalizableElement
 
@@ -88,7 +88,8 @@ namespace WpfConsoleApp1
             var listener = new AppEventListener(eventLevel);
             var viewModel = new MainWindowViewModel(listener)
             {
-                HeaderBackColor = Colors.Coral
+                HeaderBackColor = Colors.Coral,
+                AppExe = param.AppExe
             };
 
             // Load the logo now

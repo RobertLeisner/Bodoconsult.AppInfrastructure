@@ -3,7 +3,7 @@ Bodoconsult.App.WinForms nuget package
 
 # What does the library
 
-Bodoconsult.App is a library with basic functionality for multilayered monolithic applications like database based client server apps or windows services. 
+Bodoconsult.App.WinForms is a library with basic functionality for multilayered monolithic WinForms based applications. 
 
 
 # App start infrastructure basics
@@ -19,77 +19,75 @@ By default WinFormsStarterUi class loads the app as a simple window not shown on
 Here a sample from Program.cs Main() how to setup the console app in project WinFormsConsoleApp1 contained in this repo:
 
 ``` csharp
+var globals = Globals.Instance;
+globals.LoggingConfig.AddDefaultLoggerProviderConfiguratorsForUiApp();
 
-            var globals = Globals.Instance;
-            globals.LoggingConfig.AddDefaultLoggerProviderConfiguratorsForUiApp();
+// Set additional app start parameters as required
+var param = globals.AppStartParameter;
+param.AppName = "WinFormsConsoleApp1: Demo app";
+param.SoftwareTeam = "Robert Leisner";
+param.LogoRessourcePath = "WinFormsConsoleApp1.Resources.logo.jpg";
+param.AppFolderName = "WinFormsConsoleApp1";
 
-            // Set additional app start parameters as required
-            var param = globals.AppStartParameter;
-            param.AppName = "WinFormsConsoleApp1: Demo app";
-            param.SoftwareTeam = "Robert Leisner";
-            param.LogoRessourcePath = "WinFormsConsoleApp1.Resources.logo.jpg";
-            param.AppFolderName = "WinFormsConsoleApp1";
+const string performanceToken = "--PERF";
 
-            const string performanceToken = "--PERF";
+if (args.Contains(performanceToken))
+{
+    param.IsPerformanceLoggingActivated = true;
+}
 
-            if (args.Contains(performanceToken))
-            {
-                param.IsPerformanceLoggingActivated = true;
-            }
-
-            // Now start app buiding process
-            var builder = new WinFormsConsoleApp1AppBuilder(globals);
+// Now start app buiding process
+var builder = new WinFormsConsoleApp1AppBuilder(globals);
 #if !DEBUG
-            AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
+    AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
 #endif
 
-            // Load basic app metadata
-            
-            builder.LoadBasicSettings(typeof(Program));
+// Load basic app metadata
 
-            // Process the config file
-            builder.ProcessConfiguration();
+builder.LoadBasicSettings(typeof(Program));
 
-            // Now load the globally needed settings
-            builder.LoadGlobalSettings();
+// Process the config file
+builder.ProcessConfiguration();
 
-            // Write first log entry with default logger
-            Globals.Instance.Logger.LogInformation($"{param.AppName} {param.AppVersion} starts...");
-            Console.WriteLine("Logging started...");
+// Now load the globally needed settings
+builder.LoadGlobalSettings();
 
-            // App is ready now for doing something
-            Console.WriteLine($"Connection string loaded: {param.DefaultConnectionString}");
+// Write first log entry with default logger
+Globals.Instance.Logger.LogInformation($"{param.AppName} {param.AppVersion} starts...");
+Console.WriteLine("Logging started...");
 
-            Console.WriteLine("");
-            Console.WriteLine("");
+// App is ready now for doing something
+Console.WriteLine($"Connection string loaded: {param.DefaultConnectionString}");
 
-            Console.WriteLine($"App name loaded: {param.AppName}");
-            Console.WriteLine($"App version loaded: {param.AppVersion}");
-            Console.WriteLine($"App path loaded: {param.AppPath}");
+Console.WriteLine("");
+Console.WriteLine("");
 
-            Console.WriteLine("");
-            Console.WriteLine("");
+Console.WriteLine($"App name loaded: {param.AppName}");
+Console.WriteLine($"App version loaded: {param.AppVersion}");
+Console.WriteLine($"App path loaded: {param.AppPath}");
 
-            Console.WriteLine($"Logging config: {ObjectHelper.GetObjectPropertiesAsString(Globals.Instance.LoggingConfig)}");
+Console.WriteLine("");
+Console.WriteLine("");
 
-            // Prepare the DI container package
-            builder.LoadDiContainerServiceProviderPackage();
-            builder.RegisterDiServices();
-            builder.FinalizeDiContainerSetup();
+Console.WriteLine($"Logging config: {ObjectHelper.GetObjectPropertiesAsString(Globals.Instance.LoggingConfig)}");
 
-            // Create the viewmodel now
-            var eventLevel = EventLevel.Warning;
-            var listener = new AppEventListener(eventLevel);
-            var viewModel = new MainWindowViewModel(listener);
+// Prepare the DI container package
+builder.LoadDiContainerServiceProviderPackage();
+builder.RegisterDiServices();
+builder.FinalizeDiContainerSetup();
 
-            // Set the view model 
-            builder.MainWindowViewModel = viewModel;
+// Create the viewmodel now
+var eventLevel = EventLevel.Warning;
+var listener = new AppEventListener(eventLevel);
+var viewModel = new MainWindowViewModel(listener);
 
-            // Now finally start the app and wait
-            builder.StartApplication();
+// Set the view model 
+builder.MainWindowViewModel = viewModel;
 
-            Environment.Exit(0);
+// Now finally start the app and wait
+builder.StartApplication();
 
+Environment.Exit(0);
 ```
 
 ## Using app start infrastructure for a classical WinForms based apps
@@ -97,79 +95,77 @@ Here a sample from Program.cs Main() how to setup the console app in project Win
 Here a sample from Program.cs Main() how to setup the WinForms app with a main form Forms1 in project WinFormsApp1 contained in this repo:
 
 ``` csharp
+var globals = Globals.Instance;
+globals.LoggingConfig.AddDefaultLoggerProviderConfiguratorsForUiApp();
 
-            var globals = Globals.Instance;
-            globals.LoggingConfig.AddDefaultLoggerProviderConfiguratorsForUiApp();
+// Set additional app start parameters as required. Take some settings from appsettings.json here
+var param = globals.AppStartParameter;
+//param.AppName = "WinFormsApp1: Demo app"; // from appsettings.json
+param.SoftwareTeam = "Robert Leisner";
+param.LogoRessourcePath = "WinFormsApp1.Resources.logo.jpg";
+//param.AppFolderName = "WinFormsApp1"; // from appsettings.json
 
-            // Set additional app start parameters as required. Take some settings from appsettings.json here
-            var param = globals.AppStartParameter;
-            //param.AppName = "WinFormsApp1: Demo app"; // from appsettings.json
-            param.SoftwareTeam = "Robert Leisner";
-            param.LogoRessourcePath = "WinFormsApp1.Resources.logo.jpg";
-            //param.AppFolderName = "WinFormsApp1"; // from appsettings.json
+const string performanceToken = "--PERF";
 
-            const string performanceToken = "--PERF";
+if (args.Contains(performanceToken))
+{
+    param.IsPerformanceLoggingActivated = true;
+}
 
-            if (args.Contains(performanceToken))
-            {
-                param.IsPerformanceLoggingActivated = true;
-            }
-
-            // Now start app buiding process
-            var builder = new WinFormsApp1AppBuilder(Globals.Instance);
+// Now start app buiding process
+var builder = new WinFormsApp1AppBuilder(Globals.Instance);
 #if !DEBUG
-            AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
+    AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
 #endif
 
-            // Load basic app metadata
-            builder.LoadBasicSettings(typeof(Program));
+// Load basic app metadata
+builder.LoadBasicSettings(typeof(Program));
 
-            // Process the config file
-            builder.ProcessConfiguration();
+// Process the config file
+builder.ProcessConfiguration();
 
-            // Now load the globally needed settings
-            builder.LoadGlobalSettings();
+// Now load the globally needed settings
+builder.LoadGlobalSettings();
 
-            // Write first log entry with default logger
-            Globals.Instance.Logger.LogInformation($"{param.AppName} {param.AppVersion} starts...");
-            Console.WriteLine("Logging started...");
+// Write first log entry with default logger
+Globals.Instance.Logger.LogInformation($"{param.AppName} {param.AppVersion} starts...");
+Console.WriteLine("Logging started...");
 
-            // App is ready now for doing something
-            Console.WriteLine($"Connection string loaded: {param.DefaultConnectionString}");
+// App is ready now for doing something
+Console.WriteLine($"Connection string loaded: {param.DefaultConnectionString}");
 
-            Console.WriteLine("");
-            Console.WriteLine("");
+Console.WriteLine("");
+Console.WriteLine("");
 
-            Console.WriteLine($"App name loaded: {param.AppName}");
-            Console.WriteLine($"App version loaded: {param.AppVersion}");
-            Console.WriteLine($"App path loaded: {param.AppPath}");
+Console.WriteLine($"App name loaded: {param.AppName}");
+Console.WriteLine($"App version loaded: {param.AppVersion}");
+Console.WriteLine($"App path loaded: {param.AppPath}");
 
-            Console.WriteLine("");
-            Console.WriteLine("");
+Console.WriteLine("");
+Console.WriteLine("");
 
-            Console.WriteLine($"Logging config: {ObjectHelper.GetObjectPropertiesAsString(Globals.Instance.LoggingConfig)}");
+Console.WriteLine($"Logging config: {ObjectHelper.GetObjectPropertiesAsString(Globals.Instance.LoggingConfig)}");
 
-            // Prepare the DI container package
-            builder.LoadDiContainerServiceProviderPackage();
-            builder.RegisterDiServices();
-            builder.FinalizeDiContainerSetup();
+// Prepare the DI container package
+builder.LoadDiContainerServiceProviderPackage();
+builder.RegisterDiServices();
+builder.FinalizeDiContainerSetup();
 
-            // Create the viewmodel now
-            var eventLevel = EventLevel.Warning;
-            var listener = new AppEventListener(eventLevel);
-            var viewModel = new Forms1MainWindowViewModel(listener);
+// Create the viewmodel now
+var eventLevel = EventLevel.Warning;
+var listener = new AppEventListener(eventLevel);
+var viewModel = new Forms1MainWindowViewModel(listener);
 
-            // Set the view model 
-            builder.MainWindowViewModel = viewModel;
+// Set the view model 
+builder.MainWindowViewModel = viewModel;
 
-            // Now finally start the app and wait
-            builder.StartApplication();
+// Now finally start the app and wait
+builder.StartApplication();
 
-            Environment.Exit(0);
-
+Environment.Exit(0);
 ```
 
-Start by creating your own viewmodel class similar to Forms1MainWindowViewModel
+Start by creating your own viewmodel class Forms1MainWindowViewModel derived from MainWindowViewModel and override CreateForm() method to load your custom start form.
 
 
 # About us

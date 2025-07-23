@@ -22,9 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Bodoconsult.App.Abstractions\Bodoconsult.App.Abstractions.csproj" />
-    <ProjectReference Include="..\src\Bodoconsult.App.Wpf\Bodoconsult.App.Wpf.csproj" />
-    <ProjectReference Include="..\src\Bodoconsult.App\Bodoconsult.App.csproj" />
+    <ProjectReference Include="..\..\src\Bodoconsult.App.Abstractions\Bodoconsult.App.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\Bodoconsult.App.Wpf\Bodoconsult.App.Wpf.csproj" />
+    <ProjectReference Include="..\..\src\Bodoconsult.App\Bodoconsult.App.csproj" />
   </ItemGroup>
 
 </Project>

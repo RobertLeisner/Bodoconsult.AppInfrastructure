@@ -71,8 +71,11 @@ namespace Bodoconsult.App;
 
         param.AppVersion = $"{assemName.Name}, Version {param.SoftwareRevision}";
 
-        var currentDir = new FileInfo(s).DirectoryName;
+        var executable = new FileInfo(s);
+
+        var currentDir = executable.DirectoryName;
         param.AppPath = currentDir;
+        param.AppExe = executable.Name.Replace(".dll", ".exe");
         param.ConfigFile = Path.Combine(currentDir, "appsettings.json");
 
 #if DEBUG

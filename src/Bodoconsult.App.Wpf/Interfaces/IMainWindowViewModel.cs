@@ -1,10 +1,13 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using Bodoconsult.App.Abstractions.Interfaces;
+using Chapter.Net;
+using Chapter.Net.WPF.SystemTray;
 using System.ComponentModel;
 using System.Diagnostics.Tracing;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -60,6 +63,11 @@ public interface IMainWindowViewModel : INotifyPropertyChanged
     string AppName { get; set; }
 
     /// <summary>
+    /// Application exe file name
+    /// </summary>
+    string AppExe { get; set; }
+
+    /// <summary>
     /// Current app version
     /// </summary>
     string AppVersion { get; set; }
@@ -72,7 +80,7 @@ public interface IMainWindowViewModel : INotifyPropertyChanged
     /// <summary>
     /// Log data as string to show on UI
     /// </summary>
-    string LogData { get; }
+    FlowDocument LogData { get; }
 
     /// <summary>
     /// Event level
@@ -99,6 +107,27 @@ public interface IMainWindowViewModel : INotifyPropertyChanged
     void ShutDown();
 
     /// <summary>
+    /// Shutdown command for binding in XAML
+    /// </summary>
+    IDelegateCommand ShutdownCommand { get; }
+
+    /// <summary>
+    /// Notification to send
+    /// </summary>
+    public NotificationData Notification { get; }
+
+    /// <summary>
+    /// Show a notification
+    /// </summary>
+    /// <param name="notification">Notification to show</param>
+    void ShowNotification(NotificationData notification);
+
+    /// <summary>
+    /// Minimize the app to the tray icon
+    /// </summary>
+    public bool MinimizeToTray { get ; set; }
+
+    /// <summary>
     /// Check if there are new log entries
     /// </summary>
     void CheckLogs();
@@ -114,8 +143,18 @@ public interface IMainWindowViewModel : INotifyPropertyChanged
     Color HeaderBackColor { get; set; }
 
     /// <summary>
+    /// Background color of the form body
+    /// </summary>
+    Color BodyBackColor { get; set; }
+
+    /// <summary>
     /// Create the main window of the application
     /// </summary>
     /// <returns></returns>
     Window CreateWindow();
+
+    /// <summary>
+    /// Start the event listener
+    /// </summary>
+    void StartEventListener();
 }

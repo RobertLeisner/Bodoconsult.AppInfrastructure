@@ -41,6 +41,11 @@ namespace Bodoconsult.App.Abstractions.Interfaces
         string AppPath { get; set; }
 
         /// <summary>
+        /// App executable file name
+        /// </summary>
+        string AppExe { get; set; }
+
+        /// <summary>
         /// Full path to the current config file
         /// </summary>
         string ConfigFile { get; set; }

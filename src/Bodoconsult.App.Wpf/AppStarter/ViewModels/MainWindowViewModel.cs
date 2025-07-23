@@ -5,22 +5,27 @@ using System.Diagnostics;
 using System.Diagnostics.Tracing;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Logging;
+using Bodoconsult.App.Wpf.AppStarter.Views;
 using Bodoconsult.App.Wpf.Interfaces;
+using Chapter.Net;
+using Chapter.Net.WPF.SystemTray;
 
-namespace Bodoconsult.App.Wpf.AppStarter.Forms.ViewModel;
+namespace Bodoconsult.App.Wpf.AppStarter.ViewModels;
 
 /// <summary>
 /// ViewModel for MainWindow window
 /// </summary>
 public class MainWindowViewModel : IMainWindowViewModel
 {
+
+    private System.Windows.Threading.DispatcherTimer _dispatcherTimer;
 
     private const int MaxNumberOfLogEntries = 100;
 
@@ -39,6 +44,15 @@ public class MainWindowViewModel : IMainWindowViewModel
     private Color _headerBackColor = Colors.Coral;
     private string _msgServerIsListeningOnPort;
     private string _msgServerProcessId;
+    private string _appExe;
+    private NotificationData _notification;
+    private bool _minimizeToTray;
+
+    private readonly SolidColorBrush _brush = new(Colors.LightSteelBlue);
+    private readonly SolidColorBrush _brush1 = new(Colors.White);
+    private readonly Thickness _margin = new(0, 0, 0, 0);
+    private readonly Thickness _padding = new(0, 10, 0, 10);
+    private Color _bodyBackColor = Colors.LightGray;
 
     /// <summary>
     /// Inner width of the main window
@@ -70,7 +84,7 @@ public class MainWindowViewModel : IMainWindowViewModel
     /// <summary>
     /// Inner height of the main window
     /// </summary>
-    public double HeaderHeight => _height * 0.20;
+    public double HeaderHeight => _height * 0.15;
 
 
     /// <summary>
@@ -93,6 +107,8 @@ public class MainWindowViewModel : IMainWindowViewModel
     public MainWindowViewModel(AppEventListener listener)
     {
         _listener = listener;
+
+        ShutdownCommand = new DelegateCommand(ShutDown);
     }
 
 
@@ -183,6 +199,23 @@ public class MainWindowViewModel : IMainWindowViewModel
         }
     }
 
+    /// <summary>
+    /// Application exe file name
+    /// </summary>
+    public string AppExe
+    {
+        get => _appExe;
+        set
+        {
+            if (value == _appExe)
+            {
+                return;
+            }
+            _appExe = value;
+            OnPropertyChanged();
+        }
+    }
+
 
     /// <summary>
     /// Clear text name of the app with version to show in windows and message boxes
@@ -219,6 +252,32 @@ public class MainWindowViewModel : IMainWindowViewModel
             OnPropertyChanged();
         }
     }
+
+    /// <summary>
+    /// Shutdown command for binding in XAML
+    /// </summary>
+    public IDelegateCommand ShutdownCommand { get; }
+
+
+
+
+    /// <summary>
+    /// Notification to send
+    /// </summary>
+    public NotificationData Notification
+    {
+        get => _notification;
+        private set
+        {
+            if (Equals(value, _notification))
+            {
+                return;
+            }
+            _notification = value;
+            OnPropertyChanged();
+        }
+    }
+
 
     [NotifyPropertyChangedInvocator]
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -294,6 +353,33 @@ public class MainWindowViewModel : IMainWindowViewModel
     public void ShutDown()
     {
         AppBuilder.StopApplication();
+
+        _dispatcherTimer?.Stop();
+
+        Environment.Exit(0);
+    }
+
+    /// <summary>
+    /// Show a notification
+    /// </summary>
+    /// <param name="notification">Notification to show</param>
+    public void ShowNotification(NotificationData notification)
+    {
+        Notification = notification;
+    }
+
+    /// <summary>
+    /// Minimize the app to the tray icon
+    /// </summary>
+    public bool MinimizeToTray
+    {
+        get => _minimizeToTray;
+        set
+        {
+            if (value == _minimizeToTray) return;
+            _minimizeToTray = value;
+            OnPropertyChanged();
+        }
     }
 
     /// <summary>
@@ -348,20 +434,45 @@ public class MainWindowViewModel : IMainWindowViewModel
 
 
     /// <summary>
-    /// Log data as string to show on UI
+    /// Log data as FlowDocument to show on UI
     /// </summary>
-    public string LogData
+    public FlowDocument LogData
     {
         get
         {
-            var x = new StringBuilder();
-            foreach (var message in _logData)
+            var doc = new FlowDocument
             {
-                x.AppendLine(message);
+                FontFamily = SystemFonts.StatusFontFamily,
+                FontSize = 14,
+                PageWidth = 1000,
+                ColumnWidth = 1000,
+                IsOptimalParagraphEnabled = true,
+                IsHyphenationEnabled = true
+            };
+
+            var data = _logData.ToList();
+
+            var isActive = false;
+
+
+
+            for (var index = data.Count - 1; index >= 0; index--)
+            {
+                var message = data[index];
+                var myParagraph = new Paragraph
+                {
+                    Margin = _margin,
+                    Padding = _padding,
+                    Background = isActive ? _brush : _brush1
+                };
+
+                isActive = !isActive;
+
+                myParagraph.Inlines.Add(message);
+                doc.Blocks.Add(myParagraph);
             }
 
-            return x.ToString();
-
+            return doc;
         }
     }
 
@@ -409,6 +520,20 @@ public class MainWindowViewModel : IMainWindowViewModel
         }
     }
 
+    public Color BodyBackColor
+    {
+        get => _bodyBackColor;
+        set
+        {
+            if (value.Equals(_bodyBackColor))
+            {
+                return;
+            }
+            _bodyBackColor = value;
+            OnPropertyChanged();
+        }
+    }
+
     /// <summary>
     /// Create the main form of the application
     /// </summary>
@@ -420,5 +545,33 @@ public class MainWindowViewModel : IMainWindowViewModel
             WindowState = WindowState.Normal,
             Visibility = Visibility.Visible
         };
+    }
+
+    public void StartEventListener()
+    {
+        _dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+        _dispatcherTimer.Tick += dispatcherTimer_Tick;
+        _dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+        _dispatcherTimer.Start();
+    }
+
+    private void dispatcherTimer_Tick(object sender, EventArgs e)
+    {
+        _dispatcherTimer.Stop();
+
+        try
+        {
+            CheckLogs();
+        }
+        catch //(Exception exception)
+        {
+            // Do nothing
+        }
+
+
+        //LogWindow.SelectionStart = LogWindow.Text.Length;
+        //LogWindow.SelectionLength = 0;
+
+        _dispatcherTimer.Start();
     }
 }

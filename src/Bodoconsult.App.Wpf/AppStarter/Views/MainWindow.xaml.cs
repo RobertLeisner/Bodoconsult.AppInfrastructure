@@ -2,10 +2,10 @@
 
 using System.Windows;
 using System.Windows.Input;
+using Bodoconsult.App.Wpf.Helpers;
 using Bodoconsult.App.Wpf.Interfaces;
-using Bodoconsult.App.Wpf.Utilities;
 
-namespace Bodoconsult.App.Wpf.AppStarter.Forms
+namespace Bodoconsult.App.Wpf.AppStarter.Views
 {
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
@@ -14,7 +14,7 @@ namespace Bodoconsult.App.Wpf.AppStarter.Forms
     {
 
         private readonly IMainWindowViewModel _mainWindowViewModel;
-        private readonly System.Windows.Threading.DispatcherTimer _dispatcherTimer;
+        
 
 
         public MainWindow(IMainWindowViewModel mainWindowViewModel)
@@ -27,31 +27,10 @@ namespace Bodoconsult.App.Wpf.AppStarter.Forms
 
             ResizeWindow();
 
-            _dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-            _dispatcherTimer.Tick += dispatcherTimer_Tick;
-            _dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
-            _dispatcherTimer.Start();
+            _mainWindowViewModel.StartEventListener();
         }
 
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            _dispatcherTimer.Stop();
 
-            try
-            {
-                _mainWindowViewModel.CheckLogs();
-            }
-            catch //(Exception exception)
-            {
-                // Do nothing
-            }
-
-
-            //LogWindow.SelectionStart = LogWindow.Text.Length;
-            //LogWindow.SelectionLength = 0;
-
-            _dispatcherTimer.Start();
-        }
 
         private void ResizeWindow()
         {
@@ -67,9 +46,8 @@ namespace Bodoconsult.App.Wpf.AppStarter.Forms
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            WpfUtility.DisableMaximizeButton(this);
-            WpfUtility.DisableMinimizeButton(this);
-            WpfUtility.DisableCloseButton(this);
+            WpfHelper.DisableMaximizeButton(this);
+            WpfHelper.DisableCloseButton(this);
         }
 
         private void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
@@ -86,10 +64,11 @@ namespace Bodoconsult.App.Wpf.AppStarter.Forms
             //{
             //    return;
             //}
-            _dispatcherTimer.Stop();
             _mainWindowViewModel.ShutDown();
 
             Close();
         }
+
+
     }
 }

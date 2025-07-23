@@ -1,4 +1,4 @@
-set version=1.0.5
+set version=1.0.6
 dotnet nuget push packages\Bodoconsult.App.%version%.nupkg --source https://api.nuget.org/v3/index.json
 dotnet nuget push packages\Bodoconsult.App.%version%.snupkg --source https://api.nuget.org/v3/index.json
 

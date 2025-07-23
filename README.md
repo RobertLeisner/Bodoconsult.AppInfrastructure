@@ -8,6 +8,8 @@ Content:
 
 >   [**Bodoconsult.App.WinForms**: more basic features for WinForms based apps](doc/Bodoconsult.App.WinForms/README.md)
 
+>   [**Bodoconsult.App.Wpf**: more basic features for WPF based apps](doc/Bodoconsult.App.Wpf/README.md)
+
 >   [**Bodoconsult.App.BackgroundService**: more basic features for based background service apps hosting no GRPC service](doc/Bodoconsult.App.BackgroundService/README.md)
 
 >   [**Bodoconsult.App.GrpcBackgroundService**: more basic features for based background service apps hosting a GRPC service](doc/Bodoconsult.App.GrpcBackgroundService/README.md)

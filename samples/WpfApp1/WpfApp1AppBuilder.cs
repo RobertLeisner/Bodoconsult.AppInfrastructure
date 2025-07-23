@@ -2,27 +2,25 @@
 
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Wpf.App;
-using WpfConsoleApp1.DiContainerProvider;
+using WpfApp1.DiContainerProvider;
 
-namespace WpfConsoleApp1;
+namespace WpfApp1;
 
-public class WpfConsoleApp1AppBuilder : BaseWpfAppBuilder
+public class WpfApp1AppBuilder : BaseWpfAppBuilder
 {
     /// <summary>
     /// Default ctor
     /// </summary>
     /// <param name="appGlobals">Global app settings</param>
-    public WpfConsoleApp1AppBuilder(IAppGlobals appGlobals) : base(appGlobals)
-    {
-
-    }
+    public WpfApp1AppBuilder(IAppGlobals appGlobals) : base(appGlobals)
+    { }
 
     /// <summary>
     /// Load the <see cref="IAppBuilder.DiContainerServiceProviderPackage"/>
     /// </summary>
     public override void LoadDiContainerServiceProviderPackage()
     {
-        var factory = new WpfConsoleApp1ProductionDiContainerServiceProviderPackageFactory(AppGlobals);
+        var factory = new WpfApp1ProductionDiContainerServiceProviderPackageFactory(AppGlobals);
         DiContainerServiceProviderPackage = factory.CreateInstance();
     }
 }

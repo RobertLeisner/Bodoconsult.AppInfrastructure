@@ -1,4 +1,5 @@
-﻿using Bodoconsult.App.Wpf.Models;
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -9,30 +10,30 @@ using System.Windows.Interop;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Bodoconsult.App.Wpf.Models;
 
-namespace Bodoconsult.App.Wpf.Utilities
+namespace Bodoconsult.App.Wpf.Helpers
 {
     /// <summary>
     /// General utilities for WPF
     /// </summary>
-    public static class WpfUtility
+    public static class WpfHelper
     {
         // https://learn.microsoft.com/en-us/answers/questions/746124/how-to-disable-and-enable-window-close-button-(x)
 
         [DllImport("user32.dll")]
         private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
         [DllImport("user32.dll")]
         private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
-
-
         [DllImport("user32.dll")]
         private static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
+
         [DllImport("user32.dll")]
         private static extern bool EnableMenuItem(IntPtr hMenu, uint uIdEnableItem, uint uEnable);
 
         private const int GwlStyle = -16;
-
         private const int WsMaximizebox = 0x10000; //maximize button
         private const int WsMinimizebox = 0x20000; //minimize button
         private const uint MfGrayed = 0x00000001;
@@ -147,7 +148,128 @@ namespace Bodoconsult.App.Wpf.Utilities
         //}
 
 
+        /// <summary>
+        /// Find a ressource in the namespace /Bodoconsult.Wpf.Base;component
+        /// </summary>
+        /// <param name="ressourceName">name of the requested ressource</param>
+        /// <returns></returns>
+        public static object FindResource(string ressourceName)
+        {
 
+            try
+            {
+                var uri = new Uri("/Bodoconsult.Wpf.Base;component/Resources/Styling/LookAndFeel.xaml",
+                        UriKind.RelativeOrAbsolute);
+
+                var myResourceDictionary = new ResourceDictionary
+                {
+                    Source = uri
+                };
+
+                return myResourceDictionary[ressourceName];
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+
+        /// <summary>
+        /// Find a ressource in the namespace /Bodoconsult.Wpf.Base;component
+        /// </summary>
+        /// <typeparam name="T">Type the resource has to be converted to</typeparam>
+        /// <param name="ressourceName">name of the requested ressource</param>
+        /// <returns></returns>
+        public static T FindResource<T>(string ressourceName)
+        {
+
+            try
+            {
+                var uri = new Uri("/Bodoconsult.Wpf.Base;component/Resources/Styling/LookAndFeel.xaml",
+                        UriKind.RelativeOrAbsolute);
+
+                var myResourceDictionary = new ResourceDictionary
+                {
+                    Source = uri
+                };
+
+                return (T)myResourceDictionary[ressourceName];
+            }
+            catch
+            {
+                return default(T);
+            }
+        }
+
+
+        /// <summary>
+        /// Find a resource in a ressource dictionary
+        /// </summary>
+        /// <param name="ressourceName">name of the requested ressource</param>
+        /// <param name="path">path to load the ressource dictionary from</param>
+        /// <returns></returns>
+        public static object FindResource(string ressourceName, string path)
+        {
+            try
+            {
+                var myResourceDictionary = new ResourceDictionary
+                {
+                    Source = new Uri(path, UriKind.RelativeOrAbsolute)
+                };
+
+                return myResourceDictionary[ressourceName];
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+
+        /// <summary>
+        /// Find a resource in a ressource dictionary
+        /// </summary>
+        /// <typeparam name="T">Type the resource has to be converted to</typeparam>
+        /// <param name="ressourceName">name of the requested ressource</param>
+        /// <param name="path">path to load the ressource dictionary from</param>
+        /// <returns></returns>
+        public static T FindResource<T>(string ressourceName, string path)
+        {
+            try
+            {
+                var myResourceDictionary = new ResourceDictionary
+                {
+                    Source = new Uri(path, UriKind.RelativeOrAbsolute)
+                };
+
+                return (T)myResourceDictionary[ressourceName];
+            }
+            catch
+            {
+                return default(T);
+            }
+        }
+
+
+        /// <summary>
+        /// Find a resource in a the current application
+        /// </summary>
+        /// <param name="ressourceName">name of the requested ressource</param>
+        /// <returns>resource object</returns>
+        public static object FindResourceCurrent(string ressourceName)
+        {
+            try
+            {
+
+
+                return Application.Current.Resources[ressourceName];
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         /// <summary>
         /// Find a resource in the current application
@@ -159,13 +281,14 @@ namespace Bodoconsult.App.Wpf.Utilities
         {
             try
             {
-                return (T)System.Windows.Application.Current.Resources[ressourceName];
+                return (T)Application.Current.Resources[ressourceName];
             }
             catch
             {
                 return default(T);
             }
         }
+
 
         /// <summary>
         /// Dump the visual tree to debug window
@@ -174,14 +297,12 @@ namespace Bodoconsult.App.Wpf.Utilities
         /// <param name="level"></param>
         public static void DumpVisualTree(DependencyObject parent, int level)
         {
-            if (parent == null) return;
-
             var typeName = parent.GetType().Name;
             var name = (string)(parent.GetValue(FrameworkElement.NameProperty) ?? "");
 
+            Trace.WriteLine(string.Empty.PadLeft(level) + string.Format("{0}: {1}", typeName, name));
 
-
-            Trace.WriteLine($"{string.Empty.PadLeft(level)}{typeName}: {name}");
+            if (parent == null) return;
 
             for (var i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {
@@ -198,7 +319,7 @@ namespace Bodoconsult.App.Wpf.Utilities
         public static void DumpLogicalTree(object parent, int level)
         {
             var typeName = parent.GetType().Name;
-            string name;
+            string name = null;
             var doParent = parent as DependencyObject;
             // Not everything in the logical tree is a dependency object
             if (doParent != null)
@@ -210,7 +331,7 @@ namespace Bodoconsult.App.Wpf.Utilities
                 name = parent.ToString();
             }
 
-            Trace.WriteLine(string.Empty.PadLeft(level) + $"{typeName}: {name}".PadLeft(level));
+            Trace.WriteLine(string.Empty.PadLeft(level) + string.Format("{0}: {1}", typeName, name).PadLeft(level));
 
             if (doParent == null) return;
 

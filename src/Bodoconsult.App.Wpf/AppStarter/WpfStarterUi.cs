@@ -4,10 +4,10 @@
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.AppStarter;
 using Bodoconsult.App.Logging;
-using Bodoconsult.App.Wpf.AppStarter.Forms.ViewModel;
 using Bodoconsult.App.Wpf.Interfaces;
 using System.Diagnostics.Tracing;
 using System.Windows;
+using Bodoconsult.App.Wpf.AppStarter.ViewModels;
 
 // ReSharper disable LocalizableElement
 

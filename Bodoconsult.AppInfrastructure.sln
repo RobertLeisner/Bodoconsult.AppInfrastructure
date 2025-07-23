@@ -68,7 +68,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.Wpf", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.Wpf.Application.Test", "tests\Bodoconsult.App.Wpf.Test\Bodoconsult.Wpf.Application.Test.csproj", "{EEB17E09-55AA-2931-B55E-61B055468E6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfConsoleApp1", "WpfConsoleApp1\WpfConsoleApp1.csproj", "{FF0A2381-F7DE-4ADF-A9CB-1B8397583BA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfConsoleApp1", "samples\WpfConsoleApp1\WpfConsoleApp1.csproj", "{FF0A2381-F7DE-4ADF-A9CB-1B8397583BA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "samples\WpfApp1\WpfApp1.csproj", "{14A3773A-8ADA-EEA2-C11A-17D56618468E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -172,6 +174,10 @@ Global
 		{FF0A2381-F7DE-4ADF-A9CB-1B8397583BA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF0A2381-F7DE-4ADF-A9CB-1B8397583BA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF0A2381-F7DE-4ADF-A9CB-1B8397583BA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14A3773A-8ADA-EEA2-C11A-17D56618468E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14A3773A-8ADA-EEA2-C11A-17D56618468E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14A3773A-8ADA-EEA2-C11A-17D56618468E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14A3773A-8ADA-EEA2-C11A-17D56618468E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -204,6 +210,7 @@ Global
 		{E08ADE64-676F-0764-F0A0-DFA772E9B23F} = {68310C5A-62F2-40F4-A5C6-0314FDAC28E1}
 		{EEB17E09-55AA-2931-B55E-61B055468E6E} = {682A2D92-F409-43D5-9342-8DF5256F06CE}
 		{FF0A2381-F7DE-4ADF-A9CB-1B8397583BA8} = {6A52BEBE-4E44-41AC-8D1B-748DFA27D902}
+		{14A3773A-8ADA-EEA2-C11A-17D56618468E} = {6A52BEBE-4E44-41AC-8D1B-748DFA27D902}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EEB92BC2-1DB4-4057-8D49-2E995AA1F80B}

@@ -1,0 +1,53 @@
+﻿<Window x:Class="Bodoconsult.App.Wpf.AppStarter.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Bodoconsult.App.Wpf.Converters"
+        xmlns:chapter="clr-namespace:Chapter.Net.WPF.SystemTray;assembly=Chapter.Net.WPF.SystemTray"
+        Title="{Binding FullAppName}" Height="768" Width="1024" SizeChanged="MainWindow_OnSizeChanged" KeyDown="MainWindow_OnKeyDown"
+        Background="LightGray" Loaded="MainWindow_OnLoaded">
+    <Window.Resources>
+        <local:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+    </Window.Resources>
+    <chapter:Tray.TrayIcon>
+        <chapter:TrayIcon Icon="{Binding AppExe}"
+                          Notification="{Binding Notification}"
+                          MinimizeToTray="{Binding MinimizeToTray}"
+                          OpenWindowOnClick="True"
+                          ToolTip="{Binding AppName}"
+            >
+            <chapter:TrayIcon.ContextMenu>
+                <ContextMenu>
+                    <chapter:ShowWindowMenuItem FontSize="12" FontWeight="Bold" Header="{Binding AppName}" />
+                    <MenuItem Command="{Binding ShutdownCommand}" Header="Quit" />
+                </ContextMenu>
+            </chapter:TrayIcon.ContextMenu>
+        </chapter:TrayIcon>
+    </chapter:Tray.TrayIcon>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="75*"/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="Header" VerticalAlignment="Top" Orientation="Horizontal" Grid.Row="0" 
+                    Background="{Binding HeaderBackColor, Converter={StaticResource ColorToBrushConverter}}"
+                    Margin="5,0,4,0">
+            <Image x:Name="LogoImage" Source="{Binding Logo}" MaxWidth="300" MaxHeight="90" Margin="5, 0, 0, 0" VerticalAlignment="Center"/>
+            <Label x:Name="AppName" Content="{Binding AppName}" VerticalAlignment="Center" FontSize="28" FontWeight="Bold" Margin="50,0,0,0 "/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="5,5,5,5">
+            <Label x:Name="MsgServerIsListeningOnPort" Content="{Binding MsgServerIsListeningOnPort}" FontSize="16" Visibility="Collapsed"></Label>
+            <Label x:Name="MsgServerProcessId" Content="{Binding MsgServerProcessId}" FontSize="16"></Label>
+            <Label x:Name="MsgHowToShutdownServer" Content="{Binding MsgHowToShutdownServer}" FontSize="16"></Label>
+        </StackPanel>
+
+        <Grid x:Name="DocGrid" Grid.Row="2" Background="White">
+            <FlowDocumentScrollViewer Height="{Binding ElementName=DocGrid, Path=ActualHeight}" MaxHeight="{Binding ElementName=DocGrid, Path=ActualHeight}">
+                <FlowDocumentScrollViewer.Document>
+                    <Binding Path="LogData" Mode="OneWay"/>
+                </FlowDocumentScrollViewer.Document>
+            </FlowDocumentScrollViewer>
+        </Grid>
+    </Grid>
+</Window>
