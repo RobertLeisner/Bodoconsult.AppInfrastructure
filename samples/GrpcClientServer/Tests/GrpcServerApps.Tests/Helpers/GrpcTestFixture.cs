@@ -4,77 +4,76 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GrpcServerApps.Tests.Helpers
+namespace GrpcServerApps.Tests.Helpers;
+
+public delegate void LogMessage(LogLevel logLevel, string categoryName, EventId eventId, string message, Exception exception);
+
+public class GrpcTestFixture<TStartup> : IDisposable where TStartup : class
 {
-    public delegate void LogMessage(LogLevel logLevel, string categoryName, EventId eventId, string message, Exception exception);
+    private TestServer _server;
+    private IHost _host;
+    private HttpMessageHandler _handler;
+    private Action<IWebHostBuilder> _configureWebHost;
 
-    public class GrpcTestFixture<TStartup> : IDisposable where TStartup : class
+    public event LogMessage LoggedMessage;
+
+    public GrpcTestFixture()
     {
-        private TestServer _server;
-        private IHost _host;
-        private HttpMessageHandler _handler;
-        private Action<IWebHostBuilder> _configureWebHost;
-
-        public event LogMessage LoggedMessage;
-
-        public GrpcTestFixture()
+        LoggerFactory = new LoggerFactory();
+        LoggerFactory.AddProvider(new ForwardingLoggerProvider((logLevel, category, eventId, message, exception) =>
         {
-            LoggerFactory = new LoggerFactory();
-            LoggerFactory.AddProvider(new ForwardingLoggerProvider((logLevel, category, eventId, message, exception) =>
-            {
-                LoggedMessage?.Invoke(logLevel, category, eventId, message, exception);
-            }));
-        }
+            LoggedMessage?.Invoke(logLevel, category, eventId, message, exception);
+        }));
+    }
 
-        public void ConfigureWebHost(Action<IWebHostBuilder> configure)
+    public void ConfigureWebHost(Action<IWebHostBuilder> configure)
+    {
+        _configureWebHost = configure;
+    }
+
+    private void EnsureServer()
+    {
+        if (_host == null)
         {
-            _configureWebHost = configure;
-        }
+            var builder = new HostBuilder()
+                .ConfigureServices(services =>
+                {
+                    services.AddSingleton<ILoggerFactory>(LoggerFactory);
+                })
+                .ConfigureWebHostDefaults(webHost =>
+                {
+                    webHost
+                        .UseTestServer()
+                        .UseStartup<TStartup>();
 
-        private void EnsureServer()
+                    _configureWebHost?.Invoke(webHost);
+                });
+            _host = builder.Start();
+            _server = _host.GetTestServer();
+            _handler = _server.CreateHandler();
+        }
+    }
+
+    public LoggerFactory LoggerFactory { get; }
+
+    public HttpMessageHandler Handler
+    {
+        get
         {
-            if (_host == null)
-            {
-                var builder = new HostBuilder()
-                    .ConfigureServices(services =>
-                    {
-                        services.AddSingleton<ILoggerFactory>(LoggerFactory);
-                    })
-                    .ConfigureWebHostDefaults(webHost =>
-                    {
-                        webHost
-                            .UseTestServer()
-                            .UseStartup<TStartup>();
-
-                        _configureWebHost?.Invoke(webHost);
-                    });
-                _host = builder.Start();
-                _server = _host.GetTestServer();
-                _handler = _server.CreateHandler();
-            }
+            EnsureServer();
+            return _handler!;
         }
+    }
 
-        public LoggerFactory LoggerFactory { get; }
+    public void Dispose()
+    {
+        _handler?.Dispose();
+        _host?.Dispose();
+        _server?.Dispose();
+    }
 
-        public HttpMessageHandler Handler
-        {
-            get
-            {
-                EnsureServer();
-                return _handler!;
-            }
-        }
-
-        public void Dispose()
-        {
-            _handler?.Dispose();
-            _host?.Dispose();
-            _server?.Dispose();
-        }
-
-        public IDisposable GetTestContext()
-        {
-            return new GrpcTestContext<TStartup>(this);
-        }
+    public IDisposable GetTestContext()
+    {
+        return new GrpcTestContext<TStartup>(this);
     }
 }

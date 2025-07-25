@@ -20,20 +20,19 @@
 
 using Bodoconsult.App.Interfaces;
 
-namespace Bodoconsult.App.GrpcBackgroundService.Interfaces
+namespace Bodoconsult.App.GrpcBackgroundService.Interfaces;
+
+/// <summary>
+/// Interface for mapping internal business transaction replies to GRPC replies
+/// </summary>
+public interface IGrpcBusinessTransactionReplyMappingService
 {
+
     /// <summary>
-    /// Interface for mapping internal business transaction replies to GRPC replies
+    /// Map an internal reply instance <see cref="IBusinessTransactionReply"/> to a <see cref="BusinessTransactionReply"/> message
     /// </summary>
-    public interface IGrpcBusinessTransactionReplyMappingService
-    {
+    /// <param name="internalReply">Internal business transaction reply</param>
+    /// <returns>Protobuf business transaction reply</returns>
+    BusinessTransactionReply MapInternalReplyToGrpc(IBusinessTransactionReply internalReply);
 
-        /// <summary>
-        /// Map an internal reply instance <see cref="IBusinessTransactionReply"/> to a <see cref="BusinessTransactionReply"/> message
-        /// </summary>
-        /// <param name="internalReply">Internal business transaction reply</param>
-        /// <returns>Protobuf business transaction reply</returns>
-        BusinessTransactionReply MapInternalReplyToGrpc(IBusinessTransactionReply internalReply);
-
-    }
 }

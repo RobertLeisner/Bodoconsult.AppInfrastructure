@@ -1,17 +1,16 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-namespace Bodoconsult.App.Abstractions.Interfaces
+namespace Bodoconsult.App.Abstractions.Interfaces;
+
+/// <summary>
+///  Interface for factories creating IDataProtectionManager instances
+/// </summary>
+public interface IDataProtectionManagerFactory
 {
     /// <summary>
-    ///  Interface for factories creating IDataProtectionManager instances
+    /// Create an IDataProtectionManager instance
     /// </summary>
-    public interface IDataProtectionManagerFactory
-    {
-        /// <summary>
-        /// Create an IDataProtectionManager instance
-        /// </summary>
-        /// <param name="destinationFilePath">File path to store the secrets storage</param>
-        /// <returns>IDataProtectionManager instance</returns>
-        IDataProtectionManager CreateInstance(string destinationFilePath);
-    }
+    /// <param name="destinationFilePath">File path to store the secrets storage</param>
+    /// <returns>IDataProtectionManager instance</returns>
+    IDataProtectionManager CreateInstance(string destinationFilePath);
 }

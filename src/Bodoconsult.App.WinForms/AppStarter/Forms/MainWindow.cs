@@ -6,173 +6,172 @@ using Bodoconsult.App.WinForms.Interfaces;
 using Timer = System.Windows.Forms.Timer;
 // ReSharper disable LocalizableElement
 
-namespace Bodoconsult.App.WinForms.AppStarter.Forms
+namespace Bodoconsult.App.WinForms.AppStarter.Forms;
+
+/// <summary>
+/// Main window of the app
+/// </summary>
+public sealed partial class MainWindow : Form
 {
+
+    private readonly IMainWindowViewModel _viewModel;
+
+    private const int CP_NOCLOSE_BUTTON = 0x200;
+
+    private readonly Timer _timer;
+
+    private bool _isClosing;
+
     /// <summary>
-    /// Main window of the app
+    /// Default ctor
     /// </summary>
-    public sealed partial class MainWindow : Form
+    /// <param name="viewModel">Current view model to use</param>
+    public MainWindow(IMainWindowViewModel viewModel)
     {
 
-        private readonly IMainWindowViewModel _viewModel;
+        _viewModel = viewModel;
 
-        private const int CP_NOCLOSE_BUTTON = 0x200;
+        InitializeComponent();
 
-        private readonly Timer _timer;
+        Logo.Image = _viewModel.Logo;
 
-        private bool _isClosing;
+        Text = _viewModel.AppVersion;
 
-        /// <summary>
-        /// Default ctor
-        /// </summary>
-        /// <param name="viewModel">Current view model to use</param>
-        public MainWindow(IMainWindowViewModel viewModel)
+        var appStartParameters = _viewModel.AppBuilder.AppGlobals.AppStartParameter;
+
+        AppTitle.ForeColor = _viewModel.HeaderBackColor;
+        AppTitle.Text = appStartParameters.AppName;
+
+        AppLine.BackColor = _viewModel.HeaderBackColor;
+
+        MsgServerIsListeningOnPort.Text = appStartParameters.Port == 0 ? "" : $"{UiMessages.MsgServerIsListeningOnPort} {appStartParameters.Port}";
+        MsgHowToShutdownServer.Text = UiMessages.MsgHowToShutdownServer;
+        MsgServerProcessId.Text = $"{UiMessages.MsgServerProcessId} {Process.GetCurrentProcess().Id}";
+
+        LogWindow.DataBindings.Add(new Binding(nameof(LogWindow.Text), _viewModel, "LogData"));
+
+
+        _timer = new Timer
         {
+            Interval = 1000
+        };
+        _timer.Tick += TimerOnTick;
+        _timer.Enabled = true;
+        _timer.Start();
+    }
 
-            _viewModel = viewModel;
+    private void TimerOnTick(object sender, EventArgs e)
+    {
+        _timer.Stop();
 
-            InitializeComponent();
-
-            Logo.Image = _viewModel.Logo;
-
-            Text = _viewModel.AppVersion;
-
-            var appStartParameters = _viewModel.AppBuilder.AppGlobals.AppStartParameter;
-
-            AppTitle.ForeColor = _viewModel.HeaderBackColor;
-            AppTitle.Text = appStartParameters.AppName;
-
-            AppLine.BackColor = _viewModel.HeaderBackColor;
-
-            MsgServerIsListeningOnPort.Text = appStartParameters.Port == 0 ? "" : $"{UiMessages.MsgServerIsListeningOnPort} {appStartParameters.Port}";
-            MsgHowToShutdownServer.Text = UiMessages.MsgHowToShutdownServer;
-            MsgServerProcessId.Text = $"{UiMessages.MsgServerProcessId} {Process.GetCurrentProcess().Id}";
-
-            LogWindow.DataBindings.Add(new Binding(nameof(LogWindow.Text), _viewModel, "LogData"));
+        try
+        {
+            _viewModel.CheckLogs();
+        }
+        catch //(Exception exception)
+        {
+            // Do nothing
+        }
 
 
-            _timer = new Timer
-            {
-                Interval = 1000
-            };
-            _timer.Tick += TimerOnTick;
+        //LogWindow.SelectionStart = LogWindow.Text.Length;
+        //LogWindow.SelectionLength = 0;
+
+        _timer.Start();
+    }
+
+
+    /// <summary>
+    /// Hide the Close button
+    /// </summary>
+    protected override CreateParams CreateParams
+    {
+        get
+        {
+            var myCp = base.CreateParams;
+            myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
+            return myCp;
+        }
+    }
+
+
+    private void MainWindow_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        // Check if STRG+C is pressed: if no break here else shutdown
+        if (ModifierKeys != Keys.Control || e.KeyChar != '\u0003')
+        {
+            return;
+        }
+
+        _isClosing = true;
+
+        _viewModel.ShutDown();
+
+        Close();
+    }
+
+    private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+    {
+
+        if (_isClosing)
+        {
             _timer.Enabled = true;
-            _timer.Start();
-        }
-
-        private void TimerOnTick(object sender, EventArgs e)
-        {
             _timer.Stop();
-
-            try
-            {
-                _viewModel.CheckLogs();
-            }
-            catch //(Exception exception)
-            {
-                // Do nothing
-            }
-
-
-            //LogWindow.SelectionStart = LogWindow.Text.Length;
-            //LogWindow.SelectionLength = 0;
-
-            _timer.Start();
+            return;
         }
 
+        // Turn off closing via UI: only STRG+C is allowed
+        e.Cancel = true;
+    }
 
-        /// <summary>
-        /// Hide the Close button
-        /// </summary>
-        protected override CreateParams CreateParams
+    private void LogWindow_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        // Check if STRG+C is pressed: if no break here else shutdown
+        if (ModifierKeys != Keys.Control || e.KeyChar != '\u0003')
         {
-            get
-            {
-                var myCp = base.CreateParams;
-                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
-                return myCp;
-            }
+            return;
         }
 
+        _isClosing = true;
 
-        private void MainWindow_KeyPress(object sender, KeyPressEventArgs e)
+        AsyncHelper.FireAndForget(() =>
         {
-            // Check if STRG+C is pressed: if no break here else shutdown
-            if (ModifierKeys != Keys.Control || e.KeyChar != '\u0003')
-            {
-                return;
-            }
-
-            _isClosing = true;
-
             _viewModel.ShutDown();
+            CloseMe();
+        });
+    }
 
-            Close();
-        }
+    /// <summary>
+    /// Thread-safe form closing
+    /// </summary>
+    private void CloseMe()
+    {
+        Invoke((MethodInvoker)Close);
+    }
 
-        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+    private void AppTitle_MouseDoubleClick(object sender, MouseEventArgs e)
+    {
+        MessageBox.Show(_viewModel.AppBuilder.AppGlobals.AppStartParameter.SoftwareTeam, "Developer team members", MessageBoxButtons.OK);
+    }
+
+    private void MainWindow_Resize(object sender, EventArgs e)
+    {
+        try
         {
+            AppHeader.Left = 0;
+            AppHeader.Width = Width;
+            AppHeader.Top = 0;
 
-            if (_isClosing)
-            {
-                _timer.Enabled = true;
-                _timer.Stop();
-                return;
-            }
+            AppLine.Left = 0;
+            AppLine.Width = Width;
 
-            // Turn off closing via UI: only STRG+C is allowed
-            e.Cancel = true;
+            LogWindow.Width = Width - 3 * LogWindow.Left;
+            LogWindow.Height = Height - LogWindow.Top - 40;
         }
-
-        private void LogWindow_KeyPress(object sender, KeyPressEventArgs e)
+        catch
         {
-            // Check if STRG+C is pressed: if no break here else shutdown
-            if (ModifierKeys != Keys.Control || e.KeyChar != '\u0003')
-            {
-                return;
-            }
-
-            _isClosing = true;
-
-            AsyncHelper.FireAndForget(() =>
-            {
-                _viewModel.ShutDown();
-                CloseMe();
-            });
+            // Do nothing
         }
 
-        /// <summary>
-        /// Thread-safe form closing
-        /// </summary>
-        private void CloseMe()
-        {
-            Invoke((MethodInvoker)Close);
-        }
-
-        private void AppTitle_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            MessageBox.Show(_viewModel.AppBuilder.AppGlobals.AppStartParameter.SoftwareTeam, "Developer team members", MessageBoxButtons.OK);
-        }
-
-        private void MainWindow_Resize(object sender, EventArgs e)
-        {
-            try
-            {
-                AppHeader.Left = 0;
-                AppHeader.Width = Width;
-                AppHeader.Top = 0;
-
-                AppLine.Left = 0;
-                AppLine.Width = Width;
-
-                LogWindow.Width = Width - 3 * LogWindow.Left;
-                LogWindow.Height = Height - LogWindow.Top - 40;
-            }
-            catch
-            {
-                // Do nothing
-            }
-
-        }
     }
 }

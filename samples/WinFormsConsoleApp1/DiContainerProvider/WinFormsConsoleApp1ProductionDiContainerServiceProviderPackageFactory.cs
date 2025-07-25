@@ -3,44 +3,43 @@
 using Bodoconsult.App.Abstractions.Delegates;
 using Bodoconsult.App.Abstractions.Interfaces;
 
-namespace WinFormsConsoleApp1.DiContainerProvider
+namespace WinFormsConsoleApp1.DiContainerProvider;
+
+/// <summary>
+/// The current DI container used for production 
+/// </summary>
+public class WinFormsConsoleApp1ProductionDiContainerServiceProviderPackageFactory : IDiContainerServiceProviderPackageFactory
 {
     /// <summary>
-    /// The current DI container used for production 
+    /// Default ctor
     /// </summary>
-    public class WinFormsConsoleApp1ProductionDiContainerServiceProviderPackageFactory : IDiContainerServiceProviderPackageFactory
+    public WinFormsConsoleApp1ProductionDiContainerServiceProviderPackageFactory(IAppGlobals appGlobals)
     {
-        /// <summary>
-        /// Default ctor
-        /// </summary>
-        public WinFormsConsoleApp1ProductionDiContainerServiceProviderPackageFactory(IAppGlobals appGlobals)
-        {
-            AppGlobals = appGlobals;
-        }
+        AppGlobals = appGlobals;
+    }
 
-        /// <summary>
-        /// App globals
-        /// </summary>
-        public IAppGlobals AppGlobals { get; }
+    /// <summary>
+    /// App globals
+    /// </summary>
+    public IAppGlobals AppGlobals { get; }
 
-        /// <summary>
-        /// Current status message delegate
-        /// </summary>
-        public StatusMessageDelegate StatusMessageDelegate { get; set; }
+    /// <summary>
+    /// Current status message delegate
+    /// </summary>
+    public StatusMessageDelegate StatusMessageDelegate { get; set; }
 
-        /// <summary>
-        /// Current license management delegate
-        /// </summary>
-        public LicenseMissingDelegate LicenseMissingDelegate { get; set; }
+    /// <summary>
+    /// Current license management delegate
+    /// </summary>
+    public LicenseMissingDelegate LicenseMissingDelegate { get; set; }
 
-        /// <summary>
-        /// Create an instance of <see cref="IDiContainerServiceProviderPackage"/>. Should be a singleton instance
-        /// </summary>
-        /// <returns>Singleton instance of <see cref="IDiContainerServiceProviderPackage"/></returns>
-        public IDiContainerServiceProviderPackage CreateInstance()
-        {
+    /// <summary>
+    /// Create an instance of <see cref="IDiContainerServiceProviderPackage"/>. Should be a singleton instance
+    /// </summary>
+    /// <returns>Singleton instance of <see cref="IDiContainerServiceProviderPackage"/></returns>
+    public IDiContainerServiceProviderPackage CreateInstance()
+    {
             
-            return new WinFormsConsoleApp1AllServicesDiContainerServiceProviderPackage(AppGlobals, StatusMessageDelegate, LicenseMissingDelegate);
-        }
+        return new WinFormsConsoleApp1AllServicesDiContainerServiceProviderPackage(AppGlobals, StatusMessageDelegate, LicenseMissingDelegate);
     }
 }

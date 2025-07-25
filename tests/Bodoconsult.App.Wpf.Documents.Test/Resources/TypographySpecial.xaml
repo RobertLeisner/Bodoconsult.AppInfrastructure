@@ -1,0 +1,289 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <FontFamily x:Key="PrimaryFontFamily">Times New Roman</FontFamily>
+    <FontFamily x:Key="SecondaryFontFamily">Arial Black</FontFamily>
+
+    <FontWeight x:Key="NormalFontWeight">Normal</FontWeight>
+    <FontWeight x:Key="BoldFontWeight">Bold</FontWeight>
+
+    <!--96/72 = 1.333-->
+
+
+
+    <system:Double x:Key="ExtraSmallFontSize">10</system:Double>
+    <system:Double x:Key="SmallFontSize">12</system:Double>
+    <system:Double x:Key="RegularFontSize">14</system:Double>
+    <system:Double x:Key="Header1FontSize">22</system:Double>
+    <system:Double x:Key="Header2FontSize">18</system:Double>
+    <system:Double x:Key="Header3FontSize">16</system:Double>
+    <system:Double x:Key="Header4FontSize">14</system:Double>
+    <system:Double x:Key="Header5FontSize">14</system:Double>
+    <system:Double x:Key="TitleFontSize">30</system:Double>
+    <system:Double x:Key="Title2FontSize">22</system:Double>
+
+    <Thickness x:Key="NormalThickness">0 7 0 0</Thickness>
+   
+    
+    <Style x:Key="Standard">
+        <Setter Property="Paragraph.FontFamily" Value="{ StaticResource PrimaryFontFamily }" />
+        <Setter Property="Paragraph.FontSize" Value="{ StaticResource RegularFontSize }" />
+        <Setter Property="Paragraph.Margin" Value="{ StaticResource NormalThickness  }" />
+        <Setter Property="Paragraph.IsHyphenationEnabled" Value="true" />
+        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+        <Setter Property="Paragraph.TextAlignment" Value="Justify" />
+        <Setter Property="Paragraph.MinOrphanLines" Value="2" />
+        <Setter Property="Paragraph.MinWidowLines" Value="2" />
+    </Style>
+
+    <Style x:Key="Subheader" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="Margin" Value="0 14 0 0" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="KeepWithNext" Value="true" />
+        <Setter Property="IsHyphenationEnabled" Value="false" />
+        <Setter Property="TextAlignment" Value="Left" />
+    </Style>
+
+    <Style x:Key="BeforeTitle" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontSize" Value="{ StaticResource ExtraSmallFontSize}" />
+        <Setter Property="Margin" Value="0 0 0 0" />
+        <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+
+
+
+    <Style x:Key="FigureBlock" TargetType="{x:Type BlockUIContainer}" BasedOn="{StaticResource Standard}">
+        <Setter Property="Margin" Value="0 7 0 7" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+    <Style x:Key="FigureText" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="Margin" Value="25 0 25 7" />
+        <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="IsHyphenationEnabled" Value="false" />
+    </Style>
+
+    <Style x:Key="FigureOnlyImage" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="LineHeight" Value="0.1" />
+        <Setter Property="Margin" Value="0 14 0 14" />
+        <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+    <Style x:Key="ParagraphTable" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="Margin" Value="0 7 0 7" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+    <Style x:Key="FloaterTable" TargetType="{x:Type Floater}" BasedOn="{StaticResource Standard}">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+    <Style x:Key="FigureImage" TargetType="{x:Type Figure}" BasedOn="{StaticResource Standard}">
+        <Setter Property="Margin" Value="0 0 0 0" />
+    </Style>
+
+    <Style x:Key="StandardWithIndent" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="TextIndent" Value="7" />
+    </Style>
+
+    <Style x:Key="SmallText" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontSize" Value="{ StaticResource SmallFontSize}" />
+        <Setter Property="LineHeight" Value="{ StaticResource SmallFontSize}" />
+    </Style>
+
+
+    <Style x:Key="ExtraSmallText"  TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontSize" Value="{ StaticResource ExtraSmallFontSize}" />
+        <Setter Property="LineHeight" Value="{ StaticResource ExtraSmallFontSize}" />
+    </Style>
+
+    <Style x:Key="Title" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontFamily" Value="{ StaticResource SecondaryFontFamily }" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{ StaticResource TitleFontSize}" />
+        <Setter Property="Margin" Value="0 84 0 70" />
+        <Setter Property="KeepWithNext" Value="true" />
+        <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="IsHyphenationEnabled" Value="false" />
+    </Style>
+
+    <Style x:Key="Title2" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontFamily" Value="{ StaticResource SecondaryFontFamily }" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{ StaticResource Title2FontSize}" />
+        <Setter Property="Margin" Value="0 70 0 42" />
+        <Setter Property="IsHyphenationEnabled" Value="false" />
+        <Setter Property="KeepWithNext" Value="true" />
+        <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="Headline1" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontFamily" Value="{ StaticResource SecondaryFontFamily}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{ StaticResource Header1FontSize}" />
+        <Setter Property="Margin" Value="0 14 0 7" />
+        <Setter Property="Padding" Value="0 0 0 3" />
+        <Setter Property="BorderBrush" Value="Black"></Setter>
+        <Setter Property="BorderThickness" Value="0 0 0 1"></Setter>
+        <Setter Property="IsHyphenationEnabled" Value="false" />
+        <Setter Property="KeepWithNext" Value="true" />
+        <Setter Property="TextAlignment" Value="Left" />
+        <Setter Property="MinOrphanLines" Value="3" />
+        <Setter Property="MinWidowLines" Value="3" />
+    </Style>
+
+    <Style x:Key="Headline2" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontFamily" Value="{ StaticResource SecondaryFontFamily}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{ StaticResource Header2FontSize}" />
+        <Setter Property="Margin" Value="0 14 0 7" />
+        <Setter Property="IsHyphenationEnabled" Value="false" />
+        <Setter Property="KeepWithNext" Value="true" />
+        <Setter Property="TextAlignment" Value="Left" />
+        <Setter Property="MinOrphanLines" Value="3" />
+        <Setter Property="MinWidowLines" Value="3" />
+    </Style>
+
+    <Style x:Key="Headline3" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontFamily" Value="{ StaticResource SecondaryFontFamily}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{ StaticResource Header3FontSize}" />
+        <Setter Property="Margin" Value="0 14 0 7" />
+        <Setter Property="IsHyphenationEnabled" Value="false" />
+        <Setter Property="KeepWithNext" Value="true" />
+        <Setter Property="TextAlignment" Value="Left" />
+        <Setter Property="MinOrphanLines" Value="3" />
+        <Setter Property="MinWidowLines" Value="3" />
+    </Style>
+
+
+    <Style x:Key="Headline4" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontFamily" Value="{ StaticResource SecondaryFontFamily}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{ StaticResource Header4FontSize}" />
+        <Setter Property="Margin" Value="0 7 0 0" />
+        <Setter Property="IsHyphenationEnabled" Value="false" />
+        <Setter Property="KeepWithNext" Value="true" />
+        <Setter Property="TextAlignment" Value="Left" />
+        <Setter Property="MinOrphanLines" Value="3" />
+        <Setter Property="MinWidowLines" Value="3" />
+    </Style>
+
+
+    <Style x:Key="Headline5" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontFamily" Value="{ StaticResource SecondaryFontFamily }" />
+        <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="FontSize" Value="{ StaticResource Header5FontSize}" />
+        <Setter Property="Margin" Value="0 0 0 0" />
+        <Setter Property="TextBlock.TextWrapping" Value="NoWrap" />
+        <Setter Property="IsHyphenationEnabled" Value="false" />
+        <Setter Property="KeepWithNext" Value="true" />
+        <Setter Property="TextAlignment" Value="Left" />
+        <Setter Property="MinOrphanLines" Value="3" />
+        <Setter Property="MinWidowLines" Value="3" />
+    </Style>
+    
+    <Style x:Key="TableBordered" TargetType="{x:Type Table}" BasedOn="{StaticResource Standard}">
+        <Setter Property="CellSpacing" Value="0" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="0 1 1 0" />
+    </Style>
+    
+    <Style x:Key="TableUnbordered" TargetType="{x:Type Table}" BasedOn="{StaticResource Standard}">
+        <Setter Property="CellSpacing" Value="0" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+
+
+    <Style x:Key="TableHeaderCellUnbordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="3,0,3,0" />
+    </Style>
+
+
+    <Style x:Key="TableHeaderCellBordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <Setter Property="Background" Value="LightGray" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="1 0 0 1" />
+        <Setter Property="Padding" Value="3,0,3,0" />
+
+    </Style>
+
+    <Style x:Key="TableCellBordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="1 0 0 1" />
+        <Setter Property="Padding" Value="3,0,3,0" />
+    </Style>
+
+
+    <Style x:Key="TableCellUnbordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="3,0,3,0" />
+    </Style>
+
+
+    <Style x:Key="SmallTableHeaderCellUnbordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{ StaticResource SmallFontSize}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="2,0,2,0" />
+    </Style>
+
+
+    <Style x:Key="SmallTableHeaderCellBordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <Setter Property="Background" Value="LightGray" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{ StaticResource SmallFontSize}" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="1 0 0 1" />
+        <Setter Property="Padding" Value="2,0,2,0" />
+
+    </Style>
+
+    <Style x:Key="SmallTableCellBordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontSize" Value="{ StaticResource SmallFontSize}" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="1 0 0 1" />
+        <Setter Property="Padding" Value="2,0,2,0" />
+    </Style>
+
+
+    <Style x:Key="SmallTableCellUnbordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontSize" Value="{ StaticResource SmallFontSize}" />
+        <Setter Property="Padding" Value="2,0,2,0" />
+    </Style>
+
+    <Style x:Key="ExtraSmallTableHeaderCellUnbordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{ StaticResource ExtraSmallFontSize}" />
+        <Setter Property="Padding" Value="1,0,1,0" />
+    </Style>
+
+
+    <Style x:Key="ExtraSmallTableHeaderCellBordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <Setter Property="Background" Value="LightGray" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{ StaticResource ExtraSmallFontSize}" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="1 0 0 1" />
+        <Setter Property="Padding" Value="1,0,1,0" />
+
+    </Style>
+
+    <Style x:Key="ExtraSmallTableCellBordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontSize" Value="{ StaticResource ExtraSmallFontSize}" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="1 0 0 1" />
+        <Setter Property="Padding" Value="1,0,1,0" />
+    </Style>
+
+    <Style x:Key="ExtraSmallTableCellUnbordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontSize" Value="{ StaticResource ExtraSmallFontSize}" />
+        <Setter Property="Padding" Value="1,0,1,0" />
+    </Style>
+
+</ResourceDictionary>

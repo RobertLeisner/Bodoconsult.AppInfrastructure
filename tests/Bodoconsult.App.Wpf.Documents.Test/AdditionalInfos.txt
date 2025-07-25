@@ -1,0 +1,106 @@
+﻿var flowDocument = 
+    (FlowDocument)Application.LoadComponent(
+        new Uri(@"SomeFlowDocument.xaml", UriKind.Relative));
+
+flowDocument.DataContext = this;
+
+Dispatcher.CurrentDispatcher.Invoke(
+    DispatcherPriority.SystemIdle,
+    new DispatcherOperationCallback(arg => null ), null);
+
+See this answer for an explanation of that last bit: http://stackoverflow.com/a/21391689/563088
+
+It shows how to load the document from a resource and add content using bindings.
+
+
+
+
+public static MemoryStream FlowDocumentToXPS(FlowDocument flowDocument, int width, int height)
+    {
+        MemoryStream stream = new MemoryStream();
+        using (Package package = Package.Open(stream, FileMode.Create, FileAccess.ReadWrite))
+        {
+            using (XpsDocument xpsDoc = new XpsDocument(package, CompressionOption.Maximum))
+            {                  
+                XpsSerializationManager rsm = new XpsSerializationManager(new XpsPackagingPolicy(xpsDoc), false);
+                DocumentPaginator paginator = ((IDocumentPaginatorSource)flowDocument).DocumentPaginator;
+                paginator.PageSize = new System.Windows.Size(width, height);
+                rsm.SaveAsXaml(paginator);
+                rsm.Commit();                
+            }
+        }
+        stream.Position = 0;
+        Console.WriteLine(stream.Length);
+        Console.WriteLine(stream.Position);
+        return stream;   
+    }
+
+Then I attach it using this code:
+Attachment xps = new Attachment(FlowDocumentToXPS(FD, 768, 676), "FileName.xps", "application/vnd.ms-xpsdocument");
+
+where FD is the FlowDocument I want to convert , I'm receiving 0.0KB size XPS file attached and it can't be open with the XPS Viewer , what I'm missing here ? 
+
+EDIT: The final code that worked , see the comments
+
+Thanks in advance
+
+
+
+
+public static class DispatcherUtil
+{
+    [SecurityPermissionAttribute(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]
+    public static void DoEvents()
+    {
+        DispatcherFrame frame = new DispatcherFrame();
+        Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background,
+            new DispatcherOperationCallback(ExitFrame), frame);
+        Dispatcher.PushFrame(frame);
+    }
+
+    private static object ExitFrame(object frame)
+    {
+        ((DispatcherFrame)frame).Continue = false;
+        return null;
+    }
+}
+
+
+[ValueConversion(typeof(Image), typeof(BitmapSource))]
+public class ImageToBitmapSourceConverter : IValueConverter
+{
+    [DllImport("gdi32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    internal static extern bool DeleteObject(IntPtr value);
+
+    public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    {
+        Image myImage = (Image)value;
+
+        var bitmap = new Bitmap(myImage);
+        IntPtr bmpPt = bitmap.GetHbitmap();
+        BitmapSource bitmapSource =
+         System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+               bmpPt,
+               IntPtr.Zero,
+               Int32Rect.Empty,
+               BitmapSizeOptions.FromEmptyOptions());
+
+        //freeze bitmapSource and clear memory to avoid memory leaks
+        bitmapSource.Freeze();
+        DeleteObject(bmpPt);
+
+        return bitmapSource;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+In your XAML you will need to add the converter.
+<utils:ImageToBitmapSourceConverter x:Key="ImageConverter"/>
+
+<Image Source="{Binding ThumbSmall, Converter={StaticResource ImageConverter}}"
+                   Stretch="None"/>

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 
+using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 
@@ -50,5 +51,38 @@ public static class FileSystemHelper
         var indexOfPoint = fullPath.LastIndexOf(".", StringComparison.Ordinal);
         var fileName = fullPath.Substring(indexOfSlash + 1, indexOfPoint - 1 - indexOfSlash);
         return fileName;
+    }
+
+    /// <summary>
+    /// Run a file in debug  mode only
+    /// </summary>
+    /// <param name="fileName">Full file path</param>
+    public static void RunInDebugMode(string fileName)
+    {
+        if (!Debugger.IsAttached)
+        {
+            return;
+        }
+
+        var startInfo = new ProcessStartInfo
+        {
+            FileName = fileName,
+            UseShellExecute = true
+        };
+        Process.Start(startInfo);
+    }
+
+    /// <summary>
+    /// Run a file
+    /// </summary>
+    /// <param name="fileName">Full file path</param>
+    public static void Run(string fileName)
+    {
+        var startInfo = new ProcessStartInfo
+        {
+            FileName = fileName,
+            UseShellExecute = true
+        };
+        Process.Start(startInfo);
     }
 }

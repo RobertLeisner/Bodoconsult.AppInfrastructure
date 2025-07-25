@@ -3,25 +3,24 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 // Licence MIT
 
-namespace Bodoconsult.App.Abstractions.Interfaces
+namespace Bodoconsult.App.Abstractions.Interfaces;
+
+/// <summary>
+/// Interface for creating <see cref="IDiContainerServiceProviderPackage"/>
+/// </summary>
+public interface IDiContainerServiceProviderPackageFactory
 {
+
     /// <summary>
-    /// Interface for creating <see cref="IDiContainerServiceProviderPackage"/>
+    /// App globals
     /// </summary>
-    public interface IDiContainerServiceProviderPackageFactory
-    {
+    IAppGlobals AppGlobals { get; }
 
-        /// <summary>
-        /// App globals
-        /// </summary>
-        IAppGlobals AppGlobals { get; }
+    /// <summary>
+    /// Create an instance of <see cref="IDiContainerServiceProviderPackage"/>. Should be a singleton instance
+    /// </summary>
+    /// <returns>Singleton instance of <see cref="IDiContainerServiceProviderPackage"/></returns>
 
-        /// <summary>
-        /// Create an instance of <see cref="IDiContainerServiceProviderPackage"/>. Should be a singleton instance
-        /// </summary>
-        /// <returns>Singleton instance of <see cref="IDiContainerServiceProviderPackage"/></returns>
+    IDiContainerServiceProviderPackage CreateInstance();
 
-        IDiContainerServiceProviderPackage CreateInstance();
-
-    }
 }

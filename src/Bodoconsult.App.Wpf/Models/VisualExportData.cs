@@ -1,48 +1,47 @@
 ﻿using System.Windows.Media;
 using Bodoconsult.App.Wpf.Helpers;
 
-namespace Bodoconsult.App.Wpf.Models
-{
-    /// <summary>
-    /// Data needed for exporting a chart as image file
-    /// </summary>
+namespace Bodoconsult.App.Wpf.Models;
+
+/// <summary>
+/// Data needed for exporting a chart as image file
+/// </summary>
 //    [AddINotifyPropertyChangedInterface]
-    public class VisualExportData
+public class VisualExportData
+{
+
+    /// <summary>
+    ///  default ctor
+    /// </summary>
+    public VisualExportData()
     {
-
-        /// <summary>
-        ///  default ctor
-        /// </summary>
-        public VisualExportData()
-        {
-            ImageFormat = WpfHelper.ImageFormat.Png;
-            Width = 1024;
-            Height = 768;
-        }
-
-        /// <summary>
-        /// Visual to export as file
-        /// </summary>
-        public Visual Visual { get; set; }
-
-        /// <summary>
-        /// Image format for the chart export
-        /// </summary>
-        public WpfHelper.ImageFormat ImageFormat { get; set; }
-
-        /// <summary>
-        /// path to save the exported chart
-        /// </summary>
-        public string Path { get; set; }
-
-        /// <summary>
-        /// Width in pixels of the exported chart. Default: 1024px
-        /// </summary>
-        public int Width { get; set; }
-
-        /// <summary>
-        /// Height in pixels of the exported chart. Default: 768px
-        /// </summary>
-        public int Height { get; set; }
+        ImageFormat = WpfHelper.ImageFormat.Png;
+        Width = 1024;
+        Height = 768;
     }
+
+    /// <summary>
+    /// Visual to export as file
+    /// </summary>
+    public Visual Visual { get; set; }
+
+    /// <summary>
+    /// Image format for the chart export
+    /// </summary>
+    public WpfHelper.ImageFormat ImageFormat { get; set; }
+
+    /// <summary>
+    /// path to save the exported chart
+    /// </summary>
+    public string Path { get; set; }
+
+    /// <summary>
+    /// Width in pixels of the exported chart. Default: 1024px
+    /// </summary>
+    public int Width { get; set; }
+
+    /// <summary>
+    /// Height in pixels of the exported chart. Default: 768px
+    /// </summary>
+    public int Height { get; set; }
 }

@@ -1,0 +1,344 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--<services:TypographySettingsService x:Key="SettingsService"/>-->
+    
+    <!--<FontFamily x:Key="PrimaryFontFamily">Calibri</FontFamily>
+    <FontFamily x:Key="SecondaryFontFamily">Cambria</FontFamily>-->
+
+    <FontWeight x:Key="NormalFontWeight">Normal</FontWeight>
+    <FontWeight x:Key="BoldFontWeight">Bold</FontWeight>
+
+    <!--96/72 = 1.333-->
+
+    <!--{Binding Path=FontFamily, FallbackValue=Arial}-->
+    
+    <Style x:Key="Standard">
+        <Setter Property="Paragraph.FontFamily" Value="{Binding Path=PrimaryFontFamily, FallbackValue=Calibri}" />
+        <Setter Property="Paragraph.FontSize" Value="{Binding Path=RegularFontSize, FallbackValue=14}" />
+        <Setter Property="Paragraph.Margin" Value="{Binding Path=RegularThickness }" />
+        <Setter Property="Paragraph.IsHyphenationEnabled" Value="true" />
+        <Setter Property="Paragraph.LineHeight" Value="{Binding Path=RegularLineHeight }" />
+        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+        <Setter Property="Paragraph.TextAlignment" Value="Justify" />
+        <Setter Property="Paragraph.MinOrphanLines" Value="2" />
+        <Setter Property="Paragraph.MinWidowLines" Value="2" />
+        <!--<Setter Property="Paragraph.Typography.Kerning" Value="true" />-->
+    </Style>
+
+
+    <Style x:Key="StandardCenter" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="StandardRight" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+
+
+    <Style x:Key="Subheader" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="Margin" Value="{Binding Path=Heading4Thickness }" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="KeepWithNext" Value="true" />
+        <Setter Property="IsHyphenationEnabled" Value="false" />
+        <Setter Property="TextAlignment" Value="Left" />
+    </Style>
+
+    <Style x:Key="BeforeTitle" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontSize" Value="{Binding Path=ExtraSmallFontSize, FallbackValue=10}" />
+        <Setter Property="Margin" Value="0 0 0 0" />
+        <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+
+
+
+    <Style x:Key="FigureBlock" TargetType="{x:Type BlockUIContainer}" BasedOn="{StaticResource Standard}">
+        <Setter Property="Padding" Value="{Binding Path=FigureThickness }" />
+    </Style>
+
+    <Style x:Key="FigureText" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="Margin" Value="25 7 25 7" />
+        <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="IsHyphenationEnabled" Value="false" />
+    </Style>
+
+    <Style x:Key="FigureOnlyImage" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="LineHeight" Value="0.1" />
+        <Setter Property="Margin" Value="{Binding Path=FigureThickness }" />
+        <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+    <Style x:Key="ParagraphTable" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="Margin" Value="{Binding Path=FigureThickness }" />
+        <Setter Property="Padding" Value="0" />
+        <!--<Setter Property="Background" Value="Red" />-->
+        <Setter Property="FontSize" Value="0.5" />
+        <Setter Property="LineHeight" Value="0.5" />
+        <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+    <Style x:Key="ParagraphTableNoMargin" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <!--<Setter Property="Background" Value="Green" />-->
+        <Setter Property="FontSize" Value="0.5" />
+        <Setter Property="LineHeight" Value="0.5" />
+        <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="FloaterTable" TargetType="{x:Type Floater}" BasedOn="{StaticResource Standard}">
+        <Setter Property="Padding" Value="{Binding Path=FigureThickness }" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+
+    <Style x:Key="FigureTable" TargetType="{x:Type Figure}" BasedOn="{StaticResource Standard}">
+        <Setter Property="Padding" Value="{Binding Path=FigureThickness }" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="HorizontalAnchor" Value="ColumnCenter" />
+    </Style>
+
+    <Style x:Key="FigureImage" TargetType="{x:Type Figure}" BasedOn="{StaticResource Standard}">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+    <Style x:Key="StandardWithIndent" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="TextIndent" Value="7" />
+    </Style>
+
+    <Style x:Key="SmallText" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontSize" Value="{Binding Path=SmallFontSize, FallbackValue=12}" />
+        <Setter Property="LineHeight" Value="{Binding Path=SmallFontSize, FallbackValue=12}" />
+    </Style>
+
+    <Style x:Key="SmallTextCentered" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource SmallText}">
+        <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="SmallTextRight" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource SmallText}">
+        <Setter Property="TextAlignment" Value="Right" />
+    </Style>
+
+    <Style x:Key="ExtraSmallText"  TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontSize" Value="{Binding Path=ExtraSmallFontSize, FallbackValue=10}" />
+        <Setter Property="LineHeight" Value="{Binding Path=ExtraSmallFontSize, FallbackValue=10}" />
+    </Style>
+
+    <Style x:Key="ExtraSmallTextCentered"  TargetType="{x:Type Paragraph}" BasedOn="{StaticResource ExtraSmallText}">
+        <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="ExtraSmallTextRight"  TargetType="{x:Type Paragraph}" BasedOn="{StaticResource ExtraSmallText}">
+        <Setter Property="TextAlignment" Value="Right" />
+    </Style>
+
+    <Style x:Key="Title" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontFamily" Value="{Binding Path=ThirdFontFamily, FallbackValue=Calibri}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{Binding Path=TitleFontSize, FallbackValue=30}" />
+        <Setter Property="Margin" Value="{Binding Path=TitleThickness }" />
+        <Setter Property="KeepWithNext" Value="true" />
+        <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="IsHyphenationEnabled" Value="false" />
+        <Setter Property="Foreground" Value="Red" />
+    </Style>
+
+    <Style x:Key="Title2" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontFamily" Value="{Binding Path=ThirdFontFamily, FallbackValue=Calibri}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{Binding Path=Title2FontSize, FallbackValue=22}" />
+        <Setter Property="Margin" Value="{Binding Path=Title2Thickness }" />
+        <Setter Property="IsHyphenationEnabled" Value="false" />
+        <Setter Property="KeepWithNext" Value="true" />
+        <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="Headline1" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontFamily" Value="{Binding Path=SecondaryFontFamily, FallbackValue=Calibri}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{Binding Path=Heading1FontSize, FallbackValue=22}" />
+        <Setter Property="Margin" Value="{Binding Path=Heading1Thickness }" />
+        <Setter Property="Padding" Value="{Binding Path=Heading1LineSeparatorThickness }" />
+        <Setter Property="BorderBrush" Value="Black"></Setter>
+        <Setter Property="BorderThickness" Value="0 0 0 1"></Setter>
+        <Setter Property="IsHyphenationEnabled" Value="false" />
+        <Setter Property="KeepWithNext" Value="true" />
+        <Setter Property="TextAlignment" Value="Left" />
+        <Setter Property="MinOrphanLines" Value="3" />
+        <Setter Property="MinWidowLines" Value="3" />
+        <!--<Setter Property="Typography.Capitals" Value="SmallCaps" />
+        <Setter Property="Typography.CapitalSpacing" Value="true" />-->
+    </Style>
+
+    <Style x:Key="Headline2" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontFamily" Value="{Binding Path=SecondaryFontFamily, FallbackValue=Calibri}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{Binding Path=Heading2FontSize, FallbackValue=22}" />
+        <Setter Property="Margin" Value="{Binding Path=Heading2Thickness }" />
+        <Setter Property="IsHyphenationEnabled" Value="false" />
+        <Setter Property="KeepWithNext" Value="true" />
+        <Setter Property="TextAlignment" Value="Left" />
+        <Setter Property="MinOrphanLines" Value="3" />
+        <Setter Property="MinWidowLines" Value="3" />
+    </Style>
+
+    <Style x:Key="Headline3" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontFamily" Value="{Binding Path=SecondaryFontFamily, FallbackValue=Calibri}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{Binding Path=Heading3FontSize, FallbackValue=22}" />
+        <Setter Property="Margin" Value="{Binding Path=Heading3Thickness }" />
+        <Setter Property="IsHyphenationEnabled" Value="false" />
+        <Setter Property="KeepWithNext" Value="true" />
+        <Setter Property="TextAlignment" Value="Left" />
+        <Setter Property="MinOrphanLines" Value="3" />
+        <Setter Property="MinWidowLines" Value="3" />
+    </Style>
+
+
+    <Style x:Key="Headline4" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontFamily" Value="{ DynamicResource SecondaryFontFamily}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{Binding Path=Heading4FontSize, FallbackValue=22}" />
+        <Setter Property="Margin" Value="{Binding Path=Heading4Thickness }" />
+        <Setter Property="IsHyphenationEnabled" Value="false" />
+        <Setter Property="KeepWithNext" Value="true" />
+        <Setter Property="TextAlignment" Value="Left" />
+        <Setter Property="MinOrphanLines" Value="3" />
+        <Setter Property="MinWidowLines" Value="3" />
+    </Style>
+
+
+    <Style x:Key="Headline5" TargetType="{x:Type Paragraph}" BasedOn="{StaticResource Standard}">
+        <Setter Property="FontFamily" Value="{ DynamicResource SecondaryFontFamily }" />
+        <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="FontSize" Value="{Binding Path=Heading5FontSize, FallbackValue=22}" />
+        <Setter Property="Margin" Value="{Binding Path=Heading5Thickness }" />
+        <Setter Property="TextBlock.TextWrapping" Value="NoWrap" />
+        <Setter Property="IsHyphenationEnabled" Value="false" />
+        <Setter Property="KeepWithNext" Value="true" />
+        <Setter Property="TextAlignment" Value="Left" />
+        <Setter Property="MinOrphanLines" Value="3" />
+        <Setter Property="MinWidowLines" Value="3" />
+    </Style>
+    
+    <Style x:Key="TableBordered" TargetType="{x:Type Table}" BasedOn="{StaticResource Standard}">
+        <Setter Property="CellSpacing" Value="0" />
+        <Setter Property="BorderBrush" Value="{Binding Path=TableBorder }" />
+        <Setter Property="BorderThickness" Value="{Binding Path=TableBorderThickness }" />
+        <!--<Setter Property="Margin" Value="{Binding Path=FigureThickness }" />-->
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <!--<Setter Property="Background" Value="CornflowerBlue" />-->
+    </Style>
+    
+    <Style x:Key="TableUnbordered" TargetType="{x:Type Table}" BasedOn="{StaticResource Standard}">
+        <Setter Property="CellSpacing" Value="0" />
+        <Setter Property="BorderThickness" Value="0" />
+        <!--<Setter Property="Margin" Value="{Binding Path=FigureThickness }" />-->
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <!--<Setter Property="Background" Value="CornflowerBlue" />-->
+
+    </Style>
+
+
+    <Style x:Key="TableHeaderCellUnbordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <Setter Property="Background" Value="{Binding Path=TableHeaderUnborderedBackground }" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="{Binding Path=TableContentThickness }" />
+    </Style>
+
+
+    <Style x:Key="TableHeaderCellBordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+  <!--<Setter Property="Background" Value="{Binding Path=TableHeaderBackground }" />-->
+        <Setter Property="BorderBrush" Value="{Binding Path=TableBorder }" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="BorderThickness" Value="0 0 0 1" />
+        <Setter Property="Padding" Value="{Binding Path=TableContentThickness }" />
+    </Style>
+
+    <Style x:Key="TableCellBordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <!--<Setter Property="Background" Value="{Binding Path=TableBodyBackground }" />-->
+        <Setter Property="BorderBrush" Value="{Binding Path=TableBorder }" />
+        <Setter Property="BorderThickness" Value="0 0 0 1" />
+        <Setter Property="Padding" Value="{Binding Path=TableContentThickness }" />
+    </Style>
+
+
+    <Style x:Key="TableCellUnbordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <!--<Setter Property="Background" Value="{Binding Path=TableBodyUnborderedBackground }" />-->
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="{Binding Path=TableContentUnborderedThickness }"  />
+    </Style>
+
+
+    <Style x:Key="SmallTableHeaderCellUnbordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <!--<Setter Property="Background" Value="{Binding Path=TableHeaderUnborderedBackground }" />-->
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{Binding Path=SmallFontSize, FallbackValue=12}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="{Binding Path=TableContentSmallUnborderedThickness }"  />
+    </Style>
+
+
+    <Style x:Key="SmallTableHeaderCellBordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <!--<Setter Property="Background" Value="{Binding Path=TableHeaderBackground }" />-->
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{Binding Path=SmallFontSize, FallbackValue=12}" />
+        <Setter Property="BorderBrush" Value="{Binding Path=TableBorder }" />
+        <Setter Property="BorderThickness" Value="0 0 0 1" />
+        <Setter Property="Padding" Value="{Binding Path=TableContentSmallThickness }"  />
+
+    </Style>
+
+    <Style x:Key="SmallTableCellBordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <Setter Property="Background" Value="{Binding Path=TableBodyBackground }" />
+        <Setter Property="FontSize" Value="{Binding Path=SmallFontSize, FallbackValue=12}" />
+        <Setter Property="BorderBrush" Value="{Binding Path=TableBorder }" />
+        <Setter Property="BorderThickness" Value="0 0 0 1" />
+        <Setter Property="Padding" Value="{Binding Path=TableContentSmallThickness }"  />
+    </Style>
+
+
+    <Style x:Key="SmallTableCellUnbordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <!--<Setter Property="Background" Value="{Binding Path=TableBodyUnborderedBackground }" />-->
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontSize" Value="{Binding Path=SmallFontSize, FallbackValue=12}" />
+        <Setter Property="Padding" Value="{Binding Path=TableContentSmallUnborderedThickness }" />
+    </Style>
+
+    <Style x:Key="ExtraSmallTableHeaderCellUnbordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <!--<Setter Property="Background" Value="{Binding Path=TableBodyUnborderedBackground }" />-->
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{Binding Path=ExtraSmallFontSize, FallbackValue=10}" />
+        <Setter Property="Padding" Value="{Binding Path=TableContentExtraSmallUnborderedThickness }" />
+    </Style>
+
+
+    <Style x:Key="ExtraSmallTableHeaderCellBordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <!--<Setter Property="Background" Value="{Binding Path=TableHeaderBackground }" />-->
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{Binding Path=ExtraSmallFontSize, FallbackValue=10}" />
+        <Setter Property="BorderBrush" Value="{Binding Path=TableBorder }" />
+        <Setter Property="BorderThickness" Value="0 0 0 1" />
+        <Setter Property="Padding" Value="{Binding Path=TableContentExtraSmallThickness }" />
+
+    </Style>
+
+    <Style x:Key="ExtraSmallTableCellBordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <!--<Setter Property="Background" Value="{Binding Path=TableBodyBackground }" />-->
+        <Setter Property="FontSize" Value="{Binding Path=ExtraSmallFontSize, FallbackValue=10}" />
+        <Setter Property="BorderBrush" Value="{Binding Path=TableBorder }" />
+        <Setter Property="BorderThickness" Value="0 0 0 1" />
+        <Setter Property="Padding" Value="{Binding Path=TableContentExtraSmallThickness }" />
+    </Style>
+
+    <Style x:Key="ExtraSmallTableCellUnbordered" TargetType="{x:Type TableCell}" BasedOn="{StaticResource Standard}">
+        <!--<Setter Property="Background" Value="{Binding Path=TableBodyUnborderedBackground }" />-->
+        <Setter Property="FontSize" Value="{Binding Path=ExtraSmallFontSize, FallbackValue=10}" />
+        <Setter Property="Padding" Value="{Binding Path=TableContentExtraSmallUnborderedThickness }" />
+    </Style>
+
+</ResourceDictionary>

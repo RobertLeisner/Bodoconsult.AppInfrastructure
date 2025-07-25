@@ -11,7 +11,7 @@ internal class SampleBusinessLogicLayer
     public IBusinessTransactionReply EmptyRequest(IBusinessTransactionRequestData requestData)
     {
 
-        return new DefaultBusinessTransactionReply()
+        return new DefaultBusinessTransactionReply
         {
             ErrorCode = 0,
             Message = "Testmessage on success"

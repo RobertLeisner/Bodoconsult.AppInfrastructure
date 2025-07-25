@@ -2,170 +2,169 @@
 
 using Bodoconsult.App.Wpf.Models;
 
-namespace Bodoconsult.App.Wpf.Services
+namespace Bodoconsult.App.Wpf.Services;
+
+/// <summary>
+/// Load resources in a cache and search resourekeys
+/// </summary>
+public class ResourceFinderService
 {
-    /// <summary>
-    /// Load resources in a cache and search resourekeys
-    /// </summary>
-    public class ResourceFinderService
+
+    private class CacheObject
     {
 
-        private class CacheObject
-        {
+        public string Key;
 
-            public string Key;
-
-            public SharedResourceDictionary ResourceDictionary;
+        public SharedResourceDictionary ResourceDictionary;
 
 #pragma warning disable 414
-            public long Ticks;
+        public long Ticks;
 #pragma warning restore 414
 
-        }
+    }
 
 
-        private static IList<CacheObject> _cachedResources;
+    private static IList<CacheObject> _cachedResources;
 
-        /// <summary>
-        /// Clear the cache
-        /// </summary>
-        public static void ClearCache()
+    /// <summary>
+    /// Clear the cache
+    /// </summary>
+    public static void ClearCache()
+    {
+        _cachedResources?.Clear();
+    }
+
+
+    /// <summary>
+    /// Find a resource lkey and return object
+    /// </summary>
+    /// <param name="path">resource path</param>
+    /// <param name="resourceKey">resource key</param>
+    /// <returns></returns>
+    public static object FindResource(string path, string resourceKey)
+    {
+
+        try
         {
-            _cachedResources?.Clear();
+            var rd = CheckCache(path);
+
+            return rd[resourceKey];
         }
+        catch (Exception ex)
+        {       
+            throw new Exception($"ResourcePath: {path}", ex);
+        }
+    }
 
 
-        /// <summary>
-        /// Find a resource lkey and return object
-        /// </summary>
-        /// <param name="path">resource path</param>
-        /// <param name="resourceKey">resource key</param>
-        /// <returns></returns>
-        public static object FindResource(string path, string resourceKey)
+    /// <summary>
+    /// Find a resource key and return object of type T
+    /// </summary>
+    /// <typeparam name="T">Type to convert the resource into</typeparam>
+    /// <param name="path">resource path</param>
+    /// <param name="resourceKey">resource key</param>
+    /// <returns></returns>
+    public static T FindResource<T>(string path, string resourceKey)
+    {
+
+        try
+        {
+            var rd = CheckCache(path);
+
+            return (T)rd[resourceKey];
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"ResourcePath: {path}", ex);
+        }
+    }
+
+    /// <summary>
+    /// Number of resource dictionaries currently cached
+    /// </summary>
+    public static int Count
+    {
+        get { return _cachedResources.Count; }
+    }
+
+
+    /// <summary>
+    /// Update a resource file in memory
+    /// </summary>
+    /// <param name="path">resource path</param>
+    /// <param name="resourceKey">resource key</param>
+    /// <param name="value">new value</param>
+    /// <exception cref="Exception"></exception>
+    public static void SetResource(string path, string resourceKey, string value)
+    {
+        try
         {
 
-            try
-            {
-                var rd = CheckCache(path);
+            var rd = CheckCache(path);
 
-                return rd[resourceKey];
-            }
-            catch (Exception ex)
-            {       
-                throw new Exception($"ResourcePath: {path}", ex);
-            }
+            rd[resourceKey] = value;
         }
-
-
-        /// <summary>
-        /// Find a resource key and return object of type T
-        /// </summary>
-        /// <typeparam name="T">Type to convert the resource into</typeparam>
-        /// <param name="path">resource path</param>
-        /// <param name="resourceKey">resource key</param>
-        /// <returns></returns>
-        public static T FindResource<T>(string path, string resourceKey)
+        catch (Exception ex)
         {
-
-            try
-            {
-                var rd = CheckCache(path);
-
-                return (T)rd[resourceKey];
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"ResourcePath: {path}", ex);
-            }
+            throw new Exception($"ResourcePath: {path}", ex);
         }
+    }
 
-        /// <summary>
-        /// Number of resource dictionaries currently cached
-        /// </summary>
-        public static int Count
+
+    /// <summary>
+    /// Update a resource file in memory
+    /// </summary>
+    /// <typeparam name="T">Type to convert the resource into</typeparam>
+    /// <param name="path">resource path</param>
+    /// <param name="resourceKey">resource key</param>
+    /// <param name="value">new value</param>
+    /// <exception cref="Exception"></exception>
+    public static void SetResource<T>(string path, string resourceKey, T value)
+    {
+        try
         {
-            get { return _cachedResources.Count; }
+            var rd = CheckCache(path);
+            rd[resourceKey] = value;
         }
-
-
-        /// <summary>
-        /// Update a resource file in memory
-        /// </summary>
-        /// <param name="path">resource path</param>
-        /// <param name="resourceKey">resource key</param>
-        /// <param name="value">new value</param>
-        /// <exception cref="Exception"></exception>
-        public static void SetResource(string path, string resourceKey, string value)
+        catch (Exception ex)
         {
-            try
-            {
-
-                var rd = CheckCache(path);
-
-                rd[resourceKey] = value;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"ResourcePath: {path}", ex);
-            }
+            throw new Exception($"ResourcePath: {path}", ex);
         }
+    }
 
 
-        /// <summary>
-        /// Update a resource file in memory
-        /// </summary>
-        /// <typeparam name="T">Type to convert the resource into</typeparam>
-        /// <param name="path">resource path</param>
-        /// <param name="resourceKey">resource key</param>
-        /// <param name="value">new value</param>
-        /// <exception cref="Exception"></exception>
-        public static void SetResource<T>(string path, string resourceKey, T value)
+    /// <summary>
+    /// Check in the cache is a resource dictionary is loaded already. If not load it
+    /// </summary>
+    /// <param name="path">Path to the resource dictionary</param>
+    /// <returns>Loaded resource dictionary</returns>
+    private static SharedResourceDictionary CheckCache(string path)
+    {
+        _cachedResources ??= new List<CacheObject>();
+
+        var cache = _cachedResources.FirstOrDefault(x => x.Key == path.ToLower());
+
+        SharedResourceDictionary rd;
+
+        if (cache == null)
         {
-            try
+            rd = new SharedResourceDictionary
             {
-                var rd = CheckCache(path);
-                rd[resourceKey] = value;
-            }
-            catch (Exception ex)
+                Source = new Uri(path, UriKind.RelativeOrAbsolute)
+            };
+
+            _cachedResources.Add(new CacheObject
             {
-                throw new Exception($"ResourcePath: {path}", ex);
-            }
+                Key = path.ToLower(),
+                ResourceDictionary = rd,
+                Ticks = DateTime.Now.Ticks
+            });
         }
-
-
-        /// <summary>
-        /// Check in the cache is a resource dictionary is loaded already. If not load it
-        /// </summary>
-        /// <param name="path">Path to the resource dictionary</param>
-        /// <returns>Loaded resource dictionary</returns>
-        private static SharedResourceDictionary CheckCache(string path)
+        else
         {
-            _cachedResources ??= new List<CacheObject>();
-
-            var cache = _cachedResources.FirstOrDefault(x => x.Key == path.ToLower());
-
-            SharedResourceDictionary rd;
-
-            if (cache == null)
-            {
-                rd = new SharedResourceDictionary
-                {
-                    Source = new Uri(path, UriKind.RelativeOrAbsolute)
-                };
-
-                _cachedResources.Add(new CacheObject
-                {
-                    Key = path.ToLower(),
-                    ResourceDictionary = rd,
-                    Ticks = DateTime.Now.Ticks
-                });
-            }
-            else
-            {
-                rd = cache.ResourceDictionary;
-            }
-
-            return rd;
+            rd = cache.ResourceDictionary;
         }
+
+        return rd;
     }
 }

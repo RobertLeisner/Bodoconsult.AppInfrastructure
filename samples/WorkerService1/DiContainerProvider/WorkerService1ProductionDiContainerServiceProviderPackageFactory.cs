@@ -2,36 +2,35 @@
 
 using Bodoconsult.App.Abstractions.Interfaces;
 
-namespace WorkerService1.DiContainerProvider
+namespace WorkerService1.DiContainerProvider;
+
+/// <summary>
+/// The current DI container used for production 
+/// </summary>
+public class WorkerService1ProductionDiContainerServiceProviderPackageFactory : IDiContainerServiceProviderPackageFactory
 {
     /// <summary>
-    /// The current DI container used for production 
+    /// Default ctor
     /// </summary>
-    public class WorkerService1ProductionDiContainerServiceProviderPackageFactory : IDiContainerServiceProviderPackageFactory
+    public WorkerService1ProductionDiContainerServiceProviderPackageFactory(IAppGlobals appGlobals)
     {
-        /// <summary>
-        /// Default ctor
-        /// </summary>
-        public WorkerService1ProductionDiContainerServiceProviderPackageFactory(IAppGlobals appGlobals)
-        {
-            AppGlobals = appGlobals;
-        }
+        AppGlobals = appGlobals;
+    }
 
-        /// <summary>
-        /// App globals
-        /// </summary>
-        public IAppGlobals AppGlobals { get; }
+    /// <summary>
+    /// App globals
+    /// </summary>
+    public IAppGlobals AppGlobals { get; }
 
 
 
-        /// <summary>
-        /// Create an instance of <see cref="IDiContainerServiceProviderPackage"/>. Should be a singleton instance
-        /// </summary>
-        /// <returns>Singleton instance of <see cref="IDiContainerServiceProviderPackage"/></returns>
-        public IDiContainerServiceProviderPackage CreateInstance()
-        {
+    /// <summary>
+    /// Create an instance of <see cref="IDiContainerServiceProviderPackage"/>. Should be a singleton instance
+    /// </summary>
+    /// <returns>Singleton instance of <see cref="IDiContainerServiceProviderPackage"/></returns>
+    public IDiContainerServiceProviderPackage CreateInstance()
+    {
             
-            return new WorkerService1AllServicesDiContainerServiceProviderPackage(AppGlobals);
-        }
+        return new WorkerService1AllServicesDiContainerServiceProviderPackage(AppGlobals);
     }
 }

@@ -1,24 +1,23 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-namespace Bodoconsult.App.DataProtection
-{
-    public static class ArgumentNullThrowHelper
-    {
-        public static void ThrowIfNullOrEmpty(string value)
-        {
-            if (string.IsNullOrEmpty(value))
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
-        }
+namespace Bodoconsult.App.DataProtection;
 
-        public static void ThrowIfNull(object obj)
+public static class ArgumentNullThrowHelper
+{
+    public static void ThrowIfNullOrEmpty(string value)
+    {
+        if (string.IsNullOrEmpty(value))
         {
-            if (obj != null)
-            {
-                return;
-            }
-            throw new ArgumentNullException(nameof(obj));
+            throw new ArgumentNullException(nameof(value));
         }
+    }
+
+    public static void ThrowIfNull(object obj)
+    {
+        if (obj != null)
+        {
+            return;
+        }
+        throw new ArgumentNullException(nameof(obj));
     }
 }

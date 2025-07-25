@@ -1,15 +1,14 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-namespace Bodoconsult.App.Abstractions.Interfaces
+namespace Bodoconsult.App.Abstractions.Interfaces;
+
+/// <summary>
+/// Interface for app globals for apps with database usage
+/// </summary>
+public interface IAppGlobalsWithDatabase: IAppGlobals
 {
     /// <summary>
-    /// Interface for app globals for apps with database usage
+    /// Current database context or null
     /// </summary>
-    public interface IAppGlobalsWithDatabase: IAppGlobals
-    {
-        /// <summary>
-        /// Current database context or null
-        /// </summary>
-        IContextConfig ContextConfig { get; set; }
-    }
+    IContextConfig ContextConfig { get; set; }
 }

@@ -1,0 +1,72 @@
+﻿<P>Eine Simulation dient der Veranschaulichung eines Prozesses, der meist über mehrere Jahre läuft 
+und von zahlreichen Einflußgrößen mit jeweils bekannten Eintrittswahrscheinlichkeiten beeinflußt wird. 
+Im Gegensatz zu ein einem zufälligem Prozeß, können für die einzelnen Einflußgrößen jeweils 
+Wahrscheinlichkeiten für den Eintritt eines bestimmten Ergebnisses angegeben oder zumindest geschätzt 
+werden.</P>
+<P>Ein klassisches Beispiel für einen solchen Prozeß ist z.B. ein Wertpapierportfolio und dessen 
+Wertentwicklung über mehrere Jahre hinweg. Für jedes Wertpapier kann dabei eine 
+sogenannte Verteilungsfunktion für die Rendite berechnet oder geschätzt werden. 
+Damit kennt man für jedes Wertpapier im Portfolio zu jeder möglichen Rendite deren 
+Eintrittswahrscheinlichkeit. Die Gesamtrendite des Portfolios in einem Zeitraum ist dabei als 
+Summe der Einzelrenditen abhängig von den sich jeweils zufällig ergebenden 
+Rendite der einzelnen Wertpapiere.</P>
+<P>Ziel einer Simulation ist es, das wahrscheinliche Ergebnis eines geeigneten Prozesses zu ermitteln. 
+Im Beispiel des Wertpapierportfolios könnte das z.B. die Frage sein, welche Rendite sich nach zehn Jahren 
+ergibt. Zusätzlich zum wahrscheinlichen Ergebnis sind meistens noch das schlechteste und das beste Ergebnis 
+von Interesse. Damit kann sich der Besitzer eines Wertpapierportfolios ein Bild vom möglichen Ergebnis seine 
+Portfolios in 10 Jahren machen. Als Konsequenz daraus kann er ggfs. Veränderungen in dessen Zusammensetzung 
+vornehmen. Sind z.B. die Folgen beim Eintritt des schlechtesten Falls für den Eigentümer der Wertpapiere 
+sehr gravierend, sollte er das Wertpapierportfolio eher zu weniger riskanten Wertpapieren hin umbauen.</P>
+<P>Simulationen basieren auf dem statistischen Gesetz der Großen Zahlen. Dieses besagt, daß man das 
+Ergebnis eines Prozesses mit wahrscheinlichen Einflußparametern um so besser abschätzen kann, 
+je öfter man den Prozeß mit zufälligen Ergebnissen durchspielt. Daraus ergibt sich umgekehrt praktisch 
+jedoch die Konsequenz, daß die Ergebnisse einer Simulation nie völlig exakt sein können. 
+Entscheidend ist die Größenordnung des Ergebnisses. Rechnet man z.B. mit einer Rendite von 8 % und 
+die Simulation liefert ein Ergebnis von 3,5% (maximale Rendite dabei 9% und minimale Rendite -7%), 
+so dürfte die Renditeerwartung von 8% eher unrealistisch sen. Im eigenen Interesse zur Vermeidung 
+von negativen Überraschungen empfiehlt sich dann eine Anpassung der Renditeerwartungen mit allen 
+daraus folgenden Konsequenzen.</P>
+<P>Wie läuft nun eine Simulation praktisch ab. Zunächst einmal müssen alle Einflußfaktoren auf einen Prozeß 
+ermittelt werden. Im Beispiel des Wertpapierportfolios sind das z.B. alle darin enthaltenen 
+Wertpapiere. Dann müssen für die Einflußfaktoren die jeweiligen Wahrscheinlichkeiten ermittelt werden. 
+Dabei kommen mathematisch verschiedene Verteilungsfunktionen zum Einsatz. Börsennotierte Wertpapiere 
+können beispielsweise über eine Normalverteilung mit dem bekannten glockenförmigen Wahrscheinlichkeitsverlauf 
+gut abgebildet werden. Kennzeichen der Normalverteilung ist, daß positive und negative Renditen gleich 
+wahrscheinlich sind.</P>
+
+<Image src="C:\Daten\Projekte\Tools\Bodoconsult.Simulation\Bodoconsult.Simulation.Wpf\Resources\Styling\BitmapGraphics\Assets\NormalDistribution.de.png" />
+
+<P>Andere Einflußfaktoren besitzen natürliche oder wahrscheinliche Wertgrenzen. So können Betriebskosten nicht unter Null sinken und sind nach oben hin zumindest abschätzbar eingrenzbar. Für derartige Einflußfaktoren kann man die Dreiecksverteilung als Verteilungsfunktion verwenden.</P>
+ 
+ <Image src="C:\Daten\Projekte\Tools\Bodoconsult.Simulation\Bodoconsult.Simulation.Wpf\Resources\Styling\BitmapGraphics\Assets\TriangularDistribution.de.png" />
+
+<P>Auch andere, weniger gebräuchliche Verteilungsfunktionen sind denkbar. Entscheidend ist dabei immer, 
+daß die gewählte Verteilungsfunktion möglichst gut die Wirklichkeit abbildet.</P>
+
+<P>Nach dem die Einflußfaktoren für den Prozeß ermittelt sind, werden für die einzelnen Jahre die 
+jeweiligen Größen für die Verteilungsfunktionen der Einflußfaktoren Annahmen gemacht. Diese Annahmen werden 
+auf der Basis historischer Werte, praktischer Erfahrung oder anderen auf ihre Plausibilität geprüften 
+Quellen getroffen. Im einfachsten Fall werden dabei für jedes Jahr die gleichen Annahmen getroffen. 
+Es können jedoch auch für jedes Jahr andere Annahmen getroffen werden. Womit auch die Abbildung zeitlicher 
+Entwicklungen bei Einflußfaktoren möglich ist.</P>
+<P>Nun liegen alle notwendigen Daten vor und die eigentliche Simulation kann beginnen. Dazu gilt es eine 
+große Anzahl von Zeitpfaden zu berechnen. Ein Zeitpfad ist dabei die Verknüpfung  von zufällig ermittelten 
+Jahresergebnissen zu einem Gesamtergebnis für den Zeitpfad. Mit Hilfe von Zufallszahlengeneratoren werden 
+zunächst für die jeweiligen Einflußfaktoren eines Jahres konkrete Ergebnisse ermittelt. Die Verknüpfung 
+dieser Ergebnisse ergibt dann das Jahresergebnis. Die Verknüpfung der Jahresergebnisse eines Zeitpfads ergibt 
+dann das Gesamtergebnis des Zeitpfads.</P>
+<P>Für ein Wertpapierportfolio könnte sich beispielweise folgender Zeitpfad zufällig ergeben: Jahr 1: 5%, 
+Jahr 2: 10%, Jahr 3: -4%, Jahr 4: -6% und Jahr 5: 7%. Das Ergebnis dieses Zeitpfads wäre dann (100%+5%) * 
+(100%+10%) * (100%- 4%) * (100%- 6%) * (100%+ 7%) =111,5%.</P>
+<P>Ein wesentliches Merkmal für die Güte einer Simulation ist neben der Schätzung der Einflußgrößen die 
+Anzahl der Zeitpfade, die im Rahmen der Simulation berechnet werden. Je höher diese Anzahl ist, desto besser 
+ist nach dem Gesetz der Großen Zahlen die Güte der Simulation. Wir rechnen mit mindestens 100.000 Zeitpfaden 
+und  bei Bedarf auch noch mit mehr Zeitpfaden.</P>
+<P>Als Ergebnis einer Simulation bekommt man normalerweise statistische Kenngrößen geliefert. Die wichtigsten 
+davon sind der Mittelwert, der kleinste Wert, der größte Wert sowie die Breite der Verteilung 
+(Standardabweichung). Mit diesen Kenngrößen lassen sich die eigenen Erwartungen an einen Prozeß mit den 
+wahrscheinlichen Ergebnissen abgleichen. Wie oben schon erwähnt, kann im Beispiel des Wertpapierportfolios 
+mit den Simulationsergebnissen eine Aussage darüber getroffen werden, ob die eigenen Renditeerwartungen an 
+das Portfolio realistisch sind oder nicht. Je nachdem ergeben sich dann daraus Konsequenzen zum Umbau des 
+Portfolios. Diese können am Ende nach einer  weitergehenden Detailanalyse sogar in konkreten 
+Handlungsempfehlungen für  die nächsten Schritte münden.</P>

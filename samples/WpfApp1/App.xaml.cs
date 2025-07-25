@@ -12,100 +12,98 @@ using WpfApp1.ViewModels;
 
 // ReSharper disable LocalizableElement
 
-namespace WpfApp1
+namespace WpfApp1;
+
+/// <summary>
+/// Interaction logic for App.xaml
+/// </summary>
+public partial class App : Application
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    protected override void OnStartup(StartupEventArgs e)
     {
-        protected override void OnStartup(StartupEventArgs e)
+
+        var type = typeof(App);
+
+        Debug.Print("Hello, World!");
+
+        Console.WriteLine("WpfApp1 initiation starts...");
+
+        var globals = Globals.Instance;
+        globals.LoggingConfig.AddDefaultLoggerProviderConfiguratorsForUiApp();
+
+        // Set additional app start parameters as required
+        var param = globals.AppStartParameter;
+        param.AppName = "WpfApp1: Demo app";
+        param.SoftwareTeam = "Robert Leisner";
+        param.LogoRessourcePath = "WpfApp1.Resources.logo.jpg";
+        param.AppFolderName = "WpfApp1";
+
+        const string performanceToken = "--PERF";
+
+        if (e.Args.Contains(performanceToken))
         {
+            param.IsPerformanceLoggingActivated = true;
+        }
 
-            var type = typeof(App);
-
-            Debug.Print("Hello, World!");
-
-            Console.WriteLine("WpfApp1 initiation starts...");
-
-            var globals = Globals.Instance;
-            globals.LoggingConfig.AddDefaultLoggerProviderConfiguratorsForUiApp();
-
-            // Set additional app start parameters as required
-            var param = globals.AppStartParameter;
-            param.AppName = "WpfApp1: Demo app";
-            param.SoftwareTeam = "Robert Leisner";
-            param.LogoRessourcePath = "WpfApp1.Resources.logo.jpg";
-            param.AppFolderName = "WpfApp1";
-
-            const string performanceToken = "--PERF";
-
-            if (e.Args.Contains(performanceToken))
-            {
-                param.IsPerformanceLoggingActivated = true;
-            }
-
-            // Now start app buiding process
-            var builder = new WpfApp1AppBuilder(globals);
+        // Now start app buiding process
+        var builder = new WpfApp1AppBuilder(globals);
 #if !DEBUG
-            AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
+        AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
 #endif
 
-            // Load basic app metadata
-            builder.LoadBasicSettings(type);
+        // Load basic app metadata
+        builder.LoadBasicSettings(type);
 
-            // Process the config file
-            builder.ProcessConfiguration();
+        // Process the config file
+        builder.ProcessConfiguration();
 
-            // Now load the globally needed settings
-            builder.LoadGlobalSettings();
+        // Now load the globally needed settings
+        builder.LoadGlobalSettings();
 
-            // Write first log entry with default logger
-            Globals.Instance.Logger.LogInformation($"{param.AppName} {param.AppVersion} starts...");
-            Console.WriteLine("Logging started...");
+        // Write first log entry with default logger
+        Globals.Instance.Logger.LogInformation($"{param.AppName} {param.AppVersion} starts...");
+        Console.WriteLine("Logging started...");
 
-            // App is ready now for doing something
-            Console.WriteLine($"Connection string loaded: {param.DefaultConnectionString}");
+        // App is ready now for doing something
+        Console.WriteLine($"Connection string loaded: {param.DefaultConnectionString}");
 
-            Console.WriteLine("");
-            Console.WriteLine("");
+        Console.WriteLine("");
+        Console.WriteLine("");
 
-            Console.WriteLine($"App name loaded: {param.AppName}");
-            Console.WriteLine($"App version loaded: {param.AppVersion}");
-            Console.WriteLine($"App path loaded: {param.AppPath}");
+        Console.WriteLine($"App name loaded: {param.AppName}");
+        Console.WriteLine($"App version loaded: {param.AppVersion}");
+        Console.WriteLine($"App path loaded: {param.AppPath}");
 
-            Console.WriteLine("");
-            Console.WriteLine("");
+        Console.WriteLine("");
+        Console.WriteLine("");
 
-            Console.WriteLine($"Logging config: {ObjectHelper.GetObjectPropertiesAsString(Globals.Instance.LoggingConfig)}");
+        Console.WriteLine($"Logging config: {ObjectHelper.GetObjectPropertiesAsString(Globals.Instance.LoggingConfig)}");
 
-            // Prepare the DI container package
-            builder.LoadDiContainerServiceProviderPackage();
-            builder.RegisterDiServices();
-            builder.FinalizeDiContainerSetup();
+        // Prepare the DI container package
+        builder.LoadDiContainerServiceProviderPackage();
+        builder.RegisterDiServices();
+        builder.FinalizeDiContainerSetup();
 
-            // Create the viewmodel now
-            var eventLevel = EventLevel.Warning;
-            var listener = new AppEventListener(eventLevel);
-            var viewModel = new WpfApp1MainWindowViewModel(listener)
-            {
-                HeaderBackColor = Colors.DarkBlue,
-                BodyBackColor = Colors.Beige,
-                AppExe = param.AppExe
-            };
+        // Create the viewmodel now
+        var eventLevel = EventLevel.Warning;
+        var listener = new AppEventListener(eventLevel);
+        var viewModel = new WpfApp1MainWindowViewModel(listener)
+        {
+            HeaderBackColor = Colors.DarkBlue,
+            BodyBackColor = Colors.Beige,
+            AppExe = param.AppExe
+        };
 
-            // Load the logo now
-            viewModel.LoadLogo(type.Assembly, param.LogoRessourcePath);
+        // Load the logo now
+        viewModel.LoadLogo(type.Assembly, param.LogoRessourcePath);
 
-            // Set the view model 
-            builder.MainWindowViewModel = viewModel;
+        // Set the view model 
+        builder.MainWindowViewModel = viewModel;
 
-            // Now finally start the app and wait
-            builder.StartApplication();
+        // Now finally start the app and wait
+        builder.StartApplication();
 
-            base.OnStartup(e);
+        base.OnStartup(e);
 
-        }
     }
-
 }

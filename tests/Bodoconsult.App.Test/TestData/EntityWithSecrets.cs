@@ -2,17 +2,16 @@
 
 using Bodoconsult.App.Abstractions.DataProtection;
 
-namespace Bodoconsult.App.Test.TestData
+namespace Bodoconsult.App.Test.TestData;
+
+internal class EntityWithSecrets
 {
-    internal class EntityWithSecrets
-    {
-        [DataProtectionKey]
-        public string Name { get; set; }
+    [DataProtectionKey]
+    public string Name { get; set; }
 
-        [DataProtectionSecret]
-        public string Secret { get; set; }
+    [DataProtectionSecret]
+    public string Secret { get; set; }
 
-        [DataProtectionSecret]
-        public string Secret2 { get; set; }
-    }
+    [DataProtectionSecret]
+    public string Secret2 { get; set; }
 }

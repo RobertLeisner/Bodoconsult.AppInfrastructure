@@ -4,10 +4,14 @@
         xmlns:chapter="clr-namespace:Chapter.Net.WPF.SystemTray;assembly=Chapter.Net.WPF.SystemTray"
         xmlns:converters="clr-namespace:Bodoconsult.App.Wpf.Converters;assembly=Bodoconsult.App.Wpf"
         Title="{Binding FullAppName}" Height="768" Width="1024" SizeChanged="MainWindow_OnSizeChanged" KeyDown="MainWindow_OnKeyDown"
-        Background="LightGray" Loaded="MainWindow_OnLoaded">
+         Loaded="MainWindow_OnLoaded">
     <Window.Resources>
         <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
     </Window.Resources>
+    <Window.Background>
+        <Binding Path="BodyBackColor" Converter="{StaticResource ColorToBrushConverter}"/>
+    </Window.Background>
+
     <chapter:Tray.TrayIcon>
         <chapter:TrayIcon Icon="{Binding AppExe}"
                           Notification="{Binding Notification}"

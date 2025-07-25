@@ -1,16 +1,15 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-namespace Bodoconsult.App.BusinessTransactions.RequestData
+namespace Bodoconsult.App.BusinessTransactions.RequestData;
+
+/// <summary>
+/// The request data for an business transaction request asking list of data for a certain object name
+/// </summary>
+public class ObjectNameListBusinessTransactionRequestData : BaseBusinessTransactionListRequestData
 {
     /// <summary>
-    /// The request data for an business transaction request asking list of data for a certain object name
+    /// The name of the requested object
     /// </summary>
-    public class ObjectNameListBusinessTransactionRequestData : BaseBusinessTransactionListRequestData
-    {
-        /// <summary>
-        /// The name of the requested object
-        /// </summary>
-        public string Name { get; set; }
+    public string Name { get; set; }
 
-    }
 }

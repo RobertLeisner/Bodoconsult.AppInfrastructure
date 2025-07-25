@@ -1,16 +1,15 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-namespace Bodoconsult.App.BusinessTransactions.Replies
+namespace Bodoconsult.App.BusinessTransactions.Replies;
+
+/// <summary>
+/// A business transaction reply transporting an object UID
+/// </summary>
+public class ObjectUidBusinessTransactionReply : DefaultBusinessTransactionReply
 {
     /// <summary>
-    /// A business transaction reply transporting an object UID
+    /// Object to transport with the reply
     /// </summary>
-    public class ObjectUidBusinessTransactionReply : DefaultBusinessTransactionReply
-    {
-        /// <summary>
-        /// Object to transport with the reply
-        /// </summary>
-        public Guid ObjectUid { get; set; }
+    public Guid ObjectUid { get; set; }
 
-    }
 }

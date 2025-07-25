@@ -1,22 +1,21 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-namespace Bodoconsult.App.BusinessTransactions.RequestData
+namespace Bodoconsult.App.BusinessTransactions.RequestData;
+
+/// <summary>
+/// Request data for string based transaction
+/// </summary>
+public class ObjectNameStringBusinessTransactionRequestData : BaseBusinessTransactionRequestData
 {
+
     /// <summary>
-    /// Request data for string based transaction
+    /// The object name provided by the request
     /// </summary>
-    public class ObjectNameStringBusinessTransactionRequestData : BaseBusinessTransactionRequestData
-    {
+    public string ObjectName { get; set; }
 
-        /// <summary>
-        /// The object name provided by the request
-        /// </summary>
-        public string ObjectName { get; set; }
+    /// <summary>
+    /// The string value provided by the request
+    /// </summary>
+    public string Value { get; set; }
 
-        /// <summary>
-        /// The string value provided by the request
-        /// </summary>
-        public string Value { get; set; }
-
-    }
 }

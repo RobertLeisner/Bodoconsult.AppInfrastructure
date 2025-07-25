@@ -4,125 +4,124 @@ using Grpc.Net.Client;
 using System.Diagnostics;
 using Bodoconsult.App.GrpcBackgroundService;
 
-namespace GrpcServerApps.Tests
+namespace GrpcServerApps.Tests;
+
+public class GrpcServerUnaryRequestsTests
 {
-    public class GrpcServerUnaryRequestsTests
+    private readonly GrpcChannel _channel;
+
+    public GrpcServerUnaryRequestsTests()
     {
-        private readonly GrpcChannel _channel;
+        // Start the server
+        string[] args = [];
 
-        public GrpcServerUnaryRequestsTests()
+        // Run GRPC in a separate thread
+        var thread = new Thread(() =>
         {
-            // Start the server
-            string[] args = [];
-
-            // Run GRPC in a separate thread
-            var thread = new Thread(() =>
+            try
             {
-                try
-                {
-                    GrpcServerApp.Program.Main(args);
-                }
-                catch (Exception e)
-                {
-                    Debug.Print(e.ToString());
-                }
-
-            })
+                GrpcServerApp.Program.Main(args);
+            }
+            catch (Exception e)
             {
-                IsBackground = true
-            };
-            thread.Start();
+                Debug.Print(e.ToString());
+            }
 
-            Task.Delay(5000).Wait();
+        })
+        {
+            IsBackground = true
+        };
+        thread.Start();
 
-            _channel = GrpcChannel.ForAddress("http://localhost:50051");
+        Task.Delay(5000).Wait();
+
+        _channel = GrpcChannel.ForAddress("http://localhost:50051");
             
+    }
+
+    [OneTimeTearDown]
+    public void Cleanup()
+    {
+        try
+        {
+            _channel.ShutdownAsync().Wait(5000);
+            _channel.Dispose();
+        }
+        catch (Exception e)
+        {
+            Debug.Print(e.ToString());
         }
 
-        [OneTimeTearDown]
-        public void Cleanup()
+        try
         {
-            try
-            {
-                _channel.ShutdownAsync().Wait(5000);
-                _channel.Dispose();
-            }
-            catch (Exception e)
-            {
-                Debug.Print(e.ToString());
-            }
-
-            try
-            {
-                GrpcServerApp.Program.Shutdown();
-            }
-            catch (Exception e)
-            {
-                Debug.Print(e.ToString());
-            }
-
+            GrpcServerApp.Program.Shutdown();
         }
-
-
-        [SetUp]
-        public void Setup()
+        catch (Exception e)
         {
-        }
-
-
-        [Test]
-        public void StartTransaction_RunTransaction1DoSomething_Sucess()
-        {
-            // Arrange 
-            var client = new BusinessTransactionService.BusinessTransactionServiceClient(_channel);
-
-            var requestData = new EmptyRequest();
-
-            var request = new BusinessTransactionRequest
-            {
-                TransactionId = 1,
-                RequestData = Google.Protobuf.WellKnownTypes.Any.Pack(requestData),
-                TransactionUid = Guid.NewGuid().ToString()
-            };
-
-            // Act  
-            var reply = client.StartTransaction(request);
-
-            // Assert
-            Assert.That(reply.ErrorCode, Is.EqualTo(0));
-
-        }
-
-        [Test]
-        public void StartTransaction_RunTransaction2DoSomethingElse_Sucess()
-        {
-            // Arrange 
-            var client = new BusinessTransactionService.BusinessTransactionServiceClient(_channel);
-            const int id = 999;
-
-            var requestData = new ObjectIdRequest
-            {
-                ObjectId = id
-            };
-
-            var request = new BusinessTransactionRequest
-            {
-                TransactionId = 2,
-                RequestData = Google.Protobuf.WellKnownTypes.Any.Pack(requestData),
-                TransactionUid = Guid.NewGuid().ToString()
-            };
-
-            // Act  
-            var reply = client.StartTransaction(request);
-
-            // Assert
-            Assert.That(reply.ErrorCode, Is.EqualTo(0));
-
-            var success = reply.ReplyData.TryUnpack<ObjectIdReply>(out var oReply);
-
-            Assert.That(success, Is.EqualTo(true));
-            Assert.That(oReply.ObjectId, Is.EqualTo(id));
+            Debug.Print(e.ToString());
         }
 
     }
+
+
+    [SetUp]
+    public void Setup()
+    {
+    }
+
+
+    [Test]
+    public void StartTransaction_RunTransaction1DoSomething_Sucess()
+    {
+        // Arrange 
+        var client = new BusinessTransactionService.BusinessTransactionServiceClient(_channel);
+
+        var requestData = new EmptyRequest();
+
+        var request = new BusinessTransactionRequest
+        {
+            TransactionId = 1,
+            RequestData = Google.Protobuf.WellKnownTypes.Any.Pack(requestData),
+            TransactionUid = Guid.NewGuid().ToString()
+        };
+
+        // Act  
+        var reply = client.StartTransaction(request);
+
+        // Assert
+        Assert.That(reply.ErrorCode, Is.EqualTo(0));
+
+    }
+
+    [Test]
+    public void StartTransaction_RunTransaction2DoSomethingElse_Sucess()
+    {
+        // Arrange 
+        var client = new BusinessTransactionService.BusinessTransactionServiceClient(_channel);
+        const int id = 999;
+
+        var requestData = new ObjectIdRequest
+        {
+            ObjectId = id
+        };
+
+        var request = new BusinessTransactionRequest
+        {
+            TransactionId = 2,
+            RequestData = Google.Protobuf.WellKnownTypes.Any.Pack(requestData),
+            TransactionUid = Guid.NewGuid().ToString()
+        };
+
+        // Act  
+        var reply = client.StartTransaction(request);
+
+        // Assert
+        Assert.That(reply.ErrorCode, Is.EqualTo(0));
+
+        var success = reply.ReplyData.TryUnpack<ObjectIdReply>(out var oReply);
+
+        Assert.That(success, Is.EqualTo(true));
+        Assert.That(oReply.ObjectId, Is.EqualTo(id));
+    }
+
 }

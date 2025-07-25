@@ -7,344 +7,343 @@ using Bodoconsult.App.GrpcBackgroundService.BusinessTransactions;
 using Bodoconsult.App.Test.Helpers;
 using Bodoconsult.App.GrpcBackgroundService.Tests.Helpers;
 
-namespace Bodoconsult.App.GrpcBackgroundService.Tests
+namespace Bodoconsult.App.GrpcBackgroundService.Tests;
+
+[TestFixture]
+internal class BaseGrpcBusinessTransactionRequestMappingServiceTests
 {
-    [TestFixture]
-    internal class BaseGrpcBusinessTransactionRequestMappingServiceTests
+    private readonly BaseGrpcBusinessTransactionRequestMappingService _service;
+    private readonly IAppLoggerProxy _logger = TestHelper.GetFakeAppLoggerProxy();
+    private readonly ServerCallContext _context;
+
+
+    public BaseGrpcBusinessTransactionRequestMappingServiceTests()
     {
-        private readonly BaseGrpcBusinessTransactionRequestMappingService _service;
-        private readonly IAppLoggerProxy _logger = TestHelper.GetFakeAppLoggerProxy();
-        private readonly ServerCallContext _context;
+        const int userId = 1;
 
+        _service = new BaseGrpcBusinessTransactionRequestMappingService(_logger);
+        _context = GrpcTestHelper.CreateTestContext(userId);
+    }
 
-        public BaseGrpcBusinessTransactionRequestMappingServiceTests()
+    [NUnit.Framework.Test]
+    public void MapGrpc_EmptyRequest_ReturnsTransactionRequest()
+    {
+        // Arrange 
+        var request = new EmptyRequest();
+
+        // Act  
+        var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
+
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.GetType(), Is.EqualTo(typeof(EmptyBusinessTransactionRequestData)));
+    }
+
+    [Test]
+    public void MapGrpc_ObjectIdRequest_ReturnsTransactionRequest()
+    {
+        // Arrange 
+        var request = new ObjectIdRequest
         {
-            const int userId = 1;
+            ObjectId = 99
+        };
 
-            _service = new BaseGrpcBusinessTransactionRequestMappingService(_logger);
-            _context = GrpcTestHelper.CreateTestContext(userId);
-        }
+        // Act  
+        var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
 
-        [NUnit.Framework.Test]
-        public void MapGrpc_EmptyRequest_ReturnsTransactionRequest()
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectIdBusinessTransactionRequestData)));
+
+    }
+
+    [Test]
+    public void MapGrpc_ObjectIdIntRequest_ReturnsTransactionRequest()
+    {
+        // Arrange 
+        var request = new ObjectIdIntRequest
         {
-            // Arrange 
-            var request = new EmptyRequest();
+            ObjectId = 99,
+            Value = 97
+        };
 
-            // Act  
-            var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
+        // Act  
+        var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
 
-            // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.GetType(), Is.EqualTo(typeof(EmptyBusinessTransactionRequestData)));
-        }
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectIdIntBusinessTransactionRequestData)));
 
-        [Test]
-        public void MapGrpc_ObjectIdRequest_ReturnsTransactionRequest()
+        var o = (ObjectIdIntBusinessTransactionRequestData)result;
+        Assert.That(o.ObjectId, Is.EqualTo(request.ObjectId));
+        Assert.That(o.Value, Is.EqualTo(request.Value));
+    }
+
+    [Test]
+    public void MapGrpc_ObjectIdStringRequest_ReturnsTransactionRequest()
+    {
+        // Arrange 
+        var request = new ObjectIdStringRequest
         {
-            // Arrange 
-            var request = new ObjectIdRequest
-            {
-                ObjectId = 99
-            };
+            ObjectId = 99,
+            Value = "blabb"
+        };
 
-            // Act  
-            var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
+        // Act  
+        var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
 
-            // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectIdBusinessTransactionRequestData)));
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectIdStringBusinessTransactionRequestData)));
 
-        }
+        var o = (ObjectIdStringBusinessTransactionRequestData)result;
+        Assert.That(o.ObjectId, Is.EqualTo(request.ObjectId));
+        Assert.That(o.Value, Is.EqualTo(request.Value));
+    }
 
-        [Test]
-        public void MapGrpc_ObjectIdIntRequest_ReturnsTransactionRequest()
+    [Test]
+    public void MapGrpc_ObjectIdListRequest_ReturnsTransactionRequest()
+    {
+        // Arrange 
+        var request = new ObjectIdListRequest
         {
-            // Arrange 
-            var request = new ObjectIdIntRequest
-            {
-                ObjectId = 99,
-                Value = 97
-            };
+            ObjectId = 99,
+            Page = 97,
+            PageSize = 96
+        };
 
-            // Act  
-            var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
+        // Act  
+        var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
 
-            // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectIdIntBusinessTransactionRequestData)));
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectIdListBusinessTransactionRequestData)));
 
-            var o = (ObjectIdIntBusinessTransactionRequestData)result;
-            Assert.That(o.ObjectId, Is.EqualTo(request.ObjectId));
-            Assert.That(o.Value, Is.EqualTo(request.Value));
-        }
+        var o = (ObjectIdListBusinessTransactionRequestData)result;
+        Assert.That(o.Page, Is.EqualTo(request.Page));
+        Assert.That(o.PageSize, Is.EqualTo(request.PageSize));
+    }
 
-        [Test]
-        public void MapGrpc_ObjectIdStringRequest_ReturnsTransactionRequest()
+    [Test]
+    public void MapGrpc_ObjectUidRequest_ReturnsTransactionRequest()
+    {
+        // Arrange 
+        var request = new ObjectUidRequest
         {
-            // Arrange 
-            var request = new ObjectIdStringRequest
-            {
-                ObjectId = 99,
-                Value = "blabb"
-            };
+            ObjectUid = Guid.NewGuid().ToString()
+        };
 
-            // Act  
-            var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
+        // Act  
+        var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
 
-            // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectIdStringBusinessTransactionRequestData)));
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectGuidBusinessTransactionRequestData)));
+    }
 
-            var o = (ObjectIdStringBusinessTransactionRequestData)result;
-            Assert.That(o.ObjectId, Is.EqualTo(request.ObjectId));
-            Assert.That(o.Value, Is.EqualTo(request.Value));
-        }
-
-        [Test]
-        public void MapGrpc_ObjectIdListRequest_ReturnsTransactionRequest()
+    [Test]
+    public void MapGrpc_TwoObjectUidRequest_ReturnsTransactionRequest()
+    {
+        // Arrange 
+        var request = new TwoObjectUidRequest
         {
-            // Arrange 
-            var request = new ObjectIdListRequest
-            {
-                ObjectId = 99,
-                Page = 97,
-                PageSize = 96
-            };
+            ObjectUid1 = Guid.NewGuid().ToString(),
+            ObjectUid2 = Guid.NewGuid().ToString()
+        };
 
-            // Act  
-            var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
+        // Act  
+        var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
 
-            // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectIdListBusinessTransactionRequestData)));
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.GetType(), Is.EqualTo(typeof(TwoObjectGuidBusinessTransactionRequestData)));
 
-            var o = (ObjectIdListBusinessTransactionRequestData)result;
-            Assert.That(o.Page, Is.EqualTo(request.Page));
-            Assert.That(o.PageSize, Is.EqualTo(request.PageSize));
-        }
+        var internalRequest = (TwoObjectGuidBusinessTransactionRequestData)result;
 
-        [Test]
-        public void MapGrpc_ObjectUidRequest_ReturnsTransactionRequest()
+        Assert.That(internalRequest.ObjectGuid1, Is.EqualTo(new Guid(request.ObjectUid1)));
+        Assert.That(internalRequest.ObjectGuid2, Is.EqualTo(new Guid(request.ObjectUid2)));
+    }
+
+    [Test]
+    public void MapGrpc_TwoObjectIdRequest_ReturnsTransactionRequest()
+    {
+        // Arrange 
+        var request = new TwoObjectIdRequest
         {
-            // Arrange 
-            var request = new ObjectUidRequest
-            {
-                ObjectUid = Guid.NewGuid().ToString()
-            };
+            ObjectId1 = 79,
+            ObjectId2 = 98
+        };
 
-            // Act  
-            var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
+        // Act  
+        var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
 
-            // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectGuidBusinessTransactionRequestData)));
-        }
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.GetType(), Is.EqualTo(typeof(TwoObjectIdBusinessTransactionRequestData)));
 
-        [Test]
-        public void MapGrpc_TwoObjectUidRequest_ReturnsTransactionRequest()
+        var internalRequest = (TwoObjectIdBusinessTransactionRequestData)result;
+
+        Assert.That(internalRequest.ObjectId1, Is.EqualTo(request.ObjectId1));
+        Assert.That(internalRequest.ObjectId2, Is.EqualTo(request.ObjectId2));
+    }
+
+    [Test]
+    public void MapGrpc_ObjectUidRequestGuidEmpty_ReturnsTransactionRequest()
+    {
+        // Arrange 
+        var request = new ObjectUidRequest
         {
-            // Arrange 
-            var request = new TwoObjectUidRequest
-            {
-                ObjectUid1 = Guid.NewGuid().ToString(),
-                ObjectUid2 = Guid.NewGuid().ToString()
-            };
+            ObjectUid = Guid.Empty.ToString()
+        };
 
-            // Act  
-            var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
+        // Act  
+        var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
 
-            // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.GetType(), Is.EqualTo(typeof(TwoObjectGuidBusinessTransactionRequestData)));
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectGuidBusinessTransactionRequestData)));
+    }
 
-            var internalRequest = (TwoObjectGuidBusinessTransactionRequestData)result;
-
-            Assert.That(internalRequest.ObjectGuid1, Is.EqualTo(new Guid(request.ObjectUid1)));
-            Assert.That(internalRequest.ObjectGuid2, Is.EqualTo(new Guid(request.ObjectUid2)));
-        }
-
-        [Test]
-        public void MapGrpc_TwoObjectIdRequest_ReturnsTransactionRequest()
+    [Test]
+    public void MapGrpc_ObjectUidRequestInvalidGuid_ReturnsTransactionRequest()
+    {
+        // Arrange 
+        var request = new ObjectUidRequest
         {
-            // Arrange 
-            var request = new TwoObjectIdRequest
-            {
-                ObjectId1 = 79,
-                ObjectId2 = 98
-            };
+            ObjectUid = "blubb"
+        };
 
-            // Act  
-            var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
+        // Act  
+        var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
 
-            // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.GetType(), Is.EqualTo(typeof(TwoObjectIdBusinessTransactionRequestData)));
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectGuidBusinessTransactionRequestData)));
+    }
 
-            var internalRequest = (TwoObjectIdBusinessTransactionRequestData)result;
-
-            Assert.That(internalRequest.ObjectId1, Is.EqualTo(request.ObjectId1));
-            Assert.That(internalRequest.ObjectId2, Is.EqualTo(request.ObjectId2));
-        }
-
-        [Test]
-        public void MapGrpc_ObjectUidRequestGuidEmpty_ReturnsTransactionRequest()
+    [Test]
+    public void MapGrpc_ObjectUidRequestEmptyString_ReturnsTransactionRequest()
+    {
+        // Arrange 
+        var request = new ObjectUidRequest
         {
-            // Arrange 
-            var request = new ObjectUidRequest
-            {
-                ObjectUid = Guid.Empty.ToString()
-            };
+            ObjectUid = ""
+        };
 
-            // Act  
-            var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
+        // Act  
+        var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
 
-            // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectGuidBusinessTransactionRequestData)));
-        }
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectGuidBusinessTransactionRequestData)));
+    }
 
-        [Test]
-        public void MapGrpc_ObjectUidRequestInvalidGuid_ReturnsTransactionRequest()
+    [Test]
+    public void MapGrpc_ObjectUidListRequest_ReturnsTransactionRequest()
+    {
+        // Arrange 
+        var request = new ObjectUidListRequest
         {
-            // Arrange 
-            var request = new ObjectUidRequest
-            {
-                ObjectUid = "blubb"
-            };
+            ObjectUid = Guid.NewGuid().ToString(),
+            Page = 2,
+            PageSize = 99
+        };
 
-            // Act  
-            var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
+        // Act  
+        var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
 
-            // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectGuidBusinessTransactionRequestData)));
-        }
 
-        [Test]
-        public void MapGrpc_ObjectUidRequestEmptyString_ReturnsTransactionRequest()
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectGuidListBusinessTransactionRequestData)));
+
+        var o = (ObjectGuidListBusinessTransactionRequestData)result;
+        Assert.That(o.ObjectGuid.ToString(), Is.EqualTo(request.ObjectUid));
+        Assert.That(o.Page, Is.EqualTo(request.Page));
+        Assert.That(o.PageSize, Is.EqualTo(request.PageSize));
+    }
+
+
+    [Test]
+    public void MapGrpc_ObjectNameRequest_ReturnsTransactionRequest()
+    {
+        // Arrange 
+        var request = new ObjectNameRequest
         {
-            // Arrange 
-            var request = new ObjectUidRequest
-            {
-                ObjectUid = ""
-            };
+            Name = "Test"
+        };
 
-            // Act  
-            var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
+        // Act  
+        var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
 
-            // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectGuidBusinessTransactionRequestData)));
-        }
 
-        [Test]
-        public void MapGrpc_ObjectUidListRequest_ReturnsTransactionRequest()
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectNameBusinessTransactionRequestData)));
+    }
+
+    //[Test]
+    //public void MapGrpc_StringNameRequest()
+    //{
+    //    // Arrange 
+    //    var request = new ObjectNameRequest
+    //    {
+    //        Name = "Test"
+    //    };
+
+    //    // Act  
+    //    var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
+
+
+    //    // Assert
+    //    Assert.That(result, Is.Not.Null);
+    //    Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectNameBusinessTransactionRequestData)));
+    //}
+
+    [Test]
+    public void MapGrpc_ObjectNameStringRequest_ReturnsTransactionRequest()
+    {
+        // Arrange 
+        var request = new ObjectNameStringRequest
         {
-            // Arrange 
-            var request = new ObjectUidListRequest
-            {
-                ObjectUid = Guid.NewGuid().ToString(),
-                Page = 2,
-                PageSize = 99
-            };
+            Name = "Blabb",
+            Value = "Hallo"
+        };
 
-            // Act  
-            var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
+        // Act  
+        var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
 
 
-            // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectGuidListBusinessTransactionRequestData)));
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectNameStringBusinessTransactionRequestData)));
 
-            var o = (ObjectGuidListBusinessTransactionRequestData)result;
-            Assert.That(o.ObjectGuid.ToString(), Is.EqualTo(request.ObjectUid));
-            Assert.That(o.Page, Is.EqualTo(request.Page));
-            Assert.That(o.PageSize, Is.EqualTo(request.PageSize));
-        }
+        var o = (ObjectNameStringBusinessTransactionRequestData)result;
 
-
-        [Test]
-        public void MapGrpc_ObjectNameRequest_ReturnsTransactionRequest()
-        {
-            // Arrange 
-            var request = new ObjectNameRequest
-            {
-                Name = "Test"
-            };
-
-            // Act  
-            var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
-
-
-            // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectNameBusinessTransactionRequestData)));
-        }
-
-        //[Test]
-        //public void MapGrpc_StringNameRequest()
-        //{
-        //    // Arrange 
-        //    var request = new ObjectNameRequest
-        //    {
-        //        Name = "Test"
-        //    };
-
-        //    // Act  
-        //    var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
-
-
-        //    // Assert
-        //    Assert.That(result, Is.Not.Null);
-        //    Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectNameBusinessTransactionRequestData)));
-        //}
-
-        [Test]
-        public void MapGrpc_ObjectNameStringRequest_ReturnsTransactionRequest()
-        {
-            // Arrange 
-            var request = new ObjectNameStringRequest
-            {
-                Name = "Blabb",
-                Value = "Hallo"
-            };
-
-            // Act  
-            var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
-
-
-            // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.GetType(), Is.EqualTo(typeof(ObjectNameStringBusinessTransactionRequestData)));
-
-            var o = (ObjectNameStringBusinessTransactionRequestData)result;
-
-            Assert.That(o.ObjectName, Is.EqualTo(request.Name));
-            Assert.That(o.Value, Is.EqualTo(request.Value));
-        }
+        Assert.That(o.ObjectName, Is.EqualTo(request.Name));
+        Assert.That(o.Value, Is.EqualTo(request.Value));
+    }
 
        
-        [Test]
-        public void MapGrpc_StringRequest_ReturnsTransactionRequest()
+    [Test]
+    public void MapGrpc_StringRequest_ReturnsTransactionRequest()
+    {
+        // Arrange 
+        var request = new StringRequest
         {
-            // Arrange 
-            var request = new StringRequest
-            {
-                Message = "blubb"
-            };
+            Message = "blubb"
+        };
 
-            // Act  
-            var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
+        // Act  
+        var result = _service.MapGrpcRequestToBusinessTransactionRequestData(request, _context);
 
-            // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.GetType(), Is.EqualTo(typeof(StringBusinessTransactionRequestData)));
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.GetType(), Is.EqualTo(typeof(StringBusinessTransactionRequestData)));
 
-            var o = (StringBusinessTransactionRequestData)result;
+        var o = (StringBusinessTransactionRequestData)result;
 
-            Assert.That(o.Content, Is.EqualTo(request.Message));
+        Assert.That(o.Content, Is.EqualTo(request.Message));
 
-        }
     }
 }

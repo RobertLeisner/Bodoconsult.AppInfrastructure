@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="Simulation.Wpf.HistogramTitle">Häufigkeitsverteilung</system:String>
+    <system:String x:Key="Simulation.Wpf.HistogramXLabel">Ertrag</system:String>
+    <system:String x:Key="Simulation.Wpf.HistogramYLabel1">Eintrittswahrscheinlichkeit</system:String>
+    <system:String x:Key="Simulation.Wpf.CdfChartTitle">Kumulierte Häufigkeitsverteilung</system:String>
+    <system:String x:Key="Simulation.Wpf.CdfChartXLabel">Ertrag</system:String>
+    <system:String x:Key="Simulation.Wpf.CdfChartYLabel1">Kum. Eintrittswahrscheinlichkeit</system:String>
+    <system:String x:Key="Simulation.Wpf.MinMaxMedianChartTitle">Ertrag über die Laufzeit</system:String>
+    <system:String x:Key="Simulation.Wpf.MinMaxMedianChartXLabel">Laufzeit</system:String>
+    <system:String x:Key="Simulation.Wpf.MinMaxMedianChartYLabel1">Minimum</system:String>
+    <system:String x:Key="Simulation.Wpf.MinMaxMedianChartYLabel2">Median</system:String>
+    <system:String x:Key="Simulation.Wpf.MinMaxMedianChartYLabel3">Maximum</system:String>
+    <system:String x:Key="Simulation.Wpf.PeriodResultsTitle">Ergebnisse für verschiedene Laufzeiten</system:String>
+    <system:String x:Key="Simulation.Wpf.PeriodResultsXLabel">Laufzeit</system:String>
+    <system:String x:Key="Simulation.Wpf.PeriodResultsYLabel1">Ertrag</system:String>
+    <system:String x:Key="Simulation.Wpf.DisclaimerHeader">Disclaimer</system:String>
+
+    <system:String x:Key="Simulation.Wpf.ReportTitle">Ergebnisse der Simulation</system:String>
+    <system:String x:Key="Simulation.Wpf.ProjectDescription">ProjektbeschreibungXX</system:String>
+    <system:String x:Key="Simulation.Wpf.MethodDescription">Methodik der Simulation</system:String>
+    
+
+</ResourceDictionary>

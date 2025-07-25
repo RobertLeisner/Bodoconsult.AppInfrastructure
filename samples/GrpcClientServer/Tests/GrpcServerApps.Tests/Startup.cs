@@ -8,29 +8,28 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace GrpcServerApps.Tests
+namespace GrpcServerApps.Tests;
+
+public class Startup
 {
-    public class Startup
+    public void ConfigureServices(IServiceCollection services)
     {
-        public void ConfigureServices(IServiceCollection services)
+        services.AddGrpc(o => o.EnableDetailedErrors = true);
+        //services.AddSingleton<IGreeter, Greeter>();
+    }
+
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
         {
-            services.AddGrpc(o => o.EnableDetailedErrors = true);
-            //services.AddSingleton<IGreeter, Greeter>();
+            app.UseDeveloperExceptionPage();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+        app.UseRouting();
 
-            app.UseRouting();
-
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapGrpcService<TesterService>();
-            //});
-        }
+        //app.UseEndpoints(endpoints =>
+        //{
+        //    endpoints.MapGrpcService<TesterService>();
+        //});
     }
 }

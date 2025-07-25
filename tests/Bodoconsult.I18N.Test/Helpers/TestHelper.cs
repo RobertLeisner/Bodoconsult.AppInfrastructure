@@ -2,10 +2,9 @@
 
 using System.Reflection;
 
-namespace Bodoconsult.I18N.Test.Helpers
+namespace Bodoconsult.I18N.Test.Helpers;
+
+internal static class TestHelper
 {
-    internal static class TestHelper
-    {
-        public static Assembly CurrentAssembly { get; } = typeof(TestHelper).Assembly;
-    }
+    public static Assembly CurrentAssembly { get; } = typeof(TestHelper).Assembly;
 }
