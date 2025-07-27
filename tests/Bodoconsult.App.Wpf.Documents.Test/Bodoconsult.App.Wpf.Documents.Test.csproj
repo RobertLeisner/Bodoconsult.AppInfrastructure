@@ -9,8 +9,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Page Remove="3DChart.xaml" />
+    <Page Remove="Locales\Culture.de.xaml" />
+    <Page Remove="Locales\Culture.en.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Locales\Culture.de.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+    <Content Include="Locales\Culture.en.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
     <Content Include="TestData\3DChart.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -1,0 +1,88 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="Simulation.Asset">Asset</system:String>
+    <system:String x:Key="Simulation.Distribution">Distribution</system:String>
+    <system:String x:Key="Simulation.Parameter1">Parameter 1</system:String>
+    <system:String x:Key="Simulation.Parameter2">Parameter 2</system:String>
+    <system:String x:Key="Simulation.Parameter3">Parameter 3</system:String>
+    <system:String x:Key="Simulation.Percentage">Percentage</system:String>
+
+    <system:String x:Key="Simulation.ParameterTriangularMinimum">Minimum</system:String>
+    <system:String x:Key="Simulation.ParameterTriangularMaximum">Maximum</system:String>
+    <system:String x:Key="Simulation.ParameterTriangularExpected">Mode</system:String>
+
+    <system:String x:Key="Simulation.ParameterNormalMu">Mu</system:String>
+    <system:String x:Key="Simulation.ParameterNormalSigma">Sigma</system:String>
+
+    <system:String x:Key="Simulation.ParameterFixedValue">FixedValue</system:String>
+
+    <system:String x:Key="Simulation.Year">Year</system:String>
+    <system:String x:Key="Simulation.Minimum">Minimum</system:String>
+    <system:String x:Key="Simulation.Maximum">Maximum</system:String>
+    <system:String x:Key="Simulation.Average">Average</system:String>
+
+    <system:String x:Key="Simulation.Run">Run</system:String>
+    <system:String x:Key="Simulation.Result">Result</system:String>
+
+    <system:String x:Key="Simulation.Unit">Unit</system:String>
+    <system:String x:Key="Simulation.Value">Value</system:String>
+    <system:String x:Key="Simulation.Element">Element</system:String>
+    <system:String x:Key="Simulation.ElementName">Elementname</system:String>
+    <system:String x:Key="Simulation.SampleValue">Zufallswert</system:String>
+
+    <system:String x:Key="Simulation.DistributionUnknown">Unknown distribution</system:String>
+    <system:String x:Key="Simulation.DistributionFixedValue">Fixed value</system:String>
+    <system:String x:Key="Simulation.DistributionNormal">Normal distribution</system:String>
+    <system:String x:Key="Simulation.DistributionLogNormal">Log normal distribution</system:String>
+    <system:String x:Key="Simulation.DistributionTriangular">Triangular distribution</system:String>
+
+    <system:String x:Key="Simulation.StatisticsCount">Count</system:String>
+    <system:String x:Key="Simulation.StatisticsWorstCase">Worst case</system:String>
+    <system:String x:Key="Simulation.StatisticsBestCase">Best case</system:String>
+    <system:String x:Key="Simulation.StatisticsExpectedCase">Expected case</system:String>
+    <system:String x:Key="Simulation.StatisticsMaximum">Maximum</system:String>
+    <system:String x:Key="Simulation.StatisticsMinimum">Minimum</system:String>
+    <system:String x:Key="Simulation.StatisticsMean">Average</system:String>
+    <system:String x:Key="Simulation.StatisticsMedian">Median</system:String>
+    <system:String x:Key="Simulation.StatisticsStdDev">StdDev</system:String>
+    <system:String x:Key="Simulation.StatisticsVariance">Variance</system:String>
+    <system:String x:Key="Simulation.StatisticsKurtosis">Kurtosis</system:String>
+    <system:String x:Key="Simulation.StatisticsSkewness">Skewness</system:String>
+
+    <system:String x:Key="Simulation.Wpf.HistogramTitle">Histogram</system:String>
+    <system:String x:Key="Simulation.Wpf.HistogramXLabel">Return</system:String>
+    <system:String x:Key="Simulation.Wpf.HistogramYLabel1">Density</system:String>
+    <system:String x:Key="Simulation.Wpf.CdfChartTitle">Cumulative distribution function (CDF) of the return</system:String>
+    <system:String x:Key="Simulation.Wpf.CdfChartXLabel">Return</system:String>
+    <system:String x:Key="Simulation.Wpf.CdfChartYLabel1">Cumulated density</system:String>
+    <system:String x:Key="Simulation.Wpf.MinMaxMedianChartTitle">Return over maturity</system:String>
+    <system:String x:Key="Simulation.Wpf.MinMaxMedianChartXLabel">Maturity</system:String>
+    <system:String x:Key="Simulation.Wpf.MinMaxMedianChartYLabel1">Minimum</system:String>
+    <system:String x:Key="Simulation.Wpf.MinMaxMedianChartYLabel2">Median</system:String>
+    <system:String x:Key="Simulation.Wpf.MinMaxMedianChartYLabel3">Maximum</system:String>
+    <system:String x:Key="Simulation.Wpf.PeriodResultsTitle">Results for different maturities</system:String>
+    <system:String x:Key="Simulation.Wpf.PeriodResultsXLabel">Maturity</system:String>
+    <system:String x:Key="Simulation.Wpf.PeriodResultsYLabel1">Return</system:String>
+    <system:String x:Key="Simulation.Wpf.DisclaimerHeader">Disclaimer</system:String>
+
+
+    <system:String x:Key="Simulation.Wpf.ReportTitle">Simulation results</system:String>
+    <system:String x:Key="Simulation.Wpf.ProjectDescription">Project description</system:String>
+    <system:String x:Key="Simulation.Wpf.MethodDescription">Methodology of the simulation</system:String>
+    <system:String x:Key="Simulation.Wpf.Results">Ergebnisse der Simulation</system:String>
+    <system:String x:Key="Simulation.Wpf.Statistics">Statistical figures</system:String>
+    <system:String x:Key="Simulation.Wpf.Evaluation">Evaluation of the simulation results</system:String>
+    <system:String x:Key="Simulation.Wpf.NextSteps">Next steps</system:String>
+    <system:String x:Key="Simulation.Wpf.InputData">Input data for the simulation</system:String>
+
+    <system:String x:Key="Simulation.Wpf.Form.Customer">Customer</system:String>
+    <system:String x:Key="Simulation.Wpf.Form.CustomerShort">Customer short</system:String>
+    <system:String x:Key="Simulation.Wpf.Form.CustomerShortRemark">Customer short must be a valid part of a filename</system:String>
+    <system:String x:Key="Simulation.Wpf.Form.CustomerContact">Customer contact</system:String>
+    <system:String x:Key="Simulation.Wpf.Form.Project">Project</system:String>
+    <system:String x:Key="Simulation.Wpf.Form.ProjectDescription">Project description</system:String>
+    <system:String x:Key="Simulation.Wpf.Form.ResultEvaluation">Results of the simulation</system:String>
+    <system:String x:Key="Simulation.Wpf.Form.NextSteps">Next steps</system:String>
+
+</ResourceDictionary>

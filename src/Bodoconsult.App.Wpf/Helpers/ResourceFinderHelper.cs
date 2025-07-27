@@ -2,12 +2,12 @@
 
 using Bodoconsult.App.Wpf.Models;
 
-namespace Bodoconsult.App.Wpf.Services;
+namespace Bodoconsult.App.Wpf.Helpers;
 
 /// <summary>
 /// Load resources in a cache and search resourekeys
 /// </summary>
-public class ResourceFinderService
+public static class ResourceFinderHelper
 {
 
     private class CacheObject

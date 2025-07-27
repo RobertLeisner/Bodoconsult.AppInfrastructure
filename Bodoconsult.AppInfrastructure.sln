@@ -66,7 +66,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.Abstraction
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.Wpf", "src\Bodoconsult.App.Wpf\Bodoconsult.App.Wpf.csproj", "{E08ADE64-676F-0764-F0A0-DFA772E9B23F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.Wpf.Application.Test", "tests\Bodoconsult.App.Wpf.Test\Bodoconsult.Wpf.Application.Test.csproj", "{EEB17E09-55AA-2931-B55E-61B055468E6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.Wpf.Test", "tests\Bodoconsult.App.Wpf.Test\Bodoconsult.App.Wpf.Test.csproj", "{EEB17E09-55AA-2931-B55E-61B055468E6E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfConsoleApp1", "samples\WpfConsoleApp1\WpfConsoleApp1.csproj", "{FF0A2381-F7DE-4ADF-A9CB-1B8397583BA8}"
 EndProject

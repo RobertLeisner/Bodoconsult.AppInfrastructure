@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Documents;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Wpf.Delegates;
 using Bodoconsult.App.Wpf.Documents.General;
 using Bodoconsult.App.Wpf.Documents.Services;
@@ -61,9 +62,20 @@ public class ReportBase : IDisposable
     /// <summary>
     /// Constructor to provide customized page settings
     /// </summary>
+    /// <param name="typographySettingsService">Current typo settings service to use</param>
     public ReportBase(TypographySettingsService typographySettingsService)
     {
         BaseConstructor(new FlowDocumentService(typographySettingsService));
+    }
+
+    /// <summary>
+    /// Constructor to provide customized page settings and I18N
+    /// </summary>
+    /// <param name="typographySettingsService">Current typo settings service to use</param>
+    /// <param name="i18N">Internationalisation</param>
+    public ReportBase(TypographySettingsService typographySettingsService, II18N i18N)
+    {
+        BaseConstructor(new FlowDocumentService(typographySettingsService, i18N));
     }
 
 
@@ -222,7 +234,7 @@ public class ReportBase : IDisposable
     public void SaveAsPdf(string pdfFileName)
     {
         OnSendStatus("Save report as PDF...");
-        FlowDocumentService.SaveAsXps(pdfFileName);
+        FlowDocumentService.SaveAsPdf(pdfFileName);
     }
 
     /// <summary>
@@ -239,7 +251,10 @@ public class ReportBase : IDisposable
     /// <param name="title">Title to print to report</param>
     public void AddTitle(string title)
     {
-        if (string.IsNullOrEmpty(title)) return;
+        if (string.IsNullOrEmpty(title))
+        {
+            return;
+        }
         Components.Add(new ReportTitleElement { Content = title });
     }
 
@@ -251,7 +266,10 @@ public class ReportBase : IDisposable
     /// <param name="array">Replaces one or more format items in a specified string with the string representation of a specified object.</param>
     public void AddTitle(string title, params object[] array)
     {
-        if (string.IsNullOrEmpty(title)) return;
+        if (string.IsNullOrEmpty(title))
+        {
+            return;
+        }
         Components.Add(new ReportTitleElement { Content = string.Format(title, array) });
     }
 
@@ -262,7 +280,10 @@ public class ReportBase : IDisposable
     /// <param name="title">Title to print to report</param>
     public void AddTitle2(string title)
     {
-        if (string.IsNullOrEmpty(title)) return;
+        if (string.IsNullOrEmpty(title))
+        {
+            return;
+        }
         Components.Add(new ReportTitle2Element { Content = title });
     }
 

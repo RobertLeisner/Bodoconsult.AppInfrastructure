@@ -1,17 +1,19 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using Bodoconsult.App.Abstractions.Interfaces;
+using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Wpf.Documents.General;
 using Bodoconsult.App.Wpf.Documents.Helpers;
 using Bodoconsult.App.Wpf.Documents.Reports;
 using Bodoconsult.App.Wpf.Documents.Services;
+using Bodoconsult.App.Wpf.Documents.Test.Helpers;
 using Bodoconsult.App.Wpf.Helpers;
+using Bodoconsult.App.Wpf.I18N;
 using Bodoconsult.App.Wpf.Services;
 using Bodoconsult.Typography;
 using NUnit.Framework;
 using System.IO;
 using System.Windows;
-using Bodoconsult.App.Helpers;
-using Bodoconsult.App.Wpf.Documents.Test.Helpers;
 
 // ReSharper disable InconsistentNaming
 
@@ -23,13 +25,23 @@ namespace Bodoconsult.App.Wpf.Documents.Test
 
         private readonly string _tempPath = Path.GetTempPath();
 
-        ///// <summary>
-        ///// Constructor to initialize class
-        ///// </summary>
-        //public UnitTestReportBase()
-        //{
+        private readonly II18N _i18N= Bodoconsult.I18N.I18N.Current;
 
-        //}
+        /// <summary>
+        /// Constructor to initialize class
+        /// </summary>
+        public ReportBaseTests()
+        {
+            _i18N.Reset();
+
+            var provider = new WpfFileLocalesProvider(TestHelper.Assembly, "Locales");
+            _i18N.AddProvider(provider);
+
+
+            _i18N.Init();
+
+            _i18N.Locale = "de";
+        }
 
 
         ///// <summary>
@@ -153,7 +165,6 @@ namespace Bodoconsult.App.Wpf.Documents.Test
         public void TestReportBase_DefaultPageSettings()
         {
             //Arrange
-
             var typoService = new TypographySettingsService
             {
                 LogoPath = TestHelper.TestLogoImage ,
@@ -244,11 +255,89 @@ namespace Bodoconsult.App.Wpf.Documents.Test
             FileSystemHelper.RunInDebugMode(fileName);
         }
 
+        [Test]
+        public void TestReportBase_Demo_FileCreated()
+        {
+            //Arrange
+            const string contentFile = @"pack://siteOfOrigin:,,,/Resources/Content/SimulationMethodDescription.txt";
+
+            var fileName = Path.Combine(_tempPath, "TestReportBase_Demo.pdf");
+
+            // Define a typography
+            var typo = new ElegantTypographyPageHeader("Times New Roman", "Times New Roman", "Arial Black");
+
+            // Get the typo service needed
+            var typoService = new TypographySettingsService(typo)
+            {
+                MaxImageHeight = 300,
+                LogoPath = TestHelper.TestLogoImage,
+                FooterText = "Bodoconsult GmbH",
+                FigureCounterPrefix = "Abb.",
+                ShowFigureCounter = true,
+                CurrentLanguage = "de"
+            };
+            
+            // Act
+
+            // Create the base report
+            var r = new ReportBase(typoService, _i18N);
+
+            // Add a translated title and subtitle
+            r.AddTitle("Resx:Simulation.Wpf.ReportTitle");
+            r.AddTitle2("I18N:Simulation.Wpf.ReportTitle");
+
+            // Add paragraphs
+            r.AddHeader("Add a paragraph", 1);
+            r.AddHeader("", 2);
+            r.AddParagraph(FlowDocHelper.MassText);
+            r.AddHeader("Add a paragraph", 2);
+            r.AddParagraph(FlowDocHelper.MassTextTags);
+
+            // Add a numbered List
+            r.AddHeader("Add a numbered list", 1);
+            r.AddNumberedList(FlowDocHelper.GetListData(), TextMarkerStyle.Disc);
+
+            // Add a  table
+            r.AddHeader("Add a table", 1);
+            r.AddTable(FlowDocHelper.GetTableDataNumeric(5, 5));
+
+            // Add a text block
+            r.AddHeader("Add XAML textblock", 1);
+            r.AddHeader("From paragraph", 2);
+            r.AddXamlTextblock($"<Paragraph>{FlowDocHelper.MassTextTags}</Paragraph><Paragraph>Test test test</Paragraph>", "StandardWithIndent");
+
+            r.AddHeader("From FlowDocument", 2);
+            r.AddXamlTextblock(string.Format("<FlowDocument><Paragraph>{0}</Paragraph><Paragraph>{0}</Paragraph></FlowDocument>", FlowDocHelper.MassTextTags), "StandardWithIndent");
+
+            // Add an image
+            r.AddHeader("Add an image", 2);
+            r.AddParagraph(FlowDocHelper.MassText);
+            r.AddImage(@"Resources\testimage.png");
+            r.AddParagraph(FlowDocHelper.MassText);
+
+            // Add a pagebreak
+            r.AddPageBreak();
+
+            // Add a figure
+            r.AddHeader("Add a figure", 2);
+            r.AddParagraph(FlowDocHelper.MassText);
+            r.AddFigure(@"Resources\testimage.png", "Image title1212");
+            r.AddParagraph(FlowDocHelper.MassText);
+
+            // Now build the report
+            r.BuildReport();
+
+            // Now save the report as PDF
+            r.SaveAsPdf(fileName);
+
+            //Assert
+            Assert.That(File.Exists(fileName));
+            FileSystemHelper.RunInDebugMode(fileName);
+        }
 
 
 
-
-        private static void CreateReport(TypographySettingsService typoService, string fileName)
+        private void CreateReport(TypographySettingsService typoService, string fileName)
         {
 
             if (File.Exists(fileName))
@@ -256,19 +345,12 @@ namespace Bodoconsult.App.Wpf.Documents.Test
                 File.Delete(fileName);
             }
 
-            const string ModuleName = "Bodoconsult:Documents.UnitTestDocuments";
-
-            LanguageResourceService.RegisterLanguageResourceFile("de", ModuleName, "pack://application:,,,/Bodoconsult.App.Wpf.Documents.Test;component/Resources/Culture.de.xaml");
             typoService.CurrentLanguage = "de";
-            typoService.CurrentLanguageModule = ModuleName;
 
-
-            var r = new ReportBase(typoService);
+            var r = new ReportBase(typoService, _i18N);
 
             // Act
             r.AddTitle("Resx:Simulation.Wpf.ReportTitle");
-
-
 
             r.AddTitle("{Resx:Simulation.Wpf.ReportTitle}<LineBreak />Test");
 

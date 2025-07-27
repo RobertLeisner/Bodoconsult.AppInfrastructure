@@ -67,6 +67,7 @@
 		<Compile Remove="Services\DispatcherService.cs" />
 		<Compile Remove="Services\SettingsService.cs" />
 		<Compile Remove="Utilities\WpfHelper.cs" />
+		<Content Remove="C:\Users\rleisner\.nuget\packages\xpstopdf\1.0.6\contentFiles\any\net5.0-windows7.0\PdfSharp.SharpZipLib\ReadMe.txt" />
 		<Page Remove="Resources\Typography - Kopieren.xaml" />
 		<Page Remove="Resources\Typography.xaml" />
 		<Page Remove="Resources\TypographyCompact.xaml" />

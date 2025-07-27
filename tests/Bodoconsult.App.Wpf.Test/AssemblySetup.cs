@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using NUnit.Framework;
 using System.Runtime.Versioning;
 using Bodoconsult.App.Wpf.Services;
+using NUnit.Framework;
 
-namespace Bodoconsult.Wpf.Application.Test;
+namespace Bodoconsult.App.Wpf.Test;
 
 /// <summary>
 /// Setup for the assembly for all tests

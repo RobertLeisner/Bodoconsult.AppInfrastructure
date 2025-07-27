@@ -169,6 +169,11 @@ public class TypographySettingsService
     public double FooterFontSize { get; set; }
 
     /// <summary>
+    /// Text like page or Seite to write in front of the page number in the footer
+    /// </summary>
+    public string FooterPageText { get; set; } = "Page";
+
+    /// <summary>
     /// Absolute or relative path to the logo to print in the page header
     /// </summary>
     public string LogoPath { get; set; }
@@ -190,15 +195,14 @@ public class TypographySettingsService
 
     /// <summary>
     /// Language code like en or de (only first 2 letters needed). Default: de
-    /// Needs a <see cref="CurrentLanguageModule"/> to be defined too to work properly
     /// </summary>
     public string CurrentLanguage { get; set; } = "de";
 
-    /// <summary>
-    /// The name used to register the current used language resources. See <see cref="LanguageResourceService"/>.
-    /// Needs a <see cref="CurrentLanguage"/> to be defined too to work properly
-    /// </summary>
-    public string CurrentLanguageModule { get; set; }
+    ///// <summary>
+    ///// The name used to register the current used language resources. See <see cref="LanguageResourceService"/>.
+    ///// Needs a <see cref="CurrentLanguage"/> to be defined too to work properly
+    ///// </summary>
+    //public string CurrentLanguageModule { get; set; }
 
     /// <summary>
     /// Prefix used for the ongoing numbering of figures in the report
@@ -592,6 +596,7 @@ public class TypographySettingsService
     /// Margin between heading1 tetxt and line below heading 1. Default 0.5*RegularFontSize
     /// </summary>
     public Thickness Heading1LineSeparatorThickness { get; set; }
+
 
     #endregion
 

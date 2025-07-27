@@ -13,6 +13,7 @@ using System.Windows.Threading;
 using System.Windows.Xps.Packaging;
 using System.Windows.Xps.Serialization;
 using System.Xaml;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Wpf.Documents.General;
 using Bodoconsult.App.Wpf.Documents.Paginators;
 using Bodoconsult.App.Wpf.Helpers;
@@ -30,12 +31,12 @@ namespace Bodoconsult.App.Wpf.Documents.Services;
 [SupportedOSPlatform("windows")]
 public class FlowDocumentService
 {
-    
-   
 
     private string _currentStyleSheetPath;
 
     private ResourceDictionary _styleRd;
+
+    private readonly II18N _i18N;
 
     #region Ctor
 
@@ -59,6 +60,19 @@ public class FlowDocumentService
         TypographySettingsService = typographySettingsService;
         CultureInfo = new CultureInfo(TypographySettingsService.CurrentLanguage);
         BaseConstructor();
+    }
+
+    /// <summary>
+    /// Constructor to provide customized page settings
+    /// </summary>
+    /// <param name="typographySettingsService">Current typo settings service instance</param>
+    /// <param name="i18N">Internationaliation</param>
+    public FlowDocumentService(TypographySettingsService typographySettingsService, II18N i18N)
+    {
+        TypographySettingsService = typographySettingsService;
+        CultureInfo = new CultureInfo(TypographySettingsService.CurrentLanguage);
+        BaseConstructor();
+        _i18N = i18N;
     }
 
     /// <summary>
@@ -153,6 +167,11 @@ public class FlowDocumentService
     /// Tag prefix used to declare content als as resource key
     /// </summary>
     public const string ResxTag = "Resx:";
+
+    /// <summary>
+    /// Tag prefix used to declare content als as resource key
+    /// </summary>
+    public const string I18nTag = "I18N:";
 
     ///// <summary>
     ///// Currently used resource dictionary for language issues
@@ -630,6 +649,10 @@ public class FlowDocumentService
             if (content.StartsWith("Resx:"))
             {
                 content = FindLanguageResource(content.Replace(ResxTag, ""));
+            }
+            if (content.StartsWith("I18n:"))
+            {
+                content = FindLanguageResource(content.Replace(I18nTag, ""));
             }
             else
             {
@@ -1433,34 +1456,9 @@ public class FlowDocumentService
 
         Dispatcher.Invoke(() =>
         {
-
-
-            //// Set a maximum width and height. If the text overflows these values, an ellipsis "..." appears.
-            //formattedText.MaxTextWidth = 300;
-            //formattedText.MaxTextHeight = 240;
-
-            //// Use a larger font size beginning at the first (zero-based) character and continuing for 5 characters.
-            //// The font size is calculated in terms of points -- not as device-independent pixels.
-            //formattedText.SetFontSize(36 * (96.0 / 72.0), 0, 5);
-
-            //// Use a Bold font weight beginning at the 6th character and continuing for 11 characters.
-            //formattedText.SetFontWeight(FontWeights.Bold, 6, 11);
-
-            //// Use a linear gradient brush beginning at the 6th character and continuing for 11 characters.
-            //formattedText.SetForegroundBrush(
-            //                        new LinearGradientBrush(
-            //                        Colors.Orange,
-            //                        Colors.Teal,
-            //                        90.0),
-            //                        6, 11);
-
-            //// Use an Italic font style beginning at the 28th character and continuing for 28 characters.
-            //formattedText.SetFontStyle(FontStyles.Italic, 28, 28);
-
-
             // Create the initial formatted text string.
             var formattedText = new FormattedText(
-                $"Seite {page + 1}",
+                $"{TypographySettingsService.FooterPageText} {page + 1}",
                 CultureInfo,
                 FlowDirection.LeftToRight,
                 new Typeface(TypographySettingsService.FooterFontName),
@@ -1666,23 +1664,21 @@ public class FlowDocumentService
 
 
     /// <summary>
-    /// Find a resource string a external assembly. Used for resolution of Resx: tags in <see cref="CheckContent"/>.
-    /// Makes use of <see cref="LanguageResourceService.FindResource"/> which requires resources to registered before using via <see cref="LanguageResourceService.RegisterLanguageResourceFile"/>.
-    /// Language and Module name are injected into the method via <see cref="TypographySettingsService.CurrentLanguage"/> and 
-    /// <see cref="TypographySettingsService.CurrentLanguageModule"/>.
+    /// Find a resource string an external assembly. Used for resolution of Resx: tags in <see cref="CheckContent"/>.
+    /// Makes use of <see cref="II18N"/> which requires resources to registered before using via <see cref="II18N.AddProvider"/>.
+    /// Language is injected via <see cref="TypographySettingsService"/>.
     /// </summary>
     /// <param name="resourceKey"></param>
     /// <returns></returns>
     public string FindLanguageResource(string resourceKey)
     {
 
-        var erg = LanguageResourceService.FindResource(TypographySettingsService.CurrentLanguage,
-            TypographySettingsService.CurrentLanguageModule, resourceKey);
+        var erg = _i18N.Translate(resourceKey);
 
 
         if (string.IsNullOrEmpty(erg))
         {
-            erg = (string)System.Windows.Application.Current.Resources[resourceKey];
+            erg = resourceKey;
         }
 
         return erg;

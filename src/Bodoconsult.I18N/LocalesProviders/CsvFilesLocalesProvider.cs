@@ -30,7 +30,10 @@ public class CsvFileLocalesProvider : BaseResourceProvider
     {
         var dir = new FileInfo(assembly.Location).DirectoryName;
 
-        if (string.IsNullOrEmpty(dir)) return;
+        if (string.IsNullOrEmpty(dir))
+        {
+            return;
+        }
 
         _resourceFolder = Path.Combine(dir, resourceFolder);
     }
@@ -41,7 +44,10 @@ public class CsvFileLocalesProvider : BaseResourceProvider
     /// </summary>
     public override void RegisterLocalesItems()
     {
-        if (string.IsNullOrEmpty(_resourceFolder)) return;
+        if (string.IsNullOrEmpty(_resourceFolder))
+        {
+            return;
+        }
 
         var dir = new DirectoryInfo(_resourceFolder);
 
@@ -70,11 +76,14 @@ public class CsvFileLocalesProvider : BaseResourceProvider
         // Check if language exists
         var success = LocaleItems.TryGetValue(language, out var result);
 
-        if (!success) return translations;
+        if (!success)
+        {
+            return translations;
+        }
 
         var content = File.ReadAllText(result);
 
-        var lines = content.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        var lines = content.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries);
 
         string key = null;
         string value = null;
@@ -98,7 +107,7 @@ public class CsvFileLocalesProvider : BaseResourceProvider
 
             if (isKeyValuePair)
             {
-                var kvp = line.Split(new[] { ';' }, 2);
+                var kvp = line.Split([';'], 2);
 
                 key = kvp[0].Trim();
                 value = kvp[1].Trim().UnescapeLineBreaks();
@@ -117,7 +126,9 @@ public class CsvFileLocalesProvider : BaseResourceProvider
         }
 
         if (key != null && value != null)
+        {
             translations.Add(key, value);
+        }
 
         return translations;
     }

@@ -3,13 +3,12 @@
 using System;
 using System.IO;
 using System.Threading;
-using Bodoconsult.App;
 using Bodoconsult.App.Abstractions.Delegates;
 using Bodoconsult.App.Abstractions.DependencyInjection;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Logging;
 
-namespace Bodoconsult.Wpf.Application.Test.App;
+namespace Bodoconsult.App.Wpf.Test.App;
 
 /// <summary>
 /// App global values

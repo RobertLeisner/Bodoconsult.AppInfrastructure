@@ -60,6 +60,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Bodoconsult.App.Abstractions\Bodoconsult.App.Abstractions.csproj" />
 		<ProjectReference Include="..\Bodoconsult.App\Bodoconsult.App.csproj" />
+		<ProjectReference Include="..\Bodoconsult.I18N\Bodoconsult.I18N.csproj" />
 	</ItemGroup>
 	<PropertyGroup />
 </Project>

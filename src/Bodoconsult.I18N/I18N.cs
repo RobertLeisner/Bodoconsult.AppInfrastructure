@@ -54,7 +54,7 @@ public class I18N : II18N
     /// </summary>
     public IList<ILocalesProvider> Providers { get; } = new List<ILocalesProvider>();
 
-    private readonly List<string> _locales = new();
+    private readonly List<string> _locales = [];
     private bool _throwWhenKeyNotFound;
     private string _notFoundSymbol = "?";
     private string _fallbackLocale;

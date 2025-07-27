@@ -1,4 +1,6 @@
-﻿using Bodoconsult.App.Wpf.Documents.Services;
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
+
+using Bodoconsult.App.Wpf.Documents.Services;
 using PropertyChanged;
 
 namespace Bodoconsult.App.Wpf.Documents.Reports;

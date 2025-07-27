@@ -20,6 +20,8 @@ namespace Bodoconsult.App.Wpf.Documents.Test.Helpers
 
             var fi = new FileInfo(Assembly.Location);
 
+            AppPath = fi.DirectoryName;
+
             TestDataPath = Path.Combine(fi.Directory.Parent.Parent.Parent.Parent.FullName, "TestData");
 
             TestChartImage = Path.Combine(TestDataPath, "chart3d.png");
@@ -34,6 +36,11 @@ namespace Bodoconsult.App.Wpf.Documents.Test.Helpers
         /// </summary>
 
         public static Assembly Assembly;
+
+        /// <summary>
+        /// Current app path
+        /// </summary>
+        public static string AppPath { get; }
 
         /// <summary>
         /// Current test data path

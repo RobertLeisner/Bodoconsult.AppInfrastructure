@@ -367,7 +367,7 @@ namespace Bodoconsult.App.Wpf.Documents.Test
         {
 
             // Arrange
-            var fileName = Path.Combine(_tempPath, "Documentation.pdf");
+            var fileName = Path.Combine(_tempPath, "Demo.pdf");
 
             if (File.Exists(fileName))
             {
@@ -375,10 +375,71 @@ namespace Bodoconsult.App.Wpf.Documents.Test
             }
 
             // Act
-            var fds = GetFlowDocumentService();
 
+            // Define a typography
+            var typo = new ElegantTypographyPageHeader("Times New Roman", "Times New Roman", "Arial Black");
+            
+            // Get the typo service needed
+            var typoService = new TypographySettingsService(typo)
+            {
+                MaxImageHeight = 300,
+                LogoPath = _logoPath,
+                FooterText = "Bodoconsult GmbH",
+                FigureCounterPrefix = "Abb.",
+                ShowFigureCounter = true
+            };
+
+            // Now get the flow document service with the document contained
+            var fds = new FlowDocumentService(typoService);
+
+            // Fill the document now
+            fds.AddSection();
+            fds.AddTitle("Title for this test document");
+            fds.AddTitle2("Subtitle for this test document");
+
+            // Simple paragraphs
+            fds.AddParagraph(FlowDocHelper.MassText);
+            fds.AddParagraphCentered(FlowDocHelper.MassText);
+            fds.AddParagraphRight(FlowDocHelper.MassText);
+
+            // Paragraphs with tags in the content
+            fds.AddParagraph(FlowDocHelper.MassTextTags);
+
+            // Add XAML markup
+            fds.AddHeader1("Add Textblock");
+            fds.AddHeader2("From XAML markup");
+            fds.AddXamlTextblock($"<Paragraph>{FlowDocHelper.MassTextTags}</Paragraph><Paragraph>Test test test</Paragraph>");
+
+            // Add HTML markup
+            fds.AddHeader2("From HTML markup");
+            fds.AddTextBlock($"<H2>Heading 2 A</H2><P>{FlowDocHelper.MassTextTags}</P><H2>Heading 2 B</H2><P>Test test test</P>");
+
+            // Add a table
+            fds.AddHeader1("Add table");
+            fds.AddTable(FlowDocHelper.GetTableData(24, 3));
+
+            // Add a figure
+            fds.AddHeader1("Add a figure");
+
+            fds.AddHeader2("Add a figure from file");
+            fds.AddFigure(TestHelper.TestChartImage, "Image title", 300, 200);
+
+            fds.AddHeader2("Add a figure from XAML file");
+            fds.AddFigure(_chartXamlPath, 300, 200, "Canvas as figure from file");
+
+            // Add an image
+            fds.AddHeader1("Add an image");
+            fds.AddHeader2("Add an image from a file");
+            fds.AddImage(TestHelper.TestChartImage);
+
+            fds.AddHeader2("Add an image from resources");
+            fds.AddImage(@"Resources\testimage.png");
+
+            // Add a default header and footer to the document
+            fds.AddDefaultFooterAndHeader();
+
+            // Save as PDF
             fds.SaveAsPdf(fileName);
-
 
             // Assert
             Assert.That(File.Exists(fileName));

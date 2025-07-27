@@ -1,5 +1,3 @@
-Bodoconsult.App.Wpf
-================
 
 # What does the library
 

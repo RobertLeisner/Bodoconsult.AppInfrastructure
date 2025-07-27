@@ -81,7 +81,7 @@ public class CsvEmbeddedResourceLocalesProvider : BaseResourceProvider
 
         var content = FileHelper.GetTextResource(_assembly, result);
 
-        var lines = content.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        var lines = content.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries);
 
         string key = null;
         string value = null;
@@ -107,7 +107,7 @@ public class CsvEmbeddedResourceLocalesProvider : BaseResourceProvider
 
             if (isKeyValuePair)
             {
-                var kvp = line.Split(new[] { ';' }, 2);
+                var kvp = line.Split([';'], 2);
 
                 key = kvp[0].Trim();
                 value = kvp[1].Trim().UnescapeLineBreaks();

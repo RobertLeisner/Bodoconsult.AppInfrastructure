@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using Bodoconsult.App.Wpf.Services;
+using Bodoconsult.App.Wpf.Helpers;
 using NUnit.Framework;
 
-namespace Bodoconsult.Wpf.Application.Test;
+namespace Bodoconsult.App.Wpf.Test;
 
 [TestFixture]
 public class ResourceFinderServiceTests
@@ -31,7 +31,7 @@ public class ResourceFinderServiceTests
     [SetUp]
     public void Setup()
     {
-        ResourceFinderService.ClearCache();
+        ResourceFinderHelper.ClearCache();
     }
 
     ///// <summary>
@@ -53,20 +53,20 @@ public class ResourceFinderServiceTests
         //Arrange
 
         // Act
-        var erg = (string)ResourceFinderService.FindResource(German, "Simulation.Asset");
+        var erg = (string)ResourceFinderHelper.FindResource(German, "Simulation.Asset");
 
         //Assert
         Assert.That(erg, Is.EqualTo("Gegenstand"));
 
-        erg = (string)ResourceFinderService.FindResource(English, "Simulation.Asset");
+        erg = (string)ResourceFinderHelper.FindResource(English, "Simulation.Asset");
         Assert.That(erg, Is.EqualTo("Asset"));
 
-        erg = (string)ResourceFinderService.FindResource(German, "Simulation.Asset");
+        erg = (string)ResourceFinderHelper.FindResource(German, "Simulation.Asset");
 
         //Assert
         Assert.That(erg, Is.EqualTo("Gegenstand"));
 
-        Assert.That(ResourceFinderService.Count, Is.EqualTo(2));
+        Assert.That(ResourceFinderHelper.Count, Is.EqualTo(2));
     }
 
 
@@ -76,22 +76,22 @@ public class ResourceFinderServiceTests
         //Arrange
 
         // Act
-        var erg = (string)ResourceFinderService.FindResource(German, "Simulation.Asset");
+        var erg = (string)ResourceFinderHelper.FindResource(German, "Simulation.Asset");
 
         //Assert
         Assert.That(erg, Is.EqualTo("Gegenstand"));
 
-        ResourceFinderService.SetResource(German, "Simulation.Asset", "Asset");
-        erg = (string)ResourceFinderService.FindResource(German, "Simulation.Asset");
+        ResourceFinderHelper.SetResource(German, "Simulation.Asset", "Asset");
+        erg = (string)ResourceFinderHelper.FindResource(German, "Simulation.Asset");
         Assert.That(erg, Is.EqualTo("Asset"));
-        ResourceFinderService.SetResource(German, "Simulation.Asset", "Gegenstand");
+        ResourceFinderHelper.SetResource(German, "Simulation.Asset", "Gegenstand");
 
-        erg = (string)ResourceFinderService.FindResource(German, "Simulation.Asset");
+        erg = (string)ResourceFinderHelper.FindResource(German, "Simulation.Asset");
 
         //Assert
         Assert.That(erg, Is.EqualTo("Gegenstand"));
 
-        Assert.That(ResourceFinderService.Count, Is.EqualTo(1));
+        Assert.That(ResourceFinderHelper.Count, Is.EqualTo(1));
     }
 
     [Test]
@@ -100,21 +100,21 @@ public class ResourceFinderServiceTests
         //Arrange
 
         // Act
-        var erg = (string)ResourceFinderService.FindResource(German, "Simulation.Asset");
+        var erg = (string)ResourceFinderHelper.FindResource(German, "Simulation.Asset");
 
         //Assert
         Assert.That(erg == "Gegenstand");
 
-        ResourceFinderService.SetResource<string>(German, "Simulation.Asset", "Asset");
-        erg = (string)ResourceFinderService.FindResource(German, "Simulation.Asset");
+        ResourceFinderHelper.SetResource<string>(German, "Simulation.Asset", "Asset");
+        erg = (string)ResourceFinderHelper.FindResource(German, "Simulation.Asset");
         Assert.That(erg == "Asset");
-        ResourceFinderService.SetResource<string>(German, "Simulation.Asset", "Gegenstand");
+        ResourceFinderHelper.SetResource<string>(German, "Simulation.Asset", "Gegenstand");
 
-        erg = (string)ResourceFinderService.FindResource(German, "Simulation.Asset");
+        erg = (string)ResourceFinderHelper.FindResource(German, "Simulation.Asset");
 
         //Assert
         Assert.That(erg == "Gegenstand");
 
-        Assert.That(ResourceFinderService.Count, Is.EqualTo(1));
+        Assert.That(ResourceFinderHelper.Count, Is.EqualTo(1));
     }
 }

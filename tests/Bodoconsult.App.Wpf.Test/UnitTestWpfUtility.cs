@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using Bodoconsult.App.Wpf.Helpers;
 using NUnit.Framework;
 
-namespace Bodoconsult.Wpf.Application.Test;
+namespace Bodoconsult.App.Wpf.Test;
 
 [TestFixture]
 [RequiresThread(ApartmentState.STA)]

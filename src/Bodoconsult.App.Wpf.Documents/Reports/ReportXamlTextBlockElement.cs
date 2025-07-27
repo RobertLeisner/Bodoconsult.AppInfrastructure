@@ -1,4 +1,6 @@
-﻿using System.Windows.Documents;
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
+
+using System.Windows.Documents;
 using Bodoconsult.App.Wpf.Documents.General;
 using Bodoconsult.App.Wpf.Documents.Services;
 using PropertyChanged;
