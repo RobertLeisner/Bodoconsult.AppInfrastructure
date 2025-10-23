@@ -5,7 +5,7 @@ using Bodoconsult.Text.Documents;
 namespace Bodoconsult.Text.Pdf.Renderer.Styles;
 
 /// <summary>
-/// HTML rendering element for <see cref="CellRightStyle"/> instances
+/// PDF rendering element for <see cref="CellRightStyle"/> instances
 /// </summary>
 public class CellRightStylePdfTextRendererElement : PdfParagraphStyleTextRendererElementBase
 {

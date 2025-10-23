@@ -10,7 +10,7 @@ using Bodoconsult.Text.Pdf.Helpers;
 namespace Bodoconsult.Text.Pdf.Renderer.Blocks;
 
 /// <summary>
-/// HTML rendering element for <see cref="Figure"/> instances
+/// PDF rendering element for <see cref="Figure"/> instances
 /// </summary>
 public class FigurePdfTextRendererElement : PdfTextRendererElementBase
 {

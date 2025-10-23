@@ -5,7 +5,7 @@ using Bodoconsult.Text.Documents;
 namespace Bodoconsult.Text.Pdf.Renderer.Blocks;
 
 /// <summary>
-/// HTML rendering element for <see cref="Toc5"/> instances
+/// PDF rendering element for <see cref="Toc5"/> instances
 /// </summary>
 public class Toc5PdfTextRendererElement : ParagraphPdfTextRendererElementBase
 {

@@ -10,7 +10,7 @@ using Bodoconsult.App.Abstractions.Helpers;
 namespace Bodoconsult.Text.Pdf.Renderer.Blocks;
 
 /// <summary>
-/// HTML rendering element for <see cref="Equation"/> instances
+/// PDF rendering element for <see cref="Equation"/> instances
 /// </summary>
 public class EquationPdfTextRendererElement : PdfTextRendererElementBase
 {

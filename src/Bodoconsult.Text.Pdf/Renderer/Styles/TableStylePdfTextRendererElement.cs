@@ -5,7 +5,7 @@ using Bodoconsult.Text.Documents;
 namespace Bodoconsult.Text.Pdf.Renderer.Styles;
 
 /// <summary>
-/// HTML rendering element for <see cref="TableStyle"/> instances
+/// PDF rendering element for <see cref="TableStyle"/> instances
 /// </summary>
 public class TableStylePdfTextRendererElement : PdfStyleTextRendererElementBase
 {

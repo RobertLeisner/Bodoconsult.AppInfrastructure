@@ -5,7 +5,7 @@ using Bodoconsult.Text.Documents;
 namespace Bodoconsult.Text.Pdf.Renderer.Styles;
 
 /// <summary>
-/// HTML rendering element for <see cref="WarningStyle"/> instances
+/// PDF rendering element for <see cref="WarningStyle"/> instances
 /// </summary>
 public class WarningStylePdfTextRendererElement : PdfParagraphStyleTextRendererElementBase
 {

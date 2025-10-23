@@ -3,7 +3,7 @@
 namespace Bodoconsult.Text.Pdf.Renderer.Styles;
 
 /// <summary>
-/// HTML rendering element for <see cref="CitationStyle"/> instances
+/// PDF rendering element for <see cref="CitationStyle"/> instances
 /// </summary>
 public class CitationStylePdfTextRendererElement : PdfParagraphStyleTextRendererElementBase
 {

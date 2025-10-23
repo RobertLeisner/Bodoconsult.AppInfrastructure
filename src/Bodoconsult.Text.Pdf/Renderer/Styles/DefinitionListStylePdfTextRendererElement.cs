@@ -7,7 +7,7 @@ using Bodoconsult.Text.Pdf.Interfaces;
 namespace Bodoconsult.Text.Pdf.Renderer.Styles;
 
 /// <summary>
-/// HTML rendering element for <see cref="DefinitionListStyle"/> instances
+/// PDF rendering element for <see cref="DefinitionListStyle"/> instances
 /// </summary>
 public class DefinitionListStylePdfTextRendererElement : IPdfTextRendererElement
 {

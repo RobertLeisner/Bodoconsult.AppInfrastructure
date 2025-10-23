@@ -3,7 +3,7 @@
 namespace Bodoconsult.Text.Pdf.Renderer.Styles;
 
 /// <summary>
-/// HTML rendering element for <see cref="Toc2Style"/> instances
+/// PDF rendering element for <see cref="Toc2Style"/> instances
 /// </summary>
 public class Toc2StylePdfTextRendererElement : PdfParagraphStyleTextRendererElementBase
 {

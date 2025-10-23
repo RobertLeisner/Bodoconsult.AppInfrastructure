@@ -6,7 +6,7 @@ using Bodoconsult.Text.Documents;
 namespace Bodoconsult.Text.Pdf.Renderer.Blocks;
 
 /// <summary>
-/// HTML rendering element for <see cref="Cell"/> instances
+/// PDF rendering element for <see cref="Cell"/> instances
 /// </summary>
 public class CellPdfTextRendererElement : PdfTextRendererElementBase
 {

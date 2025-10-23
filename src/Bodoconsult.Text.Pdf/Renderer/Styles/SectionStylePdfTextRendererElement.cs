@@ -3,7 +3,7 @@
 namespace Bodoconsult.Text.Pdf.Renderer.Styles;
 
 /// <summary>
-/// HTML rendering element for <see cref="SectionStyle"/> instances
+/// PDF rendering element for <see cref="SectionStyle"/> instances
 /// </summary>
 public class SectionStylePdfTextRendererElement : PdfPageStyleTextRendererElementBase
 {

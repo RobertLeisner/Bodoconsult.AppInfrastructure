@@ -1,9 +1,11 @@
-﻿using Bodoconsult.Text.Documents;
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
+
+using Bodoconsult.Text.Documents;
 
 namespace Bodoconsult.Text.Pdf.Renderer.Styles;
 
 /// <summary>
-/// HTML rendering element for <see cref="ToeSectionStyle"/> instances
+/// PDF rendering element for <see cref="ToeSectionStyle"/> instances
 /// </summary>
 public class ToeSectionStylePdfTextRendererElement : PdfPageStyleTextRendererElementBase
 {

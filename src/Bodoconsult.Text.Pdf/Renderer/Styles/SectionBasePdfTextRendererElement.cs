@@ -4,7 +4,7 @@ using Bodoconsult.Text.Pdf.Renderer.Blocks;
 namespace Bodoconsult.Text.Pdf.Renderer.Styles;
 
 /// <summary>
-/// HTML rendering element for <see cref="SectionBase"/> instances
+/// PDF rendering element for <see cref="SectionBase"/> instances
 /// </summary>
 public abstract class SectionBasePdfTextRendererElement : PdfTextRendererElementBase
 {

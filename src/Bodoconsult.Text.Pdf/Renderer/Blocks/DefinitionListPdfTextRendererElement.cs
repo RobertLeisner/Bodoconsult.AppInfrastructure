@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+
+using System.Collections.Generic;
 using System.Text;
 using Bodoconsult.Pdf.PdfSharp;
 using Bodoconsult.Text.Documents;
@@ -7,7 +9,7 @@ using Bodoconsult.Text.Pdf.Helpers;
 namespace Bodoconsult.Text.Pdf.Renderer.Blocks;
 
 /// <summary>
-/// HTML rendering element for <see cref="DefinitionList"/> instances
+/// PDF rendering element for <see cref="DefinitionList"/> instances
 /// </summary>
 public class DefinitionListPdfTextRendererElement : PdfTextRendererElementBase
 {

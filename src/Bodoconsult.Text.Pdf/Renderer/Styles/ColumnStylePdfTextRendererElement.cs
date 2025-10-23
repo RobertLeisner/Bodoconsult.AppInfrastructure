@@ -7,7 +7,7 @@ using Bodoconsult.Text.Interfaces;
 namespace Bodoconsult.Text.Pdf.Renderer.Styles;
 
 /// <summary>
-/// HTML rendering element for <see cref="ColumnStyle"/> instances
+/// PDF rendering element for <see cref="ColumnStyle"/> instances
 /// </summary>
 public class ColumnStylePdfTextRendererElement : PdfStyleTextRendererElementBase
 {
