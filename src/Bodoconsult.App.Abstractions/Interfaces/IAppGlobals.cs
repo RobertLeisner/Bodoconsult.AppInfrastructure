@@ -74,4 +74,14 @@ public interface IAppGlobals: IDisposable
     /// </summary>
     TranslateWithParamsDelegate TranslateWithParamsDelegate { get; set; }
 
+    /// <summary>
+    /// Externally registered product name
+    /// </summary>
+    string ProductName { get; set; }
+
+    /// <summary>
+    /// Externally registered version
+    /// </summary>
+    string ProductVersion { get; set; } 
+
 }

@@ -1,0 +1,71 @@
+*****************************************
+H1 General information how to use JobExecuter
+*****************************************
+
+??include:Sample.json??
+
+Sample papargraph with ??br??line feed.
+
+***************************
+H2 What is JobExecuter
+***************************
+
+Tags useable in Readme.txt
+
+DL H1 DD Header level 1
+DL H2 DD Header level 2
+DL H3 DD Header level 3
+DL DL DD Definition list (must be followed by a DD tag)
+DL LI DD List items
+
+JobExecuter is a software to run different types of jobs like database backup, file copying, running apps and others. It is used used in conjunction with Windows Task Scheduler (WTS). The WTS provides the job scheduling infrastructure. JobExecuter provides the functionality of the jobs in an supervised environment. 
+
+A JobExecuter job consists of one or more JobTasks. A job and its JobTasks is defined in a UTF8 encoded JSON file. To run a job call JobExecuter.exe with the JSON file with the job definition as parameter. The command line call for JobExecuter looks like:
+
+Code JobExecuter.exe JsonFileName
+
+Or more general:
+
+Code %PathToJobExcuterExe%\JobExecuter.exe %PathToJobJsonFile%\%JsonFileName%.json
+
+
+***************************
+H2 Security related issues with JobExecuter
+***************************
+
+Some of the JobTasks JobExecuter provides need credentials to be provided. In that case the passwords do not have to be provide as clear text but as encrpyted string.
+
+JobExecuter provides the command line parameter /p to encrypt passwords. Please see below in the section on command line parameters for JobExecuter.
+
+
+***************************
+H2 Overview over the available JobTasks in JobExecuter
+***************************
+
+
+***************************
+H2 Command line parameters for JobExecuter
+***************************
+
+*****
+H3 JsonFileName
+*****
+
+Code %PathToJobExcuterExe%\JobExecuter.exe %PathToJobJsonFile%\%JsonFileName%.json
+
+Runs a job defined in the JSON file %PathToJobJsonFile%\%JsonFileName%.json
+
+*****
+H3 /p (Encrypt password)
+*****
+
+Code %PathToJobExcuterExe%\JobExecuter.exe /p
+
+If you run JobExecuter with this parameter you will be ask to insert a clear text password. This password will be encrypted by JobExecuter and copied to the clipboard. From there you can paste it to a JSON job definition file where a password is required in encrypted form.
+
+
+**********
+H1 Sample JSON
+**********
+
+Code ??include:Sample.json??

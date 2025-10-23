@@ -9,11 +9,10 @@ using Bodoconsult.App.Wpf.Documents.Services;
 using Bodoconsult.App.Wpf.Documents.Test.Helpers;
 using Bodoconsult.App.Wpf.Helpers;
 using Bodoconsult.App.Wpf.I18N;
-using Bodoconsult.App.Wpf.Services;
-using Bodoconsult.Typography;
 using NUnit.Framework;
 using System.IO;
 using System.Windows;
+using Bodoconsult.App.Abstractions.Typography;
 
 // ReSharper disable InconsistentNaming
 
@@ -259,8 +258,6 @@ namespace Bodoconsult.App.Wpf.Documents.Test
         public void TestReportBase_Demo_FileCreated()
         {
             //Arrange
-            const string contentFile = @"pack://siteOfOrigin:,,,/Resources/Content/SimulationMethodDescription.txt";
-
             var fileName = Path.Combine(_tempPath, "TestReportBase_Demo.pdf");
 
             // Define a typography

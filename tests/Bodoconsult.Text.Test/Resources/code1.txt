@@ -1,0 +1,36 @@
+// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
+
+using System.IO;
+using System.Reflection;
+
+namespace Bodoconsult.Text.Test.Helpers;
+
+public class FileHelper
+{
+
+\t/// <summary>
+\t/// Get a text from an embedded resource file
+\t/// </summary>
+\t/// <param name="resourceName">resource name = plain file name without extension and path</param>
+\t/// <returns></returns>
+\tpublic static string GetTextResource(string resourceName)
+\t{
+
+\t\tresourceName = $"Bodoconsult.Text.Test.Resources.{resourceName}";
+
+\t\tvar ass = Assembly.GetExecutingAssembly();
+\t\tvar str = ass.GetManifestResourceStream(resourceName);
+
+\t\tif (str == null) return null;
+
+\t\tstring s;
+
+\t\tusing (var file = new StreamReader(str))
+\t\t\t{
+\t\t\t\ts = file.ReadToEnd();
+\t\t\t}
+
+\t\treturn s;
+\t\t}
+
+\t}

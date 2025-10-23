@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8</TargetFramework>
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+		<Deterministic>False</Deterministic>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageOutputPath>..\..\packages\</PackageOutputPath>
+		<Copyright>Bodoconsult EDV-Dienstleistungen GmbH</Copyright>
+		<Authors>Robert Leisner</Authors>
+		<Company>Bodoconsult EDV-Dienstleistungen GmbH</Company>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<RepositoryType>git</RepositoryType>
+		<NeutralLanguage>en</NeutralLanguage>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+
+		<VersionPrefix>1.0.2</VersionPrefix>
+		<Version />
+		<RepositoryUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</RepositoryUrl>
+		<PackageId>Bodoconsult.Text</PackageId>
+		<PackageTags>Output structured text HTML plain text ascii</PackageTags>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Description>Simple class for collecting structured text in an app and export it to HTML or an ASCII plain text file. Use library to create simple reports from apps or from unit testing i.e. for auditors or as documentation.</Description>
+		<PackageReleaseNotes>Migration to new repo</PackageReleaseNotes>
+		<PackageProjectUrl>hhttps://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</PackageProjectUrl>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\LICENSE.md" Link="LICENSE.md">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="..\..\doc\Bodoconsult.Text\README.md" Link="README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Renderer\Markdown\Blocks\" />
+	  <Folder Include="Renderer\Markdown\Inlines\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Bodoconsult.App.Abstractions\Bodoconsult.App.Abstractions.csproj" />
+	  <ProjectReference Include="..\Bodoconsult.App\Bodoconsult.App.csproj" />
+	</ItemGroup>
+
+</Project>

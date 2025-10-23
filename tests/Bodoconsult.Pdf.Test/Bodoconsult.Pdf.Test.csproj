@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="nunit" Version="4.4.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="5.2.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
+    <PackageReference Include="PDFsharp-MigraDoc" Version="6.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Bodoconsult.Pdf\Bodoconsult.Pdf.csproj" />
+    <ProjectReference Include="..\..\src\Bodoconsult.Text.Pdf\Bodoconsult.Text.Pdf.csproj" />
+    <ProjectReference Include="..\..\src\Bodoconsult.Text\Bodoconsult.Text.csproj" />
+    <ProjectReference Include="..\Bodoconsult.Text.Test\Bodoconsult.Text.Test.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
+
+</Project>

@@ -247,7 +247,7 @@ public class BidirectionalStreamingServerChannel
 
             var reply = RunBusinessTransaction(request);
 
-            Debug.Print($"BT {reply.TransactionId} {reply.TransactionUid}: "+reply.LogMessage);
+            Debug.Print($"BT {reply.TransactionId} {reply.TransactionUid}: {reply.LogMessage}");
             
             if (CancellationTokenSource.Token.IsCancellationRequested)
             {

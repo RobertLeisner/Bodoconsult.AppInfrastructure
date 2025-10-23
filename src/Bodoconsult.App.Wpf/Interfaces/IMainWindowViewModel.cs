@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using Bodoconsult.App.Abstractions.Interfaces;
-using Chapter.Net;
-using Chapter.Net.WPF.SystemTray;
-using System.ComponentModel;
+using Bodoconsult.App.Wpf.AppStarter;
+using Microsoft.Toolkit.Mvvm.Input;
 using System.Diagnostics.Tracing;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -16,8 +16,38 @@ namespace Bodoconsult.App.Wpf.Interfaces;
 /// <summary>
 /// Interface for view models for the main app window
 /// </summary>
-public interface IMainWindowViewModel : INotifyPropertyChanged
+public interface IMainWindowViewModel
 {
+    /// <summary>
+    /// Menu text for open menu in system tray bar
+    /// </summary>
+    public string OpenMenuText { get; set; }
+
+    /// <summary>
+    /// Menu text for exit menu in system tray bar
+    /// </summary>
+    public string ExitMenuText { get; set; }
+
+    /// <summary>
+    /// Open command for binding in XAML to taskbar
+    /// </summary>
+    public ICommand NotifyIconOpenCommand { get; }
+
+    /// <summary>
+    /// Exit command for binding in XAML to taskbar
+    /// </summary>
+    RelayCommand NotifyIconExitCommand { get; }
+
+    /// <summary>
+    /// Current window state
+    /// </summary>
+    public WindowState WindowState { get; set; }
+
+    /// <summary>
+    /// Show the main window in taskbar
+    /// </summary>
+    public bool ShowInTaskbar { get; set; }
+
     /// <summary>
     /// Inner width of the main window
     /// </summary>
@@ -93,6 +123,11 @@ public interface IMainWindowViewModel : INotifyPropertyChanged
     /// </summary>
     EventLevel LogEventLevel { get; set; }
 
+    /// <summary>
+    /// Send a notification to the taskbar
+    /// </summary>
+    /// <param name="notification">Notification</param>
+    void Notify(NotifyRequestRecord notification);
 
     /// <summary>
     /// Load the current <see cref="IAppBuilder"/> instance to use
@@ -113,25 +148,9 @@ public interface IMainWindowViewModel : INotifyPropertyChanged
     void ShutDown();
 
     /// <summary>
-    /// Shutdown command for binding in XAML
-    /// </summary>
-    IDelegateCommand ShutdownCommand { get; }
-
-    /// <summary>
-    /// Notification to send
-    /// </summary>
-    public NotificationData Notification { get; }
-
-    /// <summary>
-    /// Show a notification
-    /// </summary>
-    /// <param name="notification">Notification to show</param>
-    void ShowNotification(NotificationData notification);
-
-    /// <summary>
     /// Minimize the app to the tray icon
     /// </summary>
-    public bool MinimizeToTray { get ; set; }
+    public bool MinimizeToTray { get; set; }
 
     /// <summary>
     /// Check if there are new log entries

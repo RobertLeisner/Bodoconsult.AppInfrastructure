@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>Quart nonius test report</title>
+<style>
+
+body {{
+  background-color: linen;
+  
+}}
+
+body {{
+    font-family: sans-serif;
+    font-size: 11pt;
+    margin: 25px 15% 25px 15%;
+    padding: 0;
+}}
+
+div.main {{
+    width: 750px;
+    background-color: white;
+    padding: 40px; 25px 0 25px;
+    border-radius: 25px;
+}}
+
+h1 {{
+  color: maroon;
+  margin-top: 40px;
+  margin-bottom: 15px;
+  font-size: 24pt;
+}} 
+
+h2 {{
+  color: maroon;
+  margin-top: 40px;
+  margin-bottom: 15px;
+  font-size: 18pt;
+}} 
+
+h3 {{
+  color: maroon;
+  margin-top: 12px;
+  margin-bottom: 15px;
+  font-size: 14pt;
+}}
+
+p {{
+    margin: 3px 0 0 0;
+
+}}
+
+table {{
+    width: 700px;
+    table-layout: fixed;
+    
+}}
+
+td {{
+    vertical-align: top;
+    padding-top: 20px;
+}}
+
+.col1
+{{
+    width: 250px;
+}}
+
+.col2
+{{
+    width: 449px;
+}}
+
+
+.margin {{
+    margin-left: 50px;
+}}
+
+.top {{
+	margin-top: 15px;
+}}
+
+.bottom {{
+	margin-bottom: 15px;
+}}
+
+th {{
+    vertical-align: top;
+}}
+
+p.headline {{
+    font-weight: bold;
+}}
+
+
+dl {{
+	overflow: hidden;
+	width: 100%;
+	display: grid;
+	grid-template-columns: 30% 70%;
+}}
+	  
+	   
+dt {{
+	font-weight: normal;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	padding-left: 2px;
+	padding-right: 5px;
+	padding-top: 0.25em;
+	border-top: 2px solid #D3DFF0;
+}}
+
+dd {{
+	padding: 0 2px 0.25em 2px;
+}}
+
+
+@media print {{
+    body {{
+        margin: 0;
+    }}
+
+}}
+
+
+
+
+
+</style>
+</head>
+<body>
+<div class="main">
+{1}
+
+{0}
+</div>
+</body>
+</html>

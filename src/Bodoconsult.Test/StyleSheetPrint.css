@@ -1,0 +1,102 @@
+﻿@charset "UTF-8";
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-size: 0.9em;
+}
+
+
+/*body {
+    margin:0; 
+    padding:0; 
+    line-height: 1.4em; 
+    word-spacing:1px; 
+    letter-spacing:0.2px; 
+    font: 13px Arial, Helvetica,"Lucida Grande", serif; 
+    color: #000;
+}*/
+
+
+/*** General ***/
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #FFFFFF;
+    background-color: #FFFFFF;
+    overflow: auto;
+    width: 750px;
+}
+
+/* Default left, right, top, bottom margin is 2cm */
+@page {
+    margin-top: 1.5cm;
+    margin-right: 1.5cm;
+    margin-bottom: 1.5cm;
+    margin-left: 2.5cm;
+}
+
+#content {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 1.5em;
+    border-bottom: 3px solid black;
+}
+
+h2 {
+    font-size: 1.2em;
+    border-bottom: 1px solid black;
+}
+
+h3 {
+    font-size: 1.1em;
+}
+
+h4 {
+    font-size: 1em;
+}
+
+h5 {
+    font-size: 1em;
+    font-style: italic;
+}
+
+p {
+    font-size: 1em;
+}
+
+p.smaller {
+    font-size: 0.9em;
+    line-height: 0.9em;
+}
+
+/* Images and their paragraphs*/
+.resultImages {
+    text-align: center;
+}
+
+
+    .resultImages img {
+        max-width: 600px;
+        max-height: 400px;
+        border: 0;
+    }
+
+table {
+    font-size: 0.95em;
+    margin-left: -5px;
+}
+
+
+th {
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: left;
+}
+
+td {
+    padding-left: 5px;
+    padding-right: 5px;
+}

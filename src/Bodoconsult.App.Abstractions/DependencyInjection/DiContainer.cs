@@ -28,10 +28,14 @@ public class DiContainer
     }
 
 
-
+    /// <summary>
+    /// Current service collection
+    /// </summary>
     public IServiceCollection ServiceCollection { get; }
 
-
+    /// <summary>
+    /// Current <see cref="IServiceProvider"/> instance or null if <see cref="BuildServiceProvider"/> was not called
+    /// </summary>
     public IServiceProvider ServiceProvider { get; private set; }
 
     /// <summary>

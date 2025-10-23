@@ -1,0 +1,33 @@
+﻿{
+	"$type": "JobExecuter.Dal.Model.Job, JobExecuter.Dal",
+	"Name": "Sample job for SqlBackupAllDatabasesJobTask",
+	"Description": "This job contains one or more sample JobTasks for class JobExecuter.Dal.Model.SqlBackupAllDatabasesJobTask",
+	"ErrorMailReceiver": "errorreceiver1@test.xxx;errorreceiver2@test.xxx",
+	"SummaryMailReceiver": "summaryreceiver1@test.xxx;summaryreceiver2@test.xxx",
+	"JobTasks": [
+		{
+			"$type": "JobExecuter.Dal.Model.SqlBackupAllDatabasesJobTask, JobExecuter.Dal",
+			"Server": ".\\sqlexpress2",
+			"LocalTarget": "C:\\tmp",
+			"NetworkTarget": null,
+			"FileName": "??server??_??database??.bak",
+			"Name": "Local backup of all databases on a SqlServer instance",
+			"Description": null,
+			"ErrorMailReceiver": null,
+			"Timeout": 60
+		},
+		{
+			"$type": "JobExecuter.Dal.Model.SqlBackupAllDatabasesJobTask, JobExecuter.Dal",
+			"Server": ".\\sqlexpress2",
+			"LocalTarget": "C:\\tmp",
+			"NetworkTarget": "C:\\tmp\\network",
+			"FileName": "testbackup.bak",
+			"Name": "Network share backup of all databases on a SqlServer instance",
+			"Description": null,
+			"ErrorMailReceiver": null,
+			"Timeout": 60
+		}
+	],
+	"Timeout": 500,
+	"WriteToEventLog": true
+}

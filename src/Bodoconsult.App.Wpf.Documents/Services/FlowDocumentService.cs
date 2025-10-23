@@ -17,7 +17,6 @@ using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Wpf.Documents.General;
 using Bodoconsult.App.Wpf.Documents.Paginators;
 using Bodoconsult.App.Wpf.Helpers;
-using Bodoconsult.App.Wpf.Services;
 using PropertyChanged;
 using XamlReader = System.Windows.Markup.XamlReader;
 using XamlWriter = System.Windows.Markup.XamlWriter;
@@ -164,14 +163,10 @@ public class FlowDocumentService
 
 
     /// <summary>
-    /// Tag prefix used to declare content als as resource key
+    /// Tag prefix used to declare content as resource key
     /// </summary>
     public const string ResxTag = "Resx:";
 
-    /// <summary>
-    /// Tag prefix used to declare content als as resource key
-    /// </summary>
-    public const string I18nTag = "I18N:";
 
     ///// <summary>
     ///// Currently used resource dictionary for language issues
@@ -292,7 +287,6 @@ public class FlowDocumentService
     /// <param name="content"></param>
     public void AddParagraphCentered(string content)
     {
-
         AddContent(content, "StandardCenter");
     }
 
@@ -390,7 +384,7 @@ public class FlowDocumentService
 
 
     /// <summary>
-    /// Add a extra small paragraph with right text alignment to the current section (smaller font-size and line-height)
+    /// Add an extra small paragraph with right text alignment to the current section (smaller font-size and line-height)
     /// </summary>
     /// <param name="content"></param>
     public void AddExtraSmallParagraphRight(string content)
@@ -437,7 +431,10 @@ public class FlowDocumentService
     public void AddTextBlock(string content, string styleName)
     {
 
-        if (string.IsNullOrEmpty(content)) return;
+        if (string.IsNullOrEmpty(content))
+        {
+            return;
+        }
 
         if (content.Contains("<Paragraph"))
         {
@@ -469,7 +466,7 @@ public class FlowDocumentService
 
 
 
-        var blocks = content.Split(new[] { "??Block??" },
+        var blocks = content.Split(["??Block??"],
             StringSplitOptions.RemoveEmptyEntries);
 
         foreach (var block in blocks)
@@ -515,11 +512,17 @@ public class FlowDocumentService
 
             var width = 0;
 
-            if (!string.IsNullOrEmpty(widthTag)) width = Convert.ToInt32(widthTag);
+            if (!string.IsNullOrEmpty(widthTag))
+            {
+                width = Convert.ToInt32(widthTag);
+            }
 
             var height = 0;
 
-            if (!string.IsNullOrEmpty(heightTag)) height = Convert.ToInt32(heightTag);
+            if (!string.IsNullOrEmpty(heightTag))
+            {
+                height = Convert.ToInt32(heightTag);
+            }
 
             if (!string.IsNullOrEmpty(title))
             {
@@ -626,12 +629,9 @@ public class FlowDocumentService
             paragraph.BreakPageBefore = _isPageBreak;
             //paragraph.TextIndent = TextIndent;
             paragraph.Style = style;
-
             CurrentSection.Blocks.Add(paragraph);
             _isPageBreak = false;
         });
-
-
     }
 
     /// <summary>
@@ -646,13 +646,13 @@ public class FlowDocumentService
 
         Dispatcher.Invoke(() =>
         {
-            if (content.StartsWith("Resx:"))
+            if (content.StartsWith("Resx:", StringComparison.InvariantCultureIgnoreCase))
             {
-                content = FindLanguageResource(content.Replace(ResxTag, ""));
+                content = FindLanguageResource(content.Replace(ResxTag, "", StringComparison.InvariantCultureIgnoreCase));
             }
-            if (content.StartsWith("I18n:"))
+            if (content.StartsWith("I18n:", StringComparison.InvariantCultureIgnoreCase))
             {
-                content = FindLanguageResource(content.Replace(I18nTag, ""));
+                content = FindLanguageResource(content.Replace(II18N.I18nTag, "", StringComparison.InvariantCultureIgnoreCase));
             }
             else
             {
@@ -1113,7 +1113,7 @@ public class FlowDocumentService
 
 
     /// <summary>
-    /// Add a image from a local or web path
+    /// Add an image from a local or web path
     /// </summary>
     /// <param name="stream"></param>
     public void AddImage(Stream stream)
@@ -1149,7 +1149,7 @@ public class FlowDocumentService
 
 
     /// <summary>
-    /// Add a image from a local or web path
+    /// Add an image from a local or web path
     /// </summary>
     /// <param name="stream"></param>
     /// <param name="width"></param>

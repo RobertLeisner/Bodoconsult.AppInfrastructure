@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Wpf.Documents.Services;
-using Bodoconsult.App.Wpf.Helpers;
 using System.Windows;
 
 namespace Bodoconsult.App.Wpf.Documents.Helpers;
@@ -17,21 +17,17 @@ public class DocumentHelper
     /// <summary>
     /// Elegant page margins
     /// </summary>
-    public static Thickness PageMarginsElegant = new Thickness(114, 46, 95, 46);
-
-
-    /// <summary>
-    /// Elegant page margins
-    /// </summary>
-    public static Thickness PageMarginsRegular = new Thickness(95, 76, 76, 76);
-
+    public static Thickness PageMarginsElegant = new(114, 46, 95, 46);
 
     /// <summary>
     /// Elegant page margins
     /// </summary>
-    public static Thickness PageMarginsSmall = new Thickness(76, 57, 57, 57);
+    public static Thickness PageMarginsRegular = new(95, 76, 76, 76);
 
-
+    /// <summary>
+    /// Elegant page margins
+    /// </summary>
+    public static Thickness PageMarginsSmall = new(76, 57, 57, 57);
 
     /// <summary>
     /// Get page margins from centimeters
@@ -43,10 +39,10 @@ public class DocumentHelper
     /// <returns></returns>
     public static Thickness PageMarginsFromCentimeters(double leftInCm, double topInCm, double rightInCm, double bottomInCm)
     {
-        return new Thickness(WpfHelper.GetDiuFromCm(leftInCm),
-            WpfHelper.GetDiuFromCm(topInCm),
-            WpfHelper.GetDiuFromCm(rightInCm),
-            WpfHelper.GetDiuFromCm(bottomInCm));
+        return new Thickness(MeasurementHelper.GetDiuFromCm(leftInCm),
+            MeasurementHelper.GetDiuFromCm(topInCm),
+            MeasurementHelper.GetDiuFromCm(rightInCm),
+            MeasurementHelper.GetDiuFromCm(bottomInCm));
     }
 
     /// <summary>
@@ -59,8 +55,4 @@ public class DocumentHelper
         typographySettingsService.HeaderMarginBottom = 25;
         typographySettingsService.FooterMarginTop = 14;
     }
-
-
-
-
 }

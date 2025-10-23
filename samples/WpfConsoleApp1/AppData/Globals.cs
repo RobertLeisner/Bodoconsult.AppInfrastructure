@@ -107,4 +107,14 @@ public class Globals : IAppGlobals
     /// Delegate to handle I18N translations with parameters to fill in translated text
     /// </summary>
     public TranslateWithParamsDelegate TranslateWithParamsDelegate { get; set; }
+
+    /// <summary>
+    /// Externally registered product name
+    /// </summary>
+    public string ProductName { get; set; }
+
+    /// <summary>
+    /// Externally registered version
+    /// </summary>
+    public string ProductVersion { get; set; }
 }

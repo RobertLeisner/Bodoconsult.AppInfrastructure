@@ -14,6 +14,12 @@ dotnet nuget push packages\Bodoconsult.App.GrpcBackgroundService.%version%.snupk
 dotnet nuget push packages\Bodoconsult.App.Windows.%version%.nupkg --source https://api.nuget.org/v3/index.json
 dotnet nuget push packages\Bodoconsult.App.Windows.%version%.snupkg --source https://api.nuget.org/v3/index.json
 
+dotnet nuget push packages\Bodoconsult.App.Wpf.%version%.nupkg --source https://api.nuget.org/v3/index.json
+dotnet nuget push packages\Bodoconsult.App.Wpf.%version%.snupkg --source https://api.nuget.org/v3/index.json
+
+dotnet nuget push packages\Bodoconsult.App.Wpf.Documents.%version%.nupkg --source https://api.nuget.org/v3/index.json
+dotnet nuget push packages\Bodoconsult.App.Wpf.Documents.%version%.snupkg --source https://api.nuget.org/v3/index.json
+
 dotnet nuget push packages\Bodoconsult.I18N.%version%.nupkg --source https://api.nuget.org/v3/index.json
 dotnet nuget push packages\Bodoconsult.I18N.%version%.snupkg --source https://api.nuget.org/v3/index.json
 pause

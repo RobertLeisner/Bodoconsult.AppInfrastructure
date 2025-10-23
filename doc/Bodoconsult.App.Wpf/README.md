@@ -215,8 +215,6 @@ builder.StartApplication();
 base.OnStartup(e);
 ```
 
-Remark: Bodoconsult.App.Wpf uses Chapter.Net.WPF.SystemTray Nuget package to show system tray icons. See https://github.com/dwndland/Chapter.Net.WPF.SystemTray/tree/master.
-
 # About us
 
 Bodoconsult <http://www.bodoconsult.de> is a Munich based software company from Germany.

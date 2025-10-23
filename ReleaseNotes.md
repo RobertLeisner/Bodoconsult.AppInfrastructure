@@ -82,3 +82,7 @@ Extracted abstractions to Bodoconsult.App.Abstractions
 ## 1.0.6
 
 Using Bodoconsult.App.Abstractions 1.0.6
+
+# Bodoconsult.Typography
+
+Content of Nuget package Bodoconsult.Typography moved to package Bodoconsult.App.Abstractions in Bodoconsult.App.Abstractions.Typography namespace.

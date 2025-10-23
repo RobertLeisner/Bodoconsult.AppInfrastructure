@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
+
+using System.ComponentModel;
 using System.Windows;
 
 namespace Bodoconsult.App.Wpf.Models;
@@ -11,31 +13,23 @@ public class SharedResourceDictionary : ResourceDictionary
     /// <summary>
     /// Internal cache of loaded dictionaries 
     /// </summary>
-    public static Dictionary<Uri, ResourceDictionary> SharedDictinaries = new Dictionary<Uri, ResourceDictionary>();
+    public static Dictionary<Uri, ResourceDictionary> SharedDictinaries = new();
 
     /// <summary>
     /// Local member of the source uri
     /// </summary>
     private Uri _sourceUri;
 
-    private static bool IsInDesignMode
-    {
-        get
-        {
-            return (bool)DependencyPropertyDescriptor.FromProperty(DesignerProperties.IsInDesignModeProperty,
-                typeof(DependencyObject)).Metadata.DefaultValue;
-        }
-    }
+    private static bool IsInDesignMode =>
+        (bool)DependencyPropertyDescriptor.FromProperty(DesignerProperties.IsInDesignModeProperty,
+            typeof(DependencyObject)).Metadata.DefaultValue;
 
     /// <summary>
     /// Gets or sets the uniform resource identifier (URI) to load resources from.
     /// </summary>
     public new Uri Source
     {
-        get
-        {
-            return IsInDesignMode ? base.Source : _sourceUri;
-        }
+        get => IsInDesignMode ? base.Source : _sourceUri;
         set
         {
             if (!IsInDesignMode)
@@ -65,7 +59,9 @@ public class SharedResourceDictionary : ResourceDictionary
                     //only throw exception @runtime to avoid "Exception has been 
                     //thrown by the target of an invocation."-Error@DesignTime
                     if (!IsInDesignMode)
+                    {
                         throw;
+                    }
                 }
                 SharedDictinaries.Add(value, this);
             }

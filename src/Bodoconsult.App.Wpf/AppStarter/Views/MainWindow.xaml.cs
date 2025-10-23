@@ -12,8 +12,7 @@ namespace Bodoconsult.App.Wpf.AppStarter.Views;
 /// </summary>
 public partial class MainWindow : Window
 {
-
-    private readonly IMainWindowViewModel _mainWindowViewModel;
+    public  IMainWindowViewModel MainWindowViewModel { get; }
         
 
     /// <summary>
@@ -22,23 +21,22 @@ public partial class MainWindow : Window
     /// <param name="mainWindowViewModel">View model</param>
     public MainWindow(IMainWindowViewModel mainWindowViewModel)
     {
-        _mainWindowViewModel = mainWindowViewModel;
-        DataContext = _mainWindowViewModel;
+        MainWindowViewModel = mainWindowViewModel;
+        DataContext = MainWindowViewModel;
 
         InitializeComponent();
-        WindowState = WindowState.Normal;
 
         ResizeWindow();
 
-        _mainWindowViewModel.StartEventListener();
+        MainWindowViewModel.StartEventListener();
     }
 
 
 
     private void ResizeWindow()
     {
-        _mainWindowViewModel.Width = RenderSize.Width;
-        _mainWindowViewModel.Height = Header.RenderSize.Height;
+        MainWindowViewModel.Width = RenderSize.Width;
+        MainWindowViewModel.Height = Header.RenderSize.Height;
     }
 
     private void MainWindow_OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -67,7 +65,7 @@ public partial class MainWindow : Window
         //{
         //    return;
         //}
-        _mainWindowViewModel.ShutDown();
+        MainWindowViewModel.ShutDown();
 
         Close();
     }

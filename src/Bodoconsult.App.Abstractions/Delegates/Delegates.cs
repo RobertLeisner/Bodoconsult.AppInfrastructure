@@ -19,7 +19,7 @@ public delegate void StatusMessageDelegate(string message);
 /// <summary>
 /// Delegate fired if the app finds no valid license
 /// </summary>
-/// <param name="message"></param>
+/// <param name="message">Message to show if license is missing</param>
 public delegate void LicenseMissingDelegate(string message);
 
 /// <summary>

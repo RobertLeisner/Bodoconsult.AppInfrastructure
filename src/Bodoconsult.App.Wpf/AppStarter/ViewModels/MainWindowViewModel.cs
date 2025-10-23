@@ -1,29 +1,32 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Diagnostics.Tracing;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Logging;
 using Bodoconsult.App.Wpf.AppStarter.Views;
 using Bodoconsult.App.Wpf.Interfaces;
-using Chapter.Net;
-using Chapter.Net.WPF.SystemTray;
+using System.Diagnostics;
+using System.Diagnostics.Tracing;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
 
 namespace Bodoconsult.App.Wpf.AppStarter.ViewModels;
 
 /// <summary>
 /// ViewModel for MainWindow window
 /// </summary>
-public class MainWindowViewModel : IMainWindowViewModel
+public class MainWindowViewModel : ObservableRecipient, IMainWindowViewModel
 {
+
+    private NotifyRequestRecord _notifyRequest;
+    private bool _showInTaskbar;
+    private WindowState _windowState;
 
     private System.Windows.Threading.DispatcherTimer _dispatcherTimer;
 
@@ -45,7 +48,6 @@ public class MainWindowViewModel : IMainWindowViewModel
     private string _msgServerIsListeningOnPort;
     private string _msgServerProcessId;
     private string _appExe;
-    private NotificationData _notification;
     private bool _minimizeToTray;
 
     private readonly SolidColorBrush _brush = new(Colors.LightSteelBlue);
@@ -55,16 +57,74 @@ public class MainWindowViewModel : IMainWindowViewModel
     private Color _bodyBackColor = Colors.LightGray;
 
     /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="listener">Current EventSource listener: neede to bring logging entries to UI</param>
+    public MainWindowViewModel(AppEventListener listener)
+    {
+        _listener = listener;
+        NotifyIconOpenCommand = new RelayCommand(() => { WindowState = WindowState.Normal; });
+        NotifyIconExitCommand  = new RelayCommand(ShutDown);
+        WindowState = WindowState.Normal;
+        ShowInTaskbar = true;
+    }
+
+    /// <summary>
+    /// Menu text for open menu in system tray bar
+    /// </summary>
+    public string OpenMenuText { get; set; } = "Open";
+
+    /// <summary>
+    /// Menu text for exit menu in system tray bar
+    /// </summary>
+    public string ExitMenuText { get; set; } = "Exit";
+
+    /// <summary>
+    /// Open command for binding in XAML to taskbar
+    /// </summary>
+    public ICommand NotifyIconOpenCommand { get; }
+
+    /// <summary>
+    /// Exit command for binding in XAML to taskbar
+    /// </summary>
+    public RelayCommand NotifyIconExitCommand { get; }
+
+    /// <summary>
+    /// Current window state
+    /// </summary>
+    public WindowState WindowState
+    {
+        get => _windowState;
+        set
+        {
+            ShowInTaskbar = true;
+            SetProperty(ref _windowState, value);
+            ShowInTaskbar = value != WindowState.Minimized;
+        }
+    }
+
+    /// <summary>
+    /// Show the main window in taskbar
+    /// </summary>
+    public bool ShowInTaskbar
+    {
+        get => _showInTaskbar;
+        set => SetProperty(ref _showInTaskbar, value);
+    }
+
+    public NotifyRequestRecord NotifyRequest
+    {
+        get => _notifyRequest;
+        set => SetProperty(ref _notifyRequest, value);
+    }
+
+    /// <summary>
     /// Inner width of the main window
     /// </summary>
     public double Width
     {
         get => _width;
-        set
-        {
-            _width = value;
-            OnPropertyChanged();
-        }
+        set => SetProperty(ref _width, value);
     }
 
     /// <summary>
@@ -75,6 +135,7 @@ public class MainWindowViewModel : IMainWindowViewModel
         get => _height;
         set
         {
+            OnPropertyChanging();
             _height = value;
             OnPropertyChanged();
             OnPropertyChanged(nameof(HeaderHeight));
@@ -93,27 +154,8 @@ public class MainWindowViewModel : IMainWindowViewModel
     public IAppBuilder AppBuilder
     {
         get => _appBuilder;
-        private set
-        {
-            _appBuilder = value;
-            OnPropertyChanged();
-        }
+        private set => SetProperty(ref _appBuilder, value);
     }
-
-    /// <summary>
-    /// Default ctor
-    /// </summary>
-    /// <param name="listener">Current EventSource listener: neede to bring logging entries to UI</param>
-    public MainWindowViewModel(AppEventListener listener)
-    {
-        _listener = listener;
-
-        ShutdownCommand = new DelegateCommand(ShutDown);
-    }
-
-
-    /// <summary>Occurs when a property value changes.</summary>
-    public event PropertyChangedEventHandler PropertyChanged;
 
     /// <summary>
     /// Message shown during console is waiting
@@ -121,11 +163,7 @@ public class MainWindowViewModel : IMainWindowViewModel
     public string MsgConsoleWait
     {
         get => _msgConsoleWait;
-        set
-        {
-            _msgConsoleWait = value;
-            OnPropertyChanged();
-        }
+        set => SetProperty(ref _msgConsoleWait, value);
     }
 
     /// <summary>
@@ -134,11 +172,7 @@ public class MainWindowViewModel : IMainWindowViewModel
     public string MsgHowToShutdownServer
     {
         get => _msgHowToShutdownServer;
-        set
-        {
-            _msgHowToShutdownServer = value;
-            OnPropertyChanged();
-        }
+        set => SetProperty(ref _msgHowToShutdownServer, value);
     }
 
     /// <summary>
@@ -147,15 +181,7 @@ public class MainWindowViewModel : IMainWindowViewModel
     public string MsgServerIsListeningOnPort
     {
         get => _msgServerIsListeningOnPort;
-        set
-        {
-            if (value == _msgServerIsListeningOnPort)
-            {
-                return;
-            }
-            _msgServerIsListeningOnPort = value;
-            OnPropertyChanged();
-        }
+        set => SetProperty(ref _msgServerIsListeningOnPort, value);
     }
 
     /// <summary>
@@ -164,15 +190,7 @@ public class MainWindowViewModel : IMainWindowViewModel
     public string MsgServerProcessId
     {
         get => _msgServerProcessId;
-        set
-        {
-            if (value == _msgServerProcessId)
-            {
-                return;
-            }
-            _msgServerProcessId = value;
-            OnPropertyChanged();
-        }
+        set => SetProperty(ref _msgServerProcessId, value);
     }
 
     /// <summary>
@@ -181,11 +199,7 @@ public class MainWindowViewModel : IMainWindowViewModel
     public string MsgExit
     {
         get => _msgExit;
-        set
-        {
-            _msgExit = value;
-            OnPropertyChanged();
-        }
+        set => SetProperty(ref _msgExit, value);
     }
 
 
@@ -212,15 +226,16 @@ public class MainWindowViewModel : IMainWindowViewModel
     public string AppExe
     {
         get => _appExe;
-        set
-        {
-            if (value == _appExe)
-            {
-                return;
-            }
-            _appExe = value;
-            OnPropertyChanged();
-        }
+        //set
+        //{
+        //    if (value == _appExe)
+        //    {
+        //        return;
+        //    }
+        //    _appExe = value;
+        //    OnPropertyChanged();
+        //}
+        set => SetProperty(ref _appExe, value);
     }
 
 
@@ -242,7 +257,6 @@ public class MainWindowViewModel : IMainWindowViewModel
         }
     }
 
-
     /// <summary>
     /// Current app version
     /// </summary>
@@ -261,40 +275,13 @@ public class MainWindowViewModel : IMainWindowViewModel
     }
 
     /// <summary>
-    /// Shutdown command for binding in XAML
+    /// Send a notification to the taskbar
     /// </summary>
-    public IDelegateCommand ShutdownCommand { get; }
-
-
-
-
-    /// <summary>
-    /// Notification to send
-    /// </summary>
-    public NotificationData Notification
+    /// <param name="notification">Notification</param>
+    public void Notify(NotifyRequestRecord notification)
     {
-        get => _notification;
-        private set
-        {
-            if (Equals(value, _notification))
-            {
-                return;
-            }
-            _notification = value;
-            OnPropertyChanged();
-        }
+        NotifyRequest = notification;
     }
-
-    /// <summary>
-    /// Implements property changed pattern
-    /// </summary>
-    /// <param name="propertyName">Property name or null</param>
-    [NotifyPropertyChangedInvocator]
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
 
     /// <summary>
     /// Load the current <see cref="IAppBuilder"/> instance to use
@@ -369,14 +356,14 @@ public class MainWindowViewModel : IMainWindowViewModel
         Environment.Exit(0);
     }
 
-    /// <summary>
-    /// Show a notification
-    /// </summary>
-    /// <param name="notification">Notification to show</param>
-    public void ShowNotification(NotificationData notification)
-    {
-        Notification = notification;
-    }
+    ///// <summary>
+    ///// Show a notification
+    ///// </summary>
+    ///// <param name="notification">Notification to show</param>
+    //public void ShowNotification(NotificationData notification)
+    //{
+    //    Notification = notification;
+    //}
 
     /// <summary>
     /// Minimize the app to the tray icon

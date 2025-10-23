@@ -11,6 +11,11 @@ namespace Bodoconsult.App.Abstractions.Interfaces;
 public interface II18N : INotifyPropertyChanged, IDisposable
 {
     /// <summary>
+    /// Tag prefix used to declare content als as resource key
+    /// </summary>
+    public const string I18nTag = "I18N:";
+
+    /// <summary>
     /// Indexer to translate string. Intended for usage with MVVM / WPF / Xamarin
     /// </summary>
     /// <param name="key">String key to translate</param>

@@ -54,23 +54,23 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="log4net" Version="3.0.3" />
-		<PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="9.0.0" />
-		<PackageReference Include="Microsoft.AspNetCore.DataProtection.Extensions" Version="9.0.0" />
+		<PackageReference Include="log4net" Version="3.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="9.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.DataProtection.Extensions" Version="9.0.10" />
 		<PackageReference Include="Microsoft.Diagnostics.NETCore.Client" Version="0.2.621003" />
-		<PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="3.1.22" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.EventSource" Version="9.0.0" />
+		<PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="3.1.26" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.10" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.10" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.10" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.10" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.10" />
+		<PackageReference Include="Microsoft.Extensions.Logging.EventSource" Version="9.0.10" />
 		<PackageReference Include="Microsoft.Win32.Primitives" Version="4.3.0" />
-		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.183">
+		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.217">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="System.Text.Json" Version="9.0.0" />
+		<PackageReference Include="System.Text.Json" Version="9.0.10" />
 	</ItemGroup>
 
 	<ItemGroup>

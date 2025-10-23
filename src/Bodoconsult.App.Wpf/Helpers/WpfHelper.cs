@@ -12,6 +12,7 @@ using System.Windows.Interop;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace Bodoconsult.App.Wpf.Helpers;
 
@@ -40,31 +41,6 @@ public static class WpfHelper
     private const uint MfGrayed = 0x00000001;
     private const uint MfEnabled = 0x00000000;
     private const uint ScClose = 0xF060;
-
-    /// <summary>
-    /// Factor to convert DIU (px) to cm. Use cm = px/CMFactor.
-    /// </summary>
-    public const double CmFactor = 37.7952755905512;
-
-    /// <summary>
-    /// Convert DIU pixels to centimeters
-    /// </summary>
-    /// <param name="diu"></param>
-    /// <returns></returns>
-    public static double GetCmFromDiu(double diu)
-    {
-        return diu / CmFactor;
-    }
-
-    /// <summary>
-    /// Convert centimeters to DIU pixels
-    /// </summary>
-    /// <param name="cm"></param>
-    /// <returns></returns>
-    public static double GetDiuFromCm(double cm)
-    {
-        return cm * CmFactor;
-    }
 
     /// <summary>
     /// Disable minimize button
@@ -151,16 +127,7 @@ public static class WpfHelper
 #pragma warning restore 1591
     }
 
-    /// <summary>
-    /// Convert typographic points to DIU
-    /// </summary>
-    /// <param name="point"></param>
-    /// <returns></returns>
-    public static double PointToDiu(double point)
-    {
-        // 0.0352775 points per DIU
-        return GetDiuFromCm(point * 0.0352775);
-    }
+
 
 
 
@@ -169,7 +136,7 @@ public static class WpfHelper
     /// </summary>
     /// <param name="color"></param>
     /// <returns></returns>
-    public static Color GetColor(System.Drawing.Color color)
+    public static Color GetColor(TypoColor color)
     {
         return Color.FromArgb(color.A, color.R, color.G, color.B);
     }
@@ -290,7 +257,7 @@ public static class WpfHelper
         var typeName = parent.GetType().Name;
         var name = (string)(parent.GetValue(FrameworkElement.NameProperty) ?? "");
 
-        Trace.WriteLine(string.Empty.PadLeft(level) + $"{typeName}: {name}");
+        Trace.WriteLine($"{string.Empty.PadLeft(level)}{typeName}: {name}");
 
         if (parent == null) return;
 

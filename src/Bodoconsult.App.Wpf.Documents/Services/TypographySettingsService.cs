@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 using Bodoconsult.App.Wpf.Helpers;
-using Bodoconsult.App.Wpf.Services;
-using Bodoconsult.Typography;
 using PropertyChanged;
 using System.Windows;
 using System.Windows.Media;
+using Bodoconsult.App.Abstractions.Helpers;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Wpf.Delegates;
 using FontFamily = System.Windows.Media.FontFamily;
 
@@ -63,24 +63,24 @@ public class TypographySettingsService
     public TypographySettingsService(ITypography typography)
     {
 
-        PageSize = new Size(WpfHelper.GetDiuFromCm(typography.PageWidth),
-            WpfHelper.GetDiuFromCm(typography.PageHeight));
+        PageSize = new Size(MeasurementHelper.GetDiuFromCm(typography.PageWidth),
+            MeasurementHelper.GetDiuFromCm(typography.PageHeight));
 
-        Margins = new Thickness(WpfHelper.GetDiuFromCm(typography.MarginLeft),
-            WpfHelper.GetDiuFromCm(typography.MarginTop - typography.PageHeaderHeight -
+        Margins = new Thickness(MeasurementHelper.GetDiuFromCm(typography.MarginLeft),
+            MeasurementHelper.GetDiuFromCm(typography.MarginTop - typography.PageHeaderHeight -
                                    typography.PageHeaderMargin),
-            WpfHelper.GetDiuFromCm(typography.MarginRight),
-            WpfHelper.GetDiuFromCm(typography.MarginBottom - typography.PageFooterHeight -
+            MeasurementHelper.GetDiuFromCm(typography.MarginRight),
+            MeasurementHelper.GetDiuFromCm(typography.MarginBottom - typography.PageFooterHeight -
                                    typography.PageFooterMargin));
 
-        HeaderHeight = WpfHelper.GetDiuFromCm(typography.PageHeaderHeight);
-        HeaderMarginBottom = WpfHelper.GetDiuFromCm(typography.PageHeaderMargin);
-        FooterMarginTop = WpfHelper.GetDiuFromCm(typography.PageFooterMargin);
-        FooterHeight = WpfHelper.GetDiuFromCm(typography.PageFooterHeight);
+        HeaderHeight = MeasurementHelper.GetDiuFromCm(typography.PageHeaderHeight);
+        HeaderMarginBottom = MeasurementHelper.GetDiuFromCm(typography.PageHeaderMargin);
+        FooterMarginTop = MeasurementHelper.GetDiuFromCm(typography.PageFooterMargin);
+        FooterHeight = MeasurementHelper.GetDiuFromCm(typography.PageFooterHeight);
         FooterFontName = typography.FontName;
-        FooterFontSize = WpfHelper.PointToDiu(typography.SmallFontSize);
+        FooterFontSize = MeasurementHelper.PointToDiu(typography.SmallFontSize);
         LogoPath = typography.LogoPath;
-        LogoWidth = WpfHelper.GetDiuFromCm(typography.LogoWidth);
+        LogoWidth = MeasurementHelper.GetDiuFromCm(typography.LogoWidth);
 
         HeaderHeight += HeaderMarginBottom;
         FooterHeight += FooterMarginTop;
@@ -716,21 +716,19 @@ public class TypographySettingsService
 
         Application.Current.Dispatcher.Invoke(() =>
         {
-
-
             PrimaryFontName = typography.FontName;
             SecondaryFontName = typography.HeadingFontName;
             ThirdFontName = typography.TitleFontName;
-            RegularFontSize = WpfHelper.PointToDiu(typography.FontSize);
-            SmallFontSize = WpfHelper.PointToDiu(typography.SmallFontSize);
-            ExtraSmallFontSize = WpfHelper.PointToDiu(typography.ExtraSmallFontSize);
-            Heading1FontSize = WpfHelper.PointToDiu(typography.HeadingFontSize1);
-            Heading2FontSize = WpfHelper.PointToDiu(typography.HeadingFontSize2);
-            Heading3FontSize = WpfHelper.PointToDiu(typography.HeadingFontSize3);
-            Heading4FontSize = WpfHelper.PointToDiu(typography.HeadingFontSize4);
-            Heading5FontSize = WpfHelper.PointToDiu(typography.HeadingFontSize5);
-            TitleFontSize = WpfHelper.PointToDiu(typography.TitleFontSize);
-            Title2FontSize = WpfHelper.PointToDiu(typography.SubTitleFontSize);
+            RegularFontSize = MeasurementHelper.PointToDiu(typography.FontSize);
+            SmallFontSize = MeasurementHelper.PointToDiu(typography.SmallFontSize);
+            ExtraSmallFontSize = MeasurementHelper.PointToDiu(typography.ExtraSmallFontSize);
+            Heading1FontSize = MeasurementHelper.PointToDiu(typography.HeadingFontSize1);
+            Heading2FontSize = MeasurementHelper.PointToDiu(typography.HeadingFontSize2);
+            Heading3FontSize = MeasurementHelper.PointToDiu(typography.HeadingFontSize3);
+            Heading4FontSize = MeasurementHelper.PointToDiu(typography.HeadingFontSize4);
+            Heading5FontSize = MeasurementHelper.PointToDiu(typography.HeadingFontSize5);
+            TitleFontSize = MeasurementHelper.PointToDiu(typography.TitleFontSize);
+            Title2FontSize = MeasurementHelper.PointToDiu(typography.SubTitleFontSize);
 
             TableBodyBackground = new SolidColorBrush(WpfHelper.GetColor(typography.TableBodyBackground));
             TableHeaderBackground = new SolidColorBrush(WpfHelper.GetColor(typography.TableHeaderBackground));
@@ -738,8 +736,8 @@ public class TypographySettingsService
             TableHeaderUnborderedBackground = new SolidColorBrush(WpfHelper.GetColor(typography.TableHeaderUnborderedBackground));
 
             TableBorder = new SolidColorBrush(WpfHelper.GetColor(typography.TableBorderColor));
-            TableCornerRadius = WpfHelper.GetDiuFromCm(typography.TableCornerRadius);
-            TableBorderWidth = WpfHelper.GetDiuFromCm(typography.TableBorderWidth);
+            TableCornerRadius = MeasurementHelper.GetDiuFromCm(typography.TableCornerRadius);
+            TableBorderWidth = MeasurementHelper.GetDiuFromCm(typography.TableBorderWidth);
 
         });
 

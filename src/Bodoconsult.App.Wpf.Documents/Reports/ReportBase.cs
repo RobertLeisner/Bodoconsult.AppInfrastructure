@@ -210,12 +210,7 @@ public class ReportBase : IDisposable
     /// <summary>
     /// Get the <see cref="FlowDocument"/> containing the report
     /// </summary>
-    public FlowDocument Document
-    {
-        get { return FlowDocumentService.Document; }
-    }
-
-
+    public FlowDocument Document => FlowDocumentService.Document;
 
 
     /// <summary>

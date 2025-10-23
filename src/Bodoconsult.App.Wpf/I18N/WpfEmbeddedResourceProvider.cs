@@ -1,18 +1,16 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using Bodoconsult.App.Wpf.Models;
-using Bodoconsult.I18N.Helpers;
 using Bodoconsult.I18N.ResourceProviders;
 using System.Collections;
-using System.Diagnostics;
-using System.IO;
 using System.Reflection;
 using System.Resources;
-using System.Windows;
-using System.Windows.Baml2006;
 
 namespace Bodoconsult.App.Wpf.I18N;
 
+/// <summary>
+/// Provider for embedded WPF resources
+/// </summary>
 public class WpfEmbeddedResourceProvider : BaseResourceProvider
 {
     private readonly string _resourceFolder;

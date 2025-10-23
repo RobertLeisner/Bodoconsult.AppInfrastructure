@@ -12,7 +12,7 @@ namespace Bodoconsult.App.Logging;
 
 /// <summary>
 /// Current implementation of <see cref="IAppLoggerProxy"/>.
-/// Collect logging messages and write them in an separate job
+/// Collect logging messages and write them in a separate job
 /// </summary>
 public class AppLoggerProxy : IAppLoggerProxy
 {

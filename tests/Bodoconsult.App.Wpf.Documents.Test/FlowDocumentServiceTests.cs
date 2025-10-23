@@ -6,14 +6,12 @@ using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Threading;
+using Bodoconsult.App.Abstractions.Typography;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Wpf.Documents.General;
 using Bodoconsult.App.Wpf.Documents.Services;
 using Bodoconsult.App.Wpf.Documents.Test.Helpers;
 using Bodoconsult.App.Wpf.Helpers;
-using Bodoconsult.Typography;
-using Microsoft.Diagnostics.Tracing.Parsers.MicrosoftAntimalwareAMFilter;
 using NUnit.Framework;
 
 namespace Bodoconsult.App.Wpf.Documents.Test
@@ -38,9 +36,6 @@ namespace Bodoconsult.App.Wpf.Documents.Test
             _chartXamlPath = Path.Combine(_testDataPath, "3DChart.xaml");
 
         }
-
-
-
 
         [Test]
         public void SaveAsXps_NormalDocument_FileIsCreated()

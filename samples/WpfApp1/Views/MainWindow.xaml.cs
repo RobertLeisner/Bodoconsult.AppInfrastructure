@@ -26,7 +26,6 @@ public partial class MainWindow : Window
         DataContext = _mainWindowViewModel;
 
         InitializeComponent();
-        WindowState = WindowState.Normal;
 
         ResizeWindow();
 

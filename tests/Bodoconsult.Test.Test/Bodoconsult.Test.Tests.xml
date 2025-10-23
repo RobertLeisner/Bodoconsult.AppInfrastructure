@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Bodoconsult.Test.Tests</name>
+    </assembly>
+    <members>
+        <member name="T:Bodoconsult.Test.Tests.Models.BaseClass">
+            <summary>
+            Base class
+            </summary>
+        </member>
+        <member name="P:Bodoconsult.Test.Tests.Models.BaseClass.Property1">
+            <inheritdoc />
+        </member>
+        <member name="F:Bodoconsult.Test.Tests.Models.BaseClass.Field1">
+            <summary>
+            Base class field 1
+            </summary>
+        </member>
+        <member name="T:Bodoconsult.Test.Tests.Models.DerivedClass">
+            <summary>
+            Derived Class
+            </summary>
+        </member>
+        <member name="P:Bodoconsult.Test.Tests.Models.DerivedClass.Property2">
+            <summary>
+            Derived class property 2
+            </summary>
+        </member>
+        <member name="F:Bodoconsult.Test.Tests.Models.DerivedClass.Field2">
+            <summary>
+            Derived class field 2
+            </summary>
+        </member>
+        <member name="T:Bodoconsult.Test.Tests.Models.DerivedClass2">
+            <summary>
+            Derived Class
+            </summary>
+        </member>
+        <member name="P:Bodoconsult.Test.Tests.Models.DerivedClass2.Property3">
+            <summary>
+            Derived class 2 property 3
+            </summary>
+        </member>
+        <member name="F:Bodoconsult.Test.Tests.Models.DerivedClass2.Field3">
+            <summary>
+            Derived class 2 field 3
+            </summary>
+        </member>
+        <member name="P:Bodoconsult.Test.Tests.Models.IBaseClass.Property1">
+            <summary>
+            Base class property 1
+            </summary>
+        </member>
+    </members>
+</doc>

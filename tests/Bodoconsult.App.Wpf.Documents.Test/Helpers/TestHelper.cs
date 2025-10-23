@@ -1,13 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bodoconsult.App.Wpf.Documents.Test.Helpers
 {
@@ -48,11 +42,19 @@ namespace Bodoconsult.App.Wpf.Documents.Test.Helpers
         public static string TestDataPath { get; }
 
 
+        /// <summary>
+        /// A chart image
+        /// </summary>
         public static string TestChartImage { get; }
 
-
+        /// <summary>
+        /// An image of a normal distribution
+        /// </summary>
         public static string TestDistributionImage { get; }
 
+        /// <summary>
+        /// A logo image
+        /// </summary>
         public static string TestLogoImage { get; }
 
 

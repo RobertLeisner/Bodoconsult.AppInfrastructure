@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Document Name="MyReport">
+	<Styleset Name="Default">
+		<DocumentStyle PaperFormatName="DIN A4" PageWidth="21" PageHeight="29,4" MarginLeft="3" MarginTop="2" MarginRight="2" MarginBottom="2" Name="Document" />
+		<SectionStyle PageWidth="NaN" PageHeight="NaN" MarginLeft="NaN" MarginTop="NaN" MarginRight="NaN" MarginBottom="NaN" Name="Section" />
+		<ParagraphStyle FontName="Calibri" FontSize="12" Bold="False" Italic="False" TextAlignment="Right" Name="Paragraph" />
+	</Styleset>
+	<DocumentMetaData Authors="Robert Leisner" Company="Bodoconsult GmbH" CompanyWebsite="http://www.bodoconsult.de" TocHeading="Table of content" TofHeading="Table of figures" ToeHeading="Table of equations" PageName="Page" IsTocRequired="False" IsFiguresTableRequired="False" IsEquationsTableRequired="False" />
+	<Section IncludeInToc="False" PageBreakBefore="False" Name="Body">
+		<Title>
+			<Span>Title</Span>
+		</Title>
+		<Subtitle>
+			<Span>Subtitle</Span>
+		</Subtitle>
+		<Toc1>
+			<Span>Toc1</Span>
+		</Toc1>
+		<Toc2>
+			<Span>Toc2</Span>
+		</Toc2>
+		<Toc3>
+			<Span>Toc3</Span>
+		</Toc3>
+		<Toc4>
+			<Span>Toc4</Span>
+		</Toc4>
+		<Toc5>
+			<Span>Toc5</Span>
+		</Toc5>
+		<SectionTitle>
+			<Span>SectionTitle</Span>
+		</SectionTitle>
+		<SectionSubtitle>
+			<Span>SectionSubtitle</Span>
+		</SectionSubtitle>
+		<Heading1>
+			<Span>Heading level 1</Span>
+		</Heading1>
+		<Heading2>
+			<Span>Heading level 2</Span>
+		</Heading2>
+		<Heading3>
+			<Span>Heading level 3</Span>
+		</Heading3>
+		<Heading4>
+			<Span>Heading level 4</Span>
+		</Heading4>
+		<Heading5>
+			<Span>Heading level 5</Span>
+		</Heading5>
+		<Paragraph>
+			<Span>Blubb blabb didl dumm</Span>
+		</Paragraph>
+		<ParagraphCenter>
+			<Span>Blubb blabb didl dumm</Span>
+		</ParagraphCenter>
+		<ParagraphRight>
+			<Span>Blubb blabb didl dumm</Span>
+		</ParagraphRight>
+		<ParagraphJustify>
+			<Span>Blubb blabb didl dumm</Span>
+		</ParagraphJustify>
+		<Paragraph>
+			<Span>Lorem ipsum dolor ≥ = &gt; &#61; sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</Span>
+			<LineBreak/>
+			<Bold>Lorem ipsum dolor ≥ = &gt; &#61; sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</Bold>
+		</Paragraph>
+		<Paragraph>
+			<Italic>
+				<Bold>Lorem ipsum dolor ≥ = &gt; &#61; sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</Bold>
+			</Italic>
+		</Paragraph>
+		<Paragraph>
+			<Span>This is a link: </Span>
+			<Hyperlink Uri="http://www.bodoconsult.de">Link to blubb</Hyperlink>
+		</Paragraph>
+		<Image Uri="C:\Daten\Projekte\Tools\Bodoconsult.Text\tests\Bodoconsult.Text.Test\TestData\chart3d.png">
+			<Span>Test image</Span>
+		</Image>
+		<Image Uri="C:\Daten\Projekte\Tools\Bodoconsult.Text\tests\Bodoconsult.Text.Test\TestData\chart3d.png">
+			<Span>Figure 1</Span>
+		</Image>
+		<Image Uri="C:\Daten\Projekte\Tools\Bodoconsult.Text\tests\Bodoconsult.Text.Test\TestData\NormalDistribution.de.png">
+			<Span>Figure 2</Span>
+		</Image>
+		<Equation Uri="C:\Daten\Projekte\Tools\Bodoconsult.Text\tests\Bodoconsult.Text.Test\TestData\equiation.png">
+			<Span>Equation 1</Span>
+		</Equation>
+		<Equation Uri="C:\Daten\Projekte\Tools\Bodoconsult.Text\tests\Bodoconsult.Text.Test\TestData\equiation.png">
+			<Span>Equation 2</Span>
+		</Equation>
+	</Section>
+</Document>

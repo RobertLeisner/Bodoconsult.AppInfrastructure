@@ -58,7 +58,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GrpcClientServer", "GrpcCli
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GrpcClientApp", "GrpcClientApp", "{19D3151C-0C81-4C9D-9F55-06158204B937}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.GrpcBackgroundService.Tests", "tests\Bodoconsult.AppInfrastructure.GrpcBackgroundService.Tests\Bodoconsult.App.GrpcBackgroundService.Tests.csproj", "{8AD87934-D64F-4036-A4D7-F8F3FB9396F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.GrpcBackgroundService.Test", "tests\Bodoconsult.AppInfrastructure.GrpcBackgroundService.Test\Bodoconsult.App.GrpcBackgroundService.Test.csproj", "{8AD87934-D64F-4036-A4D7-F8F3FB9396F4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{68310C5A-62F2-40F4-A5C6-0314FDAC28E1}"
 EndProject
@@ -77,6 +77,22 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.Wpf.Documents", "src\Bodoconsult.App.Wpf.Documents\Bodoconsult.App.Wpf.Documents.csproj", "{02C8B074-2C97-017B-191B-1893DAE94F83}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.Wpf.Documents.Test", "tests\Bodoconsult.App.Wpf.Documents.Test\Bodoconsult.App.Wpf.Documents.Test.csproj", "{CBD68000-C967-9DD7-ACE6-AAAB7FF0A5BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.Pdf.Test", "tests\Bodoconsult.Pdf.Test\Bodoconsult.Pdf.Test.csproj", "{605424F4-1669-98C3-3FD1-23BB4DFEFABE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.Test.Test", "tests\Bodoconsult.Test.Test\Bodoconsult.Test.Test.csproj", "{E8729780-440C-64B8-21AE-F55B9154E4F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.Text.Pdf.Test", "tests\Bodoconsult.Text.Pdf.Test\Bodoconsult.Text.Pdf.Test.csproj", "{2294FD2B-17DE-12D6-CA00-A8F05FBF0188}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.Text.Test", "tests\Bodoconsult.Text.Test\Bodoconsult.Text.Test.csproj", "{7B47A819-51F0-CC35-3D7E-3F28EBB3F4DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.Pdf", "src\Bodoconsult.Pdf\Bodoconsult.Pdf.csproj", "{BE32C6F8-CE62-2DD8-C1CD-3CA4786BC8AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.Test", "src\Bodoconsult.Test\Bodoconsult.Test.csproj", "{537BE1F2-0299-726D-A9A0-D0E1EED853BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.Text.Pdf", "src\Bodoconsult.Text.Pdf\Bodoconsult.Text.Pdf.csproj", "{1E3CCB66-9A36-B7C9-F611-97CD30992029}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.Text", "src\Bodoconsult.Text\Bodoconsult.Text.csproj", "{2C23B8F8-0CFA-03EE-3438-CADF016FECDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -196,6 +212,38 @@ Global
 		{CBD68000-C967-9DD7-ACE6-AAAB7FF0A5BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBD68000-C967-9DD7-ACE6-AAAB7FF0A5BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBD68000-C967-9DD7-ACE6-AAAB7FF0A5BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{605424F4-1669-98C3-3FD1-23BB4DFEFABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{605424F4-1669-98C3-3FD1-23BB4DFEFABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{605424F4-1669-98C3-3FD1-23BB4DFEFABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{605424F4-1669-98C3-3FD1-23BB4DFEFABE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8729780-440C-64B8-21AE-F55B9154E4F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8729780-440C-64B8-21AE-F55B9154E4F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8729780-440C-64B8-21AE-F55B9154E4F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8729780-440C-64B8-21AE-F55B9154E4F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2294FD2B-17DE-12D6-CA00-A8F05FBF0188}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2294FD2B-17DE-12D6-CA00-A8F05FBF0188}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2294FD2B-17DE-12D6-CA00-A8F05FBF0188}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2294FD2B-17DE-12D6-CA00-A8F05FBF0188}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B47A819-51F0-CC35-3D7E-3F28EBB3F4DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B47A819-51F0-CC35-3D7E-3F28EBB3F4DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B47A819-51F0-CC35-3D7E-3F28EBB3F4DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B47A819-51F0-CC35-3D7E-3F28EBB3F4DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE32C6F8-CE62-2DD8-C1CD-3CA4786BC8AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE32C6F8-CE62-2DD8-C1CD-3CA4786BC8AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE32C6F8-CE62-2DD8-C1CD-3CA4786BC8AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE32C6F8-CE62-2DD8-C1CD-3CA4786BC8AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{537BE1F2-0299-726D-A9A0-D0E1EED853BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{537BE1F2-0299-726D-A9A0-D0E1EED853BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{537BE1F2-0299-726D-A9A0-D0E1EED853BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{537BE1F2-0299-726D-A9A0-D0E1EED853BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E3CCB66-9A36-B7C9-F611-97CD30992029}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E3CCB66-9A36-B7C9-F611-97CD30992029}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E3CCB66-9A36-B7C9-F611-97CD30992029}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E3CCB66-9A36-B7C9-F611-97CD30992029}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C23B8F8-0CFA-03EE-3438-CADF016FECDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C23B8F8-0CFA-03EE-3438-CADF016FECDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C23B8F8-0CFA-03EE-3438-CADF016FECDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C23B8F8-0CFA-03EE-3438-CADF016FECDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -232,6 +280,14 @@ Global
 		{18B35D41-93B8-4BB4-B1DE-1C83362295EB} = {6A52BEBE-4E44-41AC-8D1B-748DFA27D902}
 		{02C8B074-2C97-017B-191B-1893DAE94F83} = {68310C5A-62F2-40F4-A5C6-0314FDAC28E1}
 		{CBD68000-C967-9DD7-ACE6-AAAB7FF0A5BB} = {682A2D92-F409-43D5-9342-8DF5256F06CE}
+		{605424F4-1669-98C3-3FD1-23BB4DFEFABE} = {682A2D92-F409-43D5-9342-8DF5256F06CE}
+		{E8729780-440C-64B8-21AE-F55B9154E4F6} = {682A2D92-F409-43D5-9342-8DF5256F06CE}
+		{2294FD2B-17DE-12D6-CA00-A8F05FBF0188} = {682A2D92-F409-43D5-9342-8DF5256F06CE}
+		{7B47A819-51F0-CC35-3D7E-3F28EBB3F4DF} = {682A2D92-F409-43D5-9342-8DF5256F06CE}
+		{BE32C6F8-CE62-2DD8-C1CD-3CA4786BC8AC} = {68310C5A-62F2-40F4-A5C6-0314FDAC28E1}
+		{537BE1F2-0299-726D-A9A0-D0E1EED853BF} = {68310C5A-62F2-40F4-A5C6-0314FDAC28E1}
+		{1E3CCB66-9A36-B7C9-F611-97CD30992029} = {68310C5A-62F2-40F4-A5C6-0314FDAC28E1}
+		{2C23B8F8-0CFA-03EE-3438-CADF016FECDB} = {68310C5A-62F2-40F4-A5C6-0314FDAC28E1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EEB92BC2-1DB4-4057-8D49-2E995AA1F80B}
