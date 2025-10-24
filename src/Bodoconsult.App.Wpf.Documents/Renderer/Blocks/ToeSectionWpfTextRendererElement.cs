@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Wpf.Documents.Helpers;
 using Bodoconsult.App.Wpf.Documents.Renderer;
 using Bodoconsult.Text.Documents;
 using System.Windows.Documents;
@@ -29,25 +30,6 @@ public class ToeSectionWpfTextRendererElement : WpfTextRendererElementBase
     /// <param name="renderer">Current renderer</param>
     public override void RenderIt(WpfTextDocumentRenderer renderer)
     {
-        if (_toeSection.ChildBlocks.Count == 0)
-        {
-            return;
-        }
-
-        renderer.Dispatcher.Invoke(() =>
-        {
-            var section = new System.Windows.Documents.Section();
-
-            renderer.WpfDocument.Blocks.Add(section);
-            renderer.CurrentSection = section;
-
-            var span = new System.Windows.Documents.Span(new Run(renderer.Document.DocumentMetaData.ToeHeading));
-            var p = new System.Windows.Documents.Paragraph(span);
-            renderer.CurrentSection.Blocks.Add(p);
-
-            section.BreakPageBefore = _toeSection.PageBreakBefore;
-        });
-
-        //WpfDocumentRendererHelper.RenderBlockChildsToPdf(renderer, Block.ChildBlocks);
+        WpfDocumentRendererHelper.CreateSection(renderer, _toeSection, "ToeHeadingStyle", renderer.Document.DocumentMetaData.ToeHeading);
     }
 }

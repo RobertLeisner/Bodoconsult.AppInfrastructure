@@ -182,4 +182,15 @@ public static class MeasurementHelper
         // 0.0352775 points per DIU
         return GetDiuFromCm(point * 0.0352775);
     }
+
+    /// <summary>
+    /// Get DIU from twips
+    /// </summary>
+    /// <param name="twips">Twips</param>
+    /// <returns>DIU</returns>
+    public static double GetDiuFromTwips(int twips)
+    {
+        var result = twips / TwipsPerInchTypographicPoint * 2.54f;
+        return result * CmFactor;
+    }
 }

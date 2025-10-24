@@ -2,8 +2,13 @@
 
 using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Wpf.Documents.Renderer;
+using Bodoconsult.App.Wpf.Documents.Services;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Helpers;
+using System.Windows;
+using System.Windows.Documents;
+using System.Windows.Media.Imaging;
+using Bodoconsult.App.Wpf.Documents.Helpers;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
 
@@ -28,14 +33,9 @@ public class ImageWpfTextRendererElement : WpfTextRendererElementBase
     /// </summary>
     /// <param name="renderer">Current renderer</param>
     public override void RenderIt(WpfTextDocumentRenderer renderer)
-    {     
-        // Get max height and with for images in twips
-        StylesetHelper.GetMaxWidthAndHeight(renderer.Styleset, out var maxWidth, out var maxHeight);
-
-        StylesetHelper.GetWidthAndHeight(MeasurementHelper.GetTwipsFromPx(_image.OriginalWidth),
-            MeasurementHelper.GetTwipsFromPx(_image.OriginalHeight), maxWidth, maxHeight, out var width, out var height);
-
-        //renderer.PdfDocument.AddImage(_image.Uri, MeasurementHelper.GetCmFromTwips(width), MeasurementHelper.GetCmFromTwips(height));
-
+    {
+        WpfDocumentRendererHelper.AddImage(renderer, _image);
     }
+
+
 }

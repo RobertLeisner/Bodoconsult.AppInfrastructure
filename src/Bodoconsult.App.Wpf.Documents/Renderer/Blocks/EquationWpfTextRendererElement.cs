@@ -1,11 +1,12 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using Bodoconsult.App.Abstractions.Helpers;
+using Bodoconsult.App.Wpf.Documents.Helpers;
+using Bodoconsult.App.Wpf.Documents.Renderer;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Helpers;
 using System.Collections.Generic;
 using System.Text;
-using Bodoconsult.App.Abstractions.Helpers;
-using Bodoconsult.App.Wpf.Documents.Renderer;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
 
@@ -31,11 +32,7 @@ public class EquationWpfTextRendererElement : WpfTextRendererElementBase
     /// <param name="renderer">Current renderer</param>
     public override void RenderIt(WpfTextDocumentRenderer renderer)
     {
-        // Get max height and with for images in twips
-        StylesetHelper.GetMaxWidthAndHeight(renderer.Styleset, out var maxWidth, out var maxHeight);
-
-        StylesetHelper.GetWidthAndHeight(MeasurementHelper.GetTwipsFromPx(_equation.OriginalWidth),
-            MeasurementHelper.GetTwipsFromPx(_equation.OriginalHeight), maxWidth, maxHeight, out var width, out var height);
+        WpfDocumentRendererHelper.AddImage(renderer, _equation);
 
         var childs = new List<Inline>();
 
@@ -45,10 +42,13 @@ public class EquationWpfTextRendererElement : WpfTextRendererElementBase
         }
         childs.AddRange(_equation.ChildInlines);
 
-        //var sb = new StringBuilder();
-        //PdfDocumentRendererHelper.RenderBlockInlinesToStringForPdf(renderer, childs, sb);
+        renderer.Dispatcher.Invoke(() =>
+        {
+            var p = new System.Windows.Documents.Paragraph();
 
-        //renderer.PdfDocument.AddFigure(_equation.Uri, sb.ToString(), _equation.TagName, MeasurementHelper.GetCmFromTwips(width), MeasurementHelper.GetCmFromTwips(height));
+            renderer.CurrentSection.Blocks.Add(p);
 
+            WpfDocumentRendererHelper.RenderBlockInlinesToWpf(renderer, childs, p);
+        });
     }
 }

@@ -18,7 +18,14 @@ public class TestHelper
 
         AppPath = fi.DirectoryName;
 
-        TestDataPath = Path.Combine(fi.Directory.Parent.Parent.Parent.Parent.FullName, "Bodoconsult.Text.Test", "TestData");
+        if (AppPath.Contains("\\windows\\"))
+        {
+            TestDataPath = Path.Combine(fi.Directory.Parent.Parent.Parent.Parent.Parent.FullName, "Bodoconsult.Text.Test", "TestData");
+        }
+        else
+        {
+            TestDataPath = Path.Combine(fi.Directory.Parent.Parent.Parent.Parent.FullName, "Bodoconsult.Text.Test", "TestData");
+        }
 
         TestChartImage = Path.Combine(TestDataPath, "chart3d.png");
 

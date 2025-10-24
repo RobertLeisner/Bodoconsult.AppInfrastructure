@@ -1,11 +1,12 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using System.Collections.Generic;
-using System.Text;
 using Bodoconsult.App.Abstractions.Helpers;
+using Bodoconsult.App.Wpf.Documents.Helpers;
 using Bodoconsult.App.Wpf.Documents.Renderer;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Helpers;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
 
@@ -31,24 +32,23 @@ public class FigureWpfTextRendererElement : WpfTextRendererElementBase
     /// <param name="renderer">Current renderer</param>
     public override void RenderIt(WpfTextDocumentRenderer renderer)
     {
-        //// Get max height and with for images in twips
-        //StylesetHelper.GetMaxWidthAndHeight(renderer.Styleset, out var maxWidth, out var maxHeight);
+        WpfDocumentRendererHelper.AddImage(renderer, _figure);
 
-        //StylesetHelper.GetWidthAndHeight(MeasurementHelper.GetTwipsFromPx(_figure.OriginalWidth),
-        //    MeasurementHelper.GetTwipsFromPx(_figure.OriginalHeight), maxWidth, maxHeight, out var width, out var height);
+        var childs = new List<Inline>();
 
-        //var childs = new List<Inline>();
+        if (!string.IsNullOrEmpty(_figure.CurrentPrefix))
+        {
+            childs.Add(new Span(_figure.CurrentPrefix));
+        }
+        childs.AddRange(_figure.ChildInlines);
 
-        //if (!string.IsNullOrEmpty(_figure.CurrentPrefix))
-        //{
-        //    childs.Add(new Span(_figure.CurrentPrefix));
-        //}
-        //childs.AddRange(_figure.ChildInlines);
+        renderer.Dispatcher.Invoke(() =>
+        {
+            var p = new System.Windows.Documents.Paragraph();
 
-        //var sb = new StringBuilder();
-        //PdfDocumentRendererHelper.RenderBlockInlinesToStringForPdf(renderer, childs, sb);
+            renderer.CurrentSection.Blocks.Add(p);
 
-        //renderer.PdfDocument.AddFigure(_figure.Uri, sb.ToString(), _figure.TagName, MeasurementHelper.GetCmFromTwips(width), MeasurementHelper.GetCmFromTwips(height));
-
+            WpfDocumentRendererHelper.RenderBlockInlinesToWpf(renderer, childs, p);
+        });
     }
 }
