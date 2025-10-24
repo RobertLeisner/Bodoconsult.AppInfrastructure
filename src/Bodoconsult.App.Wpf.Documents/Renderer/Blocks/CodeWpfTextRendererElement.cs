@@ -20,13 +20,4 @@ public class CodeWpfTextRendererElement : ParagraphWpfTextRendererElementBase
         _code = code;
         ClassName = code.StyleName;
     }
-
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(WpfTextDocumentRenderer renderer)
-    {
-        
-    }
 }

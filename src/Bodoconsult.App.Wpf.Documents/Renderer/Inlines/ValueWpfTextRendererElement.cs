@@ -3,6 +3,10 @@
 using Bodoconsult.App.Wpf.Documents.Renderer;
 using Bodoconsult.Text.Documents;
 using System.Text;
+using System.Windows.Documents;
+using Inline = Bodoconsult.Text.Documents.Inline;
+using Span = System.Windows.Documents.Span;
+using TextElement = System.Windows.Documents.TextElement;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Inlines;
 
@@ -26,9 +30,26 @@ public class ValueWpfTextRendererElement : InlineWpfTextRendererElementBase
     /// Render the inline to a string
     /// </summary>
     /// <param name="renderer">Current renderer</param>
-    /// <param name="sb">String</param>
-    public override void RenderToString(WpfTextDocumentRenderer renderer, StringBuilder sb)
+    /// <param name="element">Base text element</param>
+    /// <param name="childInlines">Child inlines of an inline</param>
+    /// <exception cref="NotSupportedException"></exception>
+    public override void RenderToElement(WpfTextDocumentRenderer renderer, TextElement element,
+        List<Inline> childInlines)
     {
-        sb.Append(renderer.CheckContent(_value.Content));
+
+        if (element is System.Windows.Documents.Paragraph paragraph)
+        {
+            var span = new Span(new Run(_value.Content));
+            paragraph.Inlines.Add(span);
+
+            return;
+        }
+
+        if (element is System.Windows.Documents.Inline inline)
+        {
+
+
+
+        }
     }
 }

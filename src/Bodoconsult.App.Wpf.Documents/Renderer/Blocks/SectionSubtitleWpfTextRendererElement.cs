@@ -20,13 +20,4 @@ public class SectionSubtitleWpfTextRendererElement : ParagraphWpfTextRendererEle
         _sectionSubtitle = sectionSubtitle;
         ClassName = sectionSubtitle.StyleName;
     }
-
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(WpfTextDocumentRenderer renderer)
-    {
-
-    }
 }

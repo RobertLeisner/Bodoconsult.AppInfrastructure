@@ -20,12 +20,4 @@ public class Toc2WpfTextRendererElement : ParagraphWpfTextRendererElementBase
         _toc2 = toc2;
         ClassName = toc2.StyleName;
     }
-
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(WpfTextDocumentRenderer renderer)
-    {
-    }
 }

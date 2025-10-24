@@ -1,10 +1,12 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Wpf.Documents.Helpers;
+using Bodoconsult.App.Wpf.Documents.Renderer;
+using Bodoconsult.Text.Documents;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Bodoconsult.App.Wpf.Documents.Renderer;
-using Bodoconsult.Text.Documents;
+using System.Windows;
 
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
@@ -15,11 +17,6 @@ namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
 public abstract class ParagraphWpfTextRendererElementBase : WpfTextRendererElementBase
 {
     private readonly ParagraphBase _paragraphBase;
-
-    /// <summary>
-    /// Content of the paragraph to render
-    /// </summary>
-    protected StringBuilder Content = new();
 
     /// <summary>
     /// Default ctor
@@ -39,7 +36,7 @@ public abstract class ParagraphWpfTextRendererElementBase : WpfTextRendererEleme
     /// <summary>
     /// Current paragraph to render in
     /// </summary>
-    public Paragraph Paragraph { get; set; }
+    public System.Windows.Documents.Paragraph Paragraph { get; set; }
 
     /// <summary>
     /// Render the element
@@ -47,16 +44,25 @@ public abstract class ParagraphWpfTextRendererElementBase : WpfTextRendererEleme
     /// <param name="renderer">Current renderer</param>
     public override void RenderIt(WpfTextDocumentRenderer renderer)
     {
-        var childs = new List<Inline>();
-
-        if (string.IsNullOrEmpty(_paragraphBase.CurrentPrefix))
+        renderer.Dispatcher.Invoke(() =>
         {
-            childs.Add(new Span(_paragraphBase.CurrentPrefix));
-        }
+            Paragraph = new System.Windows.Documents.Paragraph();
+            var style = (Style)renderer.StyleSet[_paragraphBase.StyleName];
+            Paragraph.Style = style;
 
-        childs.AddRange(_paragraphBase.ChildInlines);
+            renderer.CurrentSection.Blocks.Add(Paragraph);
 
-        //WpfDocumentRendererHelper.RenderBlockInlinesToStringForPdf(renderer, childs, Content);
+            var childs = new List<Inline>();
+
+            if (string.IsNullOrEmpty(_paragraphBase.CurrentPrefix))
+            {
+                childs.Add(new Span(_paragraphBase.CurrentPrefix));
+            }
+
+            childs.AddRange(_paragraphBase.ChildInlines);
+
+            WpfDocumentRendererHelper.RenderBlockInlinesToWpf(renderer, childs, Paragraph);
+        });
     }
 
 }

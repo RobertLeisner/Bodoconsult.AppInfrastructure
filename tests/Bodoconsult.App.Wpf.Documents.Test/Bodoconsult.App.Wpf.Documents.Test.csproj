@@ -45,5 +45,6 @@
     <ProjectReference Include="..\..\src\Bodoconsult.App.Wpf.Documents\Bodoconsult.App.Wpf.Documents.csproj" />
     <ProjectReference Include="..\..\src\Bodoconsult.App.Wpf\Bodoconsult.App.Wpf.csproj" />
     <ProjectReference Include="..\..\src\Bodoconsult.App\Bodoconsult.App.csproj" />
+    <ProjectReference Include="..\Bodoconsult.Text.Test\Bodoconsult.Text.Test.csproj" />
   </ItemGroup>
 </Project>

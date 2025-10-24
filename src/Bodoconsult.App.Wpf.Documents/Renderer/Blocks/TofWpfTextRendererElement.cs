@@ -20,13 +20,4 @@ public class TofWpfTextRendererElement : ParagraphWpfTextRendererElementBase
         _tof = tof;
         ClassName = tof.StyleName;
     }
-
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(WpfTextDocumentRenderer renderer)
-    {
-
-    }
 }

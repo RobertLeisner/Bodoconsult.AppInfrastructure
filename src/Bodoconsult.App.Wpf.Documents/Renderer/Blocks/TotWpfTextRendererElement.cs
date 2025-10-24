@@ -20,13 +20,4 @@ public class TotWpfTextRendererElement : ParagraphWpfTextRendererElementBase
         _tot = tot;
         ClassName = tot.StyleName;
     }
-
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(WpfTextDocumentRenderer renderer)
-    {
-
-    }
 }

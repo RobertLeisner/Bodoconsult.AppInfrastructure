@@ -2,6 +2,7 @@
 
 using Bodoconsult.App.Wpf.Documents.Renderer;
 using Bodoconsult.Text.Documents;
+using System.Windows.Documents;
 
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
@@ -28,22 +29,25 @@ public class ToeSectionWpfTextRendererElement : WpfTextRendererElementBase
     /// <param name="renderer">Current renderer</param>
     public override void RenderIt(WpfTextDocumentRenderer renderer)
     {
-        //if (_toeSection.ChildBlocks.Count == 0)
-        //{
-        //    return;
-        //}
+        if (_toeSection.ChildBlocks.Count == 0)
+        {
+            return;
+        }
 
-        //if (!string.IsNullOrEmpty(renderer.Document.DocumentMetaData.HeaderText))
-        //{
-        //    renderer.PdfDocument.SetHeader(renderer.Document.DocumentMetaData.HeaderText);
-        //}
-        //if (!string.IsNullOrEmpty(renderer.Document.DocumentMetaData.FooterText))
-        //{
-        //    renderer.PdfDocument.SetFooter(renderer.Document.DocumentMetaData.FooterText);
-        //}
+        renderer.Dispatcher.Invoke(() =>
+        {
+            var section = new System.Windows.Documents.Section();
 
-        //renderer.PdfDocument.CreateToeSection();
+            renderer.WpfDocument.Blocks.Add(section);
+            renderer.CurrentSection = section;
 
-        //PdfDocumentRendererHelper.RenderBlockChildsToPdf(renderer, Block.ChildBlocks);
+            var span = new System.Windows.Documents.Span(new Run(renderer.Document.DocumentMetaData.ToeHeading));
+            var p = new System.Windows.Documents.Paragraph(span);
+            renderer.CurrentSection.Blocks.Add(p);
+
+            section.BreakPageBefore = _toeSection.PageBreakBefore;
+        });
+
+        //WpfDocumentRendererHelper.RenderBlockChildsToPdf(renderer, Block.ChildBlocks);
     }
 }

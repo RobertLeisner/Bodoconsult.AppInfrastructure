@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using System.Collections.Generic;
+using System.Windows;
+using Bodoconsult.App.Wpf.Documents.Helpers;
 using Bodoconsult.App.Wpf.Documents.Interfaces;
 using Bodoconsult.App.Wpf.Documents.Renderer;
 using Bodoconsult.Text.Documents;
@@ -54,15 +56,14 @@ public class WpfParagraphStyleTextRendererElementBase : IWpfTextRendererElement
     public void RenderIt(WpfTextDocumentRenderer renderer)
     {
 
-        //var styleName = Style.Name.Replace("Style", "");
+        var styleName = Style.Name;
 
-        //if (styleName == "Paragraph")
-        //{
-        //    styleName = "Normal";
-        //}
+        renderer.Dispatcher.Invoke(() =>
+        {
+            var style = new Style(typeof(System.Windows.Documents.Paragraph));
 
-        //var pdfStyle = renderer.PdfDocument.GetStyle(styleName);
-
-        //PdfDocumentRendererHelper.RenderParagraphStyle(Style, pdfStyle);
+            WpfDocumentRendererHelper.RenderParagraphStyle(Style, style);
+            renderer.StyleSet.Add(styleName, style);
+        });
     }
 }

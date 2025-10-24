@@ -9,7 +9,7 @@ namespace Bodoconsult.App.Wpf.Documents.Helpers;
 /// <summary>
 /// Provides small helpers around the WPF flowdocuments
 /// </summary>
-public class DocumentHelper
+public static class DocumentHelper
 {
 
     // ToDo: Replace some methods with the ones from Bodoconsult.App.Wpf.WpfHelper

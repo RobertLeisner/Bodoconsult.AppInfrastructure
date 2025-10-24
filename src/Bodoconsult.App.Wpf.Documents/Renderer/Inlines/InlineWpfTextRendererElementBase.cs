@@ -6,6 +6,7 @@ using Bodoconsult.App.Wpf.Documents.Interfaces;
 using Bodoconsult.App.Wpf.Documents.Renderer;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Interfaces;
+using TextElement = System.Windows.Documents.TextElement;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Inlines;
 
@@ -37,10 +38,11 @@ public class InlineWpfTextRendererElementBase : IWpfTextRendererElement
     /// Render the inline to a string
     /// </summary>
     /// <param name="renderer">Current renderer</param>
-    /// <param name="sb">String</param>
+    /// <param name="element">Base text element</param>
+    /// <param name="childInlines">Child inlines of an inline</param>
     /// <exception cref="NotSupportedException"></exception>
-    public virtual void RenderToString(WpfTextDocumentRenderer renderer, StringBuilder sb)
+    public virtual void RenderToElement(WpfTextDocumentRenderer renderer, TextElement element, List<Inline> childInlines)
     {
-        throw new NotSupportedException("Override method RenderToString() in derived subclasses");
+        throw new NotSupportedException("Override method RenderToElement() in derived subclasses");
     }
 }

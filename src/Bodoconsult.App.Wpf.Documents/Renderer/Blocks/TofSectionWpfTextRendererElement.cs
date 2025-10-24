@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using Bodoconsult.App.Wpf.Documents.Helpers;
 using Bodoconsult.App.Wpf.Documents.Renderer;
 using Bodoconsult.Text.Documents;
+using System.Windows.Documents;
 
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
@@ -33,17 +35,25 @@ public class TofSectionWpfTextRendererElement : WpfTextRendererElementBase
             return;
         }
 
-        //if (!string.IsNullOrEmpty(renderer.Document.DocumentMetaData.HeaderText))
-        //{
-        //    renderer.PdfDocument.SetHeader(renderer.Document.DocumentMetaData.HeaderText);
-        //}
-        //if (!string.IsNullOrEmpty(renderer.Document.DocumentMetaData.FooterText))
-        //{
-        //    renderer.PdfDocument.SetFooter(renderer.Document.DocumentMetaData.FooterText);
-        //}
+        if (_tofSection.ChildBlocks.Count == 0)
+        {
+            return;
+        }
 
-        //renderer.PdfDocument.CreateTofSection();
+        renderer.Dispatcher.Invoke(() =>
+        {
+            var section = new System.Windows.Documents.Section();
 
-        //PdfDocumentRendererHelper.RenderBlockChildsToPdf(renderer, Block.ChildBlocks);
+            renderer.WpfDocument.Blocks.Add(section);
+            renderer.CurrentSection = section;
+
+            var span = new System.Windows.Documents.Span(new Run(renderer.Document.DocumentMetaData.TofHeading));
+            var p = new System.Windows.Documents.Paragraph(span);
+            renderer.CurrentSection.Blocks.Add(p);
+
+            section.BreakPageBefore = _tofSection.PageBreakBefore;
+        });
+
+        WpfDocumentRendererHelper.RenderBlockChildsToWpf(renderer, Block.ChildBlocks);
     }
 }

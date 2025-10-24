@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using Bodoconsult.App.Wpf.Documents.Helpers;
 using Bodoconsult.App.Wpf.Documents.Renderer;
 using Bodoconsult.Text.Documents;
 
@@ -38,8 +39,17 @@ public class SectionWpfTextRendererElement : WpfTextRendererElementBase
     /// <param name="renderer">Current renderer</param>
     public override void RenderIt(WpfTextDocumentRenderer renderer)
     {
-        
-        
+        renderer.Dispatcher.Invoke(() =>
+        {
+            var section = new System.Windows.Documents.Section();
+
+            renderer.WpfDocument.Blocks.Add(section);
+            renderer.CurrentSection = section;
+
+
+            section.BreakPageBefore = _section.PageBreakBefore;
+        });
+
         //if (!string.IsNullOrEmpty(renderer.Document.DocumentMetaData.HeaderText))
         //{
         //    renderer.PdfDocument.SetHeader(renderer.Document.DocumentMetaData.HeaderText);
@@ -56,6 +66,7 @@ public class SectionWpfTextRendererElement : WpfTextRendererElementBase
 
         //renderer.PdfDocument.CreateContentSection();
 
-        //PdfDocumentRendererHelper.RenderBlockChildsToPdf(renderer, Block.ChildBlocks);
+        
+        WpfDocumentRendererHelper.RenderBlockChildsToWpf(renderer, Block.ChildBlocks);
     }
 }

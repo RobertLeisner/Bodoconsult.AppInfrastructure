@@ -20,12 +20,4 @@ public class WarningWpfTextRendererElement : ParagraphWpfTextRendererElementBase
         _warning = warning;
         ClassName = warning.StyleName;
     }
-
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(WpfTextDocumentRenderer renderer)
-    {
-    }
 }

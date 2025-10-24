@@ -20,14 +20,4 @@ public class ParagraphRightWpfTextRendererElement : ParagraphWpfTextRendererElem
         _paragraphRight = paragraphRight;
         ClassName = paragraphRight.StyleName;
     }
-
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(WpfTextDocumentRenderer renderer)
-    {
-        //base.RenderIt(renderer);
-        //Paragraph = renderer.PdfDocument.AddParagraphRight(Content.ToString());
-    }
 }

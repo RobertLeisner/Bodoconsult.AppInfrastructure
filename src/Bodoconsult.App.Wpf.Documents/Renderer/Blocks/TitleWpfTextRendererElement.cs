@@ -20,13 +20,4 @@ public class TitleWpfTextRendererElement : ParagraphWpfTextRendererElementBase
         _title = title;
         ClassName = title.StyleName;
     }
-
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(WpfTextDocumentRenderer renderer)
-    {
-
-    }
 }

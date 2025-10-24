@@ -41,7 +41,7 @@ namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
     /// <param name="renderer">Current renderer</param>
     public virtual void RenderIt(WpfTextDocumentRenderer renderer)
     {
-        throw new NotSupportedException();
+        //throw new NotSupportedException();
     }
 
     /// <summary>

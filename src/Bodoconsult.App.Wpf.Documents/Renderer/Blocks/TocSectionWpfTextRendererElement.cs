@@ -1,7 +1,10 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System.Windows;
+using Bodoconsult.App.Wpf.Documents.Helpers;
 using Bodoconsult.App.Wpf.Documents.Renderer;
 using Bodoconsult.Text.Documents;
+using System.Windows.Documents;
 
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
@@ -28,21 +31,6 @@ public class TocSectionWpfTextRendererElement : WpfTextRendererElementBase
     /// <param name="renderer">Current renderer</param>
     public override void RenderIt(WpfTextDocumentRenderer renderer)
     {
-        //if (_tocSection.ChildBlocks.Count == 0)
-        //{
-        //    return;
-        //}
-
-        //if (!string.IsNullOrEmpty(renderer.Document.DocumentMetaData.HeaderText))
-        //{
-        //    renderer.PdfDocument.SetHeader(renderer.Document.DocumentMetaData.HeaderText);
-        //}
-        //if (!string.IsNullOrEmpty(renderer.Document.DocumentMetaData.FooterText))
-        //{
-        //    renderer.PdfDocument.SetFooter(renderer.Document.DocumentMetaData.FooterText);
-        //}
-        //renderer.PdfDocument.CreateTocSection();
-
-        //PdfDocumentRendererHelper.RenderBlockChildsToPdf(renderer, Block.ChildBlocks);
+        WpfDocumentRendererHelper.CreateSection(renderer, _tocSection, "TocHeadingStyle", renderer.Document.DocumentMetaData.TocHeading);
     }
 }

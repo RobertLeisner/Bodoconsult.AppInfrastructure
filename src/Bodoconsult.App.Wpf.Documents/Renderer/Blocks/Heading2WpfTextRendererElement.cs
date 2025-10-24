@@ -20,13 +20,4 @@ public class Heading2WpfTextRendererElement : HeadingBaseWpfTextRendererElement
         _heading2 = heading2;
         ClassName = heading2.StyleName;
     }
-
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(WpfTextDocumentRenderer renderer)
-    {
-
-    }
 }

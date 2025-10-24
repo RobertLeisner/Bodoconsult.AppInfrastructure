@@ -2,6 +2,7 @@
 
 using Bodoconsult.App.Wpf.Documents.Renderer;
 using Bodoconsult.Text.Documents;
+using Paragraph = System.Windows.Documents.Paragraph;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
 
@@ -19,14 +20,5 @@ public class SubtitleWpfTextRendererElement : ParagraphWpfTextRendererElementBas
     {
         _subtitle = subtitle;
         ClassName = subtitle.StyleName;
-    }
-
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(WpfTextDocumentRenderer renderer)
-    {
-
     }
 }
