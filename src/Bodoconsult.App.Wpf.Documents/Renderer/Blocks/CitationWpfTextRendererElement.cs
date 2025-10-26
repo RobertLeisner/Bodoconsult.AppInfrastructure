@@ -1,7 +1,12 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using Bodoconsult.App.Wpf.Documents.Renderer;
+using Bodoconsult.App.Wpf.Documents.Helpers;
+using Bodoconsult.App.Wpf.Documents.Renderer.Styles;
 using Bodoconsult.Text.Documents;
+using System.Windows;
+using System.Windows.Documents;
+using Inline = Bodoconsult.Text.Documents.Inline;
+using Span = Bodoconsult.Text.Documents.Span;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
 
@@ -19,6 +24,42 @@ public class CitationWpfTextRendererElement : ParagraphWpfTextRendererElementBas
     {
         _citation = citation;
         ClassName = citation.StyleName;
+    }
+
+    /// <summary>
+    /// Render the element
+    /// </summary>
+    /// <param name="renderer">Current renderer</param>
+    public override void RenderIt(WpfTextDocumentRenderer renderer)
+    {
+        renderer.Dispatcher.Invoke(() =>
+        {
+
+            // Citation
+            Paragraph = new System.Windows.Documents.Paragraph();
+            var style = (Style)renderer.StyleSet[_citation.StyleName];
+            Paragraph.Style = style;
+
+            renderer.CurrentSection.Blocks.Add(Paragraph);
+
+            var childs = new List<Inline>();
+
+            if (string.IsNullOrEmpty(_citation.CurrentPrefix))
+            {
+                childs.Add(new Span(_citation.CurrentPrefix));
+            }
+
+            childs.AddRange(_citation.ChildInlines);
+
+            WpfDocumentRendererHelper.RenderBlockInlinesToWpf(renderer, childs, Paragraph);
+
+            // Citation source
+            var paragraph = new System.Windows.Documents.Paragraph(new Run(_citation.Source));
+            style = (Style)renderer.StyleSet[CitationSourceStyleWpfTextRendererElement.CitationSourceStyleName];
+            paragraph.Style = style;
+
+            renderer.CurrentSection.Blocks.Add(paragraph);
+        });
     }
 }
 

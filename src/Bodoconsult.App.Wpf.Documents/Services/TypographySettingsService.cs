@@ -78,7 +78,7 @@ public class TypographySettingsService
         FooterMarginTop = MeasurementHelper.GetDiuFromCm(typography.PageFooterMargin);
         FooterHeight = MeasurementHelper.GetDiuFromCm(typography.PageFooterHeight);
         FooterFontName = typography.FontName;
-        FooterFontSize = MeasurementHelper.PointToDiu(typography.SmallFontSize);
+        FooterFontSize = MeasurementHelper.GetDiuFromPoint(typography.SmallFontSize);
         LogoPath = typography.LogoPath;
         LogoWidth = MeasurementHelper.GetDiuFromCm(typography.LogoWidth);
 
@@ -719,16 +719,16 @@ public class TypographySettingsService
             PrimaryFontName = typography.FontName;
             SecondaryFontName = typography.HeadingFontName;
             ThirdFontName = typography.TitleFontName;
-            RegularFontSize = MeasurementHelper.PointToDiu(typography.FontSize);
-            SmallFontSize = MeasurementHelper.PointToDiu(typography.SmallFontSize);
-            ExtraSmallFontSize = MeasurementHelper.PointToDiu(typography.ExtraSmallFontSize);
-            Heading1FontSize = MeasurementHelper.PointToDiu(typography.HeadingFontSize1);
-            Heading2FontSize = MeasurementHelper.PointToDiu(typography.HeadingFontSize2);
-            Heading3FontSize = MeasurementHelper.PointToDiu(typography.HeadingFontSize3);
-            Heading4FontSize = MeasurementHelper.PointToDiu(typography.HeadingFontSize4);
-            Heading5FontSize = MeasurementHelper.PointToDiu(typography.HeadingFontSize5);
-            TitleFontSize = MeasurementHelper.PointToDiu(typography.TitleFontSize);
-            Title2FontSize = MeasurementHelper.PointToDiu(typography.SubTitleFontSize);
+            RegularFontSize = MeasurementHelper.GetDiuFromPoint(typography.FontSize);
+            SmallFontSize = MeasurementHelper.GetDiuFromPoint(typography.SmallFontSize);
+            ExtraSmallFontSize = MeasurementHelper.GetDiuFromPoint(typography.ExtraSmallFontSize);
+            Heading1FontSize = MeasurementHelper.GetDiuFromPoint(typography.HeadingFontSize1);
+            Heading2FontSize = MeasurementHelper.GetDiuFromPoint(typography.HeadingFontSize2);
+            Heading3FontSize = MeasurementHelper.GetDiuFromPoint(typography.HeadingFontSize3);
+            Heading4FontSize = MeasurementHelper.GetDiuFromPoint(typography.HeadingFontSize4);
+            Heading5FontSize = MeasurementHelper.GetDiuFromPoint(typography.HeadingFontSize5);
+            TitleFontSize = MeasurementHelper.GetDiuFromPoint(typography.TitleFontSize);
+            Title2FontSize = MeasurementHelper.GetDiuFromPoint(typography.SubTitleFontSize);
 
             TableBodyBackground = new SolidColorBrush(WpfHelper.GetColor(typography.TableBodyBackground));
             TableHeaderBackground = new SolidColorBrush(WpfHelper.GetColor(typography.TableHeaderBackground));

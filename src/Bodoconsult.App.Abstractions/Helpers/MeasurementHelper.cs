@@ -177,7 +177,7 @@ public static class MeasurementHelper
     /// </summary>
     /// <param name="point"></param>
     /// <returns></returns>
-    public static double PointToDiu(double point)
+    public static double GetDiuFromPoint(double point)
     {
         // 0.0352775 points per DIU
         return GetDiuFromCm(point * 0.0352775);

@@ -2,10 +2,8 @@
 
 using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Wpf.Documents.Interfaces;
-using Bodoconsult.App.Wpf.Documents.Renderer;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Interfaces;
-using System;
 using Thickness = System.Windows.Thickness;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Styles;

@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using System;
 using Bodoconsult.Text.Documents;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;

@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using Bodoconsult.App.Wpf.Documents.Interfaces;
-using Bodoconsult.App.Wpf.Documents.Paginators;
-using Bodoconsult.App.Wpf.Documents.Services;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Interfaces;
 using Bodoconsult.Text.Renderer;
@@ -13,7 +11,6 @@ using System.Windows.Documents;
 using System.Windows.Threading;
 using System.Windows.Xps.Packaging;
 using System.Windows.Xps.Serialization;
-using Section = Bodoconsult.Text.Documents.Section;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer;
 

@@ -3,11 +3,6 @@
 
 using Bodoconsult.Text.Documents;
 
-using System.Collections.Generic;
-using System.Text;
-using Bodoconsult.Text.Helpers;
-using Bodoconsult.App.Wpf.Documents.Renderer;
-
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
 
 /// <summary>

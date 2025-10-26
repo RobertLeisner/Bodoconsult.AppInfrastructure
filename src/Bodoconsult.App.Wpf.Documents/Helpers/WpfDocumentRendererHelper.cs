@@ -9,8 +9,10 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using Block = Bodoconsult.Text.Documents.Block;
 using Inline = Bodoconsult.Text.Documents.Inline;
+using ListItem = System.Windows.Documents.ListItem;
 using Paragraph = System.Windows.Documents.Paragraph;
 using Thickness = System.Windows.Thickness;
 
@@ -21,6 +23,11 @@ namespace Bodoconsult.App.Wpf.Documents.Helpers;
 /// </summary>
 public static class WpfDocumentRendererHelper
 {
+    /// <summary>
+    /// No margin thickness
+    /// </summary>
+    public static Thickness NoMarginThickness = new(0);
+
     /// <summary>
     /// Render child blocks to WPF
     /// </summary>
@@ -48,7 +55,7 @@ public static class WpfDocumentRendererHelper
         wpfStyle.Setters.Add(new Setter
         {
             Property = System.Windows.Documents.TextElement.FontSizeProperty,
-            Value = MeasurementHelper.PointToDiu(docStyle.FontSize)
+            Value = MeasurementHelper.GetDiuFromPoint(docStyle.FontSize)
         });
         wpfStyle.Setters.Add(new Setter
         {
@@ -64,10 +71,10 @@ public static class WpfDocumentRendererHelper
         wpfStyle.Setters.Add(new Setter
         {
             Property = System.Windows.Documents.Block.MarginProperty,
-            Value = new Thickness(MeasurementHelper.PointToDiu(docStyle.Margins.Left),
-                MeasurementHelper.PointToDiu(docStyle.Margins.Top),
-                MeasurementHelper.PointToDiu(docStyle.Margins.Right),
-                MeasurementHelper.PointToDiu(docStyle.Margins.Bottom))
+            Value = new Thickness(MeasurementHelper.GetDiuFromPoint(docStyle.Margins.Left),
+                MeasurementHelper.GetDiuFromPoint(docStyle.Margins.Top),
+                MeasurementHelper.GetDiuFromPoint(docStyle.Margins.Right),
+                MeasurementHelper.GetDiuFromPoint(docStyle.Margins.Bottom))
         });
     }
 
@@ -142,6 +149,11 @@ public static class WpfDocumentRendererHelper
         RenderBlockChildsToWpf(renderer, docSection.ChildBlocks);
     }
 
+    /// <summary>
+    /// Add an image to the document
+    /// </summary>
+    /// <param name="renderer">Current renderer</param>
+    /// <param name="image">Current image</param>
     public static void AddImage(WpfTextDocumentRenderer renderer, ImageBase image)
     {
         // Get max height and with for images in twips
@@ -153,7 +165,10 @@ public static class WpfDocumentRendererHelper
         renderer.Dispatcher.Invoke(() =>
         {
 
-            var wpfImage = new System.Windows.Controls.Image();
+            var wpfImage = new System.Windows.Controls.Image
+            {
+                Margin = NoMarginThickness
+            };
             var bimg = new BitmapImage();
             bimg.BeginInit();
             bimg.UriSource = new Uri(image.Uri, UriKind.RelativeOrAbsolute);
@@ -163,18 +178,16 @@ public static class WpfDocumentRendererHelper
             wpfImage.Width = MeasurementHelper.GetDiuFromTwips(width);
             wpfImage.Height = MeasurementHelper.GetDiuFromTwips(height);
 
-            var figure = new System.Windows.Documents.Figure();
+            var figure = new System.Windows.Documents.Figure
+            {
+                Margin = NoMarginThickness
+            };
 
             //var style = FindStyleResource("FigureBlock");
 
             var block = new BlockUIContainer(wpfImage)
             {
-                //Name =
-                //    string.IsNullOrEmpty(title)
-                //        ? $"imageContainer{_imageCounter}"
-                //        : $"figureContainer{_figureCounter}",
-                //BreakPageBefore = _isPageBreak,
-                //Style = style
+                Margin = NoMarginThickness
             };
 
             //style = FindStyleResource("FigureImage");
@@ -184,7 +197,10 @@ public static class WpfDocumentRendererHelper
             figure.HorizontalAnchor = FigureHorizontalAnchor.ColumnCenter;
             figure.CanDelayPlacement = false;
 
-            var paragraphContainer = new System.Windows.Documents.Paragraph();
+            var paragraphContainer = new Paragraph
+            {
+                Margin = NoMarginThickness
+            };
 
             //if (string.IsNullOrEmpty(title))
             //{
@@ -204,5 +220,14 @@ public static class WpfDocumentRendererHelper
 
             renderer.CurrentSection.Blocks.Add(paragraphContainer);
         });
+    }
+
+    public static void RenderBlockInlinesToWpf(WpfTextDocumentRenderer renderer, ReadOnlyLdmlList<Inline> childs, ListItem listItem)
+    {
+        foreach (var child in childs)
+        {
+            var element = (InlineWpfTextRendererElementBase)renderer.WpfTextRendererElementFactory.CreateInstanceWpf(child);
+            element.RenderToElement(renderer, listItem, child.ChildInlines);
+        }
     }
 }

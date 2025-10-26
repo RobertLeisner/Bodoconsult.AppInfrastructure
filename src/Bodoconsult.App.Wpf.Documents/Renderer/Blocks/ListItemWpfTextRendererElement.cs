@@ -3,7 +3,11 @@
 
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using System.Windows.Controls.Primitives;
+using System.Windows.Media;
+using System.Windows.Shapes;
 using Bodoconsult.Text.Documents;
+using SolidColorBrush = System.Windows.Media.SolidColorBrush;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
 
@@ -23,13 +27,12 @@ public class ListItemWpfTextRendererElement : WpfTextRendererElementBase
         ClassName = listItem.StyleName;
     }
 
-    ///// <summary>
-    ///// Render the element
-    ///// </summary>
-    ///// <param name="renderer">Current renderer</param>
-    //public override void RenderIt(WpfTextDocumentRenderer renderer)
-    //{
-    //    Paragraph = renderer.PdfDocument.AddInfo(string.Empty);
-    //    base.RenderIt(renderer);
-    //}
+    /// <summary>
+    /// Render the element
+    /// </summary>
+    /// <param name="renderer">Current renderer</param>
+    public override void RenderIt(WpfTextDocumentRenderer renderer)
+    {
+        // Do nothing
+    }
 }

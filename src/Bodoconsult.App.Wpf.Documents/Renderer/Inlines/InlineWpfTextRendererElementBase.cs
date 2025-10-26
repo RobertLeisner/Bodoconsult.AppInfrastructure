@@ -1,9 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using System;
-using System.Text;
 using Bodoconsult.App.Wpf.Documents.Interfaces;
-using Bodoconsult.App.Wpf.Documents.Renderer;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Interfaces;
 using TextElement = System.Windows.Documents.TextElement;

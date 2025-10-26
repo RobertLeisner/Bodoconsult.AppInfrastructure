@@ -1,7 +1,12 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using System;
+using Bodoconsult.App.Wpf.Documents.Helpers;
 using Bodoconsult.Text.Documents;
+using Bodoconsult.Text.Interfaces;
+using PdfSharp.Charting;
+using System.Windows;
+using Bodoconsult.App.Abstractions.Helpers;
+using Thickness = System.Windows.Thickness;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
 
@@ -11,6 +16,8 @@ namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
 public class ListWpfTextRendererElement : WpfTextRendererElementBase
 {
     private readonly List _list;
+
+    private readonly TextMarkerStyle _markerStyle;
 
     /// <summary>
     /// Default ctor
@@ -23,38 +30,85 @@ public class ListWpfTextRendererElement : WpfTextRendererElementBase
         switch (list.ListStyleType)
         {
             case ListStyleTypeEnum.Disc:
-                LocalCss = "list-style-type: disc";
+                _markerStyle = TextMarkerStyle.Disc;
                 break;
             case ListStyleTypeEnum.Circle:
-                LocalCss = "list-style-type: circle";
+                _markerStyle = TextMarkerStyle.Circle;
                 break;
             case ListStyleTypeEnum.Square:
-                LocalCss = "list-style-type: square";
+                _markerStyle = TextMarkerStyle.Square;
                 break;
             case ListStyleTypeEnum.Customized:
-                LocalCss = $"list-style-type: '{_list.ListStyleTypeChar}'";
+                _markerStyle = TextMarkerStyle.Disc;
                 break;
             case ListStyleTypeEnum.Decimal:
-                LocalCss = "list-style-type: decimal";
+                _markerStyle = TextMarkerStyle.Decimal;
                 break;
             case ListStyleTypeEnum.DecimalLeadingZero:
-                LocalCss = "list-style-type: decimal-leading-zero";
+                _markerStyle = TextMarkerStyle.Decimal;
                 break;
             case ListStyleTypeEnum.UpperRoman:
-                LocalCss = "list-style-type: upper-roman";
+                _markerStyle = TextMarkerStyle.UpperRoman;
                 break;
             case ListStyleTypeEnum.LowerRoman:
-                LocalCss = "list-style-type: lower-roman";
+                _markerStyle = TextMarkerStyle.LowerRoman;
                 break;
             case ListStyleTypeEnum.UpperLatin:
-                LocalCss = "list-style-type: upper-latin";
+                _markerStyle = TextMarkerStyle.UpperLatin;
                 break;
             case ListStyleTypeEnum.LowerLatin:
-                LocalCss = "list-style-type: lower-latin";
+                _markerStyle = TextMarkerStyle.LowerLatin;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
 
+    }
+
+    /// <summary>
+    /// Render the element
+    /// </summary>
+    /// <param name="renderer">Current renderer</param>
+    public override void RenderIt(WpfTextDocumentRenderer renderer)
+    {
+        renderer.Dispatcher.Invoke(() =>
+        {
+            var itemStyle = (ParagraphStyleBase)renderer.Styleset.FindStyle("ListItemStyle");
+
+            var list = new System.Windows.Documents.List
+            {
+                MarkerStyle = _markerStyle,
+                Margin = WpfDocumentRendererHelper.NoMarginThickness,
+                MarkerOffset = MeasurementHelper.GetDiuFromPoint(itemStyle.Margins.Left),
+            };
+
+            foreach (var item in _list.ChildBlocks)
+            {
+                var listItem = new System.Windows.Documents.ListItem
+                {
+                    Margin = WpfDocumentRendererHelper.NoMarginThickness
+                };
+
+                var p = new System.Windows.Documents.Paragraph
+                {
+                    Margin = new Thickness(0,
+                        MeasurementHelper.GetDiuFromPoint(itemStyle.Margins.Top),
+                        MeasurementHelper.GetDiuFromPoint(itemStyle.Margins.Right),
+                        MeasurementHelper.GetDiuFromPoint(itemStyle.Margins.Bottom))
+                };
+
+
+                var style = (Style)renderer.StyleSet["ListItemStyle"];
+                p.Style = style;
+
+                WpfDocumentRendererHelper.RenderBlockInlinesToWpf(renderer, item.ChildInlines, p);
+
+                listItem.Blocks.Add(p);
+
+                list.ListItems.Add(listItem);
+            }
+
+            renderer.CurrentSection.Blocks.Add(list);
+        });
     }
 }

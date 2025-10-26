@@ -1,13 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using Bodoconsult.App.Abstractions.Helpers;
-using Bodoconsult.App.Wpf.Documents.Renderer;
-using Bodoconsult.App.Wpf.Documents.Services;
 using Bodoconsult.Text.Documents;
-using Bodoconsult.Text.Helpers;
-using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Media.Imaging;
 using Bodoconsult.App.Wpf.Documents.Helpers;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;

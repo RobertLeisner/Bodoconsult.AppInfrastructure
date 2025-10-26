@@ -1,10 +1,8 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using System.Collections.Generic;
 using System.Windows;
 using Bodoconsult.App.Wpf.Documents.Helpers;
 using Bodoconsult.App.Wpf.Documents.Interfaces;
-using Bodoconsult.App.Wpf.Documents.Renderer;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Interfaces;
 
@@ -53,7 +51,7 @@ public class WpfParagraphStyleTextRendererElementBase : IWpfTextRendererElement
     /// Render the element
     /// </summary>
     /// <param name="renderer">Current renderer</param>
-    public void RenderIt(WpfTextDocumentRenderer renderer)
+    public virtual void RenderIt(WpfTextDocumentRenderer renderer)
     {
 
         var styleName = Style.Name;

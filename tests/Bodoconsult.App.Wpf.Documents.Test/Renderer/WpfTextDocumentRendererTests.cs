@@ -8,7 +8,6 @@ using Bodoconsult.App.Wpf.Documents.Renderer;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Test.Helpers;
 using NUnit.Framework;
-using PdfSharp.Fonts;
 
 namespace Bodoconsult.App.Wpf.Documents.Test.Renderer;
 

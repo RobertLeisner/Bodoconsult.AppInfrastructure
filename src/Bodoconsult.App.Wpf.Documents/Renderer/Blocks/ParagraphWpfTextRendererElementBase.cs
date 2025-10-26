@@ -1,11 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using Bodoconsult.App.Wpf.Documents.Helpers;
-using Bodoconsult.App.Wpf.Documents.Renderer;
 using Bodoconsult.Text.Documents;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 
 

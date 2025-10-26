@@ -1,12 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Wpf.Documents.Helpers;
-using Bodoconsult.App.Wpf.Documents.Renderer;
+using Bodoconsult.App.Wpf.Documents.Renderer.Styles;
 using Bodoconsult.Text.Documents;
-using Bodoconsult.Text.Helpers;
-using System.Collections.Generic;
-using System.Text;
+using System.Windows;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
 
@@ -44,7 +41,10 @@ public class FigureWpfTextRendererElement : WpfTextRendererElementBase
 
         renderer.Dispatcher.Invoke(() =>
         {
-            var p = new System.Windows.Documents.Paragraph();
+            var p = new System.Windows.Documents.Paragraph
+            {
+                Style = (Style)renderer.StyleSet[FigureStyleWpfTextRendererElement.FigureCaptionStyleName]
+            };
 
             renderer.CurrentSection.Blocks.Add(p);
 
