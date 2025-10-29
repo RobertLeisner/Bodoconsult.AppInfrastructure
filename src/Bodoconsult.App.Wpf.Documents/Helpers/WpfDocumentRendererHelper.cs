@@ -1,15 +1,17 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using Bodoconsult.App.Abstractions.Helpers;
+using Bodoconsult.App.Wpf.Documents.Delegates;
 using Bodoconsult.App.Wpf.Documents.Renderer;
+using Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
 using Bodoconsult.App.Wpf.Documents.Renderer.Inlines;
+using Bodoconsult.App.Wpf.Documents.WpfElements;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Helpers;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Block = Bodoconsult.Text.Documents.Block;
 using Inline = Bodoconsult.Text.Documents.Inline;
 using ListItem = System.Windows.Documents.ListItem;
@@ -27,6 +29,11 @@ public static class WpfDocumentRendererHelper
     /// No margin thickness
     /// </summary>
     public static Thickness NoMarginThickness = new(0);
+
+    /// <summary>
+    /// No margin thickness
+    /// </summary>
+    public static Thickness SmallPaddingThickness = new(3);
 
     /// <summary>
     /// Render child blocks to WPF
@@ -126,7 +133,7 @@ public static class WpfDocumentRendererHelper
 
         renderer.Dispatcher.Invoke(() =>
         {
-            var section = new System.Windows.Documents.Section();
+            var section = new PagingSection();
 
             //section..PageWidth = MeasurementHelper.GetDiuFromCm(Style.PageWidth);
             //pdfStyle.PageHeight = MeasurementHelper.GetDiuFromCm(Style.PageHeight);
@@ -213,7 +220,7 @@ public static class WpfDocumentRendererHelper
             //        CheckContent(
             //            (TypographySettingsService.ShowFigureCounter
             //                ? $"{TypographySettingsService.FigureCounterPrefix} {_figureCounter:#,##0}: "
-            //                : "") + title, "");
+            //                : string.Empty) + title, string.Empty);
             //    paragraphContainer.Style = style;
             //}
             paragraphContainer.Inlines.Add(figure);
@@ -222,12 +229,53 @@ public static class WpfDocumentRendererHelper
         });
     }
 
-    public static void RenderBlockInlinesToWpf(WpfTextDocumentRenderer renderer, ReadOnlyLdmlList<Inline> childs, ListItem listItem)
+    /// <summary>
+    /// Render child inlines of a block to WPF
+    /// </summary>
+    /// <param name="renderer">Current renderer</param>
+    /// <param name="childLines">Child inilines</param>
+    /// <param name="listItem">List item to render in</param>
+    public static void RenderBlockInlinesToWpf(WpfTextDocumentRenderer renderer, ReadOnlyLdmlList<Inline> childLines, ListItem listItem)
     {
-        foreach (var child in childs)
+        foreach (var child in childLines)
         {
             var element = (InlineWpfTextRendererElementBase)renderer.WpfTextRendererElementFactory.CreateInstanceWpf(child);
             element.RenderToElement(renderer, listItem, child.ChildInlines);
         }
+    }
+
+    /// <summary>
+    /// Render child inlines of a block to WPF
+    /// </summary>
+    /// <param name="renderer">Current renderer</param>
+    /// <param name="childInlines">Child inilines</param>
+    /// <param name="cell">Cell item to render in</param>
+    public static void RenderBlockChildsToWpf(WpfTextDocumentRenderer renderer, ReadOnlyLdmlList<DefinitionListItem> childInlines, TableCell cell)
+    {
+        foreach (var child in childInlines)
+        {
+            var element = (DefinitionListItemWpfTextRendererElement)renderer.WpfTextRendererElementFactory.CreateInstanceWpf(child);
+            element.RenderIt(renderer, cell);
+        }
+    }
+
+    /// <summary>
+    /// Draw in a section area
+    /// </summary>
+    /// <param name="drawDelegate">Delegate drawing in the section area</param>
+    /// <param name="area">Drawing area</param>
+    /// <param name="page">Page number</param>
+    /// <param name="dpi">DPI</param>
+    /// <param name="pageNumberFormat">Page number format</param>
+    /// <returns>Section Visual</returns>
+    public static Visual CreateSectionVisual(DrawSectionDelegate drawDelegate, Rect area, int page, double dpi,
+        PageNumberFormatEnum pageNumberFormat)
+    {
+        var visual = new DrawingVisual();
+        using (var context = visual.RenderOpen())
+        {
+            drawDelegate(context, area, page, dpi, pageNumberFormat);
+        }
+        return visual;
     }
 }

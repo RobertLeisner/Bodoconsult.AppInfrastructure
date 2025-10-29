@@ -12,6 +12,8 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Xps.Packaging;
 using System.Windows.Xps.Serialization;
+using Bodoconsult.Text.Documents;
+using Thickness = System.Windows.Thickness;
 
 namespace Bodoconsult.App.Wpf.Documents.Utilities;
 
@@ -73,9 +75,12 @@ public static class WpfDocumentUtility
             0.15 * document.PageHeight);
         document.ColumnWidth = dialog.PrintableAreaWidth;
 
-        var definition = new TypographySettingsService { FooterHeight = 25 };
-        definition.DrawFooterDelegate += Footer;
-        dialog.PrintDocument(new HeaderFooterPaginator(document, definition, document.Dispatcher), "Print document");
+        var definition = new TypographySettingsService
+        {
+            FooterHeight = 25,
+            DrawFooterDelegate = Footer
+        };
+        dialog.PrintDocument(new HeaderFooterPaginator(document, definition, document.Dispatcher, PageNumberFormatEnum.Decimal), "Print document");
 
         //var paginator = document as IDocumentPaginatorSource;
         //dialog.PrintDocument(paginator.DocumentPaginator, "Print document");
@@ -86,7 +91,7 @@ public static class WpfDocumentUtility
         document.ColumnWidth = colWidth;
     }
 
-    private static void Footer(DrawingContext context, Rect bounds, int pageNr, double dpi)
+    private static void Footer(DrawingContext context, Rect bounds, int pageNr, double dpi, PageNumberFormatEnum pageNumberFormat)
     {
         // Create the initial formatted text string.
         var formattedText = new FormattedText(
@@ -230,11 +235,13 @@ public static class WpfDocumentUtility
 
                 var rsm = new XpsSerializationManager(new XpsPackagingPolicy(xpsDoc), false);
 
-                var definition = new TypographySettingsService { FooterHeight = 25 };
+                var definition = new TypographySettingsService
+                {
+                    FooterHeight = 25,
+                    DrawFooterDelegate = Footer
+                };
 
-                definition.DrawFooterDelegate += Footer;
-
-                rsm.SaveAsXaml(new HeaderFooterPaginator(document, definition, document.Dispatcher));
+                rsm.SaveAsXaml(new HeaderFooterPaginator(document, definition, document.Dispatcher, PageNumberFormatEnum.Decimal));
                 rsm.Commit();
 
             }

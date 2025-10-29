@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using Bodoconsult.App.Abstractions.Helpers;
+using Bodoconsult.App.Abstractions.Interfaces;
+using Bodoconsult.App.Abstractions.Typography;
 using Bodoconsult.App.Wpf.Helpers;
 using PropertyChanged;
 using System.Windows;
 using System.Windows.Media;
-using Bodoconsult.App.Abstractions.Helpers;
-using Bodoconsult.App.Abstractions.Interfaces;
-using Bodoconsult.App.Wpf.Delegates;
 using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Bodoconsult.App.Wpf.Documents.Services;
@@ -15,7 +15,7 @@ namespace Bodoconsult.App.Wpf.Documents.Services;
 /// Set the typography settings for <see cref="FlowDocumentService"/> used in Typography.xaml
 /// </summary>
 [AddINotifyPropertyChangedInterface]
-public class TypographySettingsService
+public class TypographySettingsService: BasePageSettingsService
 {
     private double _tableBorderWidth;
     private Thickness _tableBorderThickness;
@@ -25,35 +25,8 @@ public class TypographySettingsService
     /// </summary>
     public TypographySettingsService()
     {
-        LoadPageDefaults();
-
-        RegularLineHeight = 14;
-        PrimaryFontName = "Calibri";
-        SecondaryFontName = "Calibri";
-        ThirdFontName = "Calibri";
-        RegularFontSize = 14;
-        SmallFontSize = 12;
-        ExtraSmallFontSize = 10;
-        Heading1FontSize = 18;
-        Heading2FontSize = 16;
-        Heading3FontSize = 16;
-        Heading4FontSize = 14;
-        Heading5FontSize = 14;
-        TitleFontSize = 30;
-        Title2FontSize = 22;
-
-
-        //System.Windows.Application.Current.Dispatcher.Invoke(() =>
-        //{
-        //    TableBodyBackground = new SolidColorBrush(Color.FromArgb(255, 208, 223, 255));
-        //    TableHeaderBackground = new SolidColorBrush(Color.FromArgb(255, 178, 204, 255));
-        //    TableBodyUnborderedBackground = new SolidColorBrush(Colors.Transparent);
-        //    TableHeaderUnborderedBackground = new SolidColorBrush(Colors.Transparent);
-        //    TableCornerRadius = 5;
-        //});
-
-        //SetDefaultMargins();
-
+        Typography = new CompactTypographyPageHeader("Calibri", "Calibri", "Calibri");
+        LoadTypography();
     }
 
     /// <summary>
@@ -62,126 +35,17 @@ public class TypographySettingsService
     /// <param name="typography">Current typography instance to load</param>
     public TypographySettingsService(ITypography typography)
     {
-
-        PageSize = new Size(MeasurementHelper.GetDiuFromCm(typography.PageWidth),
-            MeasurementHelper.GetDiuFromCm(typography.PageHeight));
-
-        Margins = new Thickness(MeasurementHelper.GetDiuFromCm(typography.MarginLeft),
-            MeasurementHelper.GetDiuFromCm(typography.MarginTop - typography.PageHeaderHeight -
-                                   typography.PageHeaderMargin),
-            MeasurementHelper.GetDiuFromCm(typography.MarginRight),
-            MeasurementHelper.GetDiuFromCm(typography.MarginBottom - typography.PageFooterHeight -
-                                   typography.PageFooterMargin));
-
-        HeaderHeight = MeasurementHelper.GetDiuFromCm(typography.PageHeaderHeight);
-        HeaderMarginBottom = MeasurementHelper.GetDiuFromCm(typography.PageHeaderMargin);
-        FooterMarginTop = MeasurementHelper.GetDiuFromCm(typography.PageFooterMargin);
-        FooterHeight = MeasurementHelper.GetDiuFromCm(typography.PageFooterHeight);
-        FooterFontName = typography.FontName;
-        FooterFontSize = MeasurementHelper.GetDiuFromPoint(typography.SmallFontSize);
-        LogoPath = typography.LogoPath;
-        LogoWidth = MeasurementHelper.GetDiuFromCm(typography.LogoWidth);
-
-        HeaderHeight += HeaderMarginBottom;
-        FooterHeight += FooterMarginTop;
-
-        RegularLineHeight = typography.LineHeight;
-        PrimaryFontName = typography.FontName;
-        SecondaryFontName = typography.HeadingFontName;
-        ThirdFontName = typography.TitleFontName;
-        RegularFontSize = typography.FontSize;
-        SmallFontSize = typography.SmallFontSize;
-        TitleFontSize = typography.TitleFontSize;
-        Title2FontSize = typography.SubTitleFontSize;
-        Heading1FontSize = typography.HeadingFontSize1;
-        Heading2FontSize = typography.HeadingFontSize2;
-        Heading3FontSize = typography.HeadingFontSize3;
-        Heading4FontSize = typography.HeadingFontSize4;
-        Heading5FontSize = typography.HeadingFontSize5;
-        ExtraSmallFontSize = typography.ExtraSmallFontSize;
+        Typography = typography;
+        LoadTypography();
     }
 
-    #region Page settings
-
     /// <summary>
-    /// Page size in DIUs
+    /// Current typography
     /// </summary>
-    public Size PageSize { get; set; }
-
-    /// <summary>
-    /// Page margins
-    /// </summary>
-    public Thickness Margins { get; set; }
-
-    /// <summary>
-    /// Space reserved for the header in DIUs
-    /// </summary>
-    public double HeaderHeight { get; set; }
-
-    /// <summary>
-    /// Bottom margin of the header in DIUs
-    /// </summary>
-    public double HeaderMarginBottom { get; set; }
-
-    /// <summary>
-    /// Space reserved for the footer in DIUs
-    /// </summary>
-    public double FooterHeight { get; set; }
-
-    /// <summary>
-    /// Margin in footer above the footer text and below the main text
-    /// </summary>
-    public double FooterMarginTop { get; set; }
-
-    #endregion
+    public ITypography Typography { get; private set; }
 
 
     #region Formatting properties
-
-    /// <summary>
-    /// Text to be printed in the page header
-    /// </summary>
-    public string HeaderText { get; set; }
-
-    /// <summary>
-    /// Font name to use for header
-    /// </summary>
-    public string HeaderFontName { get; set; }
-
-    /// <summary>
-    /// Header font size
-    /// </summary>
-    public double HeaderFontSize { get; set; }
-
-    /// <summary>
-    /// Text to be printed in the page footer
-    /// </summary>
-    public string FooterText { get; set; }
-
-    /// <summary>
-    /// Font name to use for footer
-    /// </summary>
-    public string FooterFontName { get; set; }
-
-    /// <summary>
-    /// Footer font size
-    /// </summary>
-    public double FooterFontSize { get; set; }
-
-    /// <summary>
-    /// Text like page or Seite to write in front of the page number in the footer
-    /// </summary>
-    public string FooterPageText { get; set; } = "Page";
-
-    /// <summary>
-    /// Absolute or relative path to the logo to print in the page header
-    /// </summary>
-    public string LogoPath { get; set; }
-
-    /// <summary>
-    /// Width of the logo to print in the page header
-    /// </summary>
-    public double LogoWidth { get; set; }
 
     /// <summary>
     /// Maximum height for images in the document
@@ -193,10 +57,7 @@ public class TypographySettingsService
     /// </summary>
     public double MaxImageWidth { get; set; }
 
-    /// <summary>
-    /// Language code like en or de (only first 2 letters needed). Default: de
-    /// </summary>
-    public string CurrentLanguage { get; set; } = "de";
+
 
     ///// <summary>
     ///// The name used to register the current used language resources. See <see cref="LanguageResourceService"/>.
@@ -235,72 +96,8 @@ public class TypographySettingsService
     /// </summary>
     public string ImageTemplate { get; set; } = "<Figure CanDelayPlacement=\"false\" HorizontalAnchor=\"ColumnCenter\"><BlockUIContainer><Image Source=\"{0}\" MaxHeight=\"{2}\" MaxWidth=\"{3}\"/></BlockUIContainer>{1}</Figure>";
 
-    ///<summary>
-    /// Repeat table headers? Default: false
-    ///</summary>
-    public bool RepeatTableHeaders { get; set; }
-
     #endregion
 
-    #region Delegates for drawing main page sections
-
-    /// <summary>
-    /// Delegate to print a header to the document page
-    /// </summary>
-    public DrawSectionDelegate DrawHeaderDelegate;
-
-    /// <summary>
-    /// Delegate to print a footer to the document page
-    /// </summary>
-    public DrawSectionDelegate DrawFooterDelegate;
-
-    #endregion
-
-
-    #region Important measures for page sections calculate from page settings
-
-    /// <summary>
-    /// Current content size
-    /// </summary>
-    public Size ContentSize
-    {
-        get
-        {
-            var size = new Size(PageSize.Width - Margins.Left - Margins.Right,
-                PageSize.Height - (Margins.Top + Margins.Bottom + HeaderHeight + FooterHeight));
-
-            return size;
-        }
-    }
-
-    /// <summary>
-    /// The origin of the content
-    /// </summary>
-    public Point ContentOrigin =>
-        new(
-            Margins.Left,
-            Margins.Top + HeaderRect.Height
-        );
-
-    /// <summary>
-    /// The defined header area
-    /// </summary>
-    public Rect HeaderRect =>
-        new(
-            Margins.Left, Margins.Top,
-            ContentSize.Width, HeaderHeight
-        );
-
-    /// <summary>
-    /// The defined footer area
-    /// </summary>
-    public Rect FooterRect =>
-        new(
-            Margins.Left, ContentOrigin.Y + ContentSize.Height,
-            ContentSize.Width, FooterHeight
-        );
-
-    #endregion
 
 
     #region Text formatting settings
@@ -309,13 +106,13 @@ public class TypographySettingsService
 
 
 
-    /// <summary>
-    /// Name of primary font
-    /// </summary>
-    public string PrimaryFontName { get; set; }
+    ///// <summary>
+    ///// Name of primary font
+    ///// </summary>
+    //public string PrimaryFontName { get; set; }
 
     /// <summary>
-    /// Font family of the primary font. <see cref="PrimaryFontName"/> must be set
+    /// Font family of the primary font. FontName in <see cref="Typography"/> must be set
     /// </summary>
     public FontFamily PrimaryFontFamily
     {
@@ -323,47 +120,39 @@ public class TypographySettingsService
         {
             FontFamily f = null;
 
-            Application.Current.Dispatcher.Invoke(() => f = new FontFamily(PrimaryFontName));
+            Application.Current.Dispatcher.Invoke(() => f = new FontFamily(Typography.FontName));
 
             return f;
         }
     }
 
-
     /// <summary>
-    /// Name of primary font
-    /// </summary>
-    public string SecondaryFontName { get; set; }
-
-    /// <summary>
-    /// Font family of the primary font. <see cref="SecondaryFontName"/> must be set
+    /// Font family of the primary font. HeadingFontName in <see cref="Typography"/> must be set
     /// </summary>
     public FontFamily SecondaryFontFamily
     {
         get
         {
             FontFamily f = null;
-            Application.Current.Dispatcher.Invoke(() => f = new FontFamily(SecondaryFontName));
+            Application.Current.Dispatcher.Invoke(() => f = new FontFamily(Typography.HeadingFontName));
             return f;
         }
     }
 
-
-
-    /// <summary>
-    /// Name of third font
-    /// </summary>
-    public string ThirdFontName { get; set; }
+    ///// <summary>
+    ///// Name of third font. FontName in <see cref="Typography"/> must be set
+    ///// </summary>
+    //public string ThirdFontName { get; set; }
 
     /// <summary>
-    /// Font family of the third font. <see cref="ThirdFontName"/> must be set
+    /// Font family of the third font. TitleFontName in <see cref="Typography"/> must be set
     /// </summary>
     public FontFamily ThirdFontFamily
     {
         get
         {
             FontFamily f = null;
-            Application.Current.Dispatcher.Invoke(() => f = new FontFamily(ThirdFontName));
+            Application.Current.Dispatcher.Invoke(() => f = new FontFamily(Typography.TitleFontName));
             return f;
         }
     }
@@ -372,62 +161,62 @@ public class TypographySettingsService
 
 
     /// <summary>
-    /// Regular font size
+    /// Regular font size in DIU
     /// </summary>
-    public double RegularFontSize { get; set; }
+    public double RegularFontSize { get; private set; }
 
     /// <summary>
-    /// Line height of regular text
+    /// Line height of regular text in DIU
     /// </summary>
-    public double RegularLineHeight { get; set; }
-
-
-    /// <summary>
-    /// Font size for small text
-    /// </summary>
-    public double SmallFontSize { get; set; }
+    public double RegularLineHeight { get; private set; }
 
 
     /// <summary>
-    /// Font size for tiny text
+    /// Font size for small text in DIU
     /// </summary>
-    public double ExtraSmallFontSize { get; set; }
+    public double SmallFontSize { get; private set; }
+
+
+    /// <summary>
+    /// Font size for tiny text in DIU
+    /// </summary>
+    public double ExtraSmallFontSize { get; private set; }
 
 
     /// <summary>
     /// Font size for heading level 1
     /// </summary>
-    public double Heading1FontSize { get; set; }
+    public double Heading1FontSize { get; private set; }
 
     /// <summary>
     /// Font size for heading level 2
     /// </summary>
-    public double Heading2FontSize { get; set; }
+    public double Heading2FontSize { get; private set; }
 
     /// <summary>
     /// Font size for heading level 3
     /// </summary>
-    public double Heading3FontSize { get; set; }
+    public double Heading3FontSize { get; private set; }
 
     /// <summary>
     /// Font size for heading level 4
     /// </summary>
-    public double Heading4FontSize { get; set; }
+    public double Heading4FontSize { get; private set; }
 
     /// <summary>
     /// Font size for heading level 5
     /// </summary>
-    public double Heading5FontSize { get; set; }
+    public double Heading5FontSize { get; private set; }
 
     /// <summary>
     /// Font size for title level 1
     /// </summary>
-    public double TitleFontSize { get; set; }
+    public double TitleFontSize { get; private set; }
 
     /// <summary>
     /// Font size for title level 2
     /// </summary>
-    public double Title2FontSize { get; set; }
+    public double Title2FontSize { get; private set; }
 
 
 
@@ -597,41 +386,65 @@ public class TypographySettingsService
     /// </summary>
     public Thickness Heading1LineSeparatorThickness { get; set; }
 
-
     #endregion
 
     #region Private methods
 
-    private void LoadPageDefaults()
+    private void LoadTypography()
     {
-        RepeatTableHeaders = true;
-        Margins = new Thickness(92.7, 55, 55, 55);
-        PageSize = new Size(793.5987, 1122.3987);
-        MaxImageHeight = 300;
-        HeaderHeight = 45;
-        FooterHeight = 25;
-        HeaderMarginBottom = 20;
-        DefaultStyleName = "Standard";
-        FigureCounterPrefix = "Figure";
-        AutoNumbering = true;
-        ShowFigureCounter = true;
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            Typography.SetMargins();
 
-        ImageTemplate = "<Figure CanDelayPlacement=\"false\" HorizontalAnchor=\"ColumnCenter\"><BlockUIContainer><Image Source=\"{0}\" MaxHeight=\"{2}\" MaxWidth=\"{3}\"/></BlockUIContainer>{1}</Figure>";
-        CurrentLanguage = "de";
+            PageSize = new Size(MeasurementHelper.GetDiuFromCm(Typography.PageWidth),
+                MeasurementHelper.GetDiuFromCm(Typography.PageHeight));
 
-        HeaderFontName = "Calibri";
-        HeaderFontSize = 10.0;
-        FooterFontName = "Calibri";
-        FooterFontSize = 10.0;
-        LogoWidth = 113;
+            Margins = new Thickness(MeasurementHelper.GetDiuFromCm(Typography.MarginLeft),
+                MeasurementHelper.GetDiuFromCm(Typography.MarginTop - Typography.PageHeaderHeight -
+                                               Typography.PageHeaderMargin),
+                MeasurementHelper.GetDiuFromCm(Typography.MarginRight),
+                MeasurementHelper.GetDiuFromCm(Typography.MarginBottom - Typography.PageFooterHeight -
+                                               Typography.PageFooterMargin));
+
+            RegularFontSize = MeasurementHelper.GetDiuFromPoint(Typography.FontSize);
+            SmallFontSize = MeasurementHelper.GetDiuFromPoint(Typography.SmallFontSize);
+            ExtraSmallFontSize = MeasurementHelper.GetDiuFromPoint(Typography.ExtraSmallFontSize);
+            Heading1FontSize = MeasurementHelper.GetDiuFromPoint(Typography.HeadingFontSize1);
+            Heading2FontSize = MeasurementHelper.GetDiuFromPoint(Typography.HeadingFontSize2);
+            Heading3FontSize = MeasurementHelper.GetDiuFromPoint(Typography.HeadingFontSize3);
+            Heading4FontSize = MeasurementHelper.GetDiuFromPoint(Typography.HeadingFontSize4);
+            Heading5FontSize = MeasurementHelper.GetDiuFromPoint(Typography.HeadingFontSize5);
+            TitleFontSize = MeasurementHelper.GetDiuFromPoint(Typography.TitleFontSize);
+            Title2FontSize = MeasurementHelper.GetDiuFromPoint(Typography.SubTitleFontSize);
+
+            TableBodyBackground = new SolidColorBrush(WpfHelper.GetColor(Typography.TableBodyBackground));
+            TableHeaderBackground = new SolidColorBrush(WpfHelper.GetColor(Typography.TableHeaderBackground));
+            TableBodyUnborderedBackground = new SolidColorBrush(WpfHelper.GetColor(Typography.TableBodyUnborderedBackground));
+            TableHeaderUnborderedBackground = new SolidColorBrush(WpfHelper.GetColor(Typography.TableHeaderUnborderedBackground));
+
+            TableBorder = new SolidColorBrush(WpfHelper.GetColor(Typography.TableBorderColor));
+            TableCornerRadius = MeasurementHelper.GetDiuFromCm(Typography.TableCornerRadius);
+            TableBorderWidth = MeasurementHelper.GetDiuFromCm(Typography.TableBorderWidth);
+
+            HeaderHeight = MeasurementHelper.GetDiuFromCm(Typography.PageHeaderHeight);
+            HeaderMarginBottom = MeasurementHelper.GetDiuFromCm(Typography.PageHeaderMargin);
+            FooterMarginTop = MeasurementHelper.GetDiuFromCm(Typography.PageFooterMargin);
+            FooterHeight = MeasurementHelper.GetDiuFromCm(Typography.PageFooterHeight);
+            FooterFontName = Typography.FontName;
+            FooterFontSize = MeasurementHelper.GetDiuFromPoint(Typography.SmallFontSize);
+            LogoPath = Typography.LogoPath;
+            LogoWidth = MeasurementHelper.GetDiuFromCm(Typography.LogoWidth);
+
+            HeaderHeight += HeaderMarginBottom;
+            FooterHeight += FooterMarginTop;
+
+            SetDefaultMargins();
+        });
     }
 
     #endregion
 
     #region Public methods
-
-
-
 
     /// <summary>
     /// Load default typography
@@ -640,30 +453,8 @@ public class TypographySettingsService
     {
         Application.Current.Dispatcher.Invoke(() =>
         {
-
-            LoadPageDefaults();
-
-            PrimaryFontName = "Calibri";
-            SecondaryFontName = "Calibri";
-            ThirdFontName = "Calibri";
-            RegularFontSize = 14;
-            SmallFontSize = 12;
-            ExtraSmallFontSize = 10;
-            Heading1FontSize = 18;
-            Heading2FontSize = 16;
-            Heading3FontSize = 16;
-            Heading4FontSize = 14;
-            Heading5FontSize = 14;
-            TitleFontSize = 30;
-            Title2FontSize = 22;
-
-            TableBodyBackground = new SolidColorBrush(Colors.White);
-            TableHeaderBackground = new SolidColorBrush(Colors.White);
-            TableBodyUnborderedBackground = new SolidColorBrush(Colors.Transparent);
-            TableHeaderUnborderedBackground = new SolidColorBrush(Colors.Transparent);
-            TableBorder = TableHeaderBackground;
-            TableCornerRadius = 5;
-            TableBorderWidth = 2;
+            Typography = new ElegantTypographyPageHeader("Calibri", "Calibri", "Calibri");
+            LoadTypography();
         });
 
         SetDefaultMargins();
@@ -676,31 +467,8 @@ public class TypographySettingsService
     {
         Application.Current.Dispatcher.Invoke(() =>
         {
-
-            LoadPageDefaults();
-
-            PrimaryFontName = "Calibri";
-            SecondaryFontName = "Calibri";
-            ThirdFontName = "Calibri";
-            RegularFontSize = 12;
-            SmallFontSize = 10;
-            ExtraSmallFontSize = 8;
-            Heading1FontSize = 18;
-            Heading2FontSize = 16;
-            Heading3FontSize = 14;
-            Heading4FontSize = 12;
-            Heading5FontSize = 12;
-            TitleFontSize = 24;
-            Title2FontSize = 18;
-
-
-            TableBodyBackground = new SolidColorBrush(Colors.White);
-            TableHeaderBackground = new SolidColorBrush(Colors.White);
-            TableBodyUnborderedBackground = new SolidColorBrush(Colors.Transparent);
-            TableHeaderUnborderedBackground = new SolidColorBrush(Colors.Transparent);
-            TableBorder = TableHeaderBackground;
-            TableCornerRadius = 5;
-            TableBorderWidth = 2;
+            Typography = new CompactTypographyPageHeader("Calibri", "Calibri", "Calibri");
+            LoadTypography();
         });
 
         SetDefaultMargins();
@@ -713,35 +481,8 @@ public class TypographySettingsService
     /// <param name="typography"></param>
     public void LoadTypography(ITypography typography)
     {
-
-        Application.Current.Dispatcher.Invoke(() =>
-        {
-            PrimaryFontName = typography.FontName;
-            SecondaryFontName = typography.HeadingFontName;
-            ThirdFontName = typography.TitleFontName;
-            RegularFontSize = MeasurementHelper.GetDiuFromPoint(typography.FontSize);
-            SmallFontSize = MeasurementHelper.GetDiuFromPoint(typography.SmallFontSize);
-            ExtraSmallFontSize = MeasurementHelper.GetDiuFromPoint(typography.ExtraSmallFontSize);
-            Heading1FontSize = MeasurementHelper.GetDiuFromPoint(typography.HeadingFontSize1);
-            Heading2FontSize = MeasurementHelper.GetDiuFromPoint(typography.HeadingFontSize2);
-            Heading3FontSize = MeasurementHelper.GetDiuFromPoint(typography.HeadingFontSize3);
-            Heading4FontSize = MeasurementHelper.GetDiuFromPoint(typography.HeadingFontSize4);
-            Heading5FontSize = MeasurementHelper.GetDiuFromPoint(typography.HeadingFontSize5);
-            TitleFontSize = MeasurementHelper.GetDiuFromPoint(typography.TitleFontSize);
-            Title2FontSize = MeasurementHelper.GetDiuFromPoint(typography.SubTitleFontSize);
-
-            TableBodyBackground = new SolidColorBrush(WpfHelper.GetColor(typography.TableBodyBackground));
-            TableHeaderBackground = new SolidColorBrush(WpfHelper.GetColor(typography.TableHeaderBackground));
-            TableBodyUnborderedBackground = new SolidColorBrush(WpfHelper.GetColor(typography.TableBodyUnborderedBackground));
-            TableHeaderUnborderedBackground = new SolidColorBrush(WpfHelper.GetColor(typography.TableHeaderUnborderedBackground));
-
-            TableBorder = new SolidColorBrush(WpfHelper.GetColor(typography.TableBorderColor));
-            TableCornerRadius = MeasurementHelper.GetDiuFromCm(typography.TableCornerRadius);
-            TableBorderWidth = MeasurementHelper.GetDiuFromCm(typography.TableBorderWidth);
-
-        });
-
-        SetDefaultMargins();
+        Typography = typography;
+        LoadTypography();
     }
 
     #endregion

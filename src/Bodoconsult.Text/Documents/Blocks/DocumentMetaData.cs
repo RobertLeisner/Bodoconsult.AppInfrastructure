@@ -45,6 +45,11 @@ public class DocumentMetaData : Block
     public string LogoPath { get; set; }
 
     /// <summary>
+    /// Width of the logo to print in the page header in cm
+    /// </summary>
+    public double LogoWidth { get; set; } = 2;
+
+    /// <summary>
     /// Title of the document
     /// </summary>
     public string Title { get; set; }

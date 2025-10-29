@@ -1,11 +1,14 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using Bodoconsult.App.Wpf.Documents.Services;
+using Bodoconsult.App.Wpf.Documents.Interfaces;
 using Bodoconsult.App.Wpf.Helpers;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Bodoconsult.App.Wpf.Documents.Helpers;
+using Bodoconsult.Text.Documents;
+using Thickness = System.Windows.Thickness;
 
 namespace Bodoconsult.App.Wpf.Documents.Paginators;
 
@@ -15,7 +18,8 @@ namespace Bodoconsult.App.Wpf.Documents.Paginators;
 public class HeaderFooterPaginator : DocumentPaginator
 {
     private readonly DocumentPaginator _paginator;
-    private readonly TypographySettingsService _typoSettingsService;
+    private readonly IPageSettingsService _pageSettings;
+    private PageNumberFormatEnum _pageNumberFormat;
 
     /// <summary>
     /// Current table
@@ -31,11 +35,14 @@ public class HeaderFooterPaginator : DocumentPaginator
     /// Default ctor
     /// </summary>
     /// <param name="document">document to paginate</param>
-    /// <param name="typoSettingsService">Current typo settings service holding typographical info to use for printing</param>
+    /// <param name="pageSettings">Current typo settings service holding typographical info to use for printing</param>
     /// <param name="dispatcher">the dispatcher to use for the paginator</param>
-    public HeaderFooterPaginator(FlowDocument document, TypographySettingsService typoSettingsService, Dispatcher dispatcher)
+    /// <param name="pageNumberFormat"></param>
+    public HeaderFooterPaginator(FlowDocument document, IPageSettingsService pageSettings, Dispatcher dispatcher,
+        PageNumberFormatEnum pageNumberFormat)
     {
-        _typoSettingsService = typoSettingsService;
+        _pageSettings = pageSettings;
+        _pageNumberFormat = pageNumberFormat;
 
         // Run the paginator on a copy of the flow document
         FlowDocument copy = null;
@@ -43,14 +50,14 @@ public class HeaderFooterPaginator : DocumentPaginator
         dispatcher.Invoke(() => { copy = document; });
 
         // Configure the document as required
-        copy.PageWidth = _typoSettingsService.ContentSize.Width;
-        copy.PageHeight = _typoSettingsService.ContentSize.Height;
+        copy.PageWidth = _pageSettings.ContentSize.Width;
+        copy.PageHeight = _pageSettings.ContentSize.Height;
         copy.PagePadding = new Thickness(0);
         copy.ColumnWidth = double.MaxValue;
 
         // Now create the paginator
         _paginator = ((IDocumentPaginatorSource)copy).DocumentPaginator;
-        _paginator.PageSize = _typoSettingsService.ContentSize;
+        _paginator.PageSize = _pageSettings.ContentSize;
     }
 
     /// <summary>
@@ -61,7 +68,9 @@ public class HeaderFooterPaginator : DocumentPaginator
     public override DocumentPage GetPage(int pageNumber)
     {
         // Use default _paginator to handle pagination
-        var originalPage = _paginator.GetPage(pageNumber).Visual;
+        var page = _paginator.GetPage(pageNumber);
+
+        var originalPage = page.Visual;
 
         var dpi = VisualTreeHelper.GetDpi(originalPage).PixelsPerDip;
 
@@ -69,8 +78,8 @@ public class HeaderFooterPaginator : DocumentPaginator
         var contentVisual = new ContainerVisual
         {
             Transform = new TranslateTransform(
-                _typoSettingsService.ContentOrigin.X,
-                _typoSettingsService.ContentOrigin.Y
+                _pageSettings.ContentOrigin.X,
+                _pageSettings.ContentOrigin.Y
             )
         };
         contentVisual.Children.Add(originalPage);
@@ -80,25 +89,25 @@ public class HeaderFooterPaginator : DocumentPaginator
         pageVisual.Children.Add(contentVisual);
 
         // Create header for the new page
-        if (_typoSettingsService.DrawHeaderDelegate != null)
+        if (_pageSettings.DrawHeaderDelegate != null)
         {
-            pageVisual.Children.Add(WpfHelper.CreateSectionVisual(_typoSettingsService.DrawHeaderDelegate, _typoSettingsService.HeaderRect, pageNumber, dpi));
+            pageVisual.Children.Add(WpfDocumentRendererHelper.CreateSectionVisual(_pageSettings.DrawHeaderDelegate, _pageSettings.HeaderRect, pageNumber, dpi, _pageNumberFormat));
         }
 
         // Create footer for the new page
-        if (_typoSettingsService.DrawFooterDelegate != null)
+        if (_pageSettings.DrawFooterDelegate != null)
         {
-            pageVisual.Children.Add(WpfHelper.CreateSectionVisual(_typoSettingsService.DrawFooterDelegate, _typoSettingsService.FooterRect, pageNumber, dpi));
+            pageVisual.Children.Add(WpfDocumentRendererHelper.CreateSectionVisual(_pageSettings.DrawFooterDelegate, _pageSettings.FooterRect, pageNumber, dpi, _pageNumberFormat));
         }
 
         // Check for repeating table headers
-        if (!_typoSettingsService.RepeatTableHeaders)
+        if (!_pageSettings.RepeatTableHeaders)
         {
             return new DocumentPage(
                 pageVisual,
-                _typoSettingsService.PageSize,
-                new Rect(new Point(), _typoSettingsService.PageSize),
-                new Rect(_typoSettingsService.ContentOrigin, _typoSettingsService.ContentSize)
+                _pageSettings.PageSize,
+                new Rect(new Point(), _pageSettings.PageSize),
+                new Rect(_pageSettings.ContentOrigin, _pageSettings.ContentSize)
             );
         }
 
@@ -130,9 +139,9 @@ public class HeaderFooterPaginator : DocumentPaginator
             {
                 return new DocumentPage(
                     pageVisual,
-                    _typoSettingsService.PageSize,
-                    new Rect(new Point(), _typoSettingsService.PageSize),
-                    new Rect(_typoSettingsService.ContentOrigin, _typoSettingsService.ContentSize));
+                    _pageSettings.PageSize,
+                    new Rect(new Point(), _pageSettings.PageSize),
+                    new Rect(_pageSettings.ContentOrigin, _pageSettings.ContentSize));
             }
 
             // New _table: load header to repeat on next page
@@ -148,9 +157,9 @@ public class HeaderFooterPaginator : DocumentPaginator
 
         return new DocumentPage(
             pageVisual,
-            _typoSettingsService.PageSize,
-            new Rect(new Point(), _typoSettingsService.PageSize),
-            new Rect(_typoSettingsService.ContentOrigin, _typoSettingsService.ContentSize)
+            _pageSettings.PageSize,
+            new Rect(new Point(), _pageSettings.PageSize),
+            new Rect(_pageSettings.ContentOrigin, _pageSettings.ContentSize)
         );
     }
 
@@ -167,19 +176,19 @@ public class HeaderFooterPaginator : DocumentPaginator
         var tableHeaderVisual = new ContainerVisual
         {
             Transform = new TranslateTransform(
-                _typoSettingsService.ContentOrigin.X,
-                _typoSettingsService.ContentOrigin.Y - headerArea.Top
+                _pageSettings.ContentOrigin.X,
+                _pageSettings.ContentOrigin.Y - headerArea.Top
             )
         };
 
         // Move the content below the table header now
-        var yScale = (_typoSettingsService.ContentSize.Height - headerArea.Height) /
-                     _typoSettingsService.ContentSize.Height;
+        var yScale = (_pageSettings.ContentSize.Height - headerArea.Height) /
+                     _pageSettings.ContentSize.Height;
         var group = new TransformGroup();
         group.Children.Add(new ScaleTransform(1.0, yScale));
         group.Children.Add(new TranslateTransform(
-            _typoSettingsService.ContentOrigin.X,
-            _typoSettingsService.ContentOrigin.Y + headerArea.Height
+            _pageSettings.ContentOrigin.X,
+            _pageSettings.ContentOrigin.Y + headerArea.Height
         ));
         contentVisual.Transform = group;
 

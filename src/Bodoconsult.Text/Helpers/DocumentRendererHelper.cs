@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Abstractions.Helpers;
+using Bodoconsult.App.Extensions;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Interfaces;
 using Bodoconsult.Text.Renderer.Html;
@@ -9,15 +11,40 @@ using Bodoconsult.Text.Renderer.Rtf.Inlines;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Bodoconsult.App.Abstractions.Helpers;
 
 namespace Bodoconsult.Text.Helpers;
 
 /// <summary>
 /// Helper class for document rendering
 /// </summary>
-public class DocumentRendererHelper
+public static class DocumentRendererHelper
 {
+    /// <summary>
+    /// Get a page number in as formatted string
+    /// </summary>
+    /// <param name="page">Page number</param>
+    /// <param name="pageNumberFormat">Page number format</param>
+    /// <returns>Formatted number string</returns>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    public static string GetFormattedNumber(int page, PageNumberFormatEnum pageNumberFormat)
+    {
+        switch (pageNumberFormat)
+        {
+            case PageNumberFormatEnum.Decimal:
+                return page.ToString("0");
+            case PageNumberFormatEnum.UpperRoman:
+                return page.ArabicToRoman().ToUpperInvariant();
+            case PageNumberFormatEnum.LowerRoman:
+                return page.ArabicToRoman().ToLowerInvariant();
+            case PageNumberFormatEnum.UpperLatin:
+                return Convert.ToChar(64 + page).ToString();
+            case PageNumberFormatEnum.LowerLatin:
+                return Convert.ToChar(96 + page).ToString();
+            default:
+                throw new ArgumentOutOfRangeException(nameof(pageNumberFormat), pageNumberFormat, null);
+        }
+    }
+
     /// <summary>
     /// Render the child inlines
     /// </summary>
@@ -294,6 +321,32 @@ public class DocumentRendererHelper
 
         // Default: left aligned
         return "Left";
+    }
+
+    /// <summary>
+    /// Get the alignment for a datatype (Left returns string.Empty)
+    /// </summary>
+    /// <param name="type">Datatype</param>
+    /// <returns></returns>
+    public static string GetAlignment1(Type type)
+    {
+        // Right aligned
+        if (type == typeof(double) || type == typeof(float) ||
+            type == typeof(short) || type == typeof(int) ||
+            type == typeof(long) || type == typeof(Int128) ||
+            type == typeof(byte))
+        {
+            return "Right";
+        }
+
+        // Centered aligned
+        if (type == typeof(bool) || type == typeof(DateTime))
+        {
+            return "Center";
+        }
+
+        // Default: left aligned
+        return string.Empty;
     }
 
     /// <summary>

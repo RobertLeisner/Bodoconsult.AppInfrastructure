@@ -2,8 +2,6 @@
 
 using Bodoconsult.App.Wpf.Documents.Helpers;
 using Bodoconsult.Text.Documents;
-using Bodoconsult.Text.Interfaces;
-using PdfSharp.Charting;
 using System.Windows;
 using Bodoconsult.App.Abstractions.Helpers;
 using Thickness = System.Windows.Thickness;

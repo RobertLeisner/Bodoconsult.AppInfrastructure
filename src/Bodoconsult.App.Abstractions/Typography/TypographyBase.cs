@@ -23,7 +23,7 @@ public class TypographyBase : ITypography
         FontName = "Calibri";
         FontSize = 11;
         SmallFontSize = FontSize - 2;
-        ExtraSmallFontSize = SmallFontSize - 2; 
+        ExtraSmallFontSize = SmallFontSize - 2;
 
         HeadingFontName = FontName;
         HeadingFontSize5 = FontSize;
@@ -82,7 +82,7 @@ public class TypographyBase : ITypography
     /// <summary>
     /// Name of the paper format, i.e. A4, Letter, Legal
     /// </summary>
-    public string PaperFormatName { get; set; } 
+    public string PaperFormatName { get; set; }
 
     /// <summary>
     /// Page width in cm
@@ -299,7 +299,7 @@ public class TypographyBase : ITypography
     /// Color for table header background
     /// </summary>
     public TypoColor TableHeaderBackground { get; set; }
-        
+
 
     /// <summary>
     /// Color for table body background
@@ -346,7 +346,7 @@ public class TypographyBase : ITypography
 
         MarginUnit = mu / (MarginLeftFactor + MarginRightFactor);
 
-        MarginLeft =MarginLeftFactor * MarginUnit;
+        MarginLeft = MarginLeftFactor * MarginUnit;
         MarginRight = MarginRightFactor * MarginUnit;
         MarginTop = MarginTopFactor * MarginUnit;
         MarginBottom = MarginBottomFactor * MarginUnit;

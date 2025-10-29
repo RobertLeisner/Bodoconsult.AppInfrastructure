@@ -56,7 +56,7 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-		<PackageReference Include="PDFsharp" Version="6.2.2" />
+		<!--<PackageReference Include="PDFsharp" Version="6.2.2" />-->
 		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
 		<PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
 		<PackageReference Include="XpsToPdf" Version="1.0.6" />
@@ -80,6 +80,7 @@
 		<ProjectReference Include="..\Bodoconsult.App.Abstractions\Bodoconsult.App.Abstractions.csproj" />
 		<ProjectReference Include="..\Bodoconsult.App.Wpf\Bodoconsult.App.Wpf.csproj" />
 		<ProjectReference Include="..\Bodoconsult.App\Bodoconsult.App.csproj" />
+		<ProjectReference Include="..\Bodoconsult.Text.Pdf\Bodoconsult.Text.Pdf.csproj" />
 		<ProjectReference Include="..\Bodoconsult.Text\Bodoconsult.Text.csproj" />
 	</ItemGroup>
 	<ItemGroup>

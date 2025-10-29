@@ -255,7 +255,7 @@ public static class WpfHelper
     public static void DumpVisualTree(DependencyObject parent, int level)
     {
         var typeName = parent.GetType().Name;
-        var name = (string)(parent.GetValue(FrameworkElement.NameProperty) ?? "");
+        var name = (string)(parent.GetValue(FrameworkElement.NameProperty) ?? string.Empty);
 
         Trace.WriteLine($"{string.Empty.PadLeft(level)}{typeName}: {name}");
 
@@ -281,7 +281,7 @@ public static class WpfHelper
         // Not everything in the logical tree is a dependency object
         if (doParent != null)
         {
-            name = (string)(doParent.GetValue(FrameworkElement.NameProperty) ?? "");
+            name = (string)(doParent.GetValue(FrameworkElement.NameProperty) ?? string.Empty);
         }
         else
         {
@@ -549,23 +549,7 @@ public static class WpfHelper
         dlg.PrintVisual(visual, message);
     }
 
-    /// <summary>
-    /// Draw in a section area
-    /// </summary>
-    /// <param name="drawDelegate">Delegate drawing in the section area</param>
-    /// <param name="area">Drawing area</param>
-    /// <param name="page">Page number</param>
-    /// <param name="dpi"></param>
-    /// <returns>Section Visual</returns>
-    public static Visual CreateSectionVisual(DrawSectionDelegate drawDelegate, Rect area, int page, double dpi)
-    {
-        var visual = new DrawingVisual();
-        using (var context = visual.RenderOpen())
-        {
-            drawDelegate(context, area, page, dpi);
-        }
-        return visual;
-    }
+
 
     // http://www.hardcodet.net/2008/02/find-wpf-parent
 

@@ -65,4 +65,24 @@ public abstract class PageStyleBase : StyleBase
     /// </summary>
     [DoNotSerialize]
     public double MaxImageHeight => 0.33 * TypeAreaHeight;
+
+    /// <summary>
+    /// Space reserved for the header in cm
+    /// </summary>
+    public double HeaderHeight { get; set; } = 0.5;
+
+    /// <summary>
+    /// Bottom margin of the header in cm
+    /// </summary>
+    public double HeaderMarginBottom { get; set; } = 0.2;
+
+    /// <summary>
+    /// Space reserved for the footer in cm
+    /// </summary>
+    public double FooterHeight { get; set; } = 0.5;
+
+    /// <summary>
+    /// Margin in footer above the footer text and below the main text in cm
+    /// </summary>
+    public double FooterMarginTop { get; set; } = 0.2;
 }

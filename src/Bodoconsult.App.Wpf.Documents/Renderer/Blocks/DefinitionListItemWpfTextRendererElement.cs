@@ -1,6 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Wpf.Documents.Helpers;
 using Bodoconsult.Text.Documents;
+using System.Windows;
+using System.Windows.Documents;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
 
@@ -18,5 +21,23 @@ public class DefinitionListItemWpfTextRendererElement : WpfTextRendererElementBa
     {
         _item = item;
         ClassName = item.StyleName;
+    }
+
+    /// <summary>
+    /// Render the definition list item to a cell
+    /// </summary>
+    /// <param name="renderer">Current renderer</param>
+    /// <param name="cell">Current cell to render the content in</param>
+    /// <exception cref="NotImplementedException"></exception>
+    public void RenderIt(WpfTextDocumentRenderer renderer, TableCell cell)
+    {
+        renderer.Dispatcher.Invoke(() =>
+        {
+            var p = new System.Windows.Documents.Paragraph();
+            var style = (Style)renderer.StyleSet["DefinitionListItemStyle"];
+            p.Style = style;
+            WpfDocumentRendererHelper.RenderBlockInlinesToWpf(renderer, _item.ChildInlines, p);
+            cell.Blocks.Add(p);
+        });
     }
 }

@@ -55,7 +55,7 @@ public class AppBenchProxy : IAppBenchProxy
     public void WriteLogEntry(LogData logData)
     {
         // Output format:
-        // "yyyy.MM.dd HH:mm:ss.fffffff",   "Method",   "START",    "", "comment",  ""
+        // "yyyy.MM.dd HH:mm:ss.fffffff",   "Method",   "START",    string.Empty, "comment",  ""
 
         // LogData member:
         // LogDate                      , SourceFile,   SourceMethod, "", Message, ""               
@@ -173,11 +173,11 @@ public class AppBenchProxy : IAppBenchProxy
 
         if (args == null || args.Length == 0)
         {
-            return "";
+            return string.Empty;
         }
 
         var s = new StringBuilder();
-        s.AppendLine("");
+        s.AppendLine(string.Empty);
         foreach (var arg in args)
         {
             if (arg is Exception e)

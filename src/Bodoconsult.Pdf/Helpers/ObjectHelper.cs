@@ -7,10 +7,11 @@ using System.Linq;
 using System.Reflection;
 
 namespace Bodoconsult.Pdf.Helpers;
+
 /// <summary>
 /// Basic tools for object handling
 /// </summary>
-public class ObjectHelper
+public static class ObjectHelper
 {
 
     /// <summary>

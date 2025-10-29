@@ -335,7 +335,7 @@ public class TableService
             var run = paragraph.Inlines.FirstInline as Run;
             if (run != null && !string.IsNullOrEmpty(run.Text))
             {
-                var ft = new FormattedText(run.Text, _flowDocumentService.CultureInfo, FlowDirection.LeftToRight, new Typeface(run.FontFamily, run.FontStyle, run.FontWeight, run.FontStretch), run.FontSize, Brushes.Black, _dpi);
+                var ft = new FormattedText(run.Text, _flowDocumentService.TypographySettingsService.CultureInfo, FlowDirection.LeftToRight, new Typeface(run.FontFamily, run.FontStyle, run.FontWeight, run.FontStretch), run.FontSize, Brushes.Black, _dpi);
                 _columnWidths[column] = Math.Max(_columnWidths[column], ft.Width * 1.1 + cell.Padding.Left + +cell.Padding.Right);
             }
 
@@ -391,7 +391,7 @@ public class TableService
                     continue;
                 }
 
-                var ft = new FormattedText(run.Text, _flowDocumentService.CultureInfo, FlowDirection.LeftToRight, new Typeface(run.FontFamily, run.FontStyle, run.FontWeight, run.FontStretch), run.FontSize, Brushes.Black, _dpi);
+                var ft = new FormattedText(run.Text, _flowDocumentService.TypographySettingsService.CultureInfo, FlowDirection.LeftToRight, new Typeface(run.FontFamily, run.FontStyle, run.FontWeight, run.FontStretch), run.FontSize, Brushes.Black, _dpi);
                 _columnWidths[column] = Math.Max(_columnWidths[column], ft.Width * 1.1 + cell.Padding.Left + +cell.Padding.Right);
 
             }

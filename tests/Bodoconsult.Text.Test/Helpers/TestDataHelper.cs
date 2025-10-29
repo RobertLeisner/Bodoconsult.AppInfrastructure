@@ -39,7 +39,9 @@ public static class TestDataHelper
             IsEquationsTableRequired = true,
             IsTablesTableRequired = true,
             FooterText = "Bodoconsult GmbH\t<<page>>",
-            HeaderText = "HeaderText"
+            HeaderText = "HeaderText",
+            LogoPath = TestHelper.TestLogoImage,
+            LogoWidth = 2,
         };
 
         doc.AddBlock(meta);

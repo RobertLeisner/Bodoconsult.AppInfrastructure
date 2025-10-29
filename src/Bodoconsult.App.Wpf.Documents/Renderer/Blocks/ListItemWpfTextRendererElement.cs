@@ -3,11 +3,7 @@
 
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using System.Windows.Controls.Primitives;
-using System.Windows.Media;
-using System.Windows.Shapes;
 using Bodoconsult.Text.Documents;
-using SolidColorBrush = System.Windows.Media.SolidColorBrush;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
 

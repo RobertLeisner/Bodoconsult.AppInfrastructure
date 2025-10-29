@@ -48,10 +48,10 @@ public class CompactTypographyPageHeader : TypographyBase
 
         LineHeight = 0.5;
         ColumnDividerWidth = 0.5;
-        ColumnWidth = 2.0;
+        ColumnWidth = 2.5;
         ColumnCount = 6;
         DotsPerInch = 300;
-        LogoWidth = 2 * ColumnWidth + ColumnDividerWidth;
+        LogoWidth = 1 * ColumnWidth + ColumnDividerWidth;
 
         TitleFontName = thirdFontName;
         SubTitleFontName = thirdFontName;
@@ -61,7 +61,7 @@ public class CompactTypographyPageHeader : TypographyBase
 
 
         MarginLeftFactor = 1.5;
-        MarginRightFactor = 1.5;
+        MarginRightFactor = 1;
         MarginTopFactor = 2;
         MarginBottomFactor = 1.5;
 

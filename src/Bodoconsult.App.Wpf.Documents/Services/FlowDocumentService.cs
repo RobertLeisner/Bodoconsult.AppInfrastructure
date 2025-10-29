@@ -1,6 +1,11 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using System.Globalization;
+using Bodoconsult.App.Abstractions.Interfaces;
+using Bodoconsult.App.Wpf.Documents.General;
+using Bodoconsult.App.Wpf.Documents.Paginators;
+using Bodoconsult.App.Wpf.Documents.WpfElements;
+using Bodoconsult.App.Wpf.Helpers;
+using PropertyChanged;
 using System.IO;
 using System.IO.Packaging;
 using System.Runtime.Versioning;
@@ -13,11 +18,13 @@ using System.Windows.Threading;
 using System.Windows.Xps.Packaging;
 using System.Windows.Xps.Serialization;
 using System.Xaml;
-using Bodoconsult.App.Abstractions.Interfaces;
-using Bodoconsult.App.Wpf.Documents.General;
-using Bodoconsult.App.Wpf.Documents.Paginators;
-using Bodoconsult.App.Wpf.Helpers;
-using PropertyChanged;
+using Bodoconsult.Text.Documents;
+using Figure = System.Windows.Documents.Figure;
+using Image = System.Windows.Controls.Image;
+using List = System.Windows.Documents.List;
+using ListItem = System.Windows.Documents.ListItem;
+using Paragraph = System.Windows.Documents.Paragraph;
+using Thickness = System.Windows.Thickness;
 using XamlReader = System.Windows.Markup.XamlReader;
 using XamlWriter = System.Windows.Markup.XamlWriter;
 
@@ -45,7 +52,6 @@ public class FlowDocumentService
     public FlowDocumentService()
     {
         TypographySettingsService = new TypographySettingsService();
-        CultureInfo = new CultureInfo(TypographySettingsService.CurrentLanguage);
         BaseConstructor();
     }
 
@@ -57,7 +63,6 @@ public class FlowDocumentService
     public FlowDocumentService(TypographySettingsService typographySettingsService)
     {
         TypographySettingsService = typographySettingsService;
-        CultureInfo = new CultureInfo(TypographySettingsService.CurrentLanguage);
         BaseConstructor();
     }
 
@@ -69,7 +74,6 @@ public class FlowDocumentService
     public FlowDocumentService(TypographySettingsService typographySettingsService, II18N i18N)
     {
         TypographySettingsService = typographySettingsService;
-        CultureInfo = new CultureInfo(TypographySettingsService.CurrentLanguage);
         BaseConstructor();
         _i18N = i18N;
     }
@@ -108,10 +112,7 @@ public class FlowDocumentService
 
     #region Styling
 
-    /// <summary>
-    /// Current culture info
-    /// </summary>
-    public CultureInfo CultureInfo { get; private set; }
+
 
     /// <summary>
     /// Current typo settings service
@@ -187,7 +188,7 @@ public class FlowDocumentService
     /// <summary>
     /// Current section in the document
     /// </summary>
-    public Section CurrentSection { get; set; }
+    public PagingSection CurrentSection { get; set; }
 
     /// <summary>
     /// Counter for tables
@@ -232,7 +233,11 @@ public class FlowDocumentService
     {
         Dispatcher.Invoke(() =>
         {
-            CurrentSection = new Section { BreakPageBefore = _isPageBreak };
+            CurrentSection = new PagingSection
+            {
+                BreakPageBefore = _isPageBreak,
+                IsRestartPageNumberingRequired = false
+            };
 
             // Add Section to FlowDocument 
             Document.Blocks.Add(CurrentSection);
@@ -471,26 +476,26 @@ public class FlowDocumentService
 
         foreach (var block in blocks)
         {
-            var block1 = block.Trim().Replace("\r", "").Replace("\n", "");
+            var block1 = block.Trim().Replace("\r", string.Empty).Replace("\n", string.Empty);
 
             if (string.IsNullOrEmpty(block1)) continue;
 
             if (block1.StartsWith("<P>"))
             {
-                AddContent(block1.Replace("<P>", "").Trim(), styleName);
+                AddContent(block1.Replace("<P>", string.Empty).Trim(), styleName);
                 continue;
             }
 
 
             if (block1.StartsWith("<H1>"))
             {
-                AddHeader1(block1.Replace("<H1>", "").Trim());
+                AddHeader1(block1.Replace("<H1>", string.Empty).Trim());
                 continue;
             }
 
             if (block1.StartsWith("<H2>"))
             {
-                AddHeader2(block1.Replace("<H2>", "").Trim());
+                AddHeader2(block1.Replace("<H2>", string.Empty).Trim());
                 continue;
             }
 
@@ -551,9 +556,9 @@ public class FlowDocumentService
 
 
     /// <summary>
-    /// Add a XAML textblock. May contain only XAML for <see cref="Paragraph"/> objects and their valid content
+    /// Add a XAML textblock. May contain only XAML for <see cref="System.Windows.Documents.Paragraph"/> objects and their valid content
     /// </summary>
-    /// <param name="xaml">XAML string for <see cref="Paragraph"/> objects</param>
+    /// <param name="xaml">XAML string for <see cref="System.Windows.Documents.Paragraph"/> objects</param>
     /// <param name="styleName">Name of the style to use for paragraphs</param>
     public void AddXamlTextblock(string xaml, string styleName = "Standard")
     {
@@ -648,11 +653,11 @@ public class FlowDocumentService
         {
             if (content.StartsWith("Resx:", StringComparison.InvariantCultureIgnoreCase))
             {
-                content = FindLanguageResource(content.Replace(ResxTag, "", StringComparison.InvariantCultureIgnoreCase));
+                content = FindLanguageResource(content.Replace(ResxTag, string.Empty, StringComparison.InvariantCultureIgnoreCase));
             }
             if (content.StartsWith("I18n:", StringComparison.InvariantCultureIgnoreCase))
             {
-                content = FindLanguageResource(content.Replace(II18N.I18nTag, "", StringComparison.InvariantCultureIgnoreCase));
+                content = FindLanguageResource(content.Replace(II18N.I18nTag, string.Empty, StringComparison.InvariantCultureIgnoreCase));
             }
             else
             {
@@ -761,7 +766,7 @@ public class FlowDocumentService
             foreach (var item in data)
             {
 
-                var paragraph = CheckContent(item, "");
+                var paragraph = CheckContent(item, string.Empty);
                 paragraph.Style = style;
                 CurrentSection.Blocks.Add(paragraph);
 
@@ -824,13 +829,13 @@ public class FlowDocumentService
     /// <param name="noCount">If noCount is true, the header will not be included in the header counting</param>
     public void AddHeader1(string content, bool noCount = false)
     {
-        var number = "";
+        var number = string.Empty;
 
         if (!noCount)
         {
             _oldLevel = 1;
             _headlines[0]++;
-            number = TypographySettingsService.AutoNumbering ? string.Format(SpanHeader1, _headlines[0]) : "";
+            number = TypographySettingsService.AutoNumbering ? string.Format(SpanHeader1, _headlines[0]) : string.Empty;
         }
 
         AddContent(content, "Headline1", number);
@@ -844,13 +849,13 @@ public class FlowDocumentService
     /// <param name="array"></param>
     public void AddHeader1(string content, bool noCount = false, params object[] array)
     {
-        var number = "";
+        var number = string.Empty;
 
         if (!noCount)
         {
             _oldLevel = 1;
             _headlines[0]++;
-            number = TypographySettingsService.AutoNumbering ? string.Format(SpanHeader1, _headlines[0]) : "";
+            number = TypographySettingsService.AutoNumbering ? string.Format(SpanHeader1, _headlines[0]) : string.Empty;
         }
 
         content = string.Format(content, array);
@@ -868,7 +873,7 @@ public class FlowDocumentService
     public void AddHeader2(string content, bool noCount = false)
     {
 
-        var number = "";
+        var number = string.Empty;
 
         if (!noCount)
         {
@@ -881,7 +886,7 @@ public class FlowDocumentService
             _headlines[1]++;
             number = TypographySettingsService.AutoNumbering
                 ? string.Format(SpanHeader2, _headlines[0], _headlines[1])
-                : "";
+                : string.Empty;
         }
         AddContent(content, "Headline2", number);
     }
@@ -894,7 +899,7 @@ public class FlowDocumentService
     /// <param name="array"></param>
     public void AddHeader2(string content, bool noCount = false, params object[] array)
     {
-        var number = "";
+        var number = string.Empty;
 
         if (!noCount)
         {
@@ -907,7 +912,7 @@ public class FlowDocumentService
             _headlines[1]++;
             number = TypographySettingsService.AutoNumbering
                 ? string.Format(SpanHeader2, _headlines[0], _headlines[1])
-                : "";
+                : string.Empty;
         }
         content = string.Format(content, array);
         AddContent(content, "Headline2", number);
@@ -921,7 +926,7 @@ public class FlowDocumentService
     /// <param name="noCount">If noCount is true, the header will not be included in the header counting</param>
     public void AddHeader3(string content, bool noCount = false)
     {
-        var number = "";
+        var number = string.Empty;
 
         if (!noCount)
         {
@@ -934,7 +939,7 @@ public class FlowDocumentService
             _headlines[2]++;
             number = TypographySettingsService.AutoNumbering
                 ? string.Format(SpanHeader3, _headlines[0], _headlines[1], _headlines[2])
-                : "";
+                : string.Empty;
         }
 
         AddContent(content, "Headline3", number);
@@ -948,7 +953,7 @@ public class FlowDocumentService
     /// <param name="noCount">If noCount is true, the header will not be included in the header counting</param>
     public void AddHeader3(string content, bool noCount = false, params object[] array)
     {
-        var number = "";
+        var number = string.Empty;
 
         if (!noCount)
         {
@@ -961,7 +966,7 @@ public class FlowDocumentService
             _headlines[2]++;
             number = TypographySettingsService.AutoNumbering
                 ? string.Format(SpanHeader3, _headlines[0], _headlines[1], _headlines[2])
-                : "";
+                : string.Empty;
         }
 
         content = string.Format(content, array);
@@ -1303,7 +1308,7 @@ public class FlowDocumentService
                     CheckContent(
                         (TypographySettingsService.ShowFigureCounter
                             ? $"{TypographySettingsService.FigureCounterPrefix} {_figureCounter:#,##0}: "
-                            : "") + title, "");
+                            : string.Empty) + title, string.Empty);
                 paragraphContainer.Style = style;
 
             }
@@ -1437,10 +1442,10 @@ public class FlowDocumentService
     {
         if (!string.IsNullOrEmpty(TypographySettingsService.LogoPath))
         {
-            TypographySettingsService.DrawHeaderDelegate += DefaultHeader;
+            TypographySettingsService.DrawHeaderDelegate = DefaultHeader;
         }
 
-        TypographySettingsService.DrawFooterDelegate += DefaultFooter;
+        TypographySettingsService.DrawFooterDelegate = DefaultFooter;
     }
 
 
@@ -1451,7 +1456,8 @@ public class FlowDocumentService
     /// <param name="area">The available area for the section to draw</param>
     /// <param name="page">The page number (starting with 0) to print in</param>
     /// <param name="dpi">The dpi number to use</param>
-    private void DefaultFooter(DrawingContext context, Rect area, int page, double dpi)
+    /// <param name="pageNumberFormat">Page number format</param>
+    private void DefaultFooter(DrawingContext context, Rect area, int page, double dpi, PageNumberFormatEnum pageNumberFormat)
     {
 
         Dispatcher.Invoke(() =>
@@ -1459,7 +1465,7 @@ public class FlowDocumentService
             // Create the initial formatted text string.
             var formattedText = new FormattedText(
                 $"{TypographySettingsService.FooterPageText} {page + 1}",
-                CultureInfo,
+                TypographySettingsService.CultureInfo,
                 FlowDirection.LeftToRight,
                 new Typeface(TypographySettingsService.FooterFontName),
                 TypographySettingsService.FooterFontSize,
@@ -1476,7 +1482,7 @@ public class FlowDocumentService
 
             formattedText = new FormattedText(
                 TypographySettingsService.FooterText,
-                CultureInfo,
+                TypographySettingsService.CultureInfo,
                 FlowDirection.LeftToRight,
                 new Typeface(TypographySettingsService.FooterFontName),
                 TypographySettingsService.FooterFontSize,
@@ -1496,7 +1502,8 @@ public class FlowDocumentService
     /// <param name="area">The available area for the section to draw</param>
     /// <param name="page">The page number (starting with 0) to print in</param>
     /// <param name="dpi">The dpi number to use</param>
-    private void DefaultHeader(DrawingContext context, Rect area, int page, double dpi)
+    /// <param name="pageNumberFormat">Page number format</param>
+    private void DefaultHeader(DrawingContext context, Rect area, int page, double dpi, PageNumberFormatEnum pageNumberFormat)
     {
 
         Dispatcher.Invoke(() =>
@@ -1718,7 +1725,7 @@ public class FlowDocumentService
 
                     //if (PageFooter != null) definition.Header += PageHeader;
 
-                    rsm.SaveAsXaml(new HeaderFooterPaginator(Document, TypographySettingsService, Dispatcher));
+                    rsm.SaveAsXaml(new HeaderFooterPaginator(Document, TypographySettingsService, Dispatcher, PageNumberFormatEnum.Decimal));
 
                     //rsm.SaveAsXaml(((IDocumentPaginatorSource) Document).DocumentPaginator);
                     rsm.Commit();
@@ -1761,7 +1768,7 @@ public class FlowDocumentService
                     //    definition.Header += PageHeader;
                     //}
 
-                    rsm.SaveAsXaml(new HeaderFooterPaginator(Document, TypographySettingsService, Dispatcher));
+                    rsm.SaveAsXaml(new HeaderFooterPaginator(Document, TypographySettingsService, Dispatcher, PageNumberFormatEnum.Decimal));
 
                     //rsm.SaveAsXaml(((IDocumentPaginatorSource) Document).DocumentPaginator);
                     rsm.Commit();
@@ -1811,7 +1818,7 @@ public class FlowDocumentService
 
                     //var paginator = ((IDocumentPaginatorSource)Document).DocumentPaginator;
 
-                    var paginator = new HeaderFooterPaginator(Document, TypographySettingsService, Dispatcher);
+                    var paginator = new HeaderFooterPaginator(Document, TypographySettingsService, Dispatcher, PageNumberFormatEnum.Decimal);
                     rsm.SaveAsXaml(paginator);
 
                     //Trace.WriteLine("Xps export 2...");

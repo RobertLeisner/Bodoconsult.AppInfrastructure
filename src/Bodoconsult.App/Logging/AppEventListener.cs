@@ -133,7 +133,7 @@ public class AppEventListener : EventListener
 
         if (eventDataPayload == null || eventDataPayload.Count < skipElementsNumber)
         {
-            return "";
+            return string.Empty;
         }
 
         for (var i = skipElementsNumber; i < eventDataPayload.Count; i++)

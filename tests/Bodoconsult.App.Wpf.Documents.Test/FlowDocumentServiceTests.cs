@@ -108,9 +108,9 @@ namespace Bodoconsult.App.Wpf.Documents.Test
 
             var typoService = new TypographySettingsService();
             typoService.LoadCompactDefaults();
-            typoService.PrimaryFontName = "Times New Roman";
-            typoService.SecondaryFontName = "Times New Roman";
-            typoService.SecondaryFontName = "Arial Black";
+            typoService.Typography.FontName = "Times New Roman";
+            typoService.Typography.HeadingFontName = "Times New Roman";
+            typoService.Typography.TitleFontName = "Arial Black";
 
             // Act
             var fds = GetFlowDocumentServiceWithCompactTypography(typoService);

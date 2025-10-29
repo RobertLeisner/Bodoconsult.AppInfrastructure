@@ -1,9 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using System.Text;
 using Bodoconsult.Text.Documents;
-using Bodoconsult.Text.Extensions;
-using Bodoconsult.Text.Interfaces;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Styles;
 

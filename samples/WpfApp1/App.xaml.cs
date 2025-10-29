@@ -67,15 +67,15 @@ public partial class App : Application
         // App is ready now for doing something
         Console.WriteLine($"Connection string loaded: {param.DefaultConnectionString}");
 
-        Console.WriteLine("");
-        Console.WriteLine("");
+        Console.WriteLine(string.Empty);
+        Console.WriteLine(string.Empty);
 
         Console.WriteLine($"App name loaded: {param.AppName}");
         Console.WriteLine($"App version loaded: {param.AppVersion}");
         Console.WriteLine($"App path loaded: {param.AppPath}");
 
-        Console.WriteLine("");
-        Console.WriteLine("");
+        Console.WriteLine(string.Empty);
+        Console.WriteLine(string.Empty);
 
         Console.WriteLine($"Logging config: {ObjectHelper.GetObjectPropertiesAsString(Globals.Instance.LoggingConfig)}");
 

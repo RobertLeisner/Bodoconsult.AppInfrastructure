@@ -1,9 +1,10 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Wpf.Documents.Helpers;
 using Bodoconsult.Text.Documents;
+using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
-using Bodoconsult.App.Wpf.Documents.Helpers;
 
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
@@ -31,52 +32,72 @@ public class DefinitionListWpfTextRendererElement : WpfTextRendererElementBase
     public override void RenderIt(WpfTextDocumentRenderer renderer)
     {
         // Create the Table...
-        var table1 = new System.Windows.Documents.Table();
-
-        // ...and add it to the FlowDocument Blocks collection.
-        renderer.CurrentSection .Blocks.Add(table1);
-
-        // Set some global formatting properties for the table.
-        table1.CellSpacing = 10;
-        table1.Background = Brushes.White;
-
-
-        var column = new TableColumn
+        renderer.Dispatcher.Invoke(() =>
         {
-            Background = Brushes.White
-        };
+            var table1 = new System.Windows.Documents.Table
+            {
+                Margin = WpfDocumentRendererHelper.NoMarginThickness,
+                Padding = WpfDocumentRendererHelper.NoMarginThickness,
+                CellSpacing = 0
+            };
 
-        table1.Columns.Add(column);
+            // ...and add it to the FlowDocument Blocks collection.
+            renderer.CurrentSection.Blocks.Add(table1);
 
-        column = new TableColumn
-        {
-            Background = Brushes.White
-        };
-
-        table1.Columns.Add(column);
-
-        table1.RowGroups.Add(new TableRowGroup());
-
-        var rowGroup = table1.RowGroups[0];
+            // Set some global formatting properties for the table.
+            //table1.CellSpacing = 10;
+            table1.Background = Brushes.White;
 
 
+            var column = new TableColumn
+            {
+                Background = Brushes.White,
+                Width = new GridLength(1, GridUnitType.Star)
+            };
 
-        foreach (var item in _item.ChildBlocks)
-        {
-            var row = new TableRow();
-            rowGroup.Rows.Add(row);
+            table1.Columns.Add(column);
 
-            var dt = (DefinitionListTerm)item;
+            column = new TableColumn
+            {
+                Background = Brushes.White,
+                Width = new GridLength(4, GridUnitType.Star)
+            };
 
-            var p = new System.Windows.Documents.Paragraph();
+            table1.Columns.Add(column);
 
-            WpfDocumentRendererHelper.RenderBlockInlinesToWpf(renderer, dt.ChildInlines, p);
+            table1.RowGroups.Add(new TableRowGroup());
 
-            var cell = new TableCell(p);
+            var rowGroup = table1.RowGroups[0];
 
-            row.Cells.Add(cell);
+            foreach (var item in _item.ChildBlocks)
+            {
+                var row = new TableRow();
+                rowGroup.Rows.Add(row);
 
-        }
+                var dt = (DefinitionListTerm)item;
 
+                var p = new System.Windows.Documents.Paragraph();
+                var style = (Style)renderer.StyleSet["DefinitionListTermStyle"];
+                p.Style = style;
+
+                WpfDocumentRendererHelper.RenderBlockInlinesToWpf(renderer, dt.ChildInlines, p);
+
+                // Column 1
+                var cell = new TableCell(p)
+                {
+                    Padding = WpfDocumentRendererHelper.NoMarginThickness
+                };
+                row.Cells.Add(cell);
+
+                // Column 2
+                cell = new TableCell()
+                {
+                    Padding = WpfDocumentRendererHelper.NoMarginThickness
+                };
+                WpfDocumentRendererHelper.RenderBlockChildsToWpf(renderer, dt.DefinitionListItems, cell);
+                row.Cells.Add(cell);
+
+            }
+        });
     }
 }
