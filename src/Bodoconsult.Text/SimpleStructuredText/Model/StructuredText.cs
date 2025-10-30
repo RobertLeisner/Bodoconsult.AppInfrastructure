@@ -89,7 +89,10 @@ public class StructuredText : IStructuredText
     /// <param name="className">Class name for formatting</param>
     public void AddHeader2(string message, string className = null)
     {
-        if (!KeepEmptyItems && string.IsNullOrEmpty(message)) return;
+        if (!KeepEmptyItems && string.IsNullOrEmpty(message))
+        {
+            return;
+        }
         TextItems.Add(new TextItem
         {
             LogicalType = TextItemType.H2,
@@ -106,7 +109,10 @@ public class StructuredText : IStructuredText
     /// <param name="data">An object array to format</param>
     public void AddHeader2(string message, string className = null, params object[] data)
     {
-        if (!KeepEmptyItems && string.IsNullOrEmpty(message)) return;
+        if (!KeepEmptyItems && string.IsNullOrEmpty(message))
+        {
+            return;
+        }
         TextItems.Add(new TextItem
         {
             LogicalType = TextItemType.H2,
@@ -122,7 +128,10 @@ public class StructuredText : IStructuredText
     /// <param name="className">Class name for formatting</param>
     public void AddHeader3(string message, string className = null)
     {
-        if (!KeepEmptyItems && string.IsNullOrEmpty(message)) return;
+        if (!KeepEmptyItems && string.IsNullOrEmpty(message))
+        {
+            return;
+        }
         TextItems.Add(new TextItem
         {
             LogicalType = TextItemType.H3,
@@ -139,7 +148,10 @@ public class StructuredText : IStructuredText
     /// <param name="data">An object array to format</param>
     public void AddHeader3(string message, string className = null, params object[] data)
     {
-        if (!KeepEmptyItems && string.IsNullOrEmpty(message)) return;
+        if (!KeepEmptyItems && string.IsNullOrEmpty(message))
+        {
+            return;
+        }
         TextItems.Add(new TextItem
         {
             LogicalType = TextItemType.H3,
@@ -155,7 +167,10 @@ public class StructuredText : IStructuredText
     /// /// <param name="className">Class name for formatting</param>
     public void AddHeader4(string message, string className = null)
     {
-        if (!KeepEmptyItems && string.IsNullOrEmpty(message)) return;
+        if (!KeepEmptyItems && string.IsNullOrEmpty(message))
+        {
+            return;
+        }
         TextItems.Add(new TextItem
         {
             LogicalType = TextItemType.H4,
@@ -172,7 +187,10 @@ public class StructuredText : IStructuredText
     /// <param name="data">An object array to format</param>
     public void AddHeader4(string message, string className = null, params object[] data)
     {
-        if (!KeepEmptyItems && string.IsNullOrEmpty(message)) return;
+        if (!KeepEmptyItems && string.IsNullOrEmpty(message))
+        {
+            return;
+        }
         TextItems.Add(new TextItem
         {
             LogicalType = TextItemType.H4,
@@ -244,7 +262,10 @@ public class StructuredText : IStructuredText
     /// <param name="className">Class name for formatting</param>
     public void AddInfo(string message, string className = null)
     {
-        if (!KeepEmptyItems && string.IsNullOrEmpty(message)) return;
+        if (!KeepEmptyItems && string.IsNullOrEmpty(message))
+        {
+            return;
+        }
         TextItems.Add(new TextItem
         {
             LogicalType = TextItemType.P,
@@ -260,7 +281,10 @@ public class StructuredText : IStructuredText
     /// <param name="className">Class name for formatting</param>
     public void AddWarning(string message, string className = null)
     {
-        if (!KeepEmptyItems && string.IsNullOrEmpty(message)) return;
+        if (!KeepEmptyItems && string.IsNullOrEmpty(message))
+        {
+            return;
+        }
         TextItems.Add(new TextItem
         {
             LogicalType = TextItemType.P,
@@ -276,7 +300,10 @@ public class StructuredText : IStructuredText
     /// <param name="className">Class name for formatting</param>
     public void AddError(string message, string className = null)
     {
-        if (!KeepEmptyItems && string.IsNullOrEmpty(message)) return;
+        if (!KeepEmptyItems && string.IsNullOrEmpty(message))
+        {
+            return;
+        }
         TextItems.Add(new TextItem
         {
             LogicalType = TextItemType.P,
@@ -294,7 +321,10 @@ public class StructuredText : IStructuredText
     /// <param name="data">An object array to format</param>
     public void AddInfo(string message, string className = null, params object[] data)
     {
-        if (!KeepEmptyItems && string.IsNullOrEmpty(message)) return;
+        if (!KeepEmptyItems && string.IsNullOrEmpty(message))
+        {
+            return;
+        }
         TextItems.Add(new TextItem
         {
             LogicalType = TextItemType.P,
@@ -311,7 +341,10 @@ public class StructuredText : IStructuredText
     /// <param name="data">An object array to format</param>
     public void AddWarning(string message, string className = null, params object[] data)
     {
-        if (!KeepEmptyItems && string.IsNullOrEmpty(message)) return;
+        if (!KeepEmptyItems && string.IsNullOrEmpty(message))
+        {
+            return;
+        }
         TextItems.Add(new TextItem
         {
             LogicalType = TextItemType.P,
@@ -328,7 +361,10 @@ public class StructuredText : IStructuredText
     /// <param name="data">An object array to format</param>
     public void AddError(string message, string className = null, params object[] data)
     {
-        if (!KeepEmptyItems && string.IsNullOrEmpty(message)) return;
+        if (!KeepEmptyItems && string.IsNullOrEmpty(message))
+        {
+            return;
+        }
         TextItems.Add(new TextItem
         {
             LogicalType = TextItemType.P,
@@ -346,7 +382,10 @@ public class StructuredText : IStructuredText
     /// <param name="className">Class name for formatting</param>
     public void AddText(string message, TextItemType textItemType, string className = null)
     {
-        if (!KeepEmptyItems && string.IsNullOrEmpty(message)) return;
+        if (!KeepEmptyItems && string.IsNullOrEmpty(message))
+        {
+            return;
+        }
         TextItems.Add(new TextItem
         {
             LogicalType = textItemType,
@@ -381,7 +420,10 @@ public class StructuredText : IStructuredText
     /// <param name="className"></param>
     public void AddCode(string message, string className = null)
     {
-        if (!KeepEmptyItems && string.IsNullOrEmpty(message)) return;
+        if (!KeepEmptyItems && string.IsNullOrEmpty(message))
+        {
+            return;
+        }
         TextItems.Add(new TextItem
             {
                 LogicalType = TextItemType.Code,

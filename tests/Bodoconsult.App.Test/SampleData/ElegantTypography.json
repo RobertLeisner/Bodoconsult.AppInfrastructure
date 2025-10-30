@@ -1,6 +1,12 @@
 ﻿{
-  "$type": "Bodoconsult.Typography.ElegantTypographyPageHeader, Bodoconsult.Typography",
-  "TableBorderColor": "178, 204, 255",
+  "$type": "Bodoconsult.App.Abstractions.Typography.ElegantTypographyPageHeader, Bodoconsult.App.Abstractions",
+  "TableBorderColor": {
+    "$type": "Bodoconsult.App.Abstractions.Interfaces.TypoColor, Bodoconsult.App.Abstractions",
+    "A": 255,
+    "R": 178,
+    "G": 204,
+    "B": 255
+  },
   "TableBorderWidth": 0.05,
   "Copyright": "Bodoconsult GmbH",
   "PaperFormatName": "A4",
@@ -42,17 +48,59 @@
   "LogoPath": null,
   "LogoWidth": 4.5,
   "ChartStyle": {
-    "$type": "Bodoconsult.Typography.Charts.ChartStyle, Bodoconsult.Typography",
-    "AxisLineColor": "Black",
-    "GridLineColor": "CornflowerBlue",
-    "BorderColor": "DarkBlue",
+    "$type": "Bodoconsult.App.Abstractions.Interfaces.ChartStyle, Bodoconsult.App.Abstractions",
+    "AxisLineColor": {
+      "$type": "Bodoconsult.App.Abstractions.Interfaces.TypoColor, Bodoconsult.App.Abstractions",
+      "A": 255,
+      "R": 0,
+      "G": 0,
+      "B": 0
+    },
+    "GridLineColor": {
+      "$type": "Bodoconsult.App.Abstractions.Interfaces.TypoColor, Bodoconsult.App.Abstractions",
+      "A": 255,
+      "R": 100,
+      "G": 149,
+      "B": 237
+    },
+    "BorderColor": {
+      "$type": "Bodoconsult.App.Abstractions.Interfaces.TypoColor, Bodoconsult.App.Abstractions",
+      "A": 255,
+      "R": 0,
+      "G": 0,
+      "B": 139
+    },
     "TitleShadow": false,
-    "ChartShadowColor": "DimGray",
+    "ChartShadowColor": {
+      "$type": "Bodoconsult.App.Abstractions.Interfaces.TypoColor, Bodoconsult.App.Abstractions",
+      "A": 255,
+      "R": 105,
+      "G": 105,
+      "B": 105
+    },
     "ChartShadow": 0.0175,
-    "PaperColor": "White",
+    "PaperColor": {
+      "$type": "Bodoconsult.App.Abstractions.Interfaces.TypoColor, Bodoconsult.App.Abstractions",
+      "A": 255,
+      "R": 255,
+      "G": 255,
+      "B": 255
+    },
     "ChartBackgroundGradientStyle": 2,
-    "ChartBackgroundColor": "178, 204, 255",
-    "ChartBackgroundSecondColor": "White",
+    "ChartBackgroundColor": {
+      "$type": "Bodoconsult.App.Abstractions.Interfaces.TypoColor, Bodoconsult.App.Abstractions",
+      "A": 255,
+      "R": 178,
+      "G": 204,
+      "B": 255
+    },
+    "ChartBackgroundSecondColor": {
+      "$type": "Bodoconsult.App.Abstractions.Interfaces.TypoColor, Bodoconsult.App.Abstractions",
+      "A": 255,
+      "R": 255,
+      "G": 255,
+      "B": 255
+    },
     "CopyrightFontSizeDelta": 0.6,
     "TitleFontSizeDelta": 1.2,
     "LegendFontSizeDelta": 0.9,
@@ -75,18 +123,78 @@
     "ChartBorderCornerRadius": 25,
     "CorrectiveFactor": 5,
     "ChartBorderWidth": 1,
-    "ChartBorderColor": "178, 204, 255",
-    "BackgroundColor": "208, 223, 255",
-    "BackgroundSecondColor": "208, 223, 255",
+    "ChartBorderColor": {
+      "$type": "Bodoconsult.App.Abstractions.Interfaces.TypoColor, Bodoconsult.App.Abstractions",
+      "A": 255,
+      "R": 178,
+      "G": 204,
+      "B": 255
+    },
+    "BackgroundColor": {
+      "$type": "Bodoconsult.App.Abstractions.Interfaces.TypoColor, Bodoconsult.App.Abstractions",
+      "A": 255,
+      "R": 208,
+      "G": 223,
+      "B": 255
+    },
+    "BackgroundSecondColor": {
+      "$type": "Bodoconsult.App.Abstractions.Interfaces.TypoColor, Bodoconsult.App.Abstractions",
+      "A": 255,
+      "R": 208,
+      "G": 223,
+      "B": 255
+    },
     "BackGradientStyle": 0,
-    "TitleColor": "26, 59, 124",
-    "FontColor": "Black",
-    "CopyrightColor": "Black"
+    "TitleColor": {
+      "$type": "Bodoconsult.App.Abstractions.Interfaces.TypoColor, Bodoconsult.App.Abstractions",
+      "A": 255,
+      "R": 26,
+      "G": 59,
+      "B": 124
+    },
+    "FontColor": {
+      "$type": "Bodoconsult.App.Abstractions.Interfaces.TypoColor, Bodoconsult.App.Abstractions",
+      "A": 255,
+      "R": 0,
+      "G": 0,
+      "B": 0
+    },
+    "CopyrightColor": {
+      "$type": "Bodoconsult.App.Abstractions.Interfaces.TypoColor, Bodoconsult.App.Abstractions",
+      "A": 255,
+      "R": 0,
+      "G": 0,
+      "B": 0
+    }
   },
-  "TableHeaderBackground": "White",
-  "TableBodyBackground": "White",
-  "TableHeaderUnborderedBackground": "Transparent",
-  "TableBodyUnborderedBackground": "Transparent",
+  "TableHeaderBackground": {
+    "$type": "Bodoconsult.App.Abstractions.Interfaces.TypoColor, Bodoconsult.App.Abstractions",
+    "A": 255,
+    "R": 255,
+    "G": 255,
+    "B": 255
+  },
+  "TableBodyBackground": {
+    "$type": "Bodoconsult.App.Abstractions.Interfaces.TypoColor, Bodoconsult.App.Abstractions",
+    "A": 255,
+    "R": 255,
+    "G": 255,
+    "B": 255
+  },
+  "TableHeaderUnborderedBackground": {
+    "$type": "Bodoconsult.App.Abstractions.Interfaces.TypoColor, Bodoconsult.App.Abstractions",
+    "A": 0,
+    "R": 255,
+    "G": 255,
+    "B": 255
+  },
+  "TableBodyUnborderedBackground": {
+    "$type": "Bodoconsult.App.Abstractions.Interfaces.TypoColor, Bodoconsult.App.Abstractions",
+    "A": 0,
+    "R": 255,
+    "G": 255,
+    "B": 255
+  },
   "TableCornerRadius": 0.3,
   "TypeAreaWidth": 14.5,
   "TypeAreaHeight": 22.9

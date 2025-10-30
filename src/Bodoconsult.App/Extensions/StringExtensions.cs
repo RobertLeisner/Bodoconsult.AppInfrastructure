@@ -206,4 +206,14 @@ public static class StringExtensions
     {
         return Guid.TryParse(input, out var guid) ? guid : Guid.Empty;
     }
+
+    /// <summary>
+    /// Escape a string for using it as an XML value
+    /// </summary>
+    /// <param name="input">Input string</param>
+    /// <returns>Escaped string</returns>
+    public static string EscapeForXml(this string input)
+    {
+        return SecurityElement.Escape(input);
+    }
 }

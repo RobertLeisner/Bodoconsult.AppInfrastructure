@@ -226,4 +226,20 @@ internal class StringExtensionsTests
         Assert.That(result[4], Is.EqualTo('b'));
     }
 
+
+    [Test]
+    public void EscapeForXml_ValidString_ReturnsEscapedString()
+    {
+        // Arrange 
+        var input = "<<page>>";
+
+        // Act  
+        var result = input.EscapeForXml();
+
+        // Assert
+        Assert.That(result, Is.Not.EqualTo(input));
+
+    }
+
+
 }

@@ -1323,7 +1323,7 @@ public class DefaultStyleSet : IStyleSet
             RightMargin = Unit.FromCentimeter(1.5),
             BottomMargin = Unit.FromCentimeter(2.5)
         };
-        TypeAreaWidth = PageSetup.PageWidth - PageSetup.LeftMargin - PageSetup.RightMargin;
+        TypeAreaWidth = ps.PageWidth - ps.LeftMargin - ps.RightMargin;
         return ps;
     }
 

@@ -190,15 +190,22 @@ public abstract class PdfBuilderBase : IDisposable
         {
             double w;
 
-            if (Content.PageSetup.Orientation == Orientation.Landscape)
+            var ps = PageSetup;
+
+            if (Content != null)
             {
-                w = Content.PageSetup.PageHeight.Centimeter - Content.PageSetup.RightMargin.Centimeter -
-                    Content.PageSetup.LeftMargin.Centimeter;
+                ps = Content.PageSetup;
+            }
+
+            if (ps.Orientation == Orientation.Landscape)
+            {
+                w = ps.PageHeight.Centimeter - ps.RightMargin.Centimeter -
+                    ps.LeftMargin.Centimeter;
                 return w;
             }
 
-            w = Content.PageSetup.PageWidth.Centimeter - Content.PageSetup.RightMargin.Centimeter -
-                Content.PageSetup.LeftMargin.Centimeter;
+            w = ps.PageWidth.Centimeter - ps.RightMargin.Centimeter -
+                ps.LeftMargin.Centimeter;
 
             return w;
         }

@@ -40,7 +40,7 @@ public class TypographyBasedStyleSet : DefaultStyleSet
             RightMargin = Unit.FromCentimeter(_typography.MarginRight),
             BottomMargin = Unit.FromCentimeter(_typography.MarginBottom)
         };
-        TypeAreaWidth = PageSetup.PageWidth - PageSetup.LeftMargin - PageSetup.RightMargin;
+        TypeAreaWidth = ps.PageWidth - ps.LeftMargin - ps.RightMargin;
         return ps;
     }
 

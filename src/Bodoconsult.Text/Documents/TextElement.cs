@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using System.Text;
+using Bodoconsult.App.Extensions;
 using Bodoconsult.Text.Helpers;
 
 namespace Bodoconsult.Text.Documents;
@@ -95,9 +96,11 @@ public abstract class TextElement : DocumentElement
                 continue;
             }
 
-            if (!string.IsNullOrEmpty(value.ToString()))
+            var v = value.ToString();
+
+            if (!string.IsNullOrEmpty(v))
             {
-                sb.Append($"{p.Name}=\"{value}\" ");
+                sb.Append($"{p.Name}=\"{v.EscapeForXml()}\" ");
             }
         }
         return sb;
