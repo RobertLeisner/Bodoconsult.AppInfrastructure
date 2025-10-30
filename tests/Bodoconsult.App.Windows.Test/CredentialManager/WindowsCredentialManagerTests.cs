@@ -50,7 +50,7 @@ public class WindowsCredentialManagerTests
         genericCredentials.Password.AppendChar('a');
         genericCredentials.Password.AppendChar('a');
         genericCredentials.Attributes.Add(new CredentialAttribute("a", "a1"));
-        genericCredentials.Attributes.Add(new CredentialAttribute("b", ""));
+        genericCredentials.Attributes.Add(new CredentialAttribute("b", string.Empty));
 
         // Act and assert
         Assert.DoesNotThrow(() => { _credentialManager.Save(genericCredentials); });

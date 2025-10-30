@@ -187,7 +187,7 @@ public class PdfTextFormatter : ITextFormatter, IDisposable
             data.ReadXml(stream);
         }
 
-        Pdf.AddTable(data, ti.Content, "NoHeading1", "", "", Pdf.Width);
+        Pdf.AddTable(data, ti.Content, "NoHeading1", string.Empty, string.Empty, Pdf.Width);
 
     }
 

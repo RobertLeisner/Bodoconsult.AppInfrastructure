@@ -245,7 +245,7 @@ internal class BaseGrpcBusinessTransactionRequestMappingServiceTests
         // Arrange 
         var request = new ObjectUidRequest
         {
-            ObjectUid = ""
+            ObjectUid = string.Empty
         };
 
         // Act  

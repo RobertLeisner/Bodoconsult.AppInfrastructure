@@ -127,7 +127,7 @@ public static class ElementContentParser
                 }
             }
             // End tag
-            else if (StartTags.Contains(tag.Replace("/", "").FirstCharToUpperCase()))
+            else if (StartTags.Contains(tag.Replace("/", string.Empty).FirstCharToUpperCase()))
             {
                 if (e < content.Length - 1)
                 {

@@ -21,7 +21,7 @@ public class FileSystemUrl
     public FileSystemUrl(FileSystemInfo fri)
     {
         Path = fri.FullName;
-        Caption = fri.Name.Replace(".url", "");
+        Caption = fri.Name.Replace(".url", string.Empty);
     }
 
 
@@ -34,7 +34,7 @@ public class FileSystemUrl
         var numArray = new byte[fileStream.Length];
         fileStream.Read(numArray, 0, (int)fileStream.Length);
         foreach (var str in Encoding.ASCII.GetString(numArray).Split('\r', '\n').Where(s => s.StartsWith("URL=")))
-            Url = str.Replace("URL=", "");
+            Url = str.Replace("URL=", string.Empty);
     }
 
     /// <summary>

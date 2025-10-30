@@ -21,8 +21,8 @@ namespace Bodoconsult.App.Wpf.AppStarter;
 
 public class NotifyRequestRecord
 {
-    public string Title { get; set; } = "";
-    public string Text { get; set; } = "";
+    public string Title { get; set; } = string.Empty;
+    public string Text { get; set; } = string.Empty;
     public int Duration { get; set; } = 1000;
     public ToolTipIcon Icon { get; set; } = ToolTipIcon.Info;
 }

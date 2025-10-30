@@ -61,7 +61,7 @@ public class ExceptionReplyBuilder : IExceptionReplyBuilder
         reply = new DefaultBusinessTransactionReply
         {
             ErrorCode = errorCode == 0 ? eData.ErrorCode == 0 ? DefaultErrorCode : eData.ErrorCode : errorCode,
-            ExceptionMessage = eData.EmptyErrorMessage ? "" : exception.StackTrace,
+            ExceptionMessage = eData.EmptyErrorMessage ? string.Empty : exception.StackTrace,
             Message = $"Exception message: {(eData.IterateExceptions ? IterateExceptions(exception) : exception.Message)} {eData.Message}"
         };
 

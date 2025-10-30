@@ -47,7 +47,7 @@ namespace Bodoconsult.App.Wpf.I18N
             foreach (var locale in dir.GetFiles()
                          .Where(x => x.Name.EndsWith(".xaml", StringComparison.InvariantCultureIgnoreCase)))
             {
-                var key = locale.Name.Replace(locale.Extension, "").Replace("Culture.", "");
+                var key = locale.Name.Replace(locale.Extension, string.Empty).Replace("Culture.", string.Empty);
 
                 var kvp = new KeyValuePair<string, string>(key, locale.FullName);
 

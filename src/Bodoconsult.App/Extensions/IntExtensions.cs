@@ -52,7 +52,7 @@ public static class IntExtensions
         try
         {
             // Convert to uppercase as Chars are case-sensitive.
-            romanNumeral = romanNumeral.Replace(" ", "").ToUpper();
+            romanNumeral = romanNumeral.Replace(" ", string.Empty).ToUpper();
 
             //if (romanNumeral.Contains(' '))
             //{
@@ -149,7 +149,7 @@ public static class IntExtensions
     /// <exception cref="ArgumentOutOfRangeException">Input values must be between 1 and 3999.</exception>
     public static string ArabicToRoman(this int inputNumber)
     {
-        var returnValue = "";
+        var returnValue = string.Empty;
 
         try
         {

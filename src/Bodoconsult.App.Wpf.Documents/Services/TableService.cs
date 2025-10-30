@@ -268,7 +268,7 @@ public class TableService
                 if (string.IsNullOrEmpty(value)) continue;
             }
 
-            var erg = double.TryParse(value.Replace("%", ""), NumberStyles.Any, Thread.CurrentThread.CurrentUICulture, out _);
+            var erg = double.TryParse(value.Replace("%", string.Empty), NumberStyles.Any, Thread.CurrentThread.CurrentUICulture, out _);
 
             if (erg)
             {

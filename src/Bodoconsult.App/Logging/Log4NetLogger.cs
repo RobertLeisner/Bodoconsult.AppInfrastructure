@@ -77,7 +77,7 @@ public class Log4NetLogger : Microsoft.Extensions.Logging.ILogger
     {
         var fi = new FileInfo(fileName);
 
-        var plainFileName = fi.Name.Replace(fi.Extension, "");
+        var plainFileName = fi.Name.Replace(fi.Extension, string.Empty);
 
         var layout =
             new PatternLayout("%message%newline");

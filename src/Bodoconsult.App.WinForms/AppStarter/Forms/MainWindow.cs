@@ -44,7 +44,7 @@ public sealed partial class MainWindow : Form
 
         AppLine.BackColor = _viewModel.HeaderBackColor;
 
-        MsgServerIsListeningOnPort.Text = appStartParameters.Port == 0 ? "" : $"{UiMessages.MsgServerIsListeningOnPort} {appStartParameters.Port}";
+        MsgServerIsListeningOnPort.Text = appStartParameters.Port == 0 ? string.Empty : $"{UiMessages.MsgServerIsListeningOnPort} {appStartParameters.Port}";
         MsgHowToShutdownServer.Text = UiMessages.MsgHowToShutdownServer;
         MsgServerProcessId.Text = $"{UiMessages.MsgServerProcessId} {Process.GetCurrentProcess().Id}";
 

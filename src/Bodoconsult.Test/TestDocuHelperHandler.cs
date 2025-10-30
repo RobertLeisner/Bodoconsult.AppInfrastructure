@@ -339,7 +339,7 @@ public class TestDocuHelperHandler : ITestDocuHelperHandler
                 {
                     var listType = prop.PropertyType;
 
-                    var generic = "";
+                    var generic = string.Empty;
 
                     if (listType.GenericTypeArguments.Length > 0)
                     {
@@ -672,7 +672,7 @@ public class TestDocuHelperHandler : ITestDocuHelperHandler
             {
                 if (IgnoredTypes.All(x => x != typeName))
                 {
-                    Debug.Print("{0} {1}", typeNameSpace, "");
+                    Debug.Print("{0} {1}", typeNameSpace, string.Empty);
                     break;
                 }
 

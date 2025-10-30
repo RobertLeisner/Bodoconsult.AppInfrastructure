@@ -53,7 +53,7 @@ public class FlowDocumentContentToXamlConverter : BaseConverter, IValueConverter
         var flowDocument = (FlowDocument)value;
 
         // Convert to XAML and return
-        var erg =XamlWriter.Save(flowDocument).Replace("</FlowDocument>", "");
+        var erg =XamlWriter.Save(flowDocument).Replace("</FlowDocument>", string.Empty);
 
         var i = erg.IndexOf(">", StringComparison.CurrentCultureIgnoreCase);
 

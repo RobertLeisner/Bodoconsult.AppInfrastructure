@@ -73,7 +73,7 @@ namespace Bodoconsult.App.WinForms.AppStarter.Forms
             LogWindow.Name = "LogWindow";
             LogWindow.Size = new Size(1488, 537);
             LogWindow.TabIndex = 2;
-            LogWindow.Text = "";
+            LogWindow.Text = string.Empty;
             LogWindow.KeyPress += LogWindow_KeyPress;
             // 
             // AppTitle

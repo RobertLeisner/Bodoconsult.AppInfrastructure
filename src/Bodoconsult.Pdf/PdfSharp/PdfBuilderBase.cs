@@ -596,7 +596,7 @@ public abstract class PdfBuilderBase : IDisposable
         };
 
         paragraph.AddBookmark(tag);
-        paragraph.AddText(text ?? "");
+        paragraph.AddText(text ?? string.Empty);
 
         Content.Add(paragraph);
 
@@ -611,7 +611,7 @@ public abstract class PdfBuilderBase : IDisposable
     public Paragraph AddParagraph(string text)
     {
         var paragraph = new Paragraph();
-        paragraph.AddText(text ?? "");
+        paragraph.AddText(text ?? string.Empty);
         Content.Add(paragraph);
         return paragraph;
     }
@@ -629,12 +629,12 @@ public abstract class PdfBuilderBase : IDisposable
         }
         if (string.IsNullOrEmpty(text))
         {
-            text = "";
+            text = string.Empty;
         }
 
         var paragraph = new Paragraph();
 
-        paragraph.AddText(text ?? "");
+        paragraph.AddText(text ?? string.Empty);
 
         var i = Document.Styles.GetIndex(styleName);
         if (i < 0)
@@ -1210,7 +1210,7 @@ public abstract class PdfBuilderBase : IDisposable
 
             if (col.ColumnName.ToLower() == "cssstyle") continue;
 
-            var t = col.DataType.ToString().Replace("System.", "").ToLower();
+            var t = col.DataType.ToString().Replace("System.", string.Empty).ToLower();
 
             switch (t)
             {
@@ -1255,7 +1255,7 @@ public abstract class PdfBuilderBase : IDisposable
             var column = table.AddColumn();
             column.Borders.Color = TableBorderColor;
 
-            var t = col.DataType.ToString().Replace("System.", "").ToLower();
+            var t = col.DataType.ToString().Replace("System.", string.Empty).ToLower();
             switch (t)
             {
                 case "datetime":
@@ -1315,7 +1315,7 @@ public abstract class PdfBuilderBase : IDisposable
         {
             var row = table.AddRow();
             //row.KeepWith = 2;
-            var css = "";
+            var css = string.Empty;
             if (startCol == 2) css = r[0].ToString();
 
             Color shadingColor;
@@ -1610,7 +1610,7 @@ public abstract class PdfBuilderBase : IDisposable
                 continue;
             }
 
-            var t = col.DataType.ToString().Replace("System.", "").ToLower();
+            var t = col.DataType.ToString().Replace("System.", string.Empty).ToLower();
 
             switch (t)
             {
@@ -1658,7 +1658,7 @@ public abstract class PdfBuilderBase : IDisposable
             var column = table.AddColumn();
             column.Borders.Color = TableBorderColor;
 
-            var t = col.DataType.ToString().Replace("System.", "").ToLower();
+            var t = col.DataType.ToString().Replace("System.", string.Empty).ToLower();
             switch (t)
             {
                 case "datetime":
@@ -1725,7 +1725,7 @@ public abstract class PdfBuilderBase : IDisposable
             row.BottomPadding = 0;
             row.TopPadding = 0;
 
-            var css = "";
+            var css = string.Empty;
             if (startCol == 2)
             {
                 css = r[0].ToString();
@@ -1775,7 +1775,7 @@ public abstract class PdfBuilderBase : IDisposable
 
                 if (string.IsNullOrEmpty(s))
                 {
-                    var p = cell.AddParagraph((r[i + korr].ToString() ?? "").Trim());
+                    var p = cell.AddParagraph((r[i + korr].ToString() ?? string.Empty).Trim());
                     p.Format.Font.Size = style.Font.Size;
                     p.Format.Font.Name = style.Font.Name;
                     p.Format.SpaceAfter = style.ParagraphFormat.SpaceAfter;
@@ -1786,7 +1786,7 @@ public abstract class PdfBuilderBase : IDisposable
                 {
                     if (s.ToLower().Contains("yy"))
                     {
-                        var z = (r[i + korr].ToString() ?? "").Trim();
+                        var z = (r[i + korr].ToString() ?? string.Empty).Trim();
                         if (string.IsNullOrEmpty(z))
                         {
                             continue;
@@ -2316,7 +2316,7 @@ public abstract class PdfBuilderBase : IDisposable
     {
         if (string.IsNullOrEmpty(content))
         {
-            content = "";
+            content = string.Empty;
         }
 
         var cell = Table.Rows[row].Cells[column];
@@ -2497,7 +2497,7 @@ public abstract class PdfBuilderBase : IDisposable
     {
         if (string.IsNullOrEmpty(html))
         {
-            html = "";
+            html = string.Empty;
         }
 
         if (!html.Contains("<"))

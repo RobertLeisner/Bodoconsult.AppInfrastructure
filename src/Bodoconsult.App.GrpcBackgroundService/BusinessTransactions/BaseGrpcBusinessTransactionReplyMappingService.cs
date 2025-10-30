@@ -79,7 +79,7 @@ public class BaseGrpcBusinessTransactionReplyMappingService : IGrpcBusinessTrans
         var result = new BusinessTransactionReply
         {
             TransactionId = internalReply.RequestData?.TransactionId ?? 0,
-            TransactionUid = internalReply.RequestData?.TransactionGuid.ToString() ?? "",
+            TransactionUid = internalReply.RequestData?.TransactionGuid.ToString() ?? string.Empty,
             ErrorCode = internalReply.ErrorCode,
             ExceptionMessage = internalReply.ExceptionMessage ?? string.Empty,
             LogMessage = internalReply.Message ?? string.Empty,

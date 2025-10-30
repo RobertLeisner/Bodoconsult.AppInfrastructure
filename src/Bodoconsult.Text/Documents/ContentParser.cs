@@ -95,7 +95,7 @@
 //                }
 //            }
 //            // End tag
-//            else if (StartTags.Contains(tag.Replace("/", "").FirstCharToUpperCase()))
+//            else if (StartTags.Contains(tag.Replace("/", string.Empty).FirstCharToUpperCase()))
 //            {
 //                if (e < _content.Length - 1)
 //                {

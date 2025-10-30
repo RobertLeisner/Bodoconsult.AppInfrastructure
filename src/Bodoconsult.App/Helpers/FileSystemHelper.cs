@@ -44,7 +44,7 @@ public static class FileSystemHelper
     {
         if (string.IsNullOrEmpty(fullPath))
         {
-            return "";
+            return string.Empty;
         }
 
         var indexOfSlash = fullPath.LastIndexOf("\\", StringComparison.Ordinal);

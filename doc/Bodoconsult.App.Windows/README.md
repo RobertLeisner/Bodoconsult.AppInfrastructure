@@ -134,7 +134,7 @@ The source code contain a NUnit test classes, the following source code is extra
                 Result.AddHeader4("Scope options");
                 foreach (var optionValue in scope.OptionValues)
                 {
-                    var s = "";
+                    var s = string.Empty;
                     foreach (var value in optionValue.Values)
                     {
                         s += $"{value.Value} [{value.Type}]\r\n";
@@ -186,9 +186,9 @@ The source code contain a NUnit test classes, the following source code is extra
         private void EnumerateTree(AdTree node, int level)
         {
 
-            var space = "".PadRight(level * 5);
-            var space1 = "".PadRight((level + 1) * 5);
-            var space2 = "".PadRight((level + 2) * 5);
+            var space = string.Empty.PadRight(level * 5);
+            var space1 = string.Empty.PadRight((level + 1) * 5);
+            var space2 = string.Empty.PadRight((level + 2) * 5);
 
             Debug.Print("");
             Debug.Print("");

@@ -117,12 +117,12 @@ public class PdfCreator : PdfBuilderBase
         }
         if (string.IsNullOrEmpty(text))
         {
-            text = "";
+            text = string.Empty;
         }
 
         var paragraph = new Paragraph();
 
-        paragraph.AddText(text ?? "");
+        paragraph.AddText(text ?? string.Empty);
 
         var i = Document.Styles.GetIndex(styleName);
         if (i < 0)

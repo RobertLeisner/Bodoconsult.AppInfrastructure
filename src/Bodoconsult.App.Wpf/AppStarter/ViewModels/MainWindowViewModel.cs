@@ -291,7 +291,7 @@ public class MainWindowViewModel : ObservableRecipient, IMainWindowViewModel
     {
         AppBuilder = appBuilder;
 
-        MsgServerIsListeningOnPort = AppBuilder.AppGlobals.AppStartParameter.Port == 0 ? "" : $"{UiMessages.MsgServerIsListeningOnPort} {AppBuilder.AppGlobals.AppStartParameter.Port}";
+        MsgServerIsListeningOnPort = AppBuilder.AppGlobals.AppStartParameter.Port == 0 ? string.Empty : $"{UiMessages.MsgServerIsListeningOnPort} {AppBuilder.AppGlobals.AppStartParameter.Port}";
         MsgHowToShutdownServer = UiMessages.MsgHowToShutdownServer;
         MsgServerProcessId = $"{UiMessages.MsgServerProcessId} {Process.GetCurrentProcess().Id}";
     }

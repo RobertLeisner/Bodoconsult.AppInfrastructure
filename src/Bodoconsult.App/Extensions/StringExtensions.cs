@@ -19,7 +19,7 @@ public static class StringExtensions
     {
         if (string.IsNullOrEmpty(data))
         {
-            return "";
+            return string.Empty;
         }
 
         if (!data.Contains("[0x"))

@@ -67,7 +67,7 @@ public class WpfEmbeddedResourceProvider : BaseResourceProvider
 
             var key = lEesource.Key.ToString().Split(',')[0]
                 .ToLowerInvariant()
-                .Replace($"{_resourceFolder}/", "", StringComparison.InvariantCultureIgnoreCase).Replace(".baml", "");
+                .Replace($"{_resourceFolder}/", string.Empty, StringComparison.InvariantCultureIgnoreCase).Replace(".baml", string.Empty);
 
             if (!key.StartsWith("culture."))
             {
@@ -75,7 +75,7 @@ public class WpfEmbeddedResourceProvider : BaseResourceProvider
             }
 
             var path = $"pack://application:,,,/{assName};component/{_resourceFolder}/{key}.xaml";
-            var kvp = new KeyValuePair<string, string>(key.Replace("culture.", ""), path);
+            var kvp = new KeyValuePair<string, string>(key.Replace("culture.", string.Empty), path);
 
             ResourceItems.Add(kvp);
         }

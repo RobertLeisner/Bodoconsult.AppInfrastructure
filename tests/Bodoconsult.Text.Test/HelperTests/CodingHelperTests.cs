@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using System;
+using Bodoconsult.App.Abstractions.Helpers;
+using Bodoconsult.App.Extensions;
 using Bodoconsult.Text.Documents;
 using NUnit.Framework;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using Bodoconsult.App.Abstractions.Helpers;
-using Bodoconsult.App.Extensions;
 
 namespace Bodoconsult.Text.Test.HelperTests;
 
@@ -406,5 +406,3 @@ public class CodingHelperTests
         Debug.Print(sb.ToString());
     }
 }
-
-

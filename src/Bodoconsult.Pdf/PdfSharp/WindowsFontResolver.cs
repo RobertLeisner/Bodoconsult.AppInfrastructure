@@ -46,7 +46,7 @@ public class WindowsFontResolver : IFontResolver
                 continue;
             }
 
-            var myvalue = value.ToString() ?? "";
+            var myvalue = value.ToString() ?? string.Empty;
 
             if (string.IsNullOrEmpty(myvalue) || myvalue.Length < 5)
             {

@@ -53,7 +53,7 @@ public class CsvFileLocalesProvider : BaseResourceProvider
 
         foreach (var locale in dir.GetFiles().Where(x => x.Name.EndsWith(".csv", StringComparison.InvariantCultureIgnoreCase)))
         {
-            var key = locale.Name.Replace(locale.Extension, "");
+            var key = locale.Name.Replace(locale.Extension, string.Empty);
 
             var kvp = new KeyValuePair<string, string>(key, locale.FullName);
 

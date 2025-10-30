@@ -202,7 +202,7 @@ public class TestDocuHelperDebugWindow : TestDocuHelperBase
         {
             for (var y = 0; y < data.GetLength(1); y++)
             {
-                erg.Append((string.IsNullOrEmpty( data[x, y]) ? "": data[x, y]).PadRight(length[y]+3));
+                erg.Append((string.IsNullOrEmpty( data[x, y]) ? string.Empty: data[x, y]).PadRight(length[y]+3));
             }
 
             erg.Append("\r\n");

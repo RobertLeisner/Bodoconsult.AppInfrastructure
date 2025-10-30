@@ -54,7 +54,7 @@ public class PdfParagraphStyleTextRendererElementBase : IPdfTextRendererElement
     public void RenderIt(PdfTextDocumentRenderer renderer)
     {
 
-        var styleName = Style.Name.Replace("Style", "");
+        var styleName = Style.Name.Replace("Style", string.Empty);
 
         if (styleName == "Paragraph")
         {

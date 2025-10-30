@@ -225,7 +225,7 @@ public class DocumentationHandler : IHtmlCreator
         title.AppendLine($"<h1>Test assembly {AssemblyName}</h1>");
 
         // general data
-        title.AppendLine(string.IsNullOrEmpty(AssemblyDescription) ? "" : $"<p class=\"top bottom\">{AssemblyDescription}</p>");
+        title.AppendLine(string.IsNullOrEmpty(AssemblyDescription) ? string.Empty : $"<p class=\"top bottom\">{AssemblyDescription}</p>");
         title.AppendLine($"<dl>\r\n<dt>Date created:</dt><dd>{DateTime.Now:D}</dd>");
         title.AppendLine($"<dt>Computer:</dt><dd>{Environment.MachineName}</dd>");
         title.AppendLine($"<dt>OS: </dt><dd>{Environment.OSVersion}</dd>");

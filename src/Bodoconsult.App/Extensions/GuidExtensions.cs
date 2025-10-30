@@ -14,6 +14,6 @@ public static class GuidExtensions
     /// <returns>Guid as string with only number</returns>
     public static string ToPlainString(this Guid input)
     {
-        return input.ToString().Replace("-", "");
+        return input.ToString().Replace("-", string.Empty);
     }
 }

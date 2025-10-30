@@ -29,7 +29,7 @@ public class SpanPdfTextRendererElement : InlinePdfTextRendererElementBase
     /// <param name="paragraph">Paragraph to render the inline into</param>
     public override void RenderIt(PdfTextDocumentRenderer renderer, MigraDoc.DocumentObjectModel.Paragraph paragraph)
     {
-        paragraph.AddText(_span.Content ?? "");
+        paragraph.AddText(_span.Content ?? string.Empty);
     }
 
 

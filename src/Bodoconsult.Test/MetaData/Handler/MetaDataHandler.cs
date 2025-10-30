@@ -109,7 +109,7 @@ public class MetaDataHandler
 
         var item = new TypeMetaData
         {
-            FullName = "",
+            FullName = string.Empty,
             Name = type.Name,
             CurrentType = type
         };
