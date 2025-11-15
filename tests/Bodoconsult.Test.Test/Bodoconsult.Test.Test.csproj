@@ -4,6 +4,8 @@
     <TargetFramework>net8</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

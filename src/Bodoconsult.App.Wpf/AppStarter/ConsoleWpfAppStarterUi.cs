@@ -33,12 +33,14 @@ public class ConsoleWpfAppStarterUi : BaseAppStarterUi
     /// </summary>
     public ConsoleWpfAppStarterUi(IAppBuilder appStarterProcessHandler): base(appStarterProcessHandler)
     {
-        // App is a WinForms app, therefore the console is normally hidden.
-        // We access the hidden console here and make it visible 
-        AllocConsole();
+        ConsoleService = new WinConsoleService();
 
-        ConsoleHandle = GetConsoleWindow();
-        ShowWindow(ConsoleHandle, ShowWindowShow);
+        // App is a WPF app, therefore the console is normally hidden.
+        // We access the hidden console here and make it visible 
+        ConsoleService.CsAllocConsole();
+
+        ConsoleService.ConsoleHandle = ConsoleService.CsGetConsoleWindow();
+        ConsoleService.CsShowWindow(ConsoleService.ConsoleHandle, ConsoleService.ShowWindowShow);
 
         DispatcherService.OpenDispatcher();
     }

@@ -2,6 +2,7 @@
 
 using System.Diagnostics;
 using System.Reflection;
+using System.Threading;
 using Bodoconsult.Test.MetaData.Handler;
 using Bodoconsult.Test.Test.Models;
 using NUnit.Framework;
@@ -14,14 +15,17 @@ public class MetaDataHandlerTests
 {
     //private string Path = System.IO.Path.Combine(TestHelper.TempPath, "MetaDataText.txt");
 
+    private readonly Assembly _assembly = Assembly.GetExecutingAssembly();
+
+
     [Test]
     public void TestLoadAssemblies()
     {
 
         var mh = new MetaDataHandler();
 
-        mh.LoadReferencedAssemblies(Assembly.GetExecutingAssembly());
-        mh.LoadAssembly(Assembly.GetExecutingAssembly());
+        mh.LoadReferencedAssemblies(_assembly);
+        mh.LoadAssembly(_assembly);
 
         Assert.That(mh.Documentation.Count>0);
         Assert.That(mh.Documentation[0].Documentation != null);
@@ -34,8 +38,8 @@ public class MetaDataHandlerTests
 
         var mh = new MetaDataHandler();
 
-        mh.LoadReferencedAssemblies(Assembly.GetExecutingAssembly());
-        mh.LoadAssembly(Assembly.GetExecutingAssembly());
+        mh.LoadReferencedAssemblies(_assembly);
+        mh.LoadAssembly(_assembly);
 
         mh.AddType(typeof(BaseClass));
 
@@ -51,8 +55,8 @@ public class MetaDataHandlerTests
 
         var mh = new MetaDataHandler();
 
-        mh.LoadReferencedAssemblies(Assembly.GetExecutingAssembly());
-        mh.LoadAssembly(Assembly.GetExecutingAssembly());
+        mh.LoadReferencedAssemblies(_assembly);
+        mh.LoadAssembly(_assembly);
 
         mh.AddType(typeof(DerivedClass));
 
@@ -69,8 +73,8 @@ public class MetaDataHandlerTests
 
         var mh = new MetaDataHandler();
 
-        mh.LoadReferencedAssemblies(Assembly.GetExecutingAssembly());
-        mh.LoadAssembly(Assembly.GetExecutingAssembly());
+        mh.LoadReferencedAssemblies(_assembly);
+        mh.LoadAssembly(_assembly);
 
         mh.AddType(typeof(DerivedClass2));
 
@@ -84,7 +88,7 @@ public class MetaDataHandlerTests
     {
         var item = mh.TypeMetaDatas[0];
 
-        Assert.That(item.Summary != null);
+        Assert.That(item.Summary, Is.Not.Null);
 
         Debug.Print(item.FullName);
         Debug.Print(item.Summary);
@@ -93,7 +97,7 @@ public class MetaDataHandlerTests
         {
             Debug.Print($"\t{prop.Name}");
             Debug.Print($"\t\t{prop.Summary}");
-            Assert.That(prop.Summary != null);
+            Assert.That(prop.Summary, Is.Not.Null);
         }
     }
 }

@@ -52,8 +52,8 @@ public class SimpleDataProtectionDiContainerServiceProvider : IDiContainerServic
         }
         builder.PersistKeysToFileSystem(new DirectoryInfo(_destinationFolderPath));
         diContainer.AddSingleton<IFileProtectionService, SimpleFileProtectionService>();
-        diContainer.AddSingleton<IDataProtectionService, DataProtectionService>();
-        diContainer.AddSingleton<IDataProtectionManager, DataProtectionManager>();
+        diContainer.AddSingleton<IDataProtectionServiceFactory, DataProtectionServiceFactory>();
+        diContainer.AddSingleton<IDataProtectionManagerFactory, DataProtectionManagerFactory>();
 
     }
 

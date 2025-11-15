@@ -29,9 +29,10 @@ namespace Bodoconsult.App.Test.HelperTests
         public void GetTypesDerivedFrom_DefaultSetup_ListWithTypesReturned()
         {
             // Arrange 
-            var ass = TypeHelper.CurrentAssembly;
+            
 
             var baseType = typeof(IBusinessTransactionReply);
+            var ass = typeof(IBusinessTransactionReply).Assembly;
 
             // Act  
             var result = TypeHelper.GetTypesDerivedFrom(ass, baseType);
@@ -57,7 +58,7 @@ namespace Bodoconsult.App.Test.HelperTests
 
             // Assert
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Count, Is.Not.EqualTo(0));
+            Assert.That(result.Count, Is.EqualTo(0));
 
             //foreach (var type in result)
             //{

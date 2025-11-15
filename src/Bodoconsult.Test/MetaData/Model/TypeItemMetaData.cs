@@ -7,7 +7,7 @@ using System;
 namespace Bodoconsult.Test.MetaData.Model;
 
 /// <summary>
-/// Meta data for a type item
+/// metadata for a type item
 /// </summary>
 public class TypeItemMetaData : IMetaData
 {

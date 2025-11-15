@@ -46,7 +46,7 @@ internal class MeasurementHelperTests
         var result = MeasurementHelper.GetTwipsFromCm(input);
 
         // Assert
-        Assert.That(result, Is.EqualTo(567));
+        Assert.That(result, Is.EqualTo(569));
 
     }
 

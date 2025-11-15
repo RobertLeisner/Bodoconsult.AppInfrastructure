@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 // Licence MIT
 
-using System.Runtime.InteropServices;
 using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace Bodoconsult.App.AppStarter;
@@ -11,6 +10,8 @@ namespace Bodoconsult.App.AppStarter;
 /// </summary>
 public class BaseAppStarterUi : IAppStarterUi
 {
+
+    protected IConsoleService ConsoleService;
 
     /// <summary>
     /// Default ctor
@@ -59,40 +60,14 @@ public class BaseAppStarterUi : IAppStarterUi
             //    return false;
             //}
 
-            ConsoleHandle = GetConsoleWindow();
-            ShowWindow(ConsoleHandle, ShowWindowShow);
+            ConsoleService.ConsoleHandle = ConsoleService.CsGetConsoleWindow();
+            ConsoleService.CsShowWindow(ConsoleService.ConsoleHandle, ConsoleService.ShowWindowShow);
             return true;
 
         }
 
 
     }
-
-
-
-    protected IntPtr ConsoleHandle;
-
-    [DllImport("user32.dll")]
-    protected static extern bool SetForegroundWindow(IntPtr hWnd);
-
-    [DllImport("kernel32.dll", SetLastError = true)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    protected static extern bool AllocConsole();
-
-    [DllImport("kernel32.dll")]
-    protected static extern IntPtr GetConsoleWindow();
-
-    [DllImport("user32.dll")]
-    protected static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
-    protected const int ShowWindowHide = 0;
-    protected const int ShowWindowShow = 5;
-
-
-    [DllImport("kernel32.dll", SetLastError = true)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    static extern bool FreeConsole();
-
 
     /// <summary>
     /// Start the app

@@ -14,7 +14,7 @@ using Bodoconsult.Test.MetaData.Model;
 namespace Bodoconsult.Test.MetaData.Handler;
 
 /// <summary>
-/// Class to handle type meta data
+/// Class to handle type metadata
 /// </summary>
 public class MetaDataHandler
 {
@@ -54,10 +54,6 @@ public class MetaDataHandler
             //    // ignored
             //}
         }
-
-
-
-
     }
 
     /// <summary>
@@ -93,7 +89,7 @@ public class MetaDataHandler
 
 
     /// <summary>
-    /// List of the types to get meta data for
+    /// List of the types to get metadata for
     /// </summary>
     public IList<TypeMetaData> TypeMetaDatas { get; set; }
 

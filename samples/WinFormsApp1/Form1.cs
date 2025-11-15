@@ -1,11 +1,12 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.WinForms.Interfaces;
 // ReSharper disable LocalizableElement
 
 namespace WinFormsApp1;
 
-public sealed partial class Form1 : Form
+public sealed partial class Form1 : Form 
 {
     private readonly IMainWindowViewModel _mainWindowViewModel;
 

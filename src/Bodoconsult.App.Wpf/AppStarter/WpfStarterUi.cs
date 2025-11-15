@@ -94,8 +94,8 @@ public class WpfStarterUi : BaseAppStarterUi
     public override void Wait()
     {
 
-        ConsoleHandle = GetConsoleWindow();
-        ShowWindow(ConsoleHandle, ShowWindowHide);
+        ConsoleService.ConsoleHandle = ConsoleService.CsGetConsoleWindow();
+        ConsoleService.CsShowWindow(ConsoleService.ConsoleHandle, ConsoleService.ShowWindowShow);
 
         _viewModel ??= new MainWindowViewModel(_listener);
         _viewModel.LoadAppBuilder( AppBuilder);

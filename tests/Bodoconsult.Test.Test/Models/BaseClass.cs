@@ -7,7 +7,9 @@ namespace Bodoconsult.Test.Test.Models;
 /// </summary>
 internal class BaseClass : IBaseClass
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Base class property 1
+    /// </summary>
     public string Property1 { get; set; }
 
     /// <summary>

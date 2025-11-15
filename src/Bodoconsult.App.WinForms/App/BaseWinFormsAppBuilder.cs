@@ -13,9 +13,12 @@ namespace Bodoconsult.App.WinForms.App;
 /// </summary>
 public class BaseWinFormsAppBuilder: BaseAppBuilder
 {
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="appGlobals">Current <see cref="IAppGlobals"/> instance</param>
     public BaseWinFormsAppBuilder(IAppGlobals appGlobals) : base(appGlobals)
-    {
-    }
+    { }
 
     /// <summary>
     /// The current view model for the form

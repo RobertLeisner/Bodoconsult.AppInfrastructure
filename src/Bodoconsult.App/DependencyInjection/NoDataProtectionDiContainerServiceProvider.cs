@@ -51,9 +51,10 @@ public class NoDataProtectionDiContainerServiceProvider : IDiContainerServicePro
             throw new ArgumentException("Folder path for key infrastructure may not be null");
         }
         builder.PersistKeysToFileSystem(new DirectoryInfo(_destinationFolderPath));
-        diContainer.AddSingleton<IFileProtectionService, SimpleFileProtectionService>();
-        diContainer.AddSingleton<IDataProtectionService, DataProtectionService>();
-        diContainer.AddSingleton<IDataProtectionManager, DataProtectionManager>();
+        diContainer.AddSingleton<IFileProtectionService, NoFileProtectionService>();
+        diContainer.AddSingleton<IDataProtectionServiceFactory, DataProtectionServiceFactory>();
+        diContainer.AddSingleton<IDataProtectionManagerFactory, DataProtectionManagerFactory>();
+
 
     }
 

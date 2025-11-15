@@ -28961,7 +28961,7 @@
 		{
 			"$type": "Bodoconsult.Text.Model.TextItem, Bodoconsult.Text",
 			"LogicalType": "H1",
-			"Content": "Meta data",
+			"Content": "metadata",
 			"ClassName": null
 		},
 		{

@@ -21,7 +21,7 @@ public static class TestDataHelper
         };
 
 
-        // Styleset (add after meta data)
+        // Styleset (add after metadata)
         var styleset = StylesetHelper.CreateTestStyleset();
         doc.AddBlock(styleset);
 
@@ -327,7 +327,7 @@ public static class TestDataHelper
 
     public static void CreateRealWorldReportContent(Document doc)
     {
-        // Styleset (add after meta data)
+        // Styleset (add after metadata)
         var styleset = StylesetHelper.CreateTestStyleset();
         doc.AddBlock(styleset);
 

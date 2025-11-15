@@ -5,7 +5,7 @@ using System;
 namespace Bodoconsult.Test.Interfaces;
 
 /// <summary>
-/// Interface for meta data
+/// Interface for metadata
 /// </summary>
 public interface IMetaData
 {

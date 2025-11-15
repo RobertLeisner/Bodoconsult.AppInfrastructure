@@ -7,7 +7,7 @@ using Bodoconsult.Text.Extensions;
 namespace Bodoconsult.Text.Documents;
 
 /// <summary>
-/// Meta data for a document
+/// metadata for a document
 /// </summary>
 public class DocumentMetaData : Block
 {

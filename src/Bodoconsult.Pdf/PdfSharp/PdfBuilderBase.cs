@@ -1189,8 +1189,6 @@ public abstract class PdfBuilderBase : IDisposable
             AddParagraph(additionalInfos, additionalInfosStyleName);
         }
 
-
-
         var style = Document.Styles[tableStyle];
 
         //frame.FillFormat.Color = Colors.White;

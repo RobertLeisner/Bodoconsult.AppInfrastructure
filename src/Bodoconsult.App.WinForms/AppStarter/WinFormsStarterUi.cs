@@ -25,6 +25,8 @@ public class WinFormsStarterUi : BaseAppStarterUi
 
     public WinFormsStarterUi(IAppBuilder appBuilder) : base(appBuilder)
     {
+        ConsoleService = new WinConsoleService();
+
         //var minimumLogLevel = Globals.GetLoggingConfiguration().MinimumLogLevel;
 
         //MinimumLogLevel = LogLevel.Debug;
@@ -42,6 +44,8 @@ public class WinFormsStarterUi : BaseAppStarterUi
     /// </summary>
     public WinFormsStarterUi(IAppBuilder appBuilder, IMainWindowViewModel viewModel) : base(appBuilder)
     {
+        ConsoleService = new WinConsoleService();
+
         //var minimumLogLevel = Globals.GetLoggingConfiguration().MinimumLogLevel;
 
         //MinimumLogLevel = LogLevel.Debug;
@@ -90,9 +94,8 @@ public class WinFormsStarterUi : BaseAppStarterUi
     /// </summary>
     public override void Wait()
     {
-
-        ConsoleHandle = GetConsoleWindow();
-        ShowWindow(ConsoleHandle, ShowWindowHide);
+        ConsoleService.ConsoleHandle = ConsoleService.CsGetConsoleWindow();
+        ConsoleService.CsShowWindow(ConsoleService.ConsoleHandle, ConsoleService.ShowWindowHide);
 
         _viewModel ??= new MainWindowViewModel(_listener);
         _viewModel.LoadAppBuilder( AppBuilder);

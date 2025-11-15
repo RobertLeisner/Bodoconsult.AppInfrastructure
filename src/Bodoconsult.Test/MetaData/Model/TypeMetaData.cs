@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Bodoconsult.Test.MetaData.Model;
 
 /// <summary>
-/// Meta data for a type
+/// metadata for a type
 /// </summary>
 public class TypeMetaData : IMetaData
 {

@@ -1,16 +1,17 @@
-﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
-// Licence MIT
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System.Diagnostics;
+using System.Runtime.Versioning;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Helpers;
-using System.Diagnostics;
 
 namespace Bodoconsult.App.AppStarter;
 
 /// <summary>
 /// Implementation of <see cref="IAppStarterUi"/> for console app
 /// </summary>
-public class ConsoleAppStarterUi : BaseAppStarterUi
+[SupportedOSPlatform("windows")]
+public class WinConsoleAppStarterUi : BaseAppStarterUi
 {
 
     private CancellationTokenSource _cancellationTokenSource;
@@ -28,9 +29,9 @@ public class ConsoleAppStarterUi : BaseAppStarterUi
     /// <summary>
     /// Default ctor
     /// </summary>
-    public ConsoleAppStarterUi(IAppBuilder appStarterProcessHandler) : base(appStarterProcessHandler)
+    public WinConsoleAppStarterUi(IAppBuilder appBuilder): base(appBuilder)
     {
-        ConsoleService = new ConsoleService();
+        ConsoleService = new WinConsoleService();
 
         //// App is a WinForms app, therefore the console is normally hidden.
         //// We access the hidden console here and make it visible 

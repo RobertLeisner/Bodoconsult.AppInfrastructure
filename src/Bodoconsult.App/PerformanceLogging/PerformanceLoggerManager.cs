@@ -8,10 +8,7 @@ namespace Bodoconsult.App.PerformanceLogging;
 
 public class PerformanceLoggerManager: IPerformanceLoggerManager
 {
-
     private IWatchDog _watchDog;
-
-        
 
     /// <summary>
     /// Default ctor

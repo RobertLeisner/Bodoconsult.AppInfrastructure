@@ -7,7 +7,9 @@ using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace Bodoconsult.App.DataProtection;
 
-
+/// <summary>
+/// Current implementation of <see cref="IDataProtectionManager"/>
+/// </summary>
 public class DataProtectionManager : IDataProtectionManager
 {
     /// <summary>
@@ -36,7 +38,6 @@ public class DataProtectionManager : IDataProtectionManager
         SaveValues();
     }
 
-
     /// <summary>
     /// Delegate to read a string input from console, UI, etc.
     /// </summary>
@@ -58,6 +59,9 @@ public class DataProtectionManager : IDataProtectionManager
     /// </summary>
     public IDataProtectionService DataProtectionService { get; }
 
+    /// <summary>
+    /// Current file protection service implementation
+    /// </summary>
     public IFileProtectionService FileProtectionService { get; }
 
     /// <summary>

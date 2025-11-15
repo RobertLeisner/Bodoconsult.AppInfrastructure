@@ -21,7 +21,7 @@ internal class DocumentExtensionsTests
         };
 
 
-        // Styleset (add after meta data)
+        // Styleset (add after metadata)
         var styleset = StylesetHelper.CreateTestStyleset();
         doc.AddBlock(styleset);
 
@@ -61,7 +61,7 @@ internal class DocumentExtensionsTests
         };
 
 
-        // Styleset (add after meta data)
+        // Styleset (add after metadata)
         var styleset = StylesetHelper.CreateTestStyleset();
         doc.AddBlock(styleset);
 
