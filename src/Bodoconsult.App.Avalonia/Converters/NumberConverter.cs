@@ -1,9 +1,9 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 using System.Globalization;
-using System.Windows.Data;
+using Avalonia.Data.Converters;
 
-namespace Bodoconsult.App.Wpf.Converters;
+namespace Bodoconsult.App.Avalonia.Converters;
 
 /// <summary>
 /// Convert numbers for data binding: Format N2 (#,##0.00)

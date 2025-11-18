@@ -82,10 +82,7 @@ public static class ResourceFinderHelper
     /// <summary>
     /// Number of resource dictionaries currently cached
     /// </summary>
-    public static int Count
-    {
-        get { return _cachedResources.Count; }
-    }
+    public static int Count => _cachedResources.Count;
 
 
     /// <summary>

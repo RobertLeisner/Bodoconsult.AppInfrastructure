@@ -64,6 +64,7 @@ public class SharedResourceDictionary : ResourceDictionary
                     }
                 }
                 SharedDictinaries.Add(value, this);
+                //MergedDictionaries.Add(SharedDictinaries[value]);
             }
             else
             {

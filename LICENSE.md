@@ -52,7 +52,7 @@ SOFTWARE.
 
 >	[ConsoleApp1](#referenced-libraries-for-consoleapp1)
 
->	[ConsoleWpfApp1](#referenced-libraries-for-consolewpfapp1)
+>	[ConsoleAvaloniaApp1](#referenced-libraries-for-consoleAvaloniaApp1)
 
 >	[GrpcServerApp.Grpc.Common](#referenced-libraries-for-grpcserverappgrpccommon)
 
@@ -124,7 +124,7 @@ License-Url: https://licenses.nuget.org/MIT
 
 Project-Url: https://github.com/dotnet/runtime
 
-# Referenced libraries for ConsoleWpfApp1
+# Referenced libraries for ConsoleAvaloniaApp1
 
 ## Nuget package library System.Text.Json by Microsoft
 

@@ -10,24 +10,24 @@ See page [app start infrastructure](../Bodoconsult.App/AppStartInfrastructure.md
 
 ## Using app start infrastructure for a classical Wpf based apps
 
-Here a sample from Program.cs Main() how to setup the Wpf app with a main form Forms1 in project AvaloniaApp1 contained in this repo:
+Here a sample from Program.cs Main() how to setup the Wpf app with a main form Forms1 in project WpfApp1 contained in this repo:
 
 ``` csharp
 var type = typeof(App);
 
 Debug.Print("Hello, World!");
 
-Console.WriteLine("AvaloniaApp1 initiation starts...");
+Console.WriteLine("WpfApp1 initiation starts...");
 
 var globals = Globals.Instance;
 globals.LoggingConfig.AddDefaultLoggerProviderConfiguratorsForUiApp();
 
 // Set additional app start parameters as required
 var param = globals.AppStartParameter;
-param.AppName = "AvaloniaApp1: Demo app";
+param.AppName = "WpfApp1: Demo app";
 param.SoftwareTeam = "Robert Leisner";
-param.LogoRessourcePath = "AvaloniaApp1.Resources.logo.jpg";
-param.AppFolderName = "AvaloniaApp1";
+param.LogoRessourcePath = "WpfApp1.Resources.logo.jpg";
+param.AppFolderName = "WpfApp1";
 
 const string performanceToken = "--PERF";
 
@@ -37,7 +37,7 @@ if (e.Args.Contains(performanceToken))
 }
 
 // Now start app buiding process
-var builder = new AvaloniaApp1AppBuilder(globals);
+var builder = new WpfApp1AppBuilder(globals);
 #if !DEBUG
 AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
 #endif
@@ -59,7 +59,7 @@ builder.FinalizeDiContainerSetup();
 // Create the viewmodel now
 var eventLevel = EventLevel.Warning;
 var listener = new AppEventListener(eventLevel);
-var viewModel = new AvaloniaApp1MainWindowViewModel(listener)
+var viewModel = new WpfApp1MainWindowViewModel(listener)
 {
     HeaderBackColor = Colors.DarkBlue,
     BodyBackColor = Colors.Beige,
@@ -78,7 +78,7 @@ builder.StartApplication();
 base.OnStartup(e);
 ```
 
-Start by creating your own viewmodel class AvaloniaApp1MainWindowViewModel derived from MainWindowViewModel and override CreateWindow() method to load your custom start window.
+Start by creating your own viewmodel class WpfApp1MainWindowViewModel derived from MainWindowViewModel and override CreateWindow() method to load your custom start window.
 
 ## Using app start infrastructure for a console app employing a WPF dispatcher
 
@@ -87,7 +87,7 @@ In a classical WPF app starting the WPF dispatcher is done by the App.xaml start
 In a console app you do not have a App.xaml so the disptacher has to be started separately.
 Using Bodoconsult.App.Wpf you can handles this easily.
 
-Here a sample from Program.cs Main() how to setup the console app employing a WPF dispatcher in project ConsoleAvaloniaApp1 contained in this repo:
+Here a sample from Program.cs Main() how to setup the console app employing a WPF dispatcher in project ConsoleWpfApp1 contained in this repo:
 
 ``` csharp
 var globals = Globals.Instance;
@@ -95,9 +95,9 @@ globals.LoggingConfig.AddDefaultLoggerProviderConfiguratorsForConsoleApp();
 
 // Set additional app start parameters as required
 var param = globals.AppStartParameter;
-param.AppName = "ConsoleAvaloniaApp1: Demo app";
+param.AppName = "ConsoleWpfApp1: Demo app";
 param.SoftwareTeam = "Robert Leisner";
-param.AppFolderName = "ConsoleAvaloniaApp1";
+param.AppFolderName = "ConsoleWpfApp1";
 
 const string performanceToken = "--PERF";
 
@@ -107,7 +107,7 @@ if (args.Contains(performanceToken))
 }
 
 // Now start app buiding process
-IAppBuilder builder = new ConsoleAvaloniaApp1AppBuilder(globals);
+IAppBuilder builder = new ConsoleWpfApp1AppBuilder(globals);
 #if !DEBUG
     AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
 #endif
@@ -136,7 +136,7 @@ builder.StartApplication();
 Environment.Exit(0);
 ```
 
-Start by creating your own app builder class similar to ConsoleAvaloniaApp1AppBuilder class based on BaseConsoleAvaloniaAppBuilderl.
+Start by creating your own app builder class similar to ConsoleWpfApp1AppBuilder class based on BaseConsoleWpfAppBuilderl.
 
 ## Using app start infrastructure for a OS service like WPF based apps
 

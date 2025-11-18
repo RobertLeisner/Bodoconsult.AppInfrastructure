@@ -10,6 +10,10 @@ namespace Bodoconsult.App;
 /// </summary>
 public class DefaultAppStartProvider : IAppStartProvider
 {
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="appGlobals">Current app globals</param>
     public DefaultAppStartProvider(IAppGlobals appGlobals)
     {
         AppGlobals=appGlobals;

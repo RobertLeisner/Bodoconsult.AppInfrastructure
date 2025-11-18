@@ -1,17 +1,16 @@
-// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using System.Globalization;
-using System.Windows.Data;
+using Avalonia.Data.Converters;
+using Avalonia.Media;
 
-namespace Bodoconsult.App.Wpf.Converters;
+namespace Bodoconsult.App.Avalonia.Converters;
 
 /// <summary>
-/// Convert numbers for data binding: Format N2 (#,##0.00)
+///  Convert a color to a solid brush
 /// </summary>
-public class NumberConverter : BaseConverter, IValueConverter
+public class ColorToBrushConverter : IValueConverter
 {
-    //E.g. DB 0.042367 --> UI "4.24 %"
-
     /// <summary>Converts a value.</summary>
     /// <param name="value">The value produced by the binding source.</param>
     /// <param name="targetType">The type of the binding target property.</param>
@@ -20,16 +19,10 @@ public class NumberConverter : BaseConverter, IValueConverter
     /// <returns>A converted value. If the method returns <see langword="null" />, the valid null value is used.</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-
-        var format = parameter == null ? "N2" : (string)parameter;
-
-        //var fraction = double.Parse(value.ToString());
-        //return fraction.ToString("N2");
-
-        return string.Format(culture, $"{{0:{format}}}", value);
+        var brush = value is null ? null : new SolidColorBrush((Color)value);
+        return brush;
     }
 
-    //E.g. UI "4.2367 %" --> DB 0.042367
     /// <summary>Converts a value.</summary>
     /// <param name="value">The value that is produced by the binding target.</param>
     /// <param name="targetType">The type to convert to.</param>
@@ -38,6 +31,6 @@ public class NumberConverter : BaseConverter, IValueConverter
     /// <returns>A converted value. If the method returns <see langword="null" />, the valid null value is used.</returns>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return double.Parse(value.ToString(), culture.NumberFormat);
+        return (value as SolidColorBrush)?.Color;
     }
 }

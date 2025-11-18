@@ -1,4 +1,6 @@
-﻿using System.Globalization;
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+
+using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
