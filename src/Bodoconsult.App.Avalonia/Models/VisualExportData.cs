@@ -17,7 +17,7 @@ public class VisualExportData
     /// </summary>
     public VisualExportData()
     {
-        ImageFormat = WpfHelper.ImageFormat.Png;
+        ImageFormat = AvaloniaHelper.ImageFormat.Png;
         Width = 1024;
         Height = 768;
     }
@@ -30,7 +30,7 @@ public class VisualExportData
     /// <summary>
     /// Image format for the chart export
     /// </summary>
-    public WpfHelper.ImageFormat ImageFormat { get; set; }
+    public AvaloniaHelper.ImageFormat ImageFormat { get; set; }
 
     /// <summary>
     /// path to save the exported chart

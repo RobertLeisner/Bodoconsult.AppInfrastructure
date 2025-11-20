@@ -14,7 +14,6 @@ using System.Diagnostics;
 using System.Diagnostics.Tracing;
 using System.Reflection;
 using System.Text;
-using System.Windows;
 using System.Windows.Input;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
@@ -58,6 +57,8 @@ public class MainWindowViewModel : ObservableObject, IMainWindowViewModel
     private readonly Thickness _margin = new(0, 0, 0, 0);
     private readonly Thickness _padding = new(0, 10, 0, 10);
     private Color _bodyBackColor = Colors.LightGray;
+    private string _showOrHideText;
+    private object _exitText;
 
     /// <summary>
     /// Ctor providing an <see cref="AppEventListener"/> instance
@@ -289,6 +290,8 @@ public class MainWindowViewModel : ObservableObject, IMainWindowViewModel
         }
     }
 
+    // https://github.com/AvaloniaUI/Avalonia/issues/2155
+
     /// <summary>
     /// Send a notification to the taskbar
     /// </summary>
@@ -508,6 +511,30 @@ public class MainWindowViewModel : ObservableObject, IMainWindowViewModel
                 return;
             }
             _bodyBackColor = value;
+            OnPropertyChanged();
+        }
+    }
+
+
+    public string ShowOrHideText
+    {
+        get => _showOrHideText;
+        private set
+        {
+            if (value == _showOrHideText) return;
+            _showOrHideText = value;
+            OnPropertyChanged();
+        }
+    }
+
+
+    public object ExitText
+    {
+        get => _exitText;
+        private set
+        {
+            if (Equals(value, _exitText)) return;
+            _exitText = value;
             OnPropertyChanged();
         }
     }

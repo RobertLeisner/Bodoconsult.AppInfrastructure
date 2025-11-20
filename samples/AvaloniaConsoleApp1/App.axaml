@@ -1,15 +1,14 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="AvaloniaApp1.App"
-             xmlns:local="using:AvaloniaApp1"
+             x:Class="AvaloniaConsoleApp1.App"
              xmlns:viewModels="clr-namespace:Bodoconsult.App.Avalonia.AppStarter.ViewModels;assembly=Bodoconsult.App.Avalonia"
              x:DataType="viewModels:MainWindowViewModel"
              RequestedThemeVariant="Default">
 	<!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
-	<Application.DataTemplates>
+	<!--<Application.DataTemplates>
 		<local:ViewLocator/>
-	</Application.DataTemplates>
+	</Application.DataTemplates>-->
 
 	<Design.DataContext>
 		<!-- This only sets the DataContext for the previewer in an IDE,

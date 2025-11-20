@@ -2,7 +2,6 @@
 
 using System.Diagnostics;
 using System.Reflection;
-using System.Threading;
 using Bodoconsult.Test.MetaData.Handler;
 using Bodoconsult.Test.Test.Models;
 using NUnit.Framework;

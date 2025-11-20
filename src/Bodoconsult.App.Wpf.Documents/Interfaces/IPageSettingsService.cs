@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.App.Wpf.Delegates;
 using Bodoconsult.Text.Documents;
 using System.Globalization;
 using System.Windows;

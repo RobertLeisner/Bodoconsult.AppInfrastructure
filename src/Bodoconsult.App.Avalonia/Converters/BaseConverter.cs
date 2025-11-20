@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using System.Windows.Markup;
 using Avalonia.Markup.Xaml;
 
 namespace Bodoconsult.App.Avalonia.Converters;

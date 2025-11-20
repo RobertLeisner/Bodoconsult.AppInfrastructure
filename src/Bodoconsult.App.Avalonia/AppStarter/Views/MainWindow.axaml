@@ -7,15 +7,22 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Bodoconsult.App.Avalonia.AppStarter.Views.MainWindow"
         x:DataType="viewModels:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="AvaloniaApp1"
-        WindowState="Maximized">
+        ShowInTaskbar="{CompiledBinding ShowInTaskbar}"
+        WindowState="{CompiledBinding WindowState}"
+        Title="{CompiledBinding FullAppName}" Height="768" Width="1024"
+        KeyDown="MainWindow_OnKeyDown"
+        SizeChanged="MainWindow_OnSizeChanged"
+        Loaded="MainWindow_OnLoaded"
+        CanMaximize="False">
+
 
 	<Design.DataContext>
 		<!-- This only sets the DataContext for the previewer in an IDE,
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
 		<viewModels:MainWindowViewModel/>
 	</Design.DataContext>
+
+
 
 	<Window.Resources>
 		<converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
@@ -53,15 +60,9 @@
 			</StackPanel>
 
 			<Grid x:Name="DocGrid" Grid.Row="2" Background="White">
-				<!--<FlowDocumentScrollViewer Height="{Binding ElementName=DocGrid, Path=ActualHeight}" MaxHeight="{Binding ElementName=DocGrid, Path=ActualHeight}">
-					<FlowDocumentScrollViewer.Document>
-						<Binding Path="LogData" Mode="OneWay"/>
-					</FlowDocumentScrollViewer.Document>
-				</FlowDocumentScrollViewer>-->
+				<TextBlock Text="{CompiledBinding LogData}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,50,50"/>
 			</Grid>
 		</Grid>
 	</Grid>
-
-	<!--<TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
 
 </Window>

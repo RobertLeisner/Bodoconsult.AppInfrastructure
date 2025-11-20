@@ -3,10 +3,6 @@
 
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Threading;
-using System.Runtime.Versioning;
-using System.Windows;
 
 namespace Bodoconsult.App.Avalonia.Services;
 

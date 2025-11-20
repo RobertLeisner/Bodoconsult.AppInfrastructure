@@ -1,103 +1,106 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using System.Runtime.InteropServices;
+using Avalonia.Controls;
+
 namespace Bodoconsult.App.Avalonia.Helpers;
 
 /// <summary>
-/// General utilities for WPF
+/// General utilities for Avalonia
 /// </summary>
-public static class WpfHelper
+public static class AvaloniaHelper
 {
-    //    // https://learn.microsoft.com/en-us/answers/questions/746124/how-to-disable-and-enable-window-close-button-(x)
+    // https://learn.microsoft.com/en-us/answers/questions/746124/how-to-disable-and-enable-window-close-button-(x)
 
-    //    [DllImport("user32.dll")]
-    //    private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+    [DllImport("user32.dll")]
+    private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
 
-    //    [DllImport("user32.dll")]
-    //    private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+    [DllImport("user32.dll")]
+    private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
-    //    [DllImport("user32.dll")]
-    //    private static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
+    [DllImport("user32.dll")]
+    private static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
 
-    //    [DllImport("user32.dll")]
-    //    private static extern bool EnableMenuItem(IntPtr hMenu, uint uIdEnableItem, uint uEnable);
+    [DllImport("user32.dll")]
+    private static extern bool EnableMenuItem(IntPtr hMenu, uint uIdEnableItem, uint uEnable);
 
-    //    private const int GwlStyle = -16;
-    //    private const int WsMaximizebox = 0x10000; //maximize button
-    //    private const int WsMinimizebox = 0x20000; //minimize button
-    //    private const uint MfGrayed = 0x00000001;
-    //    private const uint MfEnabled = 0x00000000;
-    //    private const uint ScClose = 0xF060;
+    private const int GwlStyle = -16;
+    private const int WsMaximizebox = 0x10000; //maximize button
+    private const int WsMinimizebox = 0x20000; //minimize button
+    private const uint MfGrayed = 0x00000001;
+    private const uint MfEnabled = 0x00000000;
+    private const uint ScClose = 0xF060;
 
-    //    /// <summary>
-    //    /// Disable minimize button
-    //    /// </summary>
-    //    /// <param name="window">Window to disable the minimize button for</param>
-    //    /// <exception cref="InvalidOperationException">The window has not yet been completely initialized</exception>
-    //    public static void DisableMinimizeButton(Window window)
-    //    {
-    //        var windowHandle = new WindowInteropHelper(window).Handle;
+    /// <summary>
+    /// Disable minimize button
+    /// </summary>
+    /// <param name="window">Window to disable the minimize button for</param>
+    /// <exception cref="InvalidOperationException">The window has not yet been completely initialized</exception>
+    public static void DisableMinimizeButton(Window window)
+    {
+        var windowHandle = window.TryGetPlatformHandle()?.Handle ?? IntPtr.Zero;
 
-    //        if (windowHandle == IntPtr.Zero)
-    //        {
-    //            throw new InvalidOperationException("The window has not yet been completely initialized");
-    //        }
+        if (windowHandle == IntPtr.Zero)
+        {
+            throw new InvalidOperationException("The window has not yet been completely initialized");
+        }
 
-    //        SetWindowLong(windowHandle, GwlStyle, GetWindowLong(windowHandle, GwlStyle) & ~WsMinimizebox);
-    //    }
+        SetWindowLong(windowHandle, GwlStyle, GetWindowLong(windowHandle, GwlStyle) & ~WsMinimizebox);
+    }
 
-    //    /// <summary>
-    //    /// Disable maximize button
-    //    /// </summary>
-    //    /// <param name="window">Window to disable the minimize button for</param>
-    //    /// <exception cref="InvalidOperationException">The window has not yet been completely initialized</exception>
-    //    public static void DisableMaximizeButton(Window window)
-    //    {
-    //        var windowHandle = new WindowInteropHelper(window).Handle;
+    /// <summary>
+    /// Disable maximize button
+    /// </summary>
+    /// <param name="window">Window to disable the minimize button for</param>
+    /// <exception cref="InvalidOperationException">The window has not yet been completely initialized</exception>
+    public static void DisableMaximizeButton(Window window)
+    {
+        var windowHandle = window.TryGetPlatformHandle()?.Handle ?? IntPtr.Zero;
 
-    //        if (windowHandle == IntPtr.Zero)
-    //        {
-    //            throw new InvalidOperationException("The window has not yet been completely initialized");
-    //        }
+        if (windowHandle == IntPtr.Zero)
+        {
+            throw new InvalidOperationException("The window has not yet been completely initialized");
+        }
 
-    //        SetWindowLong(windowHandle, GwlStyle, GetWindowLong(windowHandle, GwlStyle) & ~WsMaximizebox);
-    //    }
+        SetWindowLong(windowHandle, GwlStyle, GetWindowLong(windowHandle, GwlStyle) & ~WsMaximizebox);
+    }
 
-    //    /// <summary>
-    //    /// Disable close button
-    //    /// </summary>
-    //    /// <param name="window">Window to disable the close button for</param>
-    //    /// <exception cref="InvalidOperationException">The window has not yet been completely initialized</exception>
-    //    public static void DisableCloseButton(Window window)
-    //    {
-    //        var windowHandle = new WindowInteropHelper(window).Handle;
+    /// <summary>
+    /// Disable close button
+    /// </summary>
+    /// <param name="window">Window to disable the close button for</param>
+    /// <exception cref="InvalidOperationException">The window has not yet been completely initialized</exception>
+    public static void DisableCloseButton(Window window)
+    {
+        var windowHandle = window.TryGetPlatformHandle()?.Handle ?? IntPtr.Zero;
 
-    //        if (windowHandle == IntPtr.Zero)
-    //        {
-    //            throw new InvalidOperationException("The window has not yet been completely initialized");
-    //        }
+        if (windowHandle == IntPtr.Zero)
+        {
+            throw new InvalidOperationException("The window has not yet been completely initialized");
+        }
 
 
-    //        var hMenu = GetSystemMenu(windowHandle, false);
-    //        EnableMenuItem(hMenu, ScClose, MfGrayed);
-    //    }
+        var hMenu = GetSystemMenu(windowHandle, false);
+        EnableMenuItem(hMenu, ScClose, MfGrayed);
+    }
 
-    //    /// <summary>
-    //    /// Enable close button
-    //    /// </summary>
-    //    /// <param name="window">Window to enable the close button for</param>
-    //    /// <exception cref="InvalidOperationException">The window has not yet been completely initialized</exception>
-    //    public static void EnableCloseButton(Window window)
-    //    {
-    //        var windowHandle = new WindowInteropHelper(window).Handle;
+    /// <summary>
+    /// Enable close button
+    /// </summary>
+    /// <param name="window">Window to enable the close button for</param>
+    /// <exception cref="InvalidOperationException">The window has not yet been completely initialized</exception>
+    public static void EnableCloseButton(Window window)
+    {
+        var windowHandle = window.TryGetPlatformHandle()?.Handle ?? IntPtr.Zero;
 
-    //        if (windowHandle == IntPtr.Zero)
-    //        {
-    //            throw new InvalidOperationException("The window has not yet been completely initialized");
-    //        }
+        if (windowHandle == IntPtr.Zero)
+        {
+            throw new InvalidOperationException("The window has not yet been completely initialized");
+        }
 
-    //        var hMenu = GetSystemMenu(windowHandle, false);
-    //        EnableMenuItem(hMenu, ScClose, MfEnabled);
-    //    }
+        var hMenu = GetSystemMenu(windowHandle, false);
+        EnableMenuItem(hMenu, ScClose, MfEnabled);
+    }
 
     /// <summary>
     /// List of available image formats for export of visuals

@@ -8,11 +8,10 @@ using Avalonia.Data.Core.Plugins;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.AppStarter;
 using Bodoconsult.App.Avalonia.AppStarter.ViewModels;
-using Bodoconsult.App.Avalonia.AppStarter.Views;
 using Bodoconsult.App.Avalonia.Interfaces;
 using Bodoconsult.App.Logging;
 using System.Diagnostics.Tracing;
-using System.Windows;
+using Bodoconsult.App.Avalonia.Helpers;
 
 // ReSharper disable LocalizableElement
 
@@ -43,13 +42,13 @@ public class AvaloniaStarterUi : BaseAppStarterUi
             ConsoleService = new ConsoleService();
         }
 
-            //var minimumLogLevel = Globals.GetLoggingConfiguration().MinimumLogLevel;
+        //var minimumLogLevel = Globals.GetLoggingConfiguration().MinimumLogLevel;
 
-            //MinimumLogLevel = LogLevel.Debug;
+        //MinimumLogLevel = LogLevel.Debug;
 
-            //var eventLevel = MapLogLevelToEventLevel(minimumLogLevel);
+        //var eventLevel = MapLogLevelToEventLevel(minimumLogLevel);
 
-            var eventLevel = EventLevel.Warning;
+        var eventLevel = EventLevel.Warning;
 
         _listener = new AppEventListener(eventLevel);
 
@@ -160,13 +159,26 @@ public class AvaloniaStarterUi : BaseAppStarterUi
     /// <param name="appTitle">App title to set</param>
     public override async void TerminateAppWithMessage(string message, string appTitle)
     {
+        try
+        {
+            try
+            {
+                await AvaloniaStandardDialogHelper.ShowOkMessageBox(appTitle, message);
+            }
+            catch (Exception exception)
+            {
+                Debug.Print(exception.ToString());
+                // ToDo: messageBox
+                //MessageBox.Show($"{exception.Message} {exception.StackTrace}", AppBuilder.AppGlobals.AppStartParameter.AppName);
+            }
 
-        // ToDo: messageBox
-        //MessageBox.Show(message, appTitle);
-
-        _viewModel.ShutDown();
-
-        Environment.Exit(0);
+            _viewModel.ShutDown();
+            Environment.Exit(0);
+        }
+        catch (Exception exception)
+        {
+            Debug.Print(exception.ToString());
+        }
     }
 
 
@@ -174,28 +186,33 @@ public class AvaloniaStarterUi : BaseAppStarterUi
     /// Central handling for exceptions
     /// </summary>
     /// <param name="e"></param>
-    public override void HandleException(Exception e)
+    public override async void HandleException(Exception e)
     {
-        if (e == null)
-        {
-            return;
-        }
-
         try
         {
-            var msg = UiMessages.HandleException(e);
-            // ToDo: messageBox
-            //MessageBox.Show(msg, AppBuilder.AppGlobals.AppStartParameter.AppName);
+            if (e == null)
+            {
+                return;
+            }
+
+            try
+            {
+                var msg = UiMessages.HandleException(e);
+                await AvaloniaStandardDialogHelper.ShowOkMessageBox(AppBuilder.AppGlobals.AppStartParameter.AppName, msg);
+            }
+            catch (Exception exception)
+            {
+                Debug.Print(exception.ToString());
+                await AvaloniaStandardDialogHelper.ShowOkMessageBox(AppBuilder.AppGlobals.AppStartParameter.AppName, $"{exception.Message} {exception.StackTrace}");
+            }
+
+            _viewModel?.ShutDown();
+            Environment.Exit(0);
         }
         catch (Exception exception)
         {
             Debug.Print(exception.ToString());
-            // ToDo: messageBox
-            //MessageBox.Show($"{exception.Message} {exception.StackTrace}", AppBuilder.AppGlobals.AppStartParameter.AppName);
         }
-
-        _viewModel?.ShutDown();
-        Environment.Exit(0);
     }
 
 

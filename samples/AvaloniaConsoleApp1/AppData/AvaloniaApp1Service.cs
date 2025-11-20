@@ -9,12 +9,12 @@ using Bodoconsult.App.BusinessTransactions.RequestData;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
 
-namespace AvaloniaApp1.AppData;
+namespace AvaloniaConsoleApp1.AppData;
 
 /// <summary>
 /// Current implementation of <see cref="IApplicationService"/>
 /// </summary>
-public class AvaloniaApp1Service : IApplicationService
+public class AvaloniaConsoleApp1Service : IApplicationService
 {
     private bool _isStopped;
     private bool _isStarting;
@@ -24,7 +24,7 @@ public class AvaloniaApp1Service : IApplicationService
     /// <summary>
     /// Default ctor
     /// </summary>
-    public AvaloniaApp1Service(IAppLoggerProxy appLogger,
+    public AvaloniaConsoleApp1Service(IAppLoggerProxy appLogger,
         IAppGlobals appGlobals)
     {
         _appLogger = appLogger;

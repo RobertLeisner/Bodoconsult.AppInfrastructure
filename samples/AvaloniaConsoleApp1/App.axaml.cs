@@ -9,14 +9,14 @@ using System.Diagnostics.Tracing;
 using System.Linq;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Media;
-using AvaloniaApp1.AppData;
-using AvaloniaApp1.ViewModels;
+using AvaloniaConsoleApp1.AppData;
+using Bodoconsult.App.Avalonia.AppStarter.ViewModels;
 using Bodoconsult.App.Avalonia.Interfaces;
 using Bodoconsult.App.Extensions;
 using Bodoconsult.App.Helpers;
 // ReSharper disable LocalizableElement
 
-namespace AvaloniaApp1;
+namespace AvaloniaConsoleApp1;
 
 public partial class App : Application
 {
@@ -49,17 +49,17 @@ public partial class App : Application
 
         Debug.Print("Hello, World!");
 
-        Console.WriteLine("AvaloniaApp1 initiation starts...");
+        Console.WriteLine("AvaloniaConsoleApp1 initiation starts...");
 
         var globals = Globals.Instance;
         globals.LoggingConfig.AddDefaultLoggerProviderConfiguratorsForUiApp();
 
         // Set additional app start parameters as required
         var param = globals.AppStartParameter;
-        param.AppName = "AvaloniaApp1: Demo app";
+        param.AppName = "AvaloniaConsoleApp1: Demo app";
         param.SoftwareTeam = "Robert Leisner";
-        param.LogoRessourcePath = "AvaloniaApp1.Resources.logo.jpg";
-        param.AppFolderName = "AvaloniaApp1";
+        param.LogoRessourcePath = "AvaloniaConsoleApp1.Resources.logo.jpg";
+        param.AppFolderName = "AvaloniaConsoleApp1";
 
         const string performanceToken = "--PERF";
 
@@ -69,7 +69,7 @@ public partial class App : Application
         }
 
         // Now start app buiding process
-        var builder = new AvaloniaApp1AppBuilder(globals);
+        var builder = new AvaloniaConsoleApp1AppBuilder(globals);
 #if !DEBUG
         AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
 #endif
@@ -110,7 +110,7 @@ public partial class App : Application
         // Create the viewmodel now
         var eventLevel = EventLevel.Warning;
         var listener = new AppEventListener(eventLevel);
-        MainWindowViewModel = new AvaloniaApp1MainWindowViewModel(listener)
+        MainWindowViewModel = new MainWindowViewModel(listener)
         {
             HeaderBackColor = Colors.DarkBlue,
             BodyBackColor = Colors.Beige,

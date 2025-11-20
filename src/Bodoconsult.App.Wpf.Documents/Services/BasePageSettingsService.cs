@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.App.Wpf.Delegates;
 using Bodoconsult.App.Wpf.Documents.Interfaces;
 using Bodoconsult.Text.Documents;
 using PropertyChanged;

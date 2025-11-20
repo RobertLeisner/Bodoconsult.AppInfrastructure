@@ -98,6 +98,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaApp1", "samples\Ava
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bodoconsult.App.Avalonia", "src\Bodoconsult.App.Avalonia\Bodoconsult.App.Avalonia.csproj", "{3980A413-F7BD-C7A2-22A2-450231643071}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaConsoleApp1", "samples\AvaloniaConsoleApp1\AvaloniaConsoleApp1.csproj", "{892233FE-1294-8D16-E23E-5249A2BB0629}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -256,6 +258,10 @@ Global
 		{3980A413-F7BD-C7A2-22A2-450231643071}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3980A413-F7BD-C7A2-22A2-450231643071}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3980A413-F7BD-C7A2-22A2-450231643071}.Release|Any CPU.Build.0 = Release|Any CPU
+		{892233FE-1294-8D16-E23E-5249A2BB0629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{892233FE-1294-8D16-E23E-5249A2BB0629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{892233FE-1294-8D16-E23E-5249A2BB0629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{892233FE-1294-8D16-E23E-5249A2BB0629}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -302,6 +308,7 @@ Global
 		{2C23B8F8-0CFA-03EE-3438-CADF016FECDB} = {68310C5A-62F2-40F4-A5C6-0314FDAC28E1}
 		{8981A93F-BD8E-4792-B575-7D76263057DD} = {6A52BEBE-4E44-41AC-8D1B-748DFA27D902}
 		{3980A413-F7BD-C7A2-22A2-450231643071} = {68310C5A-62F2-40F4-A5C6-0314FDAC28E1}
+		{892233FE-1294-8D16-E23E-5249A2BB0629} = {6A52BEBE-4E44-41AC-8D1B-748DFA27D902}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EEB92BC2-1DB4-4057-8D49-2E995AA1F80B}

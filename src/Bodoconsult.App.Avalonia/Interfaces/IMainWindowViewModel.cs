@@ -3,7 +3,6 @@
 using System.Diagnostics.Tracing;
 using System.Reflection;
 using System.Text;
-using System.Windows;
 using System.Windows.Input;
 using Avalonia.Controls;
 using Avalonia.Media;
