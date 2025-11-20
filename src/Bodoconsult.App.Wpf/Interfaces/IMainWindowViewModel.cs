@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using Bodoconsult.App.Abstractions.Interfaces;
-using Bodoconsult.App.Wpf.AppStarter;
-using Microsoft.Toolkit.Mvvm.Input;
 using System.Diagnostics.Tracing;
 using System.Reflection;
 using System.Windows;
@@ -36,7 +34,7 @@ public interface IMainWindowViewModel
     /// <summary>
     /// Exit command for binding in XAML to taskbar
     /// </summary>
-    RelayCommand NotifyIconExitCommand { get; }
+    ICommand NotifyIconExitCommand { get; }
 
     /// <summary>
     /// Current window state
@@ -122,12 +120,6 @@ public interface IMainWindowViewModel
     /// Event level
     /// </summary>
     EventLevel LogEventLevel { get; set; }
-
-    /// <summary>
-    /// Send a notification to the taskbar
-    /// </summary>
-    /// <param name="notification">Notification</param>
-    void Notify(NotifyRequestRecord notification);
 
     /// <summary>
     /// Load the current <see cref="IAppBuilder"/> instance to use

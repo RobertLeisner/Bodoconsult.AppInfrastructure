@@ -20,6 +20,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Application = System.Windows.Application;
 
 namespace Bodoconsult.App.Wpf.AppStarter;
@@ -71,7 +72,7 @@ public class NotifyIconWrapper : FrameworkElement, IDisposable
                 (d, e) =>
                 {
                     var r = (NotifyRequestRecord)e.NewValue;
-                    ((NotifyIconWrapper)d)._notifyIcon?.ShowBalloonTip(r.Duration, r.Title, r.Text, r.Icon);
+                    ((NotifyIconWrapper)d)._notifyIcon?.ShowBalloonTip(r.Duration, r.Title, r.Text, ToolTipIcon.Info);
                 }));
 
     private static readonly RoutedEvent OpenSelectedEvent = EventManager.RegisterRoutedEvent("OpenSelected",
@@ -180,6 +181,4 @@ public class NotifyIconWrapper : FrameworkElement, IDisposable
         var args = new RoutedEventArgs(ExitSelectedEvent);
         RaiseEvent(args);
     }
-
-
 }

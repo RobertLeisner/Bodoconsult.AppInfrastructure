@@ -13,8 +13,8 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bodoconsult.App.Wpf.AppStarter.ViewModels;
 
@@ -24,7 +24,6 @@ namespace Bodoconsult.App.Wpf.AppStarter.ViewModels;
 public class MainWindowViewModel : ObservableRecipient, IMainWindowViewModel
 {
 
-    private NotifyRequestRecord _notifyRequest;
     private bool _showInTaskbar;
     private WindowState _windowState;
 
@@ -87,7 +86,7 @@ public class MainWindowViewModel : ObservableRecipient, IMainWindowViewModel
     /// <summary>
     /// Exit command for binding in XAML to taskbar
     /// </summary>
-    public RelayCommand NotifyIconExitCommand { get; }
+    public ICommand NotifyIconExitCommand {get; }
 
     /// <summary>
     /// Current window state
@@ -110,12 +109,6 @@ public class MainWindowViewModel : ObservableRecipient, IMainWindowViewModel
     {
         get => _showInTaskbar;
         set => SetProperty(ref _showInTaskbar, value);
-    }
-
-    public NotifyRequestRecord NotifyRequest
-    {
-        get => _notifyRequest;
-        set => SetProperty(ref _notifyRequest, value);
     }
 
     /// <summary>
@@ -272,15 +265,6 @@ public class MainWindowViewModel : ObservableRecipient, IMainWindowViewModel
             //_appVersion = value;
             OnPropertyChanged();
         }
-    }
-
-    /// <summary>
-    /// Send a notification to the taskbar
-    /// </summary>
-    /// <param name="notification">Notification</param>
-    public void Notify(NotifyRequestRecord notification)
-    {
-        NotifyRequest = notification;
     }
 
     /// <summary>

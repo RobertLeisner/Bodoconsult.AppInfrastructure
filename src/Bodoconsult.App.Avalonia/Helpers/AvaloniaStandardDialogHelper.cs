@@ -3,9 +3,7 @@
 using Avalonia.Threading;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
-using System;
 using System.Diagnostics;
-using Tmds.DBus.Protocol;
 
 namespace Bodoconsult.App.Avalonia.Helpers;
 
@@ -31,18 +29,18 @@ public static class AvaloniaStandardDialogHelper
             }
             catch (Exception e)
             {
-                //Debug.Print(e.ToString());
+                Debug.Print(e.ToString());
             }
 
         });
     }
 
     /// <summary>
-    /// Show a info message box to the user to answer with yes or no
+    /// Show an info message box to the user to answer with yes or no
     /// </summary>
     /// <param name="caption">dialog title</param>
     /// <param name="question">Question to ask the user. User must answer with yes or no</param>
-    /// <returns></returns>
+    /// <returns>Button result</returns>
     public static async Task<ButtonResult> ShowInfo(string caption, string question)
     {
         var result = await Dispatcher.UIThread.InvokeAsync(async () =>
@@ -62,6 +60,59 @@ public static class AvaloniaStandardDialogHelper
 
         return result;
     }
+
+    /// <summary>
+    /// Show a warning message box to the user to answer with yes or no
+    /// </summary>
+    /// <param name="caption">dialog title</param>
+    /// <param name="question">Question to ask the user. User must answer with yes or no</param>
+    /// <returns>Button result</returns>
+    public static async Task<ButtonResult> ShowWarning(string caption, string question)
+    {
+        var result = await Dispatcher.UIThread.InvokeAsync(async () =>
+        {
+            try
+            {
+                var box = MessageBoxManager.GetMessageBoxStandard(caption, question, ButtonEnum.YesNo, Icon.Warning);
+                return await box.ShowAsync();
+            }
+            catch (Exception e)
+            {
+                Debug.Print(e.ToString());
+                return ButtonResult.None;
+            }
+
+        });
+
+        return result;
+    }
+
+    /// <summary>
+    /// Show a question message box to the user to answer with yes or no
+    /// </summary>
+    /// <param name="caption">dialog title</param>
+    /// <param name="question">Question to ask the user. User must answer with yes or no</param>
+    /// <returns>Button result</returns>
+    public static async Task<ButtonResult> ShowQuestion(string caption, string question)
+    {
+        var result = await Dispatcher.UIThread.InvokeAsync(async () =>
+        {
+            try
+            {
+                var box = MessageBoxManager.GetMessageBoxStandard(caption, question, ButtonEnum.YesNo, Icon.Question);
+                return await box.ShowAsync();
+            }
+            catch (Exception e)
+            {
+                Debug.Print(e.ToString());
+                return ButtonResult.None;
+            }
+
+        });
+
+        return result;
+    }
+
 
     //    /// <summary>
     //    /// Select a folder and returns the path to the selected folder
@@ -164,38 +215,5 @@ public static class AvaloniaStandardDialogHelper
     //        return dialog.ShowDialog() == CommonFileDialogResult.Ok ? dialog.FileName : null;
     //    }
 
-    //    /// <summary>
-    //    /// Show a warning message box
-    //    /// </summary>
-    //    /// <param name="title">dialog title</param>
-    //    /// <param name="question">Question to ask the user. User must answer with yes or no</param>
-    //    /// <returns></returns>
-    //    public static MessageBoxResult ShowWarning(string title, string question)
-    //    {
-    //        return MessageBox.Show(question, title, MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-    //    }
-
-    //    /// <summary>
-    //    /// Show a question message box to the user to answer with yes or no
-    //    /// </summary>
-    //    /// <param name="title">dialog title</param>
-    //    /// <param name="question">Question to ask the user. User must answer with yes or no</param>
-    //    /// <returns></returns>
-    //    public static MessageBoxResult ShowQuestion(string title, string question)
-    //    {
-    //        return MessageBox.Show(question, title, MessageBoxButton.YesNo, MessageBoxImage.Question);
-    //    }
-
-
-    //    /// <summary>
-    //    /// Show a info message box to the user to answer with yes or no
-    //    /// </summary>
-    //    /// <param name="title">dialog title</param>
-    //    /// <param name="question">Question to ask the user. User must answer with yes or no</param>
-    //    /// <returns></returns>
-    //    public static MessageBoxResult ShowInfo(string title, string question)
-    //    {
-    //        return MessageBox.Show(question, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
-    //    }
 
 }

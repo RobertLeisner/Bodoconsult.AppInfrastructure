@@ -17,7 +17,7 @@
 
 //using System.Windows.Forms;
 
-namespace Bodoconsult.App.Avalonia.AppStarter;
+namespace Bodoconsult.App.Abstractions.Interfaces;
 
 public class NotifyRequestRecord
 {

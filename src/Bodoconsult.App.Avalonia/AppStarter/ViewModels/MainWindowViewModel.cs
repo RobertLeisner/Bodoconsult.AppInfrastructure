@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Bodoconsult.App.Abstractions.Interfaces;
@@ -26,7 +25,6 @@ namespace Bodoconsult.App.Avalonia.AppStarter.ViewModels;
 public class MainWindowViewModel : ObservableObject, IMainWindowViewModel
 {
 
-    private NotifyRequestRecord _notifyRequest;
     private bool _showInTaskbar;
     private WindowState _windowState;
 
@@ -52,10 +50,10 @@ public class MainWindowViewModel : ObservableObject, IMainWindowViewModel
     private string _appExe;
     private bool _minimizeToTray;
 
-    private readonly SolidColorBrush _brush = new(Colors.LightSteelBlue);
-    private readonly SolidColorBrush _brush1 = new(Colors.White);
-    private readonly Thickness _margin = new(0, 0, 0, 0);
-    private readonly Thickness _padding = new(0, 10, 0, 10);
+    //private readonly SolidColorBrush _brush = new(Colors.LightSteelBlue);
+    //private readonly SolidColorBrush _brush1 = new(Colors.White);
+    //private readonly Thickness _margin = new(0, 0, 0, 0);
+    //private readonly Thickness _padding = new(0, 10, 0, 10);
     private Color _bodyBackColor = Colors.LightGray;
     private string _showOrHideText;
     private object _exitText;
@@ -126,12 +124,6 @@ public class MainWindowViewModel : ObservableObject, IMainWindowViewModel
     {
         get => _showInTaskbar;
         set => SetProperty(ref _showInTaskbar, value);
-    }
-
-    public NotifyRequestRecord NotifyRequest
-    {
-        get => _notifyRequest;
-        set => SetProperty(ref _notifyRequest, value);
     }
 
     /// <summary>
@@ -288,17 +280,6 @@ public class MainWindowViewModel : ObservableObject, IMainWindowViewModel
             //_appVersion = value;
             OnPropertyChanged();
         }
-    }
-
-    // https://github.com/AvaloniaUI/Avalonia/issues/2155
-
-    /// <summary>
-    /// Send a notification to the taskbar
-    /// </summary>
-    /// <param name="notification">Notification</param>
-    public void Notify(NotifyRequestRecord notification)
-    {
-        throw new NotImplementedException();
     }
 
     /// <summary>

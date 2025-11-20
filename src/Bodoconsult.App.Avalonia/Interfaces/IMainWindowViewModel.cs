@@ -8,7 +8,6 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Bodoconsult.App.Abstractions.Interfaces;
-using Bodoconsult.App.Avalonia.AppStarter;
 using CommunityToolkit.Mvvm.Input;
 
 namespace Bodoconsult.App.Avalonia.Interfaces;
@@ -122,12 +121,6 @@ public interface IMainWindowViewModel
     /// Event level
     /// </summary>
     EventLevel LogEventLevel { get; set; }
-
-    /// <summary>
-    /// Send a notification to the taskbar
-    /// </summary>
-    /// <param name="notification">Notification</param>
-    void Notify(NotifyRequestRecord notification);
 
     /// <summary>
     /// Load the current <see cref="IAppBuilder"/> instance to use

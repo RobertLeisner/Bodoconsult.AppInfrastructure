@@ -20,6 +20,10 @@ public class DateTimeConverter : BaseConverter, IValueConverter
     /// <returns>A converted value. If the method returns <see langword="null" />, the valid null value is used.</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
+        if (value == null)
+        {
+            return string.Empty;
+        }
         var date = (DateTime)value;
         return date.ToString("d", Thread.CurrentThread.CurrentCulture);
     }
@@ -32,8 +36,11 @@ public class DateTimeConverter : BaseConverter, IValueConverter
     /// <returns>A converted value. If the method returns <see langword="null" />, the valid null value is used.</returns>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
+        if (value == null || value.Equals(string.Empty))
+        {
+            return DateTime.MinValue;
+        }
         var strValue = value.ToString();
-        DateTime resultDateTime;
-        return DateTime.TryParse(strValue, Thread.CurrentThread.CurrentCulture, DateTimeStyles.None, out resultDateTime) ? resultDateTime : value;
+        return DateTime.TryParse(strValue, Thread.CurrentThread.CurrentCulture, DateTimeStyles.None, out var resultDateTime) ? resultDateTime : value;
     }
 }

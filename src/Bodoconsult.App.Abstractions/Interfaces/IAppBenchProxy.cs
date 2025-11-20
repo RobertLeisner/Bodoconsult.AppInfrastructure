@@ -40,7 +40,4 @@ public interface IAppBenchProxy : IDisposable
     /// Stop the logging
     /// </summary>
     void StopLogging();
-
-     
-
 }

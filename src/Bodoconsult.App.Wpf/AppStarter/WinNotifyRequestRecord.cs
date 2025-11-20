@@ -15,14 +15,15 @@
    PERFORMANCE OF THIS SOFTWARE.
  */
 
+using Bodoconsult.App.Abstractions.Interfaces;
 using System.Windows.Forms;
 
 namespace Bodoconsult.App.Wpf.AppStarter;
 
-public class NotifyRequestRecord
+public class WinNotifyRequestRecord : NotifyRequestRecord
 {
-    public string Title { get; set; } = string.Empty;
-    public string Text { get; set; } = string.Empty;
-    public int Duration { get; set; } = 1000;
+    /// <summary>
+    /// Icon for the notification
+    /// </summary>
     public ToolTipIcon Icon { get; set; } = ToolTipIcon.Info;
 }
