@@ -3,7 +3,10 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Bodoconsult.App.Helpers;
+namespace Bodoconsult.App.Extensions;
+
+// See https://gist.github.com/icanhasjonas/bdacabee5898f3ec91603945847a2e22
+
 
 public static class AsyncExtensions
 {
@@ -26,6 +29,11 @@ public static class AsyncExtensions
     [EditorBrowsable(EditorBrowsableState.Never)]
     public struct CancellationTokenAwaiter : INotifyCompletion, ICriticalNotifyCompletion
     {
+
+        /// <summary>
+        /// Default ctor
+        /// </summary>
+        /// <param name="cancellationToken">Current cancellation token</param>
         public CancellationTokenAwaiter(CancellationToken cancellationToken)
         {
             CancellationToken = cancellationToken;
@@ -38,8 +46,12 @@ public static class AsyncExtensions
             // this is called by compiler generated methods when the
             // task has completed. Instead of returning a result, we 
             // just throw an exception.
-            if (IsCompleted) throw new OperationCanceledException();
-            else throw new InvalidOperationException("The cancellation token has not yet been cancelled.");
+            if (IsCompleted)
+            {
+                throw new OperationCanceledException();
+            }
+
+            throw new InvalidOperationException("The cancellation token has not yet been cancelled.");
         }
 
         // called by compiler generated/.net internals to check
@@ -51,6 +63,10 @@ public static class AsyncExtensions
         // cancellation token.
         public void OnCompleted(Action continuation) =>
             CancellationToken.Register(continuation);
+
+        /// <summary>Schedules the continuation action that's invoked when the instance completes.</summary>
+        /// <param name="continuation">The action to invoke when the operation completes.</param>
+        /// <exception cref="T:System.ArgumentNullException">The <paramref name="continuation" /> argument is null (Nothing in Visual Basic).</exception>
         public void UnsafeOnCompleted(Action continuation) =>
             CancellationToken.Register(continuation);
     }

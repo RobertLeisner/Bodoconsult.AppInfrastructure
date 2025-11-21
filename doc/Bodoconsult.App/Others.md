@@ -13,6 +13,11 @@ More tools for developers
 
 > [Protecting entities: EntityProtectionService class](#protecting-entities-entityprotectionservice-class)
 
+> [ZIP file handling](#zip-file-handling)
+
+> [Extension methods for basic and enhanced classes](#extension-methods-for-basic-and-enhanced-classes)
+
+
 
 # IWatchDog / WatchDog
 
@@ -265,3 +270,64 @@ public void Unprotect_MultipleSecretsWithUid_PropsWithDataProtectionSecretAttrib
 ExceptionReplyBuilder delivers a central exception management to be used standalone or in conjunction with business transactions.
 
 ToDo: add more information
+
+# ZIP file handling
+
+The classes ZipHelper, ZipHandler and UnZipHandler simplify the creation and extracting of unprotected ZIP files
+
+
+# Extension methods for basic and enhanced classes
+
+-   AsyncExtensions
+
+    -   GetAwaiter() for CancellationToken
+
+-   BoolExtensions
+
+    -   AsSqlString()
+
+-   DoubleExtensions
+
+    -   AsSqlString()
+
+-   FiletimeExtensions
+
+    -   ToDateTime()
+
+-   IntExtensions
+
+    -   RomanToArabic()
+
+    -   ArabicToRoman()
+
+-   GuidExtensions
+
+    -   ToPlainString()
+
+-   StringExtensions
+
+    -   ReplaceHexTag()
+
+    -   AsSqlString()
+
+    -   FirstCharToLowerCase()
+
+    -   FirstCharToUpperCase()
+
+    -   LimitToLength()
+
+    -   SecureStringToString()
+
+    -   Repeat()
+
+    -   SpaceCount()
+
+    -   ToGuid()
+
+    -   EscapeForXml()
+
+-   TaskExtensions
+
+    -   Forget()
+
+    -   ForgetAwaited()

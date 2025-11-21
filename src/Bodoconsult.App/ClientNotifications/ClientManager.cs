@@ -11,7 +11,7 @@ namespace Bodoconsult.App.ClientNotifications;
 /// </summary>
 public class ClientManager : IClientManager
 {
-    private ProducerConsumerQueue<IClientNotification> waitingQueue = new();
+    private readonly ProducerConsumerQueue<IClientNotification> _waitingQueue = new();
 
     /// <summary>
     /// Default ctor
@@ -24,8 +24,8 @@ public class ClientManager : IClientManager
         LicenseManager = licenseManager;
         AppLogger = appLogger;
         ClientMessagingService = clientMessagingService;
-        waitingQueue.ConsumerTaskDelegate = ConsumerTaskDelegate;
-        waitingQueue.StartConsumer();
+        _waitingQueue.ConsumerTaskDelegate = ConsumerTaskDelegate;
+        _waitingQueue.StartConsumer();
     }
 
     private void ConsumerTaskDelegate(IClientNotification notification)
@@ -103,13 +103,13 @@ public class ClientManager : IClientManager
     /// <param name="notification">Notification to send to the clients</param>
     public void DoNotifyAllClients(IClientNotification notification)
     {
-        waitingQueue.Enqueue(notification);
+        _waitingQueue.Enqueue(notification);
     }
 
     /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
     public void Dispose()
     {
-        waitingQueue.StopConsumer();
-        waitingQueue?.Dispose();
+        _waitingQueue.StopConsumer();
+        _waitingQueue?.Dispose();
     }
 }

@@ -43,7 +43,6 @@ public class ZipHandler
                 GenerateZipBase(archive);
             }
         }
-
     }
 
     /// <summary>

@@ -17,6 +17,11 @@ public static class ZipHelper
     /// <param name="filter">Filter expression like *.log or null</param>
     public static void CreateZipArchive(string zipPath, string folderPath, string filter = null)
     {
+        if (zipPath == null)
+        {
+            throw new ArgumentNullException(nameof(zipPath));
+        }
+
         if (File.Exists(zipPath))
         {
             File.Delete(zipPath);
