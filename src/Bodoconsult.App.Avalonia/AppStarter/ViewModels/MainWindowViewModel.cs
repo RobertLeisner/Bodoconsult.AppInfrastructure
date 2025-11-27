@@ -32,7 +32,7 @@ public class MainWindowViewModel : ObservableObject, IMainWindowViewModel
 
     private const int MaxNumberOfLogEntries = 100;
 
-    private readonly AppEventListener _listener;
+    private readonly IAppEventListener _listener;
 
     private readonly List<string> _logData = new();
 
@@ -62,8 +62,10 @@ public class MainWindowViewModel : ObservableObject, IMainWindowViewModel
     /// Ctor providing an <see cref="AppEventListener"/> instance
     /// </summary>
     /// <param name="listener">Current EventSource listener: neede to bring logging entries to UI</param>
-    public MainWindowViewModel(AppEventListener listener)
+    /// <param name="strings">Translation service</param>
+    public MainWindowViewModel(IAppEventListener listener, II18N strings)
     {
+        Strings = strings;
         _listener = listener;
         NotifyIconOpenCommand = new RelayCommand(() => { WindowState = WindowState.Normal; });
         NotifyIconExitCommand  = new RelayCommand(ShutDown);
@@ -71,17 +73,24 @@ public class MainWindowViewModel : ObservableObject, IMainWindowViewModel
         ShowInTaskbar = true;
     }
 
+    ///// <summary>
+    ///// Default ctor
+    ///// </summary>
+    //public MainWindowViewModel()
+    //{
+    //    _listener = null;
+    //    NotifyIconOpenCommand = new RelayCommand(() => { WindowState = WindowState.Normal; });
+    //    NotifyIconExitCommand = new RelayCommand(ShutDown);
+    //    WindowState = WindowState.Normal;
+    //    ShowInTaskbar = true;
+    //}
+
+
     /// <summary>
-    /// Default ctor
+    /// II18N instance to use with MVVM / WPF / Xamarin / Avalonia
     /// </summary>
-    public MainWindowViewModel()
-    {
-        _listener = null;
-        NotifyIconOpenCommand = new RelayCommand(() => { WindowState = WindowState.Normal; });
-        NotifyIconExitCommand = new RelayCommand(ShutDown);
-        WindowState = WindowState.Normal;
-        ShowInTaskbar = true;
-    }
+    /// <returns>Translated string</returns>
+    public II18N Strings { get; }
 
     /// <summary>
     /// Menu text for open menu in system tray bar
@@ -155,7 +164,6 @@ public class MainWindowViewModel : ObservableObject, IMainWindowViewModel
     /// </summary>
     public double HeaderHeight => _height * 0.15;
 
-
     /// <summary>
     /// Current app start process handler
     /// </summary>
@@ -209,7 +217,6 @@ public class MainWindowViewModel : ObservableObject, IMainWindowViewModel
         get => _msgExit;
         set => SetProperty(ref _msgExit, value);
     }
-
 
     /// <summary>
     /// Clear text name of the app to show in windows and message boxes
@@ -526,11 +533,12 @@ public class MainWindowViewModel : ObservableObject, IMainWindowViewModel
     /// <returns></returns>
     public virtual Window CreateWindow()
     {
-        return new MainWindow(this)
+        var vm = new MainWindow
         {
-            WindowState = WindowState.Normal,
             IsVisible = true
         };
+        vm.InjectViewModel(this);
+        return vm;
     }
 
     /// <summary>

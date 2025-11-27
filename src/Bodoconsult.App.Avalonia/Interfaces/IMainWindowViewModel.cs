@@ -18,6 +18,12 @@ namespace Bodoconsult.App.Avalonia.Interfaces;
 public interface IMainWindowViewModel
 {
     /// <summary>
+    /// II18N instance to use with MVVM / WPF / Xamarin / Avalonia
+    /// </summary>
+    /// <returns>Translated string</returns>
+    II18N Strings { get; }
+
+    /// <summary>
     /// Menu text for open menu in system tray bar
     /// </summary>
     public string OpenMenuText { get; set; }

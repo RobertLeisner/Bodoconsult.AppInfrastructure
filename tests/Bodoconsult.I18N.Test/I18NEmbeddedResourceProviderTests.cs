@@ -17,7 +17,7 @@ public class I18NEmbeddedResourceProviderTests
     //}
 
     [Test]
-    public void TestRegisterResourceItems()
+    public void RegisterResourceItems_ValidLocales_ResourceItems()
     {
 
         // Arrange
@@ -45,7 +45,7 @@ public class I18NEmbeddedResourceProviderTests
 
 
     [Test]
-    public void TestLoadResourceItemDe()
+    public void LoadResourceItem_De_ValuesLoaded()
     {
 
         // Arrange

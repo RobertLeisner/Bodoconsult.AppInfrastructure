@@ -15,15 +15,19 @@ public class ClientMessagingBusinessDelegate : IClientMessagingBusinessDelegate
 
     private IWatchDog _watchDog;
 
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="clientMessagingService"></param>
+    /// <param name="clientManager"></param>
     public ClientMessagingBusinessDelegate(IClientMessagingService clientMessagingService, IClientManager clientManager)
     {
         ClientMessagingService = clientMessagingService;
         ClientManager = clientManager;
     }
 
-
     /// <summary>
-    /// Event method to bind to current buisness logic class instance for messaging. Calls <see cref="IClientMessagingBusinessDelegate.DoNotifyClient"/>. Use this method to decouple messaging business logic from <see cref="IClientMessagingBusinessDelegate"/> impls.
+    /// Event method to bind to current business logic class instance for messaging. Calls <see cref="IClientMessagingBusinessDelegate.DoNotifyClient"/>. Use this method to decouple messaging business logic from <see cref="IClientMessagingBusinessDelegate"/> impls.
     /// </summary>
     /// <param name="sender">Source (not used)</param>
     /// <param name="notification">Current notification to send to the clients</param>
@@ -31,7 +35,6 @@ public class ClientMessagingBusinessDelegate : IClientMessagingBusinessDelegate
     {
         DoNotifyClient(notification);
     }
-
 
     /// <summary>
     /// Current client messaging service

@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<IsPackable>false</IsPackable>
+		<IsTestProject>true</IsTestProject>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<AvaloniaXaml Remove="LocalesFiles\Culture.de.axaml" />
+		<AvaloniaXaml Remove="LocalesFiles\Culture.en.axaml" />
+		<AvaloniaXaml Remove="Locales\Culture.de.axaml" />
+		<AvaloniaXaml Remove="Locales\Culture.en.axaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="LocalesFiles\Culture.de.axaml">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		  <Generator></Generator>
+		</Content>
+		<Content Include="LocalesFiles\Culture.en.axaml">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		  <Generator></Generator>
+		</Content>
+		<AvaloniaResource Include="Locales\Culture.de.axaml">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		  <Generator></Generator>
+		</AvaloniaResource>
+		<AvaloniaResource Include="Locales\Culture.en.axaml">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		  <Generator></Generator>
+		</AvaloniaResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="coverlet.collector" Version="6.0.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+		<PackageReference Include="NUnit" Version="3.14.0" />
+		<PackageReference Include="NUnit.Analyzers" Version="3.9.0" />
+		<PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+		<PackageReference Include="MessageBox.Avalonia" Version="3.3.0" />
+		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+		<PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+		<PackageReference Include="Avalonia" Version="11.3.9" />
+		<PackageReference Include="Avalonia.Desktop" Version="11.3.9" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.9" />
+		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.9" />
+		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+		<PackageReference Include="Avalonia.Diagnostics" Version="11.3.9">
+			<IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+			<PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+		</PackageReference>
+
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\Bodoconsult.App.Abstractions\Bodoconsult.App.Abstractions.csproj" />
+		<ProjectReference Include="..\..\src\Bodoconsult.App.Avalonia\Bodoconsult.App.Avalonia.csproj" />
+		<ProjectReference Include="..\..\src\Bodoconsult.App\Bodoconsult.App.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="NUnit.Framework" />
+	</ItemGroup>
+
+</Project>

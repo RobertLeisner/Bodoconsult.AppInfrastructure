@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.Tracing;
 using System.Text;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Microsoft.Extensions.Logging.EventSource;
 
 namespace Bodoconsult.App.Logging;
@@ -12,10 +13,7 @@ namespace Bodoconsult.App.Logging;
 /// <summary>
 /// Listener for fetching log messages from ILogger based logging
 /// </summary>
-/// <summary>
-/// Listener for fetching log messages from ILogger based logging
-/// </summary>
-public class AppEventListener : EventListener
+public class AppEventListener : EventListener, IAppEventListener
 {
     private EventSource _eventSource;
 

@@ -119,4 +119,9 @@ public class Globals : IAppGlobals
     /// Externally registered version
     /// </summary>
     public string ProductVersion { get; set; }
+
+    /// <summary>
+    /// A string test property not included in <see cref="IAppGlobals"/>
+    /// </summary>
+    public string TestProperty { get; set; }
 }

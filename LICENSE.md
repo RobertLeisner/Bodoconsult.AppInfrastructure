@@ -50,9 +50,13 @@ SOFTWARE.
 
 # Referenced libraries by projects / packages
 
+>	[AvaloniaApp1](#referenced-libraries-for-avaloniaapp1)
+
+>	[AvaloniaConsoleApp1](#referenced-libraries-for-avaloniaconsoleapp1)
+
 >	[ConsoleApp1](#referenced-libraries-for-consoleapp1)
 
->	[ConsoleAvaloniaApp1](#referenced-libraries-for-consoleAvaloniaApp1)
+>	[ConsoleWpfApp1](#referenced-libraries-for-consolewpfapp1)
 
 >	[GrpcServerApp.Grpc.Common](#referenced-libraries-for-grpcserverappgrpccommon)
 
@@ -65,6 +69,8 @@ SOFTWARE.
 >	[WorkerService1](#referenced-libraries-for-workerservice1)
 
 >	[Bodoconsult.App.Abstractions](#referenced-libraries-for-bodoconsultappabstractions)
+
+>	[Bodoconsult.App.Avalonia](#referenced-libraries-for-bodoconsultappavalonia)
 
 >	[Bodoconsult.App.BackgroundService](#referenced-libraries-for-bodoconsultappbackgroundservice)
 
@@ -88,6 +94,8 @@ SOFTWARE.
 
 >	[Bodoconsult.Text.Pdf](#referenced-libraries-for-bodoconsulttextpdf)
 
+>	[Bodoconsult.App.Avalonia.Test](#referenced-libraries-for-bodoconsultappavaloniatest)
+
 >	[Bodoconsult.App.Test](#referenced-libraries-for-bodoconsultapptest)
 
 >	[Bodoconsult.App.Windows.Test](#referenced-libraries-for-bodoconsultappwindowstest)
@@ -110,6 +118,146 @@ SOFTWARE.
 
 >	[Bodoconsult.Typography.Test](#referenced-libraries-for-bodoconsulttypographytest)
 
+# Referenced libraries for AvaloniaApp1
+
+## Nuget package library Avalonia by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library Avalonia.Desktop by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library Avalonia.Diagnostics by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library Avalonia.Fonts.Inter by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library Avalonia.Themes.Fluent by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library CommunityToolkit.Mvvm by Microsoft
+
+This package includes a .NET MVVM library with helpers such as:
+      - ObservableObject: a base class for objects implementing the INotifyPropertyChanged interface.
+      - ObservableRecipient: a base class for observable objects with support for the IMessenger service.
+      - ObservableValidator: a base class for objects implementing the INotifyDataErrorInfo interface.
+      - RelayCommand: a simple delegate command implementing the ICommand interface.
+      - AsyncRelayCommand: a delegate command supporting asynchronous operations and cancellation.
+      - WeakReferenceMessenger: a messaging system to exchange messages through different loosely-coupled objects.
+      - StrongReferenceMessenger: a high-performance messaging system that trades weak references for speed.
+      - Ioc: a helper class to configure dependency injection service containers.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/CommunityToolkit/dotnet
+
+# Referenced libraries for AvaloniaConsoleApp1
+
+## Nuget package library Avalonia by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library Avalonia.Desktop by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library Avalonia.Diagnostics by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library Avalonia.Fonts.Inter by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library Avalonia.Themes.Fluent by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library CommunityToolkit.Mvvm by Microsoft
+
+This package includes a .NET MVVM library with helpers such as:
+      - ObservableObject: a base class for objects implementing the INotifyPropertyChanged interface.
+      - ObservableRecipient: a base class for observable objects with support for the IMessenger service.
+      - ObservableValidator: a base class for objects implementing the INotifyDataErrorInfo interface.
+      - RelayCommand: a simple delegate command implementing the ICommand interface.
+      - AsyncRelayCommand: a delegate command supporting asynchronous operations and cancellation.
+      - WeakReferenceMessenger: a messaging system to exchange messages through different loosely-coupled objects.
+      - StrongReferenceMessenger: a high-performance messaging system that trades weak references for speed.
+      - Ioc: a helper class to configure dependency injection service containers.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/CommunityToolkit/dotnet
+
 # Referenced libraries for ConsoleApp1
 
 ## Nuget package library System.Text.Json by Microsoft
@@ -124,7 +272,7 @@ License-Url: https://licenses.nuget.org/MIT
 
 Project-Url: https://github.com/dotnet/runtime
 
-# Referenced libraries for ConsoleAvaloniaApp1
+# Referenced libraries for ConsoleWpfApp1
 
 ## Nuget package library System.Text.Json by Microsoft
 
@@ -369,6 +517,138 @@ License-Url: https://licenses.nuget.org/MIT
 
 Project-Url: https://github.com/dotnet/runtime
 
+# Referenced libraries for Bodoconsult.App.Avalonia
+
+## Nuget package library Avalonia by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library Avalonia.Desktop by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library Avalonia.Diagnostics by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library Avalonia.Fonts.Inter by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library Avalonia.Markup.Xaml.Loader by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library Avalonia.Themes.Fluent by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library CommunityToolkit.Mvvm by Microsoft
+
+This package includes a .NET MVVM library with helpers such as:
+      - ObservableObject: a base class for objects implementing the INotifyPropertyChanged interface.
+      - ObservableRecipient: a base class for observable objects with support for the IMessenger service.
+      - ObservableValidator: a base class for objects implementing the INotifyDataErrorInfo interface.
+      - RelayCommand: a simple delegate command implementing the ICommand interface.
+      - AsyncRelayCommand: a delegate command supporting asynchronous operations and cancellation.
+      - WeakReferenceMessenger: a messaging system to exchange messages through different loosely-coupled objects.
+      - StrongReferenceMessenger: a high-performance messaging system that trades weak references for speed.
+      - Ioc: a helper class to configure dependency injection service containers.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/CommunityToolkit/dotnet
+
+## Nuget package library MessageBox.Avalonia by Lary
+
+Messagebox for AvaloniaUI
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: messagebox.avalonia
+
+## Nuget package library Microsoft.CSharp by Microsoft
+
+Provides support for compilation and code generation, including dynamic, using the C# language.
+
+Commonly Used Types:
+Microsoft.CSharp.RuntimeBinder.Binder
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException
+Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfo
+Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfoFlags
+Microsoft.CSharp.RuntimeBinder.CSharpBinderFlags
+ 
+When using NuGet 3.x this package requires at least version 3.4.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: 
+
+## Nuget package library System.Data.DataSetExtensions by Microsoft
+
+Provides extensions to form LINQ expressions and method queries against DataTable objects.
+
+Commonly Used Types:
+System.Data.DataRowComparer
+System.Data.DataRowExtensions
+System.Data.DataTableExtensions
+System.Data.EnumerableRowCollection
+System.Data.EnumerableRowCollectionExtensions
+System.Data.OrderedEnumerableRowCollection
+System.Data.TypedTableBase
+System.Data.TypedTableBaseExtensions
+ 
+30ab651fcb4354552bd4891619a0bdd81e0ebdbf 
+When using NuGet 3.x this package requires at least version 3.4.
+
+License: MIT
+
+License-Url: https://github.com/dotnet/corefx/blob/master/LICENSE.TXT
+
+Project-Url: 
+
 # Referenced libraries for Bodoconsult.App.BackgroundService
 
 ## Nuget package library Microsoft.Extensions.Hosting by Microsoft
@@ -414,6 +694,20 @@ License: MIT
 License-Url: https://licenses.nuget.org/MIT
 
 Project-Url: https://github.com/dotnet/runtime
+
+## Nuget package library Microsoft.Toolkit.Uwp.Notifications by Microsoft.Toolkit, dotnetfoundation
+
+The official way to send toast notifications on Windows 10 via code rather than XML, with the help of IntelliSense. Supports all C# app types, including WPF, UWP, WinForms, and Console, even without packaging your app as MSIX. Also supports C++ UWP apps.
+
+      Additionally, generate notification payloads from your ASP.NET web server to send as push notifications, or generate notification payloads from class libraries.
+
+      For UWP/MSIX apps, you can also generate tile and badge notifications.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/CommunityToolkit/WindowsCommunityToolkit.git
 
 ## Nuget package library Microsoft.Win32.Registry by Microsoft
 
@@ -482,6 +776,20 @@ Project-Url: https://github.com/dotnet/sourcelink
 
 # Referenced libraries for Bodoconsult.App.WinForms
 
+## Nuget package library Microsoft.Toolkit.Uwp.Notifications by Microsoft.Toolkit, dotnetfoundation
+
+The official way to send toast notifications on Windows 10 via code rather than XML, with the help of IntelliSense. Supports all C# app types, including WPF, UWP, WinForms, and Console, even without packaging your app as MSIX. Also supports C++ UWP apps.
+
+      Additionally, generate notification payloads from your ASP.NET web server to send as push notifications, or generate notification payloads from class libraries.
+
+      For UWP/MSIX apps, you can also generate tile and badge notifications.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/CommunityToolkit/WindowsCommunityToolkit.git
+
 ## Nuget package library System.Text.Json by Microsoft
 
 Provides high-performance and low-allocating types that serialize objects to JavaScript Object Notation (JSON) text and deserialize JSON text to objects, with UTF-8 support built-in. Also provides types to read and write JSON text encoded as UTF-8, and to create an in-memory document object model (DOM), that is read-only, for random access of the JSON elements within a structured view of the data.
@@ -524,22 +832,6 @@ License: MIT
 License-Url: https://licenses.nuget.org/MIT
 
 Project-Url: 
-
-## Nuget package library PDFsharp by PDFsharp Team
-
-PDFsharp is the Open Source library for creating and modifying PDF documents using .NET. It has an easy-to-use API that allows developers to generate or modify PDF files programmatically. PDFsharp can be used for various applications, including creating reports, invoices, and other types of documents.
-This package does not depend on Windows and can be used on any .NET compatible platform including Linux and macOS.
-See https://docs.pdfsharp.net for details.
- 
-See https://www.pdfsharp.com for professional support offers, premium technical advice, and contract work options.
-Choose a support plan that suits your needs. We offer a variety of options, from small projects to large teams, with flexible response times.
-Our team provides PDFsharp expert assistance, including implementation, optimization, and tailored solutions.
-
-License: MIT
-
-License-Url: https://licenses.nuget.org/MIT
-
-Project-Url: https://github.com/empira/PDFsharp
 
 ## Nuget package library PropertyChanged.Fody by Simon Cropp
 
@@ -606,6 +898,24 @@ LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
 OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
  
+## Nuget package library CommunityToolkit.Mvvm by Microsoft
+
+This package includes a .NET MVVM library with helpers such as:
+      - ObservableObject: a base class for objects implementing the INotifyPropertyChanged interface.
+      - ObservableRecipient: a base class for observable objects with support for the IMessenger service.
+      - ObservableValidator: a base class for objects implementing the INotifyDataErrorInfo interface.
+      - RelayCommand: a simple delegate command implementing the ICommand interface.
+      - AsyncRelayCommand: a delegate command supporting asynchronous operations and cancellation.
+      - WeakReferenceMessenger: a messaging system to exchange messages through different loosely-coupled objects.
+      - StrongReferenceMessenger: a high-performance messaging system that trades weak references for speed.
+      - Ioc: a helper class to configure dependency injection service containers.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/CommunityToolkit/dotnet
+
 ## Nuget package library Microsoft-WindowsAPICodePack-Core by rpastric, contre, dahall
 
 The Core code for the WindowsAPICodePack. This is an updated version containing all available bug fixes for this code as of 2020-01-04.
@@ -645,23 +955,19 @@ License-Url: https://licenses.nuget.org/MIT
 
 Project-Url: 
 
-## Nuget package library Microsoft.Toolkit.Mvvm by Microsoft.Toolkit
+## Nuget package library Microsoft.Toolkit.Uwp.Notifications by Microsoft.Toolkit, dotnetfoundation
 
-This package includes a .NET Standard MVVM library with helpers such as:
-      - ObservableObject: a base class for objects implementing the INotifyPropertyChanged interface.
-      - ObservableRecipient: a base class for observable objects with support for the IMessenger service.
-      - ObservableValidator: a base class for objects implementing the INotifyDataErrorInfo interface.
-      - RelayCommand: a simple delegate command implementing the ICommand interface.
-      - AsyncRelayCommand: a delegate command supporting asynchronous operations and cancellation.
-      - WeakReferenceMessenger: a messaging system to exchange messages through different loosely-coupled objects.
-      - StrongReferenceMessenger: a high-performance messaging system that trades weak references for speed.
-      - Ioc: a helper class to configure dependency injection service containers.
+The official way to send toast notifications on Windows 10 via code rather than XML, with the help of IntelliSense. Supports all C# app types, including WPF, UWP, WinForms, and Console, even without packaging your app as MSIX. Also supports C++ UWP apps.
+
+      Additionally, generate notification payloads from your ASP.NET web server to send as push notifications, or generate notification payloads from class libraries.
+
+      For UWP/MSIX apps, you can also generate tile and badge notifications.
 
 License: MIT
 
 License-Url: https://licenses.nuget.org/MIT
 
-Project-Url: https://github.com/windows-toolkit/WindowsCommunityToolkit
+Project-Url: https://github.com/CommunityToolkit/WindowsCommunityToolkit.git
 
 ## Nuget package library Microsoft.Xaml.Behaviors.Wpf by Microsoft
 
@@ -948,6 +1254,171 @@ License: MIT
 License-Url: https://licenses.nuget.org/MIT
 
 Project-Url: https://github.com/empira/PDFsharp
+
+# Referenced libraries for Bodoconsult.App.Avalonia.Test
+
+## Nuget package library Avalonia by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library Avalonia.Desktop by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library Avalonia.Diagnostics by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library Avalonia.Fonts.Inter by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library Avalonia.Themes.Fluent by Avalonia Team
+
+Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/AvaloniaUI/Avalonia/
+
+## Nuget package library coverlet.collector by tonerdo
+
+Coverlet is a cross platform code coverage library for .NET, with support for line, branch and method coverage.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/coverlet-coverage/coverlet.git
+
+## Nuget package library MessageBox.Avalonia by Lary
+
+Messagebox for AvaloniaUI
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: messagebox.avalonia
+
+## Nuget package library Microsoft.CSharp by Microsoft
+
+Provides support for compilation and code generation, including dynamic, using the C# language.
+
+Commonly Used Types:
+Microsoft.CSharp.RuntimeBinder.Binder
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException
+Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfo
+Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfoFlags
+Microsoft.CSharp.RuntimeBinder.CSharpBinderFlags
+ 
+When using NuGet 3.x this package requires at least version 3.4.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: 
+
+## Nuget package library Microsoft.NET.Test.Sdk by Microsoft
+
+The MSbuild targets and properties for building .NET test projects.
+
+License: LICENSE_MIT.txt
+
+License-Url: https://www.nuget.org/packages/Microsoft.NET.Test.Sdk/17.8.0/License
+
+Project-Url: https://github.com/microsoft/vstest
+
+## Nuget package library NUnit by Charlie Poole,  Rob Prouse
+
+NUnit features a fluent assert syntax, parameterized, generic and theory tests and is user-extensible.
+
+This package includes the NUnit 3 framework assembly, which is referenced by your tests. You will need to install version 3 of the nunit3-console program or a third-party runner that supports NUnit 3 in order to execute tests. Runners intended for use with NUnit 2.x will not run NUnit 3 tests correctly.
+
+Supported platforms:
+- .NET Framework 3.5+
+- .NET Standard 2.0+
+
+License: LICENSE.txt
+
+License-Url: https://www.nuget.org/packages/NUnit/3.14.0/License
+
+Project-Url: https://github.com/nunit/nunit
+
+## Nuget package library NUnit.Analyzers by NUnit
+
+This package includes analyzers and code fixes for test projects using NUnit 3. The analyzers will mark wrong usages when writing tests, and the code fixes can be used to used to correct these usages.
+
+Version 3.0 and upwards works in Visual Studio 2019 and also enables supression of compiler errors such as errors arising from nullable reference types. For Visual Studio 2017 one must use versions below 3.0.
+
+License: license.txt
+
+License-Url: https://www.nuget.org/packages/NUnit.Analyzers/3.9.0/License
+
+Project-Url: https://github.com/nunit/nunit.analyzers
+
+## Nuget package library NUnit3TestAdapter by Charlie Poole,  Terje Sandstrom
+
+The NUnit3 TestAdapter for Visual Studio, all versions from 2012 and onwards, and DotNet (incl. .Net core), versions .net framework 4.6.2 or higher, .net core 3.1, .net 5 or higher.
+
+      Note that this package ONLY contains the adapter, not the NUnit framework.
+      For VS 2017 and forward, you should add this package to every test project in your solution. (Earlier versions only require a single adapter package per solution.)
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/nunit/nunit3-vs-adapter
+
+## Nuget package library System.Data.DataSetExtensions by Microsoft
+
+Provides extensions to form LINQ expressions and method queries against DataTable objects.
+
+Commonly Used Types:
+System.Data.DataRowComparer
+System.Data.DataRowExtensions
+System.Data.DataTableExtensions
+System.Data.EnumerableRowCollection
+System.Data.EnumerableRowCollectionExtensions
+System.Data.OrderedEnumerableRowCollection
+System.Data.TypedTableBase
+System.Data.TypedTableBaseExtensions
+ 
+30ab651fcb4354552bd4891619a0bdd81e0ebdbf 
+When using NuGet 3.x this package requires at least version 3.4.
+
+License: MIT
+
+License-Url: https://github.com/dotnet/corefx/blob/master/LICENSE.TXT
+
+Project-Url: 
 
 # Referenced libraries for Bodoconsult.App.Test
 

@@ -6,38 +6,30 @@ using Avalonia.Interactivity;
 using Bodoconsult.App.Avalonia.AppStarter.ViewModels;
 using Bodoconsult.App.Avalonia.Helpers;
 using Bodoconsult.App.Avalonia.Interfaces;
+using Bodoconsult.App.Logging;
 
 namespace Bodoconsult.App.Avalonia.AppStarter.Views
 {
     public partial class MainWindow : Window
     {
-        public IMainWindowViewModel MainWindowViewModel { get; }
+        public IMainWindowViewModel MainWindowViewModel { get; private set; }
 
         /// <summary>
         /// Default ctor
         /// </summary>
         public MainWindow()
         {
-            MainWindowViewModel = new MainWindowViewModel();
-            DataContext = MainWindowViewModel;
-
             InitializeComponent();
-
-            ResizeWindow();
-
-            MainWindowViewModel.StartEventListener();
         }
 
         /// <summary>
-        /// Ctor providing a customized view model
+        /// Inject the view model
         /// </summary>
-        /// <param name="mainWindowViewModel">View model</param>
-        public MainWindow(IMainWindowViewModel mainWindowViewModel)
+        /// <param name="mainWindowViewModel"></param>
+        public void InjectViewModel(IMainWindowViewModel mainWindowViewModel)
         {
             MainWindowViewModel = mainWindowViewModel;
             DataContext = MainWindowViewModel;
-
-            InitializeComponent();
 
             ResizeWindow();
 

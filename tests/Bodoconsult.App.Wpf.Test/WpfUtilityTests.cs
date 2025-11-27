@@ -1,4 +1,4 @@
-﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using System.IO;
 using System.Runtime.Versioning;
@@ -12,7 +12,7 @@ namespace Bodoconsult.App.Wpf.Test;
 [TestFixture]
 [RequiresThread(ApartmentState.STA)]
 [SupportedOSPlatform("windows")]
-public class UnitTestWpfUtility
+public class WpfUtilityTests
 {
     //[Test]
     //public void TestFindResource_OnlyRessourceName()
@@ -62,41 +62,5 @@ public class UnitTestWpfUtility
         Assert.That(buttonErg != null);
         Assert.That(buttonErg.Content.ToString() == "Hallo");
     }
-
-}
-
-
-[TestFixture]
-public class UnitTestDisptacherService
-{
-    ///// <summary>
-    ///// Constructor to initialize class
-    ///// </summary>
-    //public UnitTestDisptacherService()
-    //{
-
-    //}
-
-
-    ///// <summary>
-    ///// Runs in front of each test method
-    ///// </summary>
-    //[TestInitialize]
-    //public void Setup()
-    //{
-
-
-    //}
-
-    ///// <summary>
-    ///// Cleanup aft test methods
-    ///// </summary>
-    //[TestCleanup]
-    //public void Cleanup()
-    //{
-
-
-    //}
-
 
 }

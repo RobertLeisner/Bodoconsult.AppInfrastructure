@@ -3,35 +3,68 @@ Bodoconsult.I18N
 
 # What does the library
 
+## Basic ideas
+
 Bodoconsult.I18N library is a simple localization library based on I18N-Portable <https://github.com/xleon/I18N-Portable> by Diego Ponce de León (xleon).
 
-To use I18N-Portable directly was not possible for us. We required a localization library supporting resources from multiple assemblies and sources. I18N-Portable did not support this. 
+To use I18N-Portable directly was not possible for us. We required a localization library supporting resources from multiple assemblies and sources. We had to not only localize a WPF UI but report generation to PDF files and localized charting to images. The localization resources used for all this were spread of multiple assemblies and in different file formats. This led us to the need of a unique localization implementation usable in multiple environments like WinForms, WPF, console or Avalonia apps.
+
+I18N-Portable did not support this. 
 But the general idea of I18N-Portable is cool. Therefore we decided to develop an own I18N-Portable derivative with similar published interfaces but working a bit different behind the scenes.
 
-Bodoconsult.I18N library currently supports I18N for apps with one currently loaded language only. Apps with multiple UI theads running on different languages are not supported currently.
+So the basic idea of Bodoconsult.I18N library is to simplify the usage of multiple technologies existing for localization like RESX resources and XAML resource dictionary under one roof.
+
+Bodoconsult.I18N library currently supports I18N for apps with one currently loaded language at a time only but this language can be changed during runtime. Apps with multiple UI threads running on different languages are not supported currently.
 
 Our implementation was intended for using it with console apps, WinForms apps or WPF apps under .Net8 or later. All other uses case may work but are not tested.
 
 * Usable with a DI container
-* Simple initialization setup.
-* Readable and lean locale files (UTF8 .txt with key/value pairs).
+
+* Simple initialization setup
+
+* Readable and lean locale files (UTF8 .txt with key/value pairs)
+
 * Support for custom file formats via ILocalesProvider interface (json, xml, etc)
+
 * Light weight
+
 * Well tested
 
+## Localization data sources
+
+Bodoconsult.I18N supports the following localization sources hosted maybe in different assemblies:
+
+-   TXT files
+
+-   CSV files
+
+-   JSON key value pairs files
+
+-   Resx resource files
+
+-   Embedded or external XAML resource files (.xaml extension) for WPF (additional Nuget package Bodoconsult.App.Wpf is required)
+
+-   External AXAML resource files (.axaml extension) for Avalonia (additional Nuget package Bodoconsult.App.Avalonia is required)
+
+Implementing your own implemenation of IResourceProvider normally by deriving from BaseResourceProvider class you can implement your own localization provider based providing localization data from diverse source like file, databases, web resources via REST etc.. 
 
 # How to use the library
 
-The source code contain NUnit test classes, the following source code is extracted from. The samples below show the most helpful use cases for the library.
+The source code contains NUnit test classes, the following source code samples are extracted from. The samples below show the most helpful use cases for the library.
 
 ## Setup locales
 
 - In your Net8 project, create a directory called "Locales".
-- Create a `{languageCode}.txt` file for each language you want to support. `languageCode` can be a two letter ISO code or a culture name like "en-US". See [full list here](https://msdn.microsoft.com/en-us/library/ee825488%28v=cs.20%29.aspx).
+
+- Create a `{languageCode}.txt` file for each language you want to support. `languageCode` can be a two letter ISO code or a IETF culture name like "en-US" or "de-DE". See [full list here](https://msdn.microsoft.com/en-us/library/ee825488%28v=cs.20%29.aspx).
+
 - Set "Build Action" to "Embedded Resource" on the properties of each file
+
+-   For available file formats see [File formats for locales](#locales--file-formats)
 
 **Locale content sample**
 
+```
     # key = value (the key will be the same across locales)
     one = uno
     two = dos
@@ -54,15 +87,16 @@ The source code contain NUnit test classes, the following source code is extract
     Multiline = Line One
         Line Two
         Line Three
+```
 
 ## Fluent initialization
 
 ```csharp
-			I18N.Current
-				.SetNotFoundSymbol("$") // Optional: when a key is not found, it will appear as $key$ (defaults to "$")
-				.SetFallbackLocale("en") // Optional but recommended: locale to load in case the system locale is not supported
-				.SetThrowWhenKeyNotFound(true) // Optional: Throw an exception when keys are not found (recommended only for debugging)
-				.SetLogger(text => Debug.WriteLine(text)) // action to output traces
+I18N.Current
+    .SetNotFoundSymbol("$") // Optional: when a key is not found, it will appear as $key$ (defaults to "$")
+    .SetFallbackLocale("en") // Optional but recommended: locale to load in case the system locale is not supported
+    .SetThrowWhenKeyNotFound(true) // Optional: Throw an exception when keys are not found (recommended only for debugging)
+    .SetLogger(text => Debug.WriteLine(text)) // action to output traces
 ```
 
 ## Using I18N without depencency injection
@@ -145,7 +179,7 @@ public class TestI18NFactory: BaseI18NFactory
         // Load more providers if necessary
         // ...
 
-        // Init instance with lanugae from running thread
+        // Init instance with language from running thread
         I18NInstance.Init();
 
         // Return the instance
@@ -154,7 +188,48 @@ public class TestI18NFactory: BaseI18NFactory
 }
 ```
 
+If you use Bodoconsult.App app start infrastructure you can add the DI related code to the implementation of the method IDiContainerServiceProvider.AddServices as shown here in the sample:
+
 ``` csharp
+namespace AvaloniaApp1.DiContainerProvider;
+
+/// <summary>
+/// Load all specific AvaloniaApp1 services to DI container. Intended mainly for production
+/// </summary>
+public class AvaloniaApp1AllServicesContainerServiceProvider : IDiContainerServiceProvider
+{
+    ...
+
+    /// <summary>
+    /// Add DI container services to a DI container
+    /// </summary>
+    /// <param name="diContainer">Current DI container</param>
+    public void AddServices(DiContainer diContainer)
+    {
+        // Factories to create tower instance related objects (should be singletons)
+        diContainer.AddSingletonInstance(Globals.Instance.LogDataFactory);
+        diContainer.AddSingleton<IAppLoggerProxyFactory, AppLoggerProxyFactory>();
+
+        // benchmark
+        var benchProxy = AppBenchProxy.CreateAppBenchProxy(_benchmarkFileName, Globals.Instance.LogDataFactory);
+        diContainer.AddSingletonInstance(benchProxy);
+
+        // General app management
+        diContainer.AddSingleton<IGeneralAppManagementService, GeneralAppManagementService>();
+        diContainer.AddSingleton<IGeneralAppManagementManager, GeneralAppManagementManager>();
+
+        // I18N
+        II18NFactory i18NFactory = new I18NFactory();
+        diContainer.AddSingleton(i18NFactory.CreateInstance());
+
+        // Load all other services required for the app now
+        diContainer.AddSingleton<IApplicationService, AvaloniaApp1Service>();
+
+        // ...
+    }
+
+    ...
+}
 
 ```
 
@@ -174,15 +249,209 @@ public abstract class BaseViewModel
 }
 ```
 
-**Xaml sample**
+**WPF Xaml sample**
+
 ```xaml
 <Button Content="{Binding Strings[key]}" />
 ```
+
+key is an existing key in a locales file.
+
+**Avalonia XAML sample**
+
+```xaml
+<Button Text="{Binding Strings[key]}" />
+``` 
+
+key is an existing key in a locales file.
+
 **Xamarin.Forms sample**
+
 ```xaml
 <Button Text="{Binding Strings[key]}" />`
 ```    
 
+key is an existing key in a locales file.
+
+## Locales  file formats
+
+For all file formats currently implemented with Bodoconsult.I18N there are samples in the Bodoconsult.I18N.Test project in the repository.
+
+### Plain text files (.txt)
+
+```
+one = one
+two = two
+three = three
+
+Mailbox.Notification = Hello {0}, you've got {1} emails
+
+TextWithLineBreakCharacters = Line One\nLine Two\r\nLine Three
+
+Multiline = Line One
+	Line Two
+	Line Three
+
+Animals = List of animals
+Animals.Dog = Dog
+Animals.Cat = Cat
+Animals.Rat = Rat
+Animals.Snake = Good\nSnake
+
+Fruit.Orange = great orange
+Fruit.Apple = big apple
+Fruit.Banana = nice banana
+```
+
+### CSV text files
+
+```
+one;one
+two;two
+three;three
+Mailbox.Notification;Hello {0}, you've got {1} emails
+TextWithLineBreakCharacters;Line One\nLine Two\nLine Three
+Animals;List of animals
+Animals.Dog;Dog
+Animals.Cat;Cat
+Animals.Rat;Rat
+Animals.Snake;Good\nSnake
+Fruit.Orange;great orange
+Fruit.Apple;big apple
+Fruit.Banana;nice banana
+```
+
+### JSON key-value-pairs file
+
+``` json
+{
+  "one": "one",
+  "two": "two",
+  "three": "three",
+  "Mailbox.Notification": "Hello {0}, you've got {1} emails",
+  "TextWithLineBreakCharacters": "Line One\nLine Two\nLine Three",
+  "Animals": "List of animals",
+  "Animals.Dog": "Dog",
+  "Animals.Cat": "Cat",
+  "Animals.Rat": "Rat",
+  "Animals.Snake": "Good\nSnake",
+  "Fruit.Orange": "great orange",
+  "Fruit.Apple": "big apple",
+  "Fruit.Banana": "nice banana"
+}
+```
+
+### JSON list file
+
+``` json
+[
+  {
+    "key": "one",
+    "value": "one"
+  },
+  {
+    "key": "two",
+    "value": "two"
+  },
+  {
+    "key": "three",
+    "value": "three"
+  },
+  {
+    "key": "Mailbox.Notification",
+    "value": "Hello {0}, you've got {1} emails"
+  },
+  {
+    "key": "TextWithLineBreakCharacters",
+    "value": "Line One\nLine Two\nLine Three"
+  },
+  {
+    "key": "Animals",
+    "value": "List of animals"
+  },
+  {
+    "key": "Animals.Dog",
+    "value": "Dog"
+  },
+  {
+    "key": "Animals.Cat",
+    "value": "Cat"
+  },
+  {
+    "key": "Animals.Rat",
+    "value": "Rat"
+  },
+  {
+    "key": "Animals.Snake",
+    "value": "Good\nSnake"
+  },
+  {
+    "key": "Fruit.Orange",
+    "value": "great orange"
+  },
+  {
+    "key": "Fruit.Apple",
+    "value": "big apple"
+  },
+  {
+    "key": "Fruit.Banana",
+    "value": "nice banana"
+  }
+]
+```
+
+### WPF XAML file as embedded resource or external file
+
+``` xaml
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="Simulation.Asset">Asset</system:String>
+    <system:String x:Key="Simulation.Distribution">Distribution</system:String>
+    <system:String x:Key="Simulation.Parameter1">Parameter 1</system:String>
+    <system:String x:Key="Simulation.Parameter2">Parameter 2</system:String>
+    <system:String x:Key="Simulation.Parameter3">Parameter 3</system:String>
+    <system:String x:Key="Simulation.Percentage">Percentage</system:String>
+</ResourceDictionary>
+```
+
+### Avalonia XAML file only as external file
+
+For AvaloniaResource files there is currently no way to read the key value pairs.
+
+For embedding localization as resource in an Avalonia project use file formats like TXT, CSV, JSON or RESX as described above.
+
+``` xaml
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+	<system:String x:Key="Simulation.Asset">Asset</system:String>
+	<system:String x:Key="Simulation.Distribution">Distribution</system:String>
+	<system:String x:Key="Simulation.Parameter1">Parameter 1</system:String>
+	<system:String x:Key="Simulation.Parameter2">Parameter 2</system:String>
+	<system:String x:Key="Simulation.Parameter3">Parameter 3</system:String>
+	<system:String x:Key="Simulation.Percentage">Percentage</system:String>
+</ResourceDictionary>
+```
+
+### C# default localization with resx resource files
+
+For more information see [MS Learn: Localization in .NET](https://learn.microsoft.com/en-us/dotnet/core/extensions/localization).
+
+
+
+
+
+
+```
+
+```
+
+# To do
+
+## Supporting apps with multiple UI threads running on different languages
+
+New implementation taking the basic ideas of Bodoconsult.I18N to multithreaded environments like an ASP.NET web application or GRPC based services in an client server environment with central localization of the server side.
 
 # About us
 

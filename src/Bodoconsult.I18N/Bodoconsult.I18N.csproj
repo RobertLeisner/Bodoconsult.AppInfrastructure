@@ -30,6 +30,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="nuget.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Content Include="..\..\LICENSE.md" />
 	  <Content Include="..\..\doc\Bodoconsult.I18N\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>

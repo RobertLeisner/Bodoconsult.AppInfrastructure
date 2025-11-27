@@ -11,14 +11,15 @@ namespace Bodoconsult.App.Wpf.Test.I18NProvider;
 internal class WpfEmbeddedResourceProviderTests
 {
 
+    private const string Path = "Locales";
+
     [Test]
     public void RegisterResourceItems_ExistingResources_ResourceItemsLoaded()
     {
         // Arrange 
         var ass = TestHelper.CurrentAssembly;
-        var path = "Resources";
 
-        var provider = new WpfEmbeddedResourceProvider(ass, path);
+        var provider = new WpfEmbeddedResourceProvider(ass, Path);
 
         // Act  
         provider.RegisterResourceItems();
@@ -35,9 +36,8 @@ internal class WpfEmbeddedResourceProviderTests
         IDictionary<string, string> translations = new Dictionary<string, string>();
 
         var ass = TestHelper.CurrentAssembly;
-        var path = "Resources";
 
-        var provider = new WpfEmbeddedResourceProvider(ass, path);
+        var provider = new WpfEmbeddedResourceProvider(ass, Path);
         provider.RegisterResourceItems();
 
         // Act  
@@ -55,13 +55,11 @@ internal class WpfEmbeddedResourceProviderTests
         IDictionary<string, string> translations = new Dictionary<string, string>();
 
         var ass = TestHelper.CurrentAssembly;
-        var path = "/Resources/";
 
-        var provider = new WpfEmbeddedResourceProvider(ass, path);
+        var provider = new WpfEmbeddedResourceProvider(ass, Path);
         provider.RegisterResourceItems();
 
         // Act  
-
         provider.LoadResourceItem("de", translations);
 
         // Assert

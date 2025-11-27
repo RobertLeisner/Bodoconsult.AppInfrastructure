@@ -1,105 +1,136 @@
-﻿//// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-//using System.Reflection;
-//using Bodoconsult.I18N.LocalesProviders;
+using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
+using Bodoconsult.I18N.LocalesProviders;
+using System.Reflection;
+using Avalonia.Markup.Xaml.Styling;
 
-//namespace Bodoconsult.App.Avalonia.I18N;
+namespace Bodoconsult.App.Avalonia.I18N;
 
-///// <summary>
-///// I18NResourceProvider implementation for I18N resources loaded from Avalonia resource files. Locales file must be named Culture.XX.xaml with XX being the language identifier
-///// </summary>
-//public class AvaloniaFileLocalesProvider : BaseResourceProvider
-//{
-//    private readonly string _resourceFolder;
+/// <summary>
+/// I18NResourceProvider implementation for I18N resources loaded from Avalonia resource files. Locales file must be named Culture.XX.xaml with XX being the language identifier
+/// </summary>
+public class AvaloniaFileLocalesProvider : BaseResourceProvider
+{
+    private readonly string _resourceFolder;
 
-//    /// <summary>
-//    /// Default ctor
-//    /// </summary>
-//    /// <param name="assembly">Assembly to load the locales from</param>
-//    /// <param name="resourceFolder">Folder relative to app path the locales are stored in. Locales file must be named Culture.XX.xaml with XX being the language identifier</param>
-//    public AvaloniaFileLocalesProvider(Assembly assembly, string resourceFolder)
-//    {
-//        var dir = new FileInfo(assembly.Location).DirectoryName;
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="assembly">Assembly to load the locales from</param>
+    /// <param name="resourceFolder">Folder relative to app path the locales are stored in. Locales file must be named Culture.XX.xaml with XX being the language identifier</param>
+    public AvaloniaFileLocalesProvider(Assembly assembly, string resourceFolder)
+    {
+        var dir = new FileInfo(assembly.Location).DirectoryName;
 
-//        if (string.IsNullOrEmpty(dir))
-//        {
-//            return;
-//        }
+        if (string.IsNullOrEmpty(dir))
+        {
+            return;
+        }
 
-//        _resourceFolder = Path.Combine(dir, resourceFolder);
-//    }
+        _resourceFolder = Path.Combine(dir, resourceFolder);
+    }
 
-//    /// <summary>
-//    /// Register all available resource items
-//    /// </summary>
-//    public override void RegisterLocalesItems()
-//    {
-//        if (string.IsNullOrEmpty(_resourceFolder))
-//        {
-//            return;
-//        }
+    /// <summary>
+    /// Register all available resource items
+    /// </summary>
+    public override void RegisterLocalesItems()
+    {
+        if (string.IsNullOrEmpty(_resourceFolder))
+        {
+            return;
+        }
 
-//        var dir = new DirectoryInfo(_resourceFolder);
+        var dir = new DirectoryInfo(_resourceFolder);
 
-//        foreach (var locale in dir.GetFiles()
-//                     .Where(x => x.Name.EndsWith(".xaml", StringComparison.InvariantCultureIgnoreCase)))
-//        {
-//            var key = locale.Name.Replace(locale.Extension, string.Empty).Replace("Culture.", string.Empty);
+        foreach (var locale in dir.GetFiles()
+                     .Where(x => x.Name.EndsWith(".axaml", StringComparison.InvariantCultureIgnoreCase)))
+        {
+            var key = locale.Name.Replace(locale.Extension, string.Empty).Replace("Culture.", string.Empty);
 
-//            var kvp = new KeyValuePair<string, string>(key, locale.FullName);
+            var kvp = new KeyValuePair<string, string>(key, locale.FullName);
 
-//            LocaleItems.Add(kvp);
-//        }
-//    }
+            LocaleItems.Add(kvp);
+        }
+    }
 
 
-//    /// <summary>
-//    /// Load key value pairs for string translations in a translation dictionary.
-//    /// If a key is already contained in the translation dictionary it should not be added again.
-//    /// </summary>
-//    /// <param name="language">Requested language</param>
-//    /// <returns>Translation dictionary with key value pairs in.
-//    /// </returns>
-//    public override IDictionary<string, string> LoadLocaleItem(string language)
-//    {
-//        var translations = new Dictionary<string, string>();
+    /// <summary>
+    /// Load key value pairs for string translations in a translation dictionary.
+    /// If a key is already contained in the translation dictionary it should not be added again.
+    /// </summary>
+    /// <param name="language">Requested language</param>
+    /// <returns>Translation dictionary with key value pairs in.
+    /// </returns>
+    public override IDictionary<string, string> LoadLocaleItem(string language)
+    {
+        var translations = new Dictionary<string, string>();
 
-//        // Check if language exists
-//        var success = LocaleItems.TryGetValue(language, out var path);
+        // Check if language exists
+        var success = LocaleItems.TryGetValue(language, out var path);
 
-//        if (!success)
-//        {
-//            return translations;
-//        }
+        if (!success)
+        {
+            return translations;
+        }
 
-//        var rd = new SharedResourceDictionary
-//        {
-//            Source = new Uri(path, UriKind.RelativeOrAbsolute)
-//        };
+        var xaml = File.ReadAllText(path);
 
-//        foreach (var key in rd.Keys)
-//        {
-//            if (key == null)
-//            {
-//                continue;
-//            }
+        var rd = AvaloniaRuntimeXamlLoader.Parse<ResourceDictionary>(xaml);
 
-//            var key1 = key.ToString();
-//            if (string.IsNullOrEmpty(key1))
-//            {
-//                continue;
-//            }
+        
+        foreach (var key in rd.Keys)
+        {
+            //if (key == null)
+            //{
+            //    continue;
+            //}
 
-//            var value = rd[key];
+            var key1 = key.ToString();
+            if (string.IsNullOrEmpty(key1))
+            {
+                continue;
+            }
 
-//            if (value == null)
-//            {
-//                continue;
-//            }
+            var value = rd[key];
 
-//            translations.Add(key1, value.ToString());
-//        }
+            if (value == null)
+            {
+                continue;
+            }
 
-//        return translations;
-//    }
-//}
+            translations.Add(key1, value.ToString());
+        }
+
+
+        //foreach (var key in rd.MergedDictionaries)
+        //{
+
+        //    key.
+
+        //    //key.
+        //    ////if (key == null)
+        //    ////{
+        //    ////    continue;
+        //    ////}
+
+        //    //var key1 = key.ToString();
+        //    //if (string.IsNullOrEmpty(key1))
+        //    //{
+        //    //    continue;
+        //    //}
+
+        //    //var value = rd[key];
+
+        //    //if (value == null)
+        //    //{
+        //    //    continue;
+        //    //}
+
+        //    //translations.Add(key1, value.ToString());
+        //}
+
+        return translations;
+    }
+}

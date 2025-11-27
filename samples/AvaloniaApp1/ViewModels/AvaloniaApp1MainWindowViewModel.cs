@@ -2,8 +2,8 @@
 
 using Avalonia.Controls;
 using AvaloniaApp1.Views;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Avalonia.AppStarter.ViewModels;
-using Bodoconsult.App.Logging;
 
 namespace AvaloniaApp1.ViewModels;
 
@@ -16,7 +16,8 @@ public class AvaloniaApp1MainWindowViewModel : MainWindowViewModel
     /// Default ctor
     /// </summary>
     /// <param name="listener">Current app event listener</param>
-    public AvaloniaApp1MainWindowViewModel(AppEventListener listener) : base(listener)
+    /// <param name="translationService">Current translation service</param>
+    public AvaloniaApp1MainWindowViewModel(IAppEventListener listener, II18N translationService) : base(listener, translationService)
     { }
 
     /// <summary>
@@ -25,10 +26,11 @@ public class AvaloniaApp1MainWindowViewModel : MainWindowViewModel
     /// <returns></returns>
     public override Window CreateWindow()
     {
-        return new MainWindow(this)
+        var vm = new MainWindow
         {
-            WindowState = WindowState.Normal,
             IsVisible = true
         };
+        vm.InjectViewModel(this);
+        return vm;
     }
 }

@@ -108,14 +108,24 @@ public partial class App : Application
         builder.FinalizeDiContainerSetup();
 
         // Create the viewmodel now
-        var eventLevel = EventLevel.Warning;
-        var listener = new AppEventListener(eventLevel);
-        MainWindowViewModel = new AvaloniaApp1MainWindowViewModel(listener)
-        {
-            HeaderBackColor = Colors.DarkBlue,
-            BodyBackColor = Colors.Beige,
-            AppExe = param.AppExe
-        };
+        MainWindowViewModel = Globals.Instance.DiContainer.Get<IMainWindowViewModel>();
+
+        //var eventLevel = EventLevel.Warning;
+        //var listener = new AppEventListener(eventLevel);
+
+
+
+        //MainWindowViewModel = new AvaloniaApp1MainWindowViewModel(listener)
+        //{
+        //    HeaderBackColor = Colors.DarkBlue,
+        //    BodyBackColor = Colors.Beige,
+        //    AppExe = param.AppExe
+        //};
+
+        MainWindowViewModel.HeaderBackColor = Colors.DarkBlue;
+        MainWindowViewModel.BodyBackColor = Colors.Beige;
+        MainWindowViewModel.AppExe = param.AppExe;
+
         DataContext = MainWindowViewModel;
 
         // Load the logo now

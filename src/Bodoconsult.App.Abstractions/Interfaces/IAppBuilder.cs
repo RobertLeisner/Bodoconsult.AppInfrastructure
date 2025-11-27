@@ -49,7 +49,6 @@ public interface IAppBuilder
     /// <summary>
     /// Check if storage connection is available
     /// </summary>
-    /// <exception cref="AppStorageConnectionCheckException">Storage connection is not avialbale exception</exception>
     void CheckStorageConnection();
 
     /// <summary>

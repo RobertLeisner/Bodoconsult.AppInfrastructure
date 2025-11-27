@@ -16,13 +16,11 @@
         CanMaximize="False">
 
 
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <viewModels:MainWindowViewModel/>
-    </Design.DataContext>
-
-
+    <!--<Design.DataContext>
+        --><!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) --><!--
+        <viewModels:DummyMainWindowViewModel/>
+    </Design.DataContext>-->
 
 	<Window.Resources>
 		<converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
@@ -47,6 +45,8 @@
 				<Label x:Name="MsgServerIsListeningOnPort" Content="{Binding MsgServerIsListeningOnPort}" FontSize="16" IsVisible="False"></Label>
 				<Label x:Name="MsgServerProcessId" Content="{Binding MsgServerProcessId}" FontSize="16"></Label>
 				<Label x:Name="MsgHowToShutdownServer" Content="{Binding MsgHowToShutdownServer}" FontSize="16"></Label>
+
+                <Label Content="{Binding Strings[Contains]}" />
 			</StackPanel>
 
 			<Grid x:Name="DocGrid" Grid.Row="2" Background="White">

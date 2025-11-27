@@ -1,7 +1,8 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using System.IO;
 using AvaloniaApp1.AppData;
+using AvaloniaApp1.Factories;
+using AvaloniaApp1.ViewModels;
 using Bodoconsult.App;
 using Bodoconsult.App.Abstractions.Delegates;
 using Bodoconsult.App.Abstractions.DependencyInjection;
@@ -9,7 +10,10 @@ using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Benchmarking;
 using Bodoconsult.App.Factories;
 using Bodoconsult.App.Interfaces;
+using Bodoconsult.App.Logging;
 using Microsoft.Extensions.Logging;
+using System.IO;
+using Bodoconsult.App.Avalonia.Interfaces;
 
 namespace AvaloniaApp1.DiContainerProvider;
 
@@ -59,6 +63,16 @@ public class AvaloniaApp1AllServicesContainerServiceProvider : IDiContainerServi
         // General app management
         diContainer.AddSingleton<IGeneralAppManagementService, GeneralAppManagementService>();
         diContainer.AddSingleton<IGeneralAppManagementManager, GeneralAppManagementManager>();
+
+        // I18N
+        II18NFactory i18NFactory = new I18NFactory();
+        diContainer.AddSingleton(i18NFactory.CreateInstance());
+
+        // AppEventListener 
+        diContainer.AddSingleton<IAppEventListener, AppEventListener>();
+
+        // Main view model
+        diContainer.AddSingleton<IMainWindowViewModel, AvaloniaApp1MainWindowViewModel>();
 
         // Load all other services required for the app now
         diContainer.AddSingleton<IApplicationService, AvaloniaApp1Service>();

@@ -1,9 +1,12 @@
 ﻿//// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+//using Avalonia.Controls;
+//using Avalonia.Markup.Xaml;
+//using Avalonia.Markup.Xaml.Styling;
+//using Bodoconsult.I18N.ResourceProviders;
 //using System.Collections;
 //using System.Reflection;
 //using System.Resources;
-//using Bodoconsult.I18N.ResourceProviders;
 
 //namespace Bodoconsult.App.Avalonia.I18N;
 
@@ -44,10 +47,9 @@
 //    /// </summary>
 //    public override void RegisterResourceItems()
 //    {
-
 //        var assName = _assembly.GetName().Name;
 
-//        var lResourceContainerName = $"{assName}.g";
+//        var lResourceContainerName = $"{assName}";
 //        var lResourceManager = new ResourceManager(lResourceContainerName, _assembly);
 
 //        var lResourceSet = lResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true);
@@ -66,14 +68,14 @@
 
 //            var key = lEesource.Key.ToString().Split(',')[0]
 //                .ToLowerInvariant()
-//                .Replace($"{_resourceFolder}/", string.Empty, StringComparison.InvariantCultureIgnoreCase).Replace(".baml", string.Empty);
+//                .Replace($"{_resourceFolder}/", string.Empty, StringComparison.InvariantCultureIgnoreCase).Replace(".axaml", string.Empty);
 
 //            if (!key.StartsWith("culture."))
 //            {
 //                continue;
 //            }
 
-//            var path = $"pack://application:,,,/{assName};component/{_resourceFolder}/{key}.xaml";
+//            var path = $"avares://{assName}/{_resourceFolder}/{key}.axaml";
 //            var kvp = new KeyValuePair<string, string>(key.Replace("culture.", string.Empty), path);
 
 //            ResourceItems.Add(kvp);
@@ -97,17 +99,15 @@
 //            return;
 //        }
 
-//        var rd = new SharedResourceDictionary
-//        {
-//            Source = new Uri(path, UriKind.RelativeOrAbsolute)
-//        };
+//        var rd = new ResourceDictionary();
+//        rd.MergedDictionaries.Add(new ResourceInclude(new Uri(path, UriKind.RelativeOrAbsolute)));
 
 //        foreach (var key in rd.Keys)
 //        {
-//            if (key == null)
-//            {
-//                continue;
-//            }
+//            //if (key == null)
+//            //{
+//            //    continue;
+//            //}
 //            var value = rd[key];
 //            if (value == null)
 //            {

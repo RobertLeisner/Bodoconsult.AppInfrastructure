@@ -276,15 +276,6 @@ See the following example of appsettings.json from project WinFormsApp1 with all
         "Default": "Debug"
       }
     },
-    //"Console": {
-    //  "IncludeScopes": true,
-    // "DisableColors": false
-    //},
-    //, "EventLog": {
-    // "SourceName": "MyApp"
-    // "LogName": "MyLogName"
-    // "MachineName": "MyMachineName"
-    //},
     "Debug": {
       "LogLevel": {
         "Default": "Debug"
@@ -298,4 +289,85 @@ See the following example of appsettings.json from project WinFormsApp1 with all
   }
 }
 
+```
+
+## Load customer configuration properties from appsetiings.json
+
+See AvaloniaApp1 project in the repo for full sample srouce code.
+
+Add a new section to your appsettings.json. See section "DemoSection" with a property "TestProperty" in this example:
+
+``` json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=(LocalDB)\\MSSQLLocalDb;Initial Catalog=XYDatabase;Integrated Security=true;MultipleActiveResultSets=True;App=WpfApp1"
+  },
+  "DemoSection": {
+    "TestProperty": "TestPropertyValueXYZ"
+  },
+  "Logging": {
+    "MinimumLogLevel": "Debug",
+    "LogLevel": {
+      "Default": "Information",
+      "System": "Information",
+      "Microsoft": "Information",
+      "Microsoft.EntityFrameworkCore": "Warning"
+    },
+    "Log4Net": {
+      "LogLevel": {
+        "Default": "Debug"
+      }
+    },
+    "Debug": {
+      "LogLevel": {
+        "Default": "Debug"
+      }
+    },
+    "EventSource": {
+      "LogLevel": {
+        "Default": "Error"
+      }
+    }
+  }
+}
+```
+
+Add the properties requested to your IAddGlobals instance - in the sample called Globals -.
+
+``` csharp
+/// <summary>
+/// App global values
+/// </summary>
+public class Globals : IAppGlobals
+{
+
+    ...
+
+    /// <summary>
+    /// A string test property not included in <see cref="IAppGlobals"/>
+    /// </summary>
+    public string TestProperty { get; set; }
+}
+```
+
+In your current IAppBuilder instance - in the sample AvaloniaApp1AppBuilder class - create a override for method ProcessConfiguration(). In this method run base.ProcessConfiguration(); first to get the config basically load from appsettings.json. Then you can access the config and process values out of it as requested.
+
+``` csharp
+    /// <summary>
+    /// Process the configuration from <see cref="IAppStartParameter.ConfigFile"/>. Uses the <see cref="DefaultAppStartProvider"/>.
+    /// </summary>
+    public override void ProcessConfiguration()
+    {
+        // Load basic config
+        base.ProcessConfiguration();
+
+        // Now get the root comfiguration element
+        var root = AppStartProvider.AppConfigurationProvider.Configuration;
+
+        // Get your derived IAppGlobals instance here to access added properties
+        var globals = (Globals)AppGlobals;
+
+        // Now get the requested config elements out of the root config element
+        globals.TestProperty = root?.GetSection("DemoSection")["TestProperty"];
+    }
 ```
