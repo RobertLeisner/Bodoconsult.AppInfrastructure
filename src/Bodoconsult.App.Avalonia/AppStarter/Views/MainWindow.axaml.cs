@@ -3,10 +3,8 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using Bodoconsult.App.Avalonia.AppStarter.ViewModels;
 using Bodoconsult.App.Avalonia.Helpers;
 using Bodoconsult.App.Avalonia.Interfaces;
-using Bodoconsult.App.Logging;
 
 namespace Bodoconsult.App.Avalonia.AppStarter.Views
 {

@@ -5,7 +5,6 @@ using AvaloniaApp1.DiContainerProvider;
 using Bodoconsult.App;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Avalonia.App;
-using System.Configuration;
 
 namespace AvaloniaApp1;
 

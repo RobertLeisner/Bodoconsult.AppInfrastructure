@@ -14,25 +14,32 @@ namespace Bodoconsult.App.WinForms.AppStarter.Forms;
 public sealed partial class MainWindow : Form
 {
 
-    private readonly IMainWindowViewModel _viewModel;
+    private IMainWindowViewModel _viewModel;
 
     private const int CP_NOCLOSE_BUTTON = 0x200;
 
-    private readonly Timer _timer;
+    private readonly Timer _timer = new()
+        {
+            Interval = 1000
+        };
 
     private bool _isClosing;
 
     /// <summary>
     /// Default ctor
     /// </summary>
-    /// <param name="viewModel">Current view model to use</param>
-    public MainWindow(IMainWindowViewModel viewModel)
+    public MainWindow()
     {
-
-        _viewModel = viewModel;
-
         InitializeComponent();
+    }
 
+    /// <summary>
+    /// Inject the view model
+    /// </summary>
+    /// <param name="mainWindowViewModel"></param>
+    public void InjectViewModel(IMainWindowViewModel mainWindowViewModel)
+    {
+        _viewModel = mainWindowViewModel;
         Logo.Image = _viewModel.Logo;
 
         Text = _viewModel.AppVersion;
@@ -50,11 +57,6 @@ public sealed partial class MainWindow : Form
 
         LogWindow.DataBindings.Add(new Binding(nameof(LogWindow.Text), _viewModel, "LogData"));
 
-
-        _timer = new Timer
-        {
-            Interval = 1000
-        };
         _timer.Tick += TimerOnTick;
         _timer.Enabled = true;
         _timer.Start();

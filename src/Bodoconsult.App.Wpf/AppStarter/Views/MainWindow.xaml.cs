@@ -12,29 +12,37 @@ namespace Bodoconsult.App.Wpf.AppStarter.Views;
 /// </summary>
 public partial class MainWindow : Window
 {
-    public  IMainWindowViewModel MainWindowViewModel { get; }
-        
+    public  IMainWindowViewModel MainWindowViewModel { get; private set; }
 
     /// <summary>
     /// Default ctor
     /// </summary>
-    /// <param name="mainWindowViewModel">View model</param>
-    public MainWindow(IMainWindowViewModel mainWindowViewModel)
+    public MainWindow()
+    {
+        InitializeComponent();
+    }
+
+    /// <summary>
+    /// Inject the view model
+    /// </summary>
+    /// <param name="mainWindowViewModel"></param>
+    public void InjectViewModel(IMainWindowViewModel mainWindowViewModel)
     {
         MainWindowViewModel = mainWindowViewModel;
         DataContext = MainWindowViewModel;
-
-        InitializeComponent();
 
         ResizeWindow();
 
         MainWindowViewModel.StartEventListener();
     }
 
-
-
     private void ResizeWindow()
     {
+        if (MainWindowViewModel == null)
+        {
+            return;
+        }
+
         MainWindowViewModel.Width = RenderSize.Width;
         MainWindowViewModel.Height = Header.RenderSize.Height;
     }

@@ -32,11 +32,20 @@ public class SharedResourceDictionary : ResourceDictionary
         get => IsInDesignMode ? base.Source : _sourceUri;
         set
         {
-            if (!IsInDesignMode)
+            if (value == null)
+            {
+                return;
+            }
+
+            _sourceUri = value;
+
+            if (IsInDesignMode)
             {
                 //try
                 //{
-                base.Source = value;
+                var dict = Application.LoadComponent(_sourceUri) as ResourceDictionary;
+                MergedDictionaries.Add(dict);
+
                 //}
                 //catch
                 //{
@@ -45,14 +54,14 @@ public class SharedResourceDictionary : ResourceDictionary
 
                 return;
             }
-            _sourceUri = value;
-            if (!SharedDictinaries.ContainsKey(value))
+            
+            if (!SharedDictinaries.TryGetValue(value, out var dictinary))
             {
                 try
                 {
                     //If the dictionary is not yet loaded, load it by setting
                     //the source of the base class
-                    base.Source = value;
+                    base.Source = _sourceUri;
                 }
                 catch
                 {
@@ -68,7 +77,7 @@ public class SharedResourceDictionary : ResourceDictionary
             }
             else
             {
-                MergedDictionaries.Add(SharedDictinaries[value]);
+                MergedDictionaries.Add(dictinary);
             }
         }
     }

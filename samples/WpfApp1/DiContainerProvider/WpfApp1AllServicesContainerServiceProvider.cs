@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using System.IO;
 using Bodoconsult.App;
 using Bodoconsult.App.Abstractions.Delegates;
 using Bodoconsult.App.Abstractions.DependencyInjection;
@@ -8,8 +7,13 @@ using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Benchmarking;
 using Bodoconsult.App.Factories;
 using Bodoconsult.App.Interfaces;
+using Bodoconsult.App.Logging;
 using Microsoft.Extensions.Logging;
+using System.IO;
+using Bodoconsult.App.Wpf.Interfaces;
 using WpfApp1.AppData;
+using WpfApp1.Factories;
+using WpfApp1.ViewModels;
 
 namespace WpfApp1.DiContainerProvider;
 
@@ -54,6 +58,17 @@ public class WpfApp1AllServicesContainerServiceProvider : IDiContainerServicePro
         // General app management
         diContainer.AddSingleton<IGeneralAppManagementService, GeneralAppManagementService>();
         diContainer.AddSingleton<IGeneralAppManagementManager, GeneralAppManagementManager>();
+
+        // I18N
+        II18NFactory i18NFactory = new I18NFactory();
+        var i18N = i18NFactory.CreateInstance();
+        diContainer.AddSingleton(i18N);
+
+        // AppEventListener 
+        diContainer.AddSingleton<IAppEventListener, AppEventListener>();
+
+        // Main view model
+        diContainer.AddSingleton<IMainWindowViewModel, WpfApp1MainWindowViewModel>();
 
         // Load all other services required for the app now
         diContainer.AddSingleton<IApplicationService, WpfApp1Service>();

@@ -7,6 +7,8 @@ using NUnit.Framework;
 
 namespace Bodoconsult.App.Wpf.Test.I18NProvider;
 
+// https://medium.com/younited-tech-blog/cant-load-embedded-resources-with-culture-name-suffix-in-net-core-21f279b9327b
+
 [TestFixture]
 internal class WpfEmbeddedResourceProviderTests
 {
@@ -41,7 +43,6 @@ internal class WpfEmbeddedResourceProviderTests
         provider.RegisterResourceItems();
 
         // Act  
-        
         provider.LoadResourceItem("de", translations);
 
         // Assert

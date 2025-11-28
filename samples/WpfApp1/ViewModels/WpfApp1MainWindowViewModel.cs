@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using System.Windows;
-using Bodoconsult.App.Logging;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Wpf.AppStarter.ViewModels;
+using System.Windows;
 using WpfApp1.Views;
 
 namespace WpfApp1.ViewModels;
@@ -16,7 +16,8 @@ public class WpfApp1MainWindowViewModel : MainWindowViewModel
     /// Default ctor
     /// </summary>
     /// <param name="listener">Current app event listener</param>
-    public WpfApp1MainWindowViewModel(AppEventListener listener) : base(listener)
+    /// <param name="translationService">Translation service</param>
+    public WpfApp1MainWindowViewModel(IAppEventListener listener, II18N translationService) : base(listener, translationService)
     { }
 
     /// <summary>
@@ -25,10 +26,12 @@ public class WpfApp1MainWindowViewModel : MainWindowViewModel
     /// <returns></returns>
     public override Window CreateWindow()
     {
-        return new MainWindow(this)
+        var w = new MainWindow
         {
             WindowState = WindowState.Normal,
             Visibility = Visibility.Visible
         };
+        w.InjectViewModel(this);
+        return w; 
     }
 }

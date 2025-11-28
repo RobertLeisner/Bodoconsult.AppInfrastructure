@@ -62,35 +62,22 @@ public class MainWindowViewModel : ObservableObject, IMainWindowViewModel
     /// Ctor providing an <see cref="AppEventListener"/> instance
     /// </summary>
     /// <param name="listener">Current EventSource listener: neede to bring logging entries to UI</param>
-    /// <param name="strings">Translation service</param>
-    public MainWindowViewModel(IAppEventListener listener, II18N strings)
+    /// <param name="translationService">Translation service</param>
+    public MainWindowViewModel(IAppEventListener listener, II18N translationService)
     {
-        Strings = strings;
+        TranslationService = translationService;
         _listener = listener;
         NotifyIconOpenCommand = new RelayCommand(() => { WindowState = WindowState.Normal; });
-        NotifyIconExitCommand  = new RelayCommand(ShutDown);
+        NotifyIconExitCommand = new RelayCommand(ShutDown);
         WindowState = WindowState.Normal;
         ShowInTaskbar = true;
     }
-
-    ///// <summary>
-    ///// Default ctor
-    ///// </summary>
-    //public MainWindowViewModel()
-    //{
-    //    _listener = null;
-    //    NotifyIconOpenCommand = new RelayCommand(() => { WindowState = WindowState.Normal; });
-    //    NotifyIconExitCommand = new RelayCommand(ShutDown);
-    //    WindowState = WindowState.Normal;
-    //    ShowInTaskbar = true;
-    //}
-
 
     /// <summary>
     /// II18N instance to use with MVVM / WPF / Xamarin / Avalonia
     /// </summary>
     /// <returns>Translated string</returns>
-    public II18N Strings { get; }
+    public II18N TranslationService { get; }
 
     /// <summary>
     /// Menu text for open menu in system tray bar
@@ -410,7 +397,7 @@ public class MainWindowViewModel : ObservableObject, IMainWindowViewModel
             _logData.Add(logMsg);
         }
 
-        // If there are to much entries
+        // If there are to many entries
         for (var i = _logData.Count - MaxNumberOfLogEntries - 2; i >= 0; i--)
         {
             _logData.Remove(_logData[i]);
@@ -450,7 +437,7 @@ public class MainWindowViewModel : ObservableObject, IMainWindowViewModel
         get => _logEventLevel;
         set
         {
-            if (value == _logEventLevel)
+            if (value == _logEventLevel || _listener == null)
             {
                 return;
             }

@@ -97,7 +97,7 @@ public class WinFormsStarterUi : BaseAppStarterUi
         ConsoleService.ConsoleHandle = ConsoleService.CsGetConsoleWindow();
         ConsoleService.CsShowWindow(ConsoleService.ConsoleHandle, ConsoleService.ShowWindowHide);
 
-        _viewModel ??= new MainWindowViewModel(_listener);
+        _viewModel ??= new MainWindowViewModel(_listener, null);
         _viewModel.LoadAppBuilder( AppBuilder);
         _viewModel.AppVersion = AppBuilder.AppGlobals.AppStartParameter.AppVersion;
 

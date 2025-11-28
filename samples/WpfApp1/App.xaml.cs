@@ -1,14 +1,12 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using System.Diagnostics;
-using System.Diagnostics.Tracing;
 using System.Windows;
 using System.Windows.Media;
 using Bodoconsult.App.Extensions;
 using Bodoconsult.App.Helpers;
-using Bodoconsult.App.Logging;
+using Bodoconsult.App.Wpf.Interfaces;
 using WpfApp1.AppData;
-using WpfApp1.ViewModels;
 
 // ReSharper disable LocalizableElement
 
@@ -85,14 +83,19 @@ public partial class App : Application
         builder.FinalizeDiContainerSetup();
 
         // Create the viewmodel now
-        var eventLevel = EventLevel.Warning;
-        var listener = new AppEventListener(eventLevel);
-        var viewModel = new WpfApp1MainWindowViewModel(listener)
-        {
-            HeaderBackColor = Colors.DarkBlue,
-            BodyBackColor = Colors.Beige,
-            AppExe = param.AppExe
-        };
+        var viewModel = Globals.Instance.DiContainer.Get<IMainWindowViewModel>();
+        viewModel.HeaderBackColor = Colors.DarkBlue;
+        viewModel.BodyBackColor = Colors.Beige;
+        viewModel.AppExe = param.AppExe;
+
+        //var eventLevel = EventLevel.Warning;
+        //var listener = new AppEventListener(eventLevel);
+        //var viewModel = new WpfApp1MainWindowViewModel(listener)
+        //{
+        //    HeaderBackColor = Colors.DarkBlue,
+        //    BodyBackColor = Colors.Beige,
+        //    AppExe = param.AppExe
+        //};
 
         // Load the logo now
         viewModel.LoadLogo(type.Assembly, param.LogoRessourcePath);

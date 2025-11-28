@@ -21,7 +21,7 @@ public interface IMainWindowViewModel
     /// II18N instance to use with MVVM / WPF / Xamarin / Avalonia
     /// </summary>
     /// <returns>Translated string</returns>
-    II18N Strings { get; }
+    II18N TranslationService { get; }
 
     /// <summary>
     /// Menu text for open menu in system tray bar

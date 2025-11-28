@@ -20,12 +20,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Include="Locales\de.txt" />
+	  <EmbeddedResource Include="Locales\en.txt" />
+	  <EmbeddedResource Include="Locales\fr-FR.txt" />
+	  <EmbeddedResource Include="Locales\pt.txt" />
 	  <EmbeddedResource Include="Resources\logo.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\src\Bodoconsult.App.WinForms\Bodoconsult.App.WinForms.csproj" />
 	  <ProjectReference Include="..\..\src\Bodoconsult.App\Bodoconsult.App.csproj" />
+	  <ProjectReference Include="..\..\src\Bodoconsult.I18N\Bodoconsult.I18N.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -31,7 +31,7 @@ public class MainWindowViewModel : ObservableRecipient, IMainWindowViewModel
 
     private const int MaxNumberOfLogEntries = 100;
 
-    private readonly AppEventListener _listener;
+    private readonly IAppEventListener _listener;
 
     private readonly List<string> _logData = new();
 
@@ -56,17 +56,25 @@ public class MainWindowViewModel : ObservableRecipient, IMainWindowViewModel
     private Color _bodyBackColor = Colors.LightGray;
 
     /// <summary>
-    /// Default ctor
+    /// Ctor providing an <see cref="AppEventListener"/> instance
     /// </summary>
     /// <param name="listener">Current EventSource listener: neede to bring logging entries to UI</param>
-    public MainWindowViewModel(AppEventListener listener)
+    /// <param name="translationService">Translation service</param>
+    public MainWindowViewModel(IAppEventListener listener, II18N translationService)
     {
+        TranslationService = translationService;
         _listener = listener;
         NotifyIconOpenCommand = new RelayCommand(() => { WindowState = WindowState.Normal; });
         NotifyIconExitCommand  = new RelayCommand(ShutDown);
         WindowState = WindowState.Normal;
         ShowInTaskbar = true;
     }
+
+    /// <summary>
+    /// II18N instance to use with MVVM / WPF / Xamarin / Avalonia
+    /// </summary>
+    /// <returns>Translated string</returns>
+    public II18N TranslationService { get; }
 
     /// <summary>
     /// Menu text for open menu in system tray bar
@@ -403,7 +411,7 @@ public class MainWindowViewModel : ObservableRecipient, IMainWindowViewModel
             _logData.Add(logMsg);
         }
 
-        // If there are to much entries
+        // If there are to many entries
         for (var i = _logData.Count - MaxNumberOfLogEntries - 2; i >= 0; i--)
         {
             _logData.Remove(_logData[i]);
@@ -465,7 +473,7 @@ public class MainWindowViewModel : ObservableRecipient, IMainWindowViewModel
         get => _logEventLevel;
         set
         {
-            if (value == _logEventLevel)
+            if (value == _logEventLevel || _listener == null)
             {
                 return;
             }
@@ -524,11 +532,13 @@ public class MainWindowViewModel : ObservableRecipient, IMainWindowViewModel
     /// <returns></returns>
     public virtual Window CreateWindow()
     {
-        return new MainWindow(this)
+        var w = new MainWindow
         {
             WindowState = WindowState.Normal,
             Visibility = Visibility.Visible
         };
+        w.InjectViewModel(this);
+        return w;
     }
 
     /// <summary>

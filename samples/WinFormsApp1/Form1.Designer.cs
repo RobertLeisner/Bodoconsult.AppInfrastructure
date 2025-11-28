@@ -33,12 +33,13 @@ namespace WinFormsApp1
             button1 = new Button();
             button2 = new Button();
             label1 = new Label();
+            TranslationLabel = new Label();
             SuspendLayout();
             // 
             // button1
             // 
             button1.Location = new Point(58, 61);
-            button1.Margin = new Padding(2, 2, 2, 2);
+            button1.Margin = new Padding(2);
             button1.Name = "button1";
             button1.Size = new Size(78, 20);
             button1.TabIndex = 0;
@@ -49,7 +50,7 @@ namespace WinFormsApp1
             // button2
             // 
             button2.Location = new Point(58, 119);
-            button2.Margin = new Padding(2, 2, 2, 2);
+            button2.Margin = new Padding(2);
             button2.Name = "button2";
             button2.Size = new Size(78, 20);
             button2.TabIndex = 1;
@@ -66,17 +67,28 @@ namespace WinFormsApp1
             label1.Size = new Size(175, 15);
             label1.TabIndex = 2;
             label1.Text = "Customize this form as required";
-            label1.Click += label1_Click;
+
+            // 
+            // TranslationLabel
+            // 
+            TranslationLabel.AutoSize = true;
+            TranslationLabel.Location = new Point(62, 183);
+            TranslationLabel.Name = "TranslationLabel";
+            TranslationLabel.Size = new Size(93, 15);
+            TranslationLabel.TabIndex = 3;
+            TranslationLabel.Text = "TranslationLabel";
+
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(560, 270);
+            Controls.Add(TranslationLabel);
             Controls.Add(label1);
             Controls.Add(button2);
             Controls.Add(button1);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "Form1";
             Text = "Form1";
             FormClosed += Form1_FormClosed;
@@ -89,5 +101,6 @@ namespace WinFormsApp1
         private Button button1;
         private Button button2;
         private Label label1;
+        private Label TranslationLabel;
     }
 }

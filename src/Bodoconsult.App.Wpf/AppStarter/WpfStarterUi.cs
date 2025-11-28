@@ -28,6 +28,8 @@ public class WpfStarterUi : BaseAppStarterUi
     /// <param name="appBuilder">Current IAppBuilder instance</param>
     public WpfStarterUi(IAppBuilder appBuilder) : base(appBuilder)
     {
+        ConsoleService = new WinConsoleService();
+
         //var minimumLogLevel = Globals.GetLoggingConfiguration().MinimumLogLevel;
 
         //MinimumLogLevel = LogLevel.Debug;
@@ -45,6 +47,8 @@ public class WpfStarterUi : BaseAppStarterUi
     /// </summary>
     public WpfStarterUi(IAppBuilder appBuilder, IMainWindowViewModel viewModel) : base(appBuilder)
     {
+        ConsoleService = new WinConsoleService();
+
         //var minimumLogLevel = Globals.GetLoggingConfiguration().MinimumLogLevel;
 
         //MinimumLogLevel = LogLevel.Debug;
@@ -97,7 +101,7 @@ public class WpfStarterUi : BaseAppStarterUi
         ConsoleService.ConsoleHandle = ConsoleService.CsGetConsoleWindow();
         ConsoleService.CsShowWindow(ConsoleService.ConsoleHandle, ConsoleService.ShowWindowShow);
 
-        _viewModel ??= new MainWindowViewModel(_listener);
+        _viewModel ??= new MainWindowViewModel(_listener, null);
         _viewModel.LoadAppBuilder( AppBuilder);
         _viewModel.AppVersion = AppBuilder.AppGlobals.AppStartParameter.AppVersion;
 

@@ -7,7 +7,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Helpers;
-using Bodoconsult.App.Logging;
 using Bodoconsult.App.WinForms.Interfaces;
 
 namespace Bodoconsult.App.WinForms.AppStarter.Forms.ViewModel;
@@ -20,11 +19,17 @@ public class MainWindowViewModel : IMainWindowViewModel
 
     private const int MaxNumberOfLogEntries = 100;
 
-    private readonly AppEventListener _listener;
+    private readonly IAppEventListener _listener;
 
     private readonly List<string> _logData = new();
 
     private EventLevel _logEventLevel;
+
+    /// <summary>
+    /// II18N instance to use with MVVM / WPF / Xamarin / Avalonia
+    /// </summary>
+    /// <returns>Translated string</returns>
+    public II18N TranslationService { get; }
 
     /// <summary>
     /// Current app start process handler
@@ -35,9 +40,10 @@ public class MainWindowViewModel : IMainWindowViewModel
     /// Default ctor
     /// </summary>
     /// <param name="listener">Current EventSource listener: neede to bring logging entries to UI</param>
-
-    public MainWindowViewModel(AppEventListener listener)
+    /// <param name="translationService">Translation service</param>
+    public MainWindowViewModel(IAppEventListener listener, II18N translationService)
     {
+        TranslationService = translationService;
         _listener = listener;
     }
 
@@ -170,7 +176,7 @@ public class MainWindowViewModel : IMainWindowViewModel
             _logData.Add(logMsg);
         }
 
-        // If there are to much entries
+        // If there are to many entries
         for (var i = _logData.Count - MaxNumberOfLogEntries - 2; i >= 0; i--)
         {
             _logData.Remove(_logData[i]);
@@ -207,7 +213,7 @@ public class MainWindowViewModel : IMainWindowViewModel
         get => _logEventLevel;
         set
         {
-            if (value == _logEventLevel)
+            if (value == _logEventLevel || _listener == null)
             {
                 return;
             }
@@ -233,10 +239,12 @@ public class MainWindowViewModel : IMainWindowViewModel
     /// <returns></returns>
     public virtual Form CreateForm()
     {
-        return new MainWindow(this)
+        var f = new MainWindow
         {
             Visible = true,
             WindowState = FormWindowState.Normal
         };
+        f.InjectViewModel(this);
+        return f;
     }
 }

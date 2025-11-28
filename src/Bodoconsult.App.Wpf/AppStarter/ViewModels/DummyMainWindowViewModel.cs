@@ -1,9 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.App.Abstractions.Interfaces;
-using Bodoconsult.App.Avalonia.Interfaces;
-
-namespace Bodoconsult.App.Avalonia.AppStarter.ViewModels;
+namespace Bodoconsult.App.Wpf.AppStarter.ViewModels;
 
 /// <summary>
 /// Dummy main view model for design time

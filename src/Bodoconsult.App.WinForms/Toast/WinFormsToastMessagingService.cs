@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen. All rights reserved.
 
 using Bodoconsult.App.Abstractions.Interfaces;
-using System.Reflection;
-using System.Windows.Forms;
 using Microsoft.Toolkit.Uwp.Notifications;
 
 

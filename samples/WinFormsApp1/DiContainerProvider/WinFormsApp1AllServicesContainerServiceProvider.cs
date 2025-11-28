@@ -7,8 +7,11 @@ using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Benchmarking;
 using Bodoconsult.App.Factories;
 using Bodoconsult.App.Interfaces;
-using WinFormsApp1.App;
+using Bodoconsult.App.Logging;
+using Bodoconsult.App.WinForms.Interfaces;
 using Microsoft.Extensions.Logging;
+using WinFormsApp1.App;
+using WinFormsApp1.Factories;
 
 namespace WinFormsApp1.DiContainerProvider;
 
@@ -53,6 +56,17 @@ public class WinFormsApp1AllServicesContainerServiceProvider : IDiContainerServi
         // General app management
         diContainer.AddSingleton<IGeneralAppManagementService, GeneralAppManagementService>();
         diContainer.AddSingleton<IGeneralAppManagementManager, GeneralAppManagementManager>();
+
+        // I18N
+        II18NFactory i18NFactory = new I18NFactory();
+        var i18N = i18NFactory.CreateInstance();
+        diContainer.AddSingleton(i18N);
+
+        // AppEventListener 
+        diContainer.AddSingleton<IAppEventListener, AppEventListener>();
+
+        // Main view model
+        diContainer.AddSingleton<IMainWindowViewModel, WinFormsApp1MainWindowViewModel>();
 
         // Load all other services required for the app now
         diContainer.AddSingleton<IApplicationService, WinFormsApp1Service>();

@@ -86,7 +86,7 @@ public partial class App : Application
         // Create the viewmodel now
         var eventLevel = EventLevel.Warning;
         var listener = new AppEventListener(eventLevel);
-        var viewModel = new MainWindowViewModel(listener)
+        var viewModel = new MainWindowViewModel(listener, null)
         {
             HeaderBackColor = Colors.Coral,
             AppExe = param.AppExe

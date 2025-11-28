@@ -25,6 +25,6 @@ public static class AssemblySetup
     [OneTimeTearDown]
     public static void AssemblyTearDown()
     {
-        DispatcherService.OpenDispatcher();
+        DispatcherService.DisposeDispatcher();
     }
 }

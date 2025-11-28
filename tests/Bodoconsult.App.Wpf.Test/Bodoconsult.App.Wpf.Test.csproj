@@ -26,7 +26,7 @@
     </Content>
     <EmbeddedResource Include="Resources\Culture.de.xaml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Culture.en.xaml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

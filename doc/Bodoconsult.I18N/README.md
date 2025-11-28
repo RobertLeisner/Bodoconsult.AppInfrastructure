@@ -245,33 +245,59 @@ by creating a proxy object in your ViewModel:
 ```csharp
 public abstract class BaseViewModel
 {
-    public II18N Strings => I18N.Current;
+    public II18N TranslationService => I18N.Current;
 }
 ```
 
 **WPF Xaml sample**
 
 ```xaml
-<Button Content="{Binding Strings[key]}" />
+<Button Content="{Binding TranslationService[key]}" />
 ```
 
 key is an existing key in a locales file.
 
+See MainForm.xaml in WpfApp1 project in the repository.
+
 **Avalonia XAML sample**
 
 ```xaml
-<Button Text="{Binding Strings[key]}" />
+<Button Text="{Binding TranslationService[key]}" />
 ``` 
 
 key is an existing key in a locales file.
 
+See MainForm.axaml in AvaloniaApp1 project in the repository.
+
 **Xamarin.Forms sample**
 
 ```xaml
-<Button Text="{Binding Strings[key]}" />`
+<Button Text="{Binding TranslationService[key]}" />`
 ```    
 
 key is an existing key in a locales file.
+
+**WinForms sample**
+
+WinForms does not support data binding to a indexer. Therefore you have to create a (readonly) property for each control containing translated text.
+
+``` csharp
+/// <summary>
+/// ViewModel for alternative main window Form1
+/// </summary>
+public class WinFormsApp1MainWindowViewModel : MainWindowViewModel
+{
+  ...
+
+  /// <summary>
+  /// Property for binding to Text prop of label TranslationLabel
+  /// </summary>
+  public string TranslationLabelText => TranslationService.Translate("Contains");
+
+  ...
+}
+```
+See Form1 in WinFormsApp1 project in the repository.
 
 ## Locales  file formats
 

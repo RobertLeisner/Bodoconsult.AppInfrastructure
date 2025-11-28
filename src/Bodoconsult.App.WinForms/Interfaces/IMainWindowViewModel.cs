@@ -10,6 +10,12 @@ namespace Bodoconsult.App.WinForms.Interfaces;
 public interface IMainWindowViewModel : INotifyPropertyChanged
 {
     /// <summary>
+    /// II18N instance to use with MVVM / WPF / Xamarin / Avalonia
+    /// </summary>
+    /// <returns>Translated string</returns>
+    II18N TranslationService { get; }
+
+    /// <summary>
     /// Current app builder
     /// </summary>
     IAppBuilder AppBuilder { get; }

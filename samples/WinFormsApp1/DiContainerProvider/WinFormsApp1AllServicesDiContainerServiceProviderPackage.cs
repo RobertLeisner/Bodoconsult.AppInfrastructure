@@ -24,7 +24,7 @@ public class WinFormsApp1AllServicesDiContainerServiceProviderPackage : BaseDiCo
         provider = new DefaultAppLoggerDiContainerServiceProvider(appGlobals.LoggingConfig, appGlobals.Logger);
         ServiceProviders.Add(provider);
 
-        // SWinFormsApp1 specific services
+        // WinFormsApp1 specific services
         provider = new WinFormsApp1AllServicesContainerServiceProvider(appGlobals.AppStartParameter, licenseMissingDelegate);
         ServiceProviders.Add(provider);
     }

@@ -1,10 +1,9 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using System.Diagnostics;
-using System.Diagnostics.Tracing;
 using Bodoconsult.App.Extensions;
 using Bodoconsult.App.Helpers;
-using Bodoconsult.App.Logging;
+using Bodoconsult.App.WinForms.Interfaces;
 using WinFormsApp1.App;
 
 // ReSharper disable LocalizableElement
@@ -81,9 +80,11 @@ internal static class Program
         builder.FinalizeDiContainerSetup();
 
         // Create the viewmodel now
-        var eventLevel = EventLevel.Warning;
-        var listener = new AppEventListener(eventLevel);
-        var viewModel = new Forms1MainWindowViewModel(listener);
+        var viewModel = Globals.Instance.DiContainer.Get<IMainWindowViewModel>();
+
+        //var eventLevel = EventLevel.Warning;
+        //var listener = new AppEventListener(eventLevel);
+        //var viewModel = new WinFormsApp1MainWindowViewModel(listener, null);
 
         // Set the view model 
         builder.MainWindowViewModel = viewModel;

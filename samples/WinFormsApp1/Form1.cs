@@ -5,16 +5,27 @@ using Bodoconsult.App.WinForms.Interfaces;
 
 namespace WinFormsApp1;
 
-public sealed partial class Form1 : Form 
+public sealed partial class Form1 : Form
 {
-    private readonly IMainWindowViewModel _mainWindowViewModel;
+    private IMainWindowViewModel _mainWindowViewModel;
 
-    public Form1(IMainWindowViewModel mainWindowViewModel)
+    public Form1()
+    {
+        InitializeComponent();
+    }
+
+    /// <summary>
+    /// Inject the view model
+    /// </summary>
+    /// <param name="mainWindowViewModel"></param>
+    public void InjectViewModel(IMainWindowViewModel mainWindowViewModel)
     {
         _mainWindowViewModel = mainWindowViewModel;
-        InitializeComponent();
-
         Text = $"{_mainWindowViewModel.AppBuilder.AppGlobals.AppStartParameter.AppName} {_mainWindowViewModel.AppVersion}";
+
+        // Binding to indexer TranslationService["contains"] is possible in WinForms
+        // Added property TranslabelText to viwemodel instead
+        TranslationLabel.DataBindings.Add("Text", _mainWindowViewModel, "TranslationLabelText");
     }
 
     private void button1_Click(object sender, EventArgs e)
@@ -25,11 +36,6 @@ public sealed partial class Form1 : Form
     private void button2_Click(object sender, EventArgs e)
     {
         MessageBox.Show("Do something here 2");
-    }
-
-    private void label1_Click(object sender, EventArgs e)
-    {
-
     }
 
     /// <summary>

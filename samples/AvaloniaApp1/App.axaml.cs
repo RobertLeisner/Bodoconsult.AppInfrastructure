@@ -2,15 +2,12 @@
 
 using Avalonia;
 using Avalonia.Markup.Xaml;
-using Bodoconsult.App.Logging;
 using System;
 using System.Diagnostics;
-using System.Diagnostics.Tracing;
 using System.Linq;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Media;
 using AvaloniaApp1.AppData;
-using AvaloniaApp1.ViewModels;
 using Bodoconsult.App.Avalonia.Interfaces;
 using Bodoconsult.App.Extensions;
 using Bodoconsult.App.Helpers;
@@ -109,6 +106,9 @@ public partial class App : Application
 
         // Create the viewmodel now
         MainWindowViewModel = Globals.Instance.DiContainer.Get<IMainWindowViewModel>();
+        MainWindowViewModel.HeaderBackColor = Colors.DarkBlue;
+        MainWindowViewModel.BodyBackColor = Colors.Beige;
+        MainWindowViewModel.AppExe = param.AppExe;
 
         //var eventLevel = EventLevel.Warning;
         //var listener = new AppEventListener(eventLevel);
@@ -122,9 +122,7 @@ public partial class App : Application
         //    AppExe = param.AppExe
         //};
 
-        MainWindowViewModel.HeaderBackColor = Colors.DarkBlue;
-        MainWindowViewModel.BodyBackColor = Colors.Beige;
-        MainWindowViewModel.AppExe = param.AppExe;
+
 
         DataContext = MainWindowViewModel;
 

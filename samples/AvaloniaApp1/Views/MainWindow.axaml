@@ -46,7 +46,7 @@
 				<Label x:Name="MsgServerProcessId" Content="{Binding MsgServerProcessId}" FontSize="16"></Label>
 				<Label x:Name="MsgHowToShutdownServer" Content="{Binding MsgHowToShutdownServer}" FontSize="16"></Label>
 
-                <Label Content="{Binding Strings[Contains]}" />
+                <Label Content="{Binding TranslationService[Contains]}" />
 			</StackPanel>
 
 			<Grid x:Name="DocGrid" Grid.Row="2" Background="White">

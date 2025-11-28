@@ -4,7 +4,6 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Bodoconsult.I18N.LocalesProviders;
 using System.Reflection;
-using Avalonia.Markup.Xaml.Styling;
 
 namespace Bodoconsult.App.Avalonia.I18N;
 

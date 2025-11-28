@@ -17,6 +17,12 @@ namespace Bodoconsult.App.Wpf.Interfaces;
 public interface IMainWindowViewModel
 {
     /// <summary>
+    /// II18N instance to use with MVVM / WPF / Xamarin / Avalonia
+    /// </summary>
+    /// <returns>Translated string</returns>
+    II18N TranslationService { get; }
+
+    /// <summary>
     /// Menu text for open menu in system tray bar
     /// </summary>
     public string OpenMenuText { get; set; }

@@ -73,7 +73,6 @@ public static class DispatcherService
 
         CurrentApplication = new System.Windows.Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
         CurrentApplication.Run();
-
     }
 
     /// <summary>
