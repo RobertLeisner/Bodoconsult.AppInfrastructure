@@ -15,9 +15,12 @@ public class AvaloniaConsoleApp1AllServicesDiContainerServiceProviderPackage : B
     public AvaloniaConsoleApp1AllServicesDiContainerServiceProviderPackage(IAppGlobals appGlobals,
         StatusMessageDelegate statusMessageDelegate, LicenseMissingDelegate licenseMissingDelegate) : base(appGlobals)
     {
+        // Basic app services
+        IDiContainerServiceProvider provider = new BasicAppServicesConfig1ContainerServiceProvider(appGlobals);
+        ServiceProviders.Add(provider);
 
         // Performance measurement
-        IDiContainerServiceProvider  provider = new ApmDiContainerServiceProvider(appGlobals.AppStartParameter, statusMessageDelegate);
+        provider = new ApmDiContainerServiceProvider(appGlobals.AppStartParameter, statusMessageDelegate);
         ServiceProviders.Add(provider);
 
         // App default logging

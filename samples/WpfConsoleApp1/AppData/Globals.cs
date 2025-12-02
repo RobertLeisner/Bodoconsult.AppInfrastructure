@@ -117,4 +117,5 @@ public class Globals : IAppGlobals
     /// Externally registered version
     /// </summary>
     public string ProductVersion { get; set; }
+
 }

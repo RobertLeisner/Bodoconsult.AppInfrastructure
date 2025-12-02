@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<Deterministic>False</Deterministic>
 
@@ -41,7 +41,7 @@
 
 
 	<ItemGroup>
-		<PackageReference Include="PDFsharp-MigraDoc" Version="6.2.2" />
+		<PackageReference Include="PDFsharp-MigraDoc" Version="6.2.3" />
 	</ItemGroup>
 
 

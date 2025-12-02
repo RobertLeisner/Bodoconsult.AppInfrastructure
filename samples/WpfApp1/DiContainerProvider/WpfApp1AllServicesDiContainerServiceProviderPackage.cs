@@ -15,17 +15,20 @@ public class WpfApp1AllServicesDiContainerServiceProviderPackage : BaseDiContain
     public WpfApp1AllServicesDiContainerServiceProviderPackage(IAppGlobals appGlobals,
         StatusMessageDelegate statusMessageDelegate, LicenseMissingDelegate licenseMissingDelegate) : base(appGlobals)
     {
+        // Basic app services like logging etc.
+        IDiContainerServiceProvider provider = new BasicAppServicesConfig2ContainerServiceProvider(appGlobals);
+        ServiceProviders.Add(provider);
 
         // Performance measurement
-        IDiContainerServiceProvider  provider = new ApmDiContainerServiceProvider(appGlobals.AppStartParameter, statusMessageDelegate);
+        provider = new ApmDiContainerServiceProvider(appGlobals.AppStartParameter, statusMessageDelegate);
         ServiceProviders.Add(provider);
 
-        // App default logging
-        provider = new DefaultAppLoggerDiContainerServiceProvider(appGlobals.LoggingConfig, appGlobals.Logger);
-        ServiceProviders.Add(provider);
+        //// App default logging
+        //provider = new DefaultAppLoggerDiContainerServiceProvider(appGlobals.LoggingConfig, appGlobals.Logger);
+        //ServiceProviders.Add(provider);
 
         // SWpfApp1 specific services
-        provider = new WpfApp1AllServicesContainerServiceProvider(appGlobals.AppStartParameter, licenseMissingDelegate);
+        provider = new WpfApp1AllServicesContainerServiceProvider();
         ServiceProviders.Add(provider);
     }
 

@@ -8,11 +8,16 @@ using Bodoconsult.App.PerformanceLogging;
 namespace Bodoconsult.App.DependencyInjection;
 
 /// <summary>
-/// Load all APM specific services to DI container. Intended mainly for production
+/// Loads all APM specific services to DI container. Intended mainly for production
 /// </summary>
 public class ApmDiContainerServiceProvider : IDiContainerServiceProvider
 {
 
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="appStartParameter">Current app start parameter</param>
+    /// <param name="statusMessageDelegate">Status message delegate sending a status message to UI</param>
     public ApmDiContainerServiceProvider(IAppStartParameter appStartParameter, StatusMessageDelegate statusMessageDelegate)
     {
         AppStartParameter = appStartParameter;
@@ -28,7 +33,6 @@ public class ApmDiContainerServiceProvider : IDiContainerServiceProvider
     /// Current status message delegate to be called from the logging method
     /// </summary>
     public StatusMessageDelegate StatusMessageDelegate { get; }
-
 
     /// <summary>
     /// Add DI container services to a DI container

@@ -29,17 +29,11 @@ public class WpfConsoleApp1ProductionDiContainerServiceProviderPackageFactory : 
     public StatusMessageDelegate StatusMessageDelegate { get; set; }
 
     /// <summary>
-    /// Current license management delegate
-    /// </summary>
-    public LicenseMissingDelegate LicenseMissingDelegate { get; set; }
-
-    /// <summary>
     /// Create an instance of <see cref="IDiContainerServiceProviderPackage"/>. Should be a singleton instance
     /// </summary>
     /// <returns>Singleton instance of <see cref="IDiContainerServiceProviderPackage"/></returns>
     public IDiContainerServiceProviderPackage CreateInstance()
     {
-            
-        return new WpfConsoleApp1AllServicesDiContainerServiceProviderPackage(AppGlobals, StatusMessageDelegate, LicenseMissingDelegate);
+        return new WpfConsoleApp1AllServicesDiContainerServiceProviderPackage(AppGlobals, StatusMessageDelegate);
     }
 }

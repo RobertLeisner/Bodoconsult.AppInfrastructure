@@ -6,6 +6,9 @@ using WpfConsoleApp1.DiContainerProvider;
 
 namespace WpfConsoleApp1;
 
+/// <summary>
+/// <see cref="IAppBuilder"/> implementation for WPF base service-like console app
+/// </summary>
 public class WpfConsoleApp1AppBuilder : BaseWpfAppBuilder
 {
     /// <summary>

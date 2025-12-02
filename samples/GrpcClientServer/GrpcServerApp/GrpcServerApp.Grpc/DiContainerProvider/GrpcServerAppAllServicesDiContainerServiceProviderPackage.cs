@@ -16,8 +16,12 @@ public class GrpcServerAppAllServicesDiContainerServiceProviderPackage : BaseDiC
 
         DoNotBuildDiContainer = true;
 
+        // Basic app services
+        IDiContainerServiceProvider provider = new BasicAppServicesConfig1ContainerServiceProvider(appGlobals);
+        ServiceProviders.Add(provider);
+
         // Performance measurement
-        IDiContainerServiceProvider  provider = new ApmDiContainerServiceProvider(appGlobals.AppStartParameter, appGlobals.StatusMessageDelegate);
+        provider = new ApmDiContainerServiceProvider(appGlobals.AppStartParameter, appGlobals.StatusMessageDelegate);
         ServiceProviders.Add(provider);
 
         // App default logging

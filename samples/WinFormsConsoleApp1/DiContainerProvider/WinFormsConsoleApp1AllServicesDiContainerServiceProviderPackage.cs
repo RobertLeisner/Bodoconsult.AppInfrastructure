@@ -15,9 +15,12 @@ public class WinFormsConsoleApp1AllServicesDiContainerServiceProviderPackage : B
     public WinFormsConsoleApp1AllServicesDiContainerServiceProviderPackage(IAppGlobals appGlobals,
         StatusMessageDelegate statusMessageDelegate, LicenseMissingDelegate licenseMissingDelegate) : base(appGlobals)
     {
+        // Basic app services
+        IDiContainerServiceProvider provider = new BasicAppServicesConfig1ContainerServiceProvider(appGlobals);
+        ServiceProviders.Add(provider);
 
         // Performance measurement
-        IDiContainerServiceProvider  provider = new ApmDiContainerServiceProvider(appGlobals.AppStartParameter, statusMessageDelegate);
+        provider = new ApmDiContainerServiceProvider(appGlobals.AppStartParameter, statusMessageDelegate);
         ServiceProviders.Add(provider);
 
         // App default logging
@@ -25,7 +28,7 @@ public class WinFormsConsoleApp1AllServicesDiContainerServiceProviderPackage : B
         ServiceProviders.Add(provider);
 
         // SWinFormsConsoleApp1 specific services
-        provider = new WinFormsConsoleApp1AllServicesContainerServiceProvider(appGlobals.AppStartParameter, licenseMissingDelegate);
+        provider = new WinFormsConsoleApp1AllServicesContainerServiceProvider();
         ServiceProviders.Add(provider);
     }
 

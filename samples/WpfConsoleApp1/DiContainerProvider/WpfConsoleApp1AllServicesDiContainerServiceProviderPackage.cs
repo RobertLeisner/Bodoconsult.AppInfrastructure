@@ -11,13 +11,20 @@ namespace WpfConsoleApp1.DiContainerProvider;
 /// </summary>
 public class WpfConsoleApp1AllServicesDiContainerServiceProviderPackage : BaseDiContainerServiceProviderPackage
 {
-
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="appGlobals">Current app globals</param>
+    /// <param name="statusMessageDelegate">Current statis message delegate to send status messages to UI</param>
     public WpfConsoleApp1AllServicesDiContainerServiceProviderPackage(IAppGlobals appGlobals,
-        StatusMessageDelegate statusMessageDelegate, LicenseMissingDelegate licenseMissingDelegate) : base(appGlobals)
+        StatusMessageDelegate statusMessageDelegate) : base(appGlobals)
     {
+        // Basic app services
+        IDiContainerServiceProvider provider = new BasicAppServicesConfig2ContainerServiceProvider(appGlobals);
+        ServiceProviders.Add(provider);
 
         // Performance measurement
-        IDiContainerServiceProvider  provider = new ApmDiContainerServiceProvider(appGlobals.AppStartParameter, statusMessageDelegate);
+        provider = new ApmDiContainerServiceProvider(appGlobals.AppStartParameter, statusMessageDelegate);
         ServiceProviders.Add(provider);
 
         // App default logging
@@ -25,8 +32,7 @@ public class WpfConsoleApp1AllServicesDiContainerServiceProviderPackage : BaseDi
         ServiceProviders.Add(provider);
 
         // SWpfConsoleApp1 specific services
-        provider = new WpfConsoleApp1AllServicesContainerServiceProvider(appGlobals.AppStartParameter, licenseMissingDelegate);
+        provider = new WpfConsoleApp1AllServicesContainerServiceProvider();
         ServiceProviders.Add(provider);
     }
-
 }

@@ -11,9 +11,6 @@ namespace Bodoconsult.App.Windows.FileSystem;
 /// </summary>
 public class FileSystemUrl
 {
-
-
-
     /// <summary>
     /// Default ctor
     /// </summary>
@@ -24,7 +21,6 @@ public class FileSystemUrl
         Caption = fri.Name.Replace(".url", string.Empty);
     }
 
-
     /// <summary>
     /// Read the data from the file
     /// </summary>
@@ -32,7 +28,7 @@ public class FileSystemUrl
     {
         var fileStream = new FileStream(Path, FileMode.Open);
         var numArray = new byte[fileStream.Length];
-        fileStream.Read(numArray, 0, (int)fileStream.Length);
+        fileStream.ReadExactly(numArray, 0, (int)fileStream.Length);
         foreach (var str in Encoding.ASCII.GetString(numArray).Split('\r', '\n').Where(s => s.StartsWith("URL=")))
             Url = str.Replace("URL=", string.Empty);
     }

@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using System.ComponentModel;
 using Bodoconsult.App.Abstractions.Delegates;
 using System.Globalization;
 
@@ -18,6 +19,8 @@ public sealed partial class PrintPreviewForm : Form
     /// <summary>
     /// The number of pages in the preview
     /// </summary>
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    //[DefaultValue(0)]
     public int NumberOfPages { get; set; }
 
     public PrintPreviewForm(TranslateDelegate translateDelegate)
@@ -139,7 +142,10 @@ public sealed partial class PrintPreviewForm : Form
 
     private void buttonPrevPage_Click(object sender, EventArgs e)
     {
-        if (printPreviewControl1.StartPage <= 0) return;
+        if (printPreviewControl1.StartPage <= 0)
+        {
+            return;
+        }
 
         printPreviewControl1.StartPage--;
         textBoxPage.Text = (printPreviewControl1.StartPage + 1).ToString();
@@ -152,7 +158,10 @@ public sealed partial class PrintPreviewForm : Form
 
     private void buttonNextPage_Click(object sender, EventArgs e)
     {
-        if (printPreviewControl1.StartPage - 1 >= NumberOfPages) return;
+        if (printPreviewControl1.StartPage - 1 >= NumberOfPages)
+        {
+            return;
+        }
 
         printPreviewControl1.StartPage++;
         textBoxPage.Text = (printPreviewControl1.StartPage + 1).ToString();
