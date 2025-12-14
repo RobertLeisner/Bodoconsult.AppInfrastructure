@@ -6,7 +6,13 @@ The MIT License (https://licenses.nuget.org/MIT) applies for
 
 >   Bodoconsult.App, 
 
+>   Bodoconsult.App.Avalonia,
+
 >   Bodoconsult.App.WinForms, 
+
+>   Bodoconsult.App.Wpf,
+
+>   Bodoconsult.App.Wpf.Documents,
 
 >   Bodoconsult.App.BackgroundService, 
 
@@ -22,7 +28,13 @@ The MIT License (https://licenses.nuget.org/MIT) applies for
 
 >   Bodoconsult.Test, 
 
->   Bodoconsult.Test.Pdf
+>   Bodoconsult.Drawing,
+
+>   Bodoconsult.Drawing.ShiaSharp,
+
+>   Bodoconsult.Charting.Base,
+
+>   Bodoconsult.Charting,
 
 Here the license text:
 
@@ -78,8 +90,6 @@ SOFTWARE.
 
 >	[Bodoconsult.App.Windows](#referenced-libraries-for-bodoconsultappwindows)
 
->	[WindowsCredentialManager](#referenced-libraries-for-windowscredentialmanager)
-
 >	[Bodoconsult.App.WinForms](#referenced-libraries-for-bodoconsultappwinforms)
 
 >	[Bodoconsult.App.Wpf.Documents](#referenced-libraries-for-bodoconsultappwpfdocuments)
@@ -87,6 +97,14 @@ SOFTWARE.
 >	[Bodoconsult.App.Wpf](#referenced-libraries-for-bodoconsultappwpf)
 
 >	[Bodoconsult.App](#referenced-libraries-for-bodoconsultapp)
+
+>	[Bodoconsult.Charting.Base](#referenced-libraries-for-bodoconsultchartingbase)
+
+>	[Bodoconsult.Charting](#referenced-libraries-for-bodoconsultcharting)
+
+>	[Bodoconsult.Drawing.SkiaSharp](#referenced-libraries-for-bodoconsultdrawingskiasharp)
+
+>	[Bodoconsult.Drawing](#referenced-libraries-for-bodoconsultdrawing)
 
 >	[Bodoconsult.I18N](#referenced-libraries-for-bodoconsulti18n)
 
@@ -105,6 +123,10 @@ SOFTWARE.
 >	[Bodoconsult.App.Wpf.Test](#referenced-libraries-for-bodoconsultappwpftest)
 
 >	[Bodoconsult.App.GrpcBackgroundService.Test](#referenced-libraries-for-bodoconsultappgrpcbackgroundservicetest)
+
+>	[Bodoconsult.Charting.Test](#referenced-libraries-for-bodoconsultchartingtest)
+
+>	[Bodoconsult.Drawing.Test](#referenced-libraries-for-bodoconsultdrawingtest)
 
 >	[Bodoconsult.I18N.Test](#referenced-libraries-for-bodoconsulti18ntest)
 
@@ -378,7 +400,7 @@ Project-Url: https://github.com/grpc/grpc.git
 
 ASP.NET Core web server for writing and running tests.
 
-This package was built from the source code at https://github.com/dotnet/aspnetcore/tree/5bae930797f60d2d04f3b1df6a33eaca85fc5f28
+This package was built from the source code at https://github.com/dotnet/aspnetcore/tree/d3aba8fe1a0d0f5c145506f292b72ea9d28406fc
 
 License: MIT
 
@@ -607,25 +629,6 @@ License-Url: https://licenses.nuget.org/MIT
 
 Project-Url: messagebox.avalonia
 
-## Nuget package library Microsoft.CSharp by Microsoft
-
-Provides support for compilation and code generation, including dynamic, using the C# language.
-
-Commonly Used Types:
-Microsoft.CSharp.RuntimeBinder.Binder
-Microsoft.CSharp.RuntimeBinder.RuntimeBinderException
-Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfo
-Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfoFlags
-Microsoft.CSharp.RuntimeBinder.CSharpBinderFlags
- 
-When using NuGet 3.x this package requires at least version 3.4.
-
-License: MIT
-
-License-Url: https://licenses.nuget.org/MIT
-
-Project-Url: 
-
 ## Nuget package library System.Data.DataSetExtensions by Microsoft
 
 Provides extensions to form LINQ expressions and method queries against DataTable objects.
@@ -762,19 +765,43 @@ License-Url: https://licenses.nuget.org/MIT
 
 Project-Url: https://github.com/dotnet/runtime
 
-# Referenced libraries for WindowsCredentialManager
-
-## Nuget package library Microsoft.SourceLink.GitHub by Microsoft
-
-Generates source link for GitHub repositories.
-
-License: Apache-2.0
-
-License-Url: https://licenses.nuget.org/Apache-2.0
-
-Project-Url: https://github.com/dotnet/sourcelink
-
 # Referenced libraries for Bodoconsult.App.WinForms
+
+## Nuget package library Microsoft.AspNetCore.DataProtection by Microsoft
+
+ASP.NET Core logic to protect and unprotect data, similar to DPAPI.
+
+This package was built from the source code at https://github.com/dotnet/aspnetcore/tree/d3aba8fe1a0d0f5c145506f292b72ea9d28406fc
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/dotnet/aspnetcore
+
+## Nuget package library Microsoft.AspNetCore.DataProtection.Extensions by Microsoft
+
+Additional APIs for ASP.NET Core data protection.
+
+This package was built from the source code at https://github.com/dotnet/aspnetcore/tree/d3aba8fe1a0d0f5c145506f292b72ea9d28406fc
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/dotnet/aspnetcore
+
+## Nuget package library Microsoft.AspNetCore.TestHost by Microsoft
+
+ASP.NET Core web server for writing and running tests.
+
+This package was built from the source code at https://github.com/dotnet/aspnetcore/tree/d3aba8fe1a0d0f5c145506f292b72ea9d28406fc
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/dotnet/aspnetcore
 
 ## Nuget package library Microsoft.Toolkit.Uwp.Notifications by Microsoft.Toolkit, dotnetfoundation
 
@@ -789,6 +816,26 @@ License: MIT
 License-Url: https://licenses.nuget.org/MIT
 
 Project-Url: https://github.com/CommunityToolkit/WindowsCommunityToolkit.git
+
+## Nuget package library System.Drawing.Common by Microsoft
+
+Provides access to GDI+ graphics functionality.
+
+      Commonly Used Types:
+      System.Drawing.Bitmap
+      System.Drawing.BitmapData
+      System.Drawing.Brush
+      System.Drawing.Font
+      System.Drawing.Graphics
+      System.Drawing.Icon
+
+      Since .NET 7, non-Windows platforms are not supported, even with the runtime configuration switch. See https://aka.ms/systemdrawingnonwindows for more information.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/dotnet/winforms
 
 ## Nuget package library System.Text.Json by Microsoft
 
@@ -814,24 +861,17 @@ License-Url: https://licenses.nuget.org/MIT
 
 Project-Url: https://github.com/Fody/Fody.git
 
-## Nuget package library Microsoft.CSharp by Microsoft
+## Nuget package library Microsoft.AspNetCore.TestHost by Microsoft
 
-Provides support for compilation and code generation, including dynamic, using the C# language.
+ASP.NET Core web server for writing and running tests.
 
-Commonly Used Types:
-Microsoft.CSharp.RuntimeBinder.Binder
-Microsoft.CSharp.RuntimeBinder.RuntimeBinderException
-Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfo
-Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfoFlags
-Microsoft.CSharp.RuntimeBinder.CSharpBinderFlags
- 
-When using NuGet 3.x this package requires at least version 3.4.
+This package was built from the source code at https://github.com/dotnet/aspnetcore/tree/d3aba8fe1a0d0f5c145506f292b72ea9d28406fc
 
 License: MIT
 
 License-Url: https://licenses.nuget.org/MIT
 
-Project-Url: 
+Project-Url: https://github.com/dotnet/aspnetcore
 
 ## Nuget package library PropertyChanged.Fody by Simon Cropp
 
@@ -936,25 +976,6 @@ License-Url: https://github.com/contre/Windows-API-Code-Pack-1.1/LICENSE
 
 Project-Url: https://github.com/contre/Windows-API-Code-Pack-1.1
 
-## Nuget package library Microsoft.CSharp by Microsoft
-
-Provides support for compilation and code generation, including dynamic, using the C# language.
-
-Commonly Used Types:
-Microsoft.CSharp.RuntimeBinder.Binder
-Microsoft.CSharp.RuntimeBinder.RuntimeBinderException
-Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfo
-Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfoFlags
-Microsoft.CSharp.RuntimeBinder.CSharpBinderFlags
- 
-When using NuGet 3.x this package requires at least version 3.4.
-
-License: MIT
-
-License-Url: https://licenses.nuget.org/MIT
-
-Project-Url: 
-
 ## Nuget package library Microsoft.Toolkit.Uwp.Notifications by Microsoft.Toolkit, dotnetfoundation
 
 The official way to send toast notifications on Windows 10 via code rather than XML, with the help of IntelliSense. Supports all C# app types, including WPF, UWP, WinForms, and Console, even without packaging your app as MSIX. Also supports C++ UWP apps.
@@ -1002,6 +1023,26 @@ License-Url: https://github.com/dotnet/corefx/blob/master/LICENSE.TXT
 
 Project-Url: 
 
+## Nuget package library System.Drawing.Common by Microsoft
+
+Provides access to GDI+ graphics functionality.
+
+      Commonly Used Types:
+      System.Drawing.Bitmap
+      System.Drawing.BitmapData
+      System.Drawing.Brush
+      System.Drawing.Font
+      System.Drawing.Graphics
+      System.Drawing.Icon
+
+      Since .NET 7, non-Windows platforms are not supported, even with the runtime configuration switch. See https://aka.ms/systemdrawingnonwindows for more information.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/dotnet/winforms
+
 # Referenced libraries for Bodoconsult.App
 
 ## Nuget package library log4net by The Apache Software Foundation
@@ -1030,7 +1071,7 @@ Project-Url: https://github.com/apache/logging-log4net
 
 ASP.NET Core logic to protect and unprotect data, similar to DPAPI.
 
-This package was built from the source code at https://github.com/dotnet/aspnetcore/tree/5bae930797f60d2d04f3b1df6a33eaca85fc5f28
+This package was built from the source code at https://github.com/dotnet/aspnetcore/tree/d3aba8fe1a0d0f5c145506f292b72ea9d28406fc
 
 License: MIT
 
@@ -1042,7 +1083,7 @@ Project-Url: https://github.com/dotnet/aspnetcore
 
 Additional APIs for ASP.NET Core data protection.
 
-This package was built from the source code at https://github.com/dotnet/aspnetcore/tree/5bae930797f60d2d04f3b1df6a33eaca85fc5f28
+This package was built from the source code at https://github.com/dotnet/aspnetcore/tree/d3aba8fe1a0d0f5c145506f292b72ea9d28406fc
 
 License: MIT
 
@@ -1178,6 +1219,92 @@ License-Url: https://licenses.nuget.org/MIT
 
 Project-Url: https://github.com/dotnet/runtime
 
+# Referenced libraries for Bodoconsult.Charting.Base
+
+## Nuget package library ScottPlot by Scott Harden
+
+ScottPlot is a free and open-source plotting library for .NET. This package can be used to create static plots, and user controls for displaying plots interactively are available as separate NuGet packages.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/ScottPlot/ScottPlot.git
+
+# Referenced libraries for Bodoconsult.Charting
+
+## Nuget package library ScottPlot by Scott Harden
+
+ScottPlot is a free and open-source plotting library for .NET. This package can be used to create static plots, and user controls for displaying plots interactively are available as separate NuGet packages.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/ScottPlot/ScottPlot.git
+
+# Referenced libraries for Bodoconsult.Drawing.SkiaSharp
+
+## Helpful links with code parts taken from
+
+Greyscale images and color manipulation: https://www.codeproject.com/Tips/78995/Image-colour-manipulation-with-ColorMatrix
+
+Inverting colors: https://stackoverflow.com/questions/1165107/how-do-i-invert-a-colour
+
+Back and white conversion: https://stackoverflow.com/questions/6155864/c-sharp-convert-image-to-complete-blackwhite
+
+Greyscale conversion: https://github.com/mono/SkiaSharp/issues/2405
+
+Adjusting contrast: https://stackoverflow.com/questions/76831547/apply-contrast-to-images-using-c-sharp-and-skiasharp
+
+Bitonal conversion: https://medium.com/@robert.cichielo/dithering-color-images-with-skiasharp-69de53207f8d
+
+## Nuget package library ScottPlot by Scott Harden
+
+ScottPlot is a free and open-source plotting library for .NET. This package can be used to create static plots, and user controls for displaying plots interactively are available as separate NuGet packages.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/ScottPlot/ScottPlot.git
+
+# Referenced libraries for Bodoconsult.Drawing
+
+## Helpful links with code parts taken from
+
+Greyscale images and color manipulation: https://www.codeproject.com/Tips/78995/Image-colour-manipulation-with-ColorMatrix
+
+Inverting colors: https://stackoverflow.com/questions/1165107/how-do-i-invert-a-colour
+
+Back and white conversion: https://stackoverflow.com/questions/6155864/c-sharp-convert-image-to-complete-blackwhite
+
+Greyscale conversion: https://github.com/mono/SkiaSharp/issues/2405
+
+Adjusting contrast: https://stackoverflow.com/questions/76831547/apply-contrast-to-images-using-c-sharp-and-skiasharp
+
+Bitonal conversion: https://medium.com/@robert.cichielo/dithering-color-images-with-skiasharp-69de53207f8d
+
+## Nuget package library System.Drawing.Common by Microsoft
+
+Provides access to GDI+ graphics functionality.
+
+      Commonly Used Types:
+      System.Drawing.Bitmap
+      System.Drawing.BitmapData
+      System.Drawing.Brush
+      System.Drawing.Font
+      System.Drawing.Graphics
+      System.Drawing.Icon
+
+      Since .NET 7, non-Windows platforms are not supported, even with the runtime configuration switch. See https://aka.ms/systemdrawingnonwindows for more information.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/dotnet/winforms
+
 # Referenced libraries for Bodoconsult.I18N
 
 ## I18N-portable by Diego Ponce de León (xleon)
@@ -1226,10 +1353,6 @@ Project-Url: https://github.com/dotnet/runtime
 MigraDoc is a .NET library that allows developers to create documents such as PDF and RTF using a high-level object model. It provides an intuitive API that simplifies the creation of documents, including text formatting, tables, images, and more. MigraDoc is widely used for generating reports, invoices, and other types of documents in various applications.
 This package does not depend on Windows and can be used on any .NET compatible platform including Linux and macOS.
 See https://docs.pdfsharp.net for details.
- 
-See https://www.pdfsharp.com for professional support offers, premium technical advice, and contract work options.
-Choose a support plan that suits your needs. We offer a variety of options, from small projects to large teams, with flexible response times.
-Our team provides PDFsharp expert assistance, including implementation, optimization, and tailored solutions.
 
 License: MIT
 
@@ -1244,10 +1367,6 @@ Project-Url: https://github.com/empira/PDFsharp
 MigraDoc is a .NET library that allows developers to create documents such as PDF and RTF using a high-level object model. It provides an intuitive API that simplifies the creation of documents, including text formatting, tables, images, and more. MigraDoc is widely used for generating reports, invoices, and other types of documents in various applications.
 This package does not depend on Windows and can be used on any .NET compatible platform including Linux and macOS.
 See https://docs.pdfsharp.net for details.
- 
-See https://www.pdfsharp.com for professional support offers, premium technical advice, and contract work options.
-Choose a support plan that suits your needs. We offer a variety of options, from small projects to large teams, with flexible response times.
-Our team provides PDFsharp expert assistance, including implementation, optimization, and tailored solutions.
 
 License: MIT
 
@@ -1327,60 +1446,59 @@ License-Url: https://licenses.nuget.org/MIT
 
 Project-Url: messagebox.avalonia
 
-## Nuget package library Microsoft.CSharp by Microsoft
+## Nuget package library Microsoft.AspNetCore.TestHost by Microsoft
 
-Provides support for compilation and code generation, including dynamic, using the C# language.
+ASP.NET Core web server for writing and running tests.
 
-Commonly Used Types:
-Microsoft.CSharp.RuntimeBinder.Binder
-Microsoft.CSharp.RuntimeBinder.RuntimeBinderException
-Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfo
-Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfoFlags
-Microsoft.CSharp.RuntimeBinder.CSharpBinderFlags
- 
-When using NuGet 3.x this package requires at least version 3.4.
+This package was built from the source code at https://github.com/dotnet/aspnetcore/tree/d3aba8fe1a0d0f5c145506f292b72ea9d28406fc
 
 License: MIT
 
 License-Url: https://licenses.nuget.org/MIT
 
-Project-Url: 
+Project-Url: https://github.com/dotnet/aspnetcore
 
 ## Nuget package library Microsoft.NET.Test.Sdk by Microsoft
 
 The MSbuild targets and properties for building .NET test projects.
 
-License: LICENSE_MIT.txt
+License: MIT
 
-License-Url: https://www.nuget.org/packages/Microsoft.NET.Test.Sdk/17.8.0/License
+License-Url: https://licenses.nuget.org/MIT
 
 Project-Url: https://github.com/microsoft/vstest
 
 ## Nuget package library NUnit by Charlie Poole,  Rob Prouse
 
-NUnit features a fluent assert syntax, parameterized, generic and theory tests and is user-extensible.
+NUnit is a unit-testing framework for all .NET languages.
+            It can run on macOS, Linux and Windows operating systems.
+            NUnit can be used for a wide range of testing, from unit testing with TDD to full-fledged system and integration testing.
+            It is a non-opinionated, broad and deep framework with multiple different ways to assert that your code behaves as expected. Many aspects of NUnit can be extended to suit your specific purposes.
 
-This package includes the NUnit 3 framework assembly, which is referenced by your tests. You will need to install version 3 of the nunit3-console program or a third-party runner that supports NUnit 3 in order to execute tests. Runners intended for use with NUnit 2.x will not run NUnit 3 tests correctly.
+            The latest version, version 4, is an upgrade from the groundbreaking NUnit 3 framework. It is a modernized version, aimed at taking advantage of the latest .NET features and C# language constructs.
 
-Supported platforms:
-- .NET Framework 3.5+
-- .NET Standard 2.0+
+            If you are upgrading from NUnit 3, be aware of the breaking changes (https://docs.nunit.org/articles/nunit/release-notes/breaking-changes.html#nunit-40). Please see the NUnit 4 Migration Guide (https://docs.nunit.org/articles/nunit/release-notes/Nunit4.0-MigrationGuide.html) and take care to prepare your NUnit 3 code before you do the upgrade.
 
-License: LICENSE.txt
+            Supported platforms:
+            - .NET Framework 4.6.2+
+            - .NET 6.0+
+            - .NET 8.0+
 
-License-Url: https://www.nuget.org/packages/NUnit/3.14.0/License
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
 
 Project-Url: https://github.com/nunit/nunit
 
 ## Nuget package library NUnit.Analyzers by NUnit
 
-This package includes analyzers and code fixes for test projects using NUnit 3. The analyzers will mark wrong usages when writing tests, and the code fixes can be used to used to correct these usages.
+This package includes analyzers and code fixes for test projects using NUnit 3+. The analyzers will mark wrong usages when writing tests, and the code fixes can be used to used to correct these usages. They will also aid in the transition from NUnit 3 to NUnit 4.
 
-Version 3.0 and upwards works in Visual Studio 2019 and also enables supression of compiler errors such as errors arising from nullable reference types. For Visual Studio 2017 one must use versions below 3.0.
+Version 3.0 and upwards works in Visual Studio 2019 (version 16.3) or newer and also enables supression of compiler errors such as errors arising from nullable reference types. For Visual Studio 2017 one must use versions below 3.0 - note that these versions are no longer updated, so version 2.10.0 is the last version that works in Visual Studio 2017.
 
-License: license.txt
+License: MIT
 
-License-Url: https://www.nuget.org/packages/NUnit.Analyzers/3.9.0/License
+License-Url: https://licenses.nuget.org/MIT
 
 Project-Url: https://github.com/nunit/nunit.analyzers
 
@@ -1453,6 +1571,42 @@ License: Apache-2.0
 License-Url: https://licenses.nuget.org/Apache-2.0
 
 Project-Url: https://github.com/apache/logging-log4net
+
+## Nuget package library Microsoft.AspNetCore.DataProtection by Microsoft
+
+ASP.NET Core logic to protect and unprotect data, similar to DPAPI.
+
+This package was built from the source code at https://github.com/dotnet/aspnetcore/tree/d3aba8fe1a0d0f5c145506f292b72ea9d28406fc
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/dotnet/aspnetcore
+
+## Nuget package library Microsoft.AspNetCore.DataProtection.Extensions by Microsoft
+
+Additional APIs for ASP.NET Core data protection.
+
+This package was built from the source code at https://github.com/dotnet/aspnetcore/tree/d3aba8fe1a0d0f5c145506f292b72ea9d28406fc
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/dotnet/aspnetcore
+
+## Nuget package library Microsoft.AspNetCore.TestHost by Microsoft
+
+ASP.NET Core web server for writing and running tests.
+
+This package was built from the source code at https://github.com/dotnet/aspnetcore/tree/d3aba8fe1a0d0f5c145506f292b72ea9d28406fc
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/dotnet/aspnetcore
 
 ## Nuget package library Microsoft.Extensions.DependencyInjection by Microsoft
 
@@ -1752,6 +1906,140 @@ License-Url: https://licenses.nuget.org/MIT
 
 Project-Url: https://github.com/nunit/nunit3-vs-adapter
 
+# Referenced libraries for Bodoconsult.Charting.Test
+
+## Nuget package library Microsoft.NET.Test.Sdk by Microsoft
+
+The MSbuild targets and properties for building .NET test projects.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/microsoft/vstest
+
+## Nuget package library Newtonsoft.Json by James Newton-King
+
+Json.NET is a popular high-performance JSON framework for .NET
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/JamesNK/Newtonsoft.Json
+
+## Nuget package library NUnit by Charlie Poole,  Rob Prouse
+
+NUnit is a unit-testing framework for all .NET languages.
+            It can run on macOS, Linux and Windows operating systems.
+            NUnit can be used for a wide range of testing, from unit testing with TDD to full-fledged system and integration testing.
+            It is a non-opinionated, broad and deep framework with multiple different ways to assert that your code behaves as expected. Many aspects of NUnit can be extended to suit your specific purposes.
+
+            The latest version, version 4, is an upgrade from the groundbreaking NUnit 3 framework. It is a modernized version, aimed at taking advantage of the latest .NET features and C# language constructs.
+
+            If you are upgrading from NUnit 3, be aware of the breaking changes (https://docs.nunit.org/articles/nunit/release-notes/breaking-changes.html#nunit-40). Please see the NUnit 4 Migration Guide (https://docs.nunit.org/articles/nunit/release-notes/Nunit4.0-MigrationGuide.html) and take care to prepare your NUnit 3 code before you do the upgrade.
+
+            Supported platforms:
+            - .NET Framework 4.6.2+
+            - .NET 6.0+
+            - .NET 8.0+
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/nunit/nunit
+
+## Nuget package library NUnit3TestAdapter by Charlie Poole,  Terje Sandstrom
+
+The NUnit3 TestAdapter for Visual Studio, all versions from 2012 and onwards, and DotNet (incl. .Net core), versions .net framework 4.6.2 or higher, .net 8 or higher.
+
+      Note that this package ONLY contains the adapter, not the NUnit framework.
+      For VS 2017 and forward, you should add this package to every test project in your solution. (Earlier versions only require a single adapter package per solution.)
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/nunit/nunit3-vs-adapter
+
+## Nuget package library ScottPlot by Scott Harden
+
+ScottPlot is a free and open-source plotting library for .NET. This package can be used to create static plots, and user controls for displaying plots interactively are available as separate NuGet packages.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/ScottPlot/ScottPlot.git
+
+# Referenced libraries for Bodoconsult.Drawing.Test
+
+## Nuget package library Microsoft.NET.Test.Sdk by Microsoft
+
+The MSbuild targets and properties for building .NET test projects.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/microsoft/vstest
+
+## Nuget package library NUnit by Charlie Poole,  Rob Prouse
+
+NUnit is a unit-testing framework for all .NET languages.
+            It can run on macOS, Linux and Windows operating systems.
+            NUnit can be used for a wide range of testing, from unit testing with TDD to full-fledged system and integration testing.
+            It is a non-opinionated, broad and deep framework with multiple different ways to assert that your code behaves as expected. Many aspects of NUnit can be extended to suit your specific purposes.
+
+            The latest version, version 4, is an upgrade from the groundbreaking NUnit 3 framework. It is a modernized version, aimed at taking advantage of the latest .NET features and C# language constructs.
+
+            If you are upgrading from NUnit 3, be aware of the breaking changes (https://docs.nunit.org/articles/nunit/release-notes/breaking-changes.html#nunit-40). Please see the NUnit 4 Migration Guide (https://docs.nunit.org/articles/nunit/release-notes/Nunit4.0-MigrationGuide.html) and take care to prepare your NUnit 3 code before you do the upgrade.
+
+            Supported platforms:
+            - .NET Framework 4.6.2+
+            - .NET 6.0+
+            - .NET 8.0+
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/nunit/nunit
+
+## Nuget package library NUnit3TestAdapter by Charlie Poole,  Terje Sandstrom
+
+The NUnit3 TestAdapter for Visual Studio, all versions from 2012 and onwards, and DotNet (incl. .Net core), versions .net framework 4.6.2 or higher, .net 8 or higher.
+
+      Note that this package ONLY contains the adapter, not the NUnit framework.
+      For VS 2017 and forward, you should add this package to every test project in your solution. (Earlier versions only require a single adapter package per solution.)
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/nunit/nunit3-vs-adapter
+
+## Nuget package library System.Drawing.Common by Microsoft
+
+Provides access to GDI+ graphics functionality.
+
+      Commonly Used Types:
+      System.Drawing.Bitmap
+      System.Drawing.BitmapData
+      System.Drawing.Brush
+      System.Drawing.Font
+      System.Drawing.Graphics
+      System.Drawing.Icon
+
+      Since .NET 7, non-Windows platforms are not supported, even with the runtime configuration switch. See https://aka.ms/systemdrawingnonwindows for more information.
+
+License: MIT
+
+License-Url: https://licenses.nuget.org/MIT
+
+Project-Url: https://github.com/dotnet/winforms
+
 # Referenced libraries for Bodoconsult.I18N.Test
 
 ## Nuget package library Microsoft.NET.Test.Sdk by Microsoft
@@ -1851,10 +2139,6 @@ Project-Url: https://github.com/nunit/nunit3-vs-adapter
 MigraDoc is a .NET library that allows developers to create documents such as PDF and RTF using a high-level object model. It provides an intuitive API that simplifies the creation of documents, including text formatting, tables, images, and more. MigraDoc is widely used for generating reports, invoices, and other types of documents in various applications.
 This package does not depend on Windows and can be used on any .NET compatible platform including Linux and macOS.
 See https://docs.pdfsharp.net for details.
- 
-See https://www.pdfsharp.com for professional support offers, premium technical advice, and contract work options.
-Choose a support plan that suits your needs. We offer a variety of options, from small projects to large teams, with flexible response times.
-Our team provides PDFsharp expert assistance, including implementation, optimization, and tailored solutions.
 
 License: MIT
 
@@ -1961,10 +2245,6 @@ Project-Url: https://github.com/nunit/nunit3-vs-adapter
 MigraDoc is a .NET library that allows developers to create documents such as PDF and RTF using a high-level object model. It provides an intuitive API that simplifies the creation of documents, including text formatting, tables, images, and more. MigraDoc is widely used for generating reports, invoices, and other types of documents in various applications.
 This package does not depend on Windows and can be used on any .NET compatible platform including Linux and macOS.
 See https://docs.pdfsharp.net for details.
- 
-See https://www.pdfsharp.com for professional support offers, premium technical advice, and contract work options.
-Choose a support plan that suits your needs. We offer a variety of options, from small projects to large teams, with flexible response times.
-Our team provides PDFsharp expert assistance, including implementation, optimization, and tailored solutions.
 
 License: MIT
 

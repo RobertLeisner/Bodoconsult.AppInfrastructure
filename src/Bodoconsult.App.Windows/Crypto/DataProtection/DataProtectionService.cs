@@ -10,7 +10,6 @@ namespace Bodoconsult.App.Windows.Crypto.DataProtection;
 /// <summary>
 /// Service to protect data in a secure way deppending on user account or machine account
 /// </summary>
-[SupportedOSPlatform("windows")]
 public class DataProtectionService
 {
 

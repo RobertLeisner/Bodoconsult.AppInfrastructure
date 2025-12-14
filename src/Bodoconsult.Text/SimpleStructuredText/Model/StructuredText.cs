@@ -446,12 +446,12 @@ public class StructuredText : IStructuredText
         {
             while (rightColumn.StartsWith("\r\n"))
             {
-                rightColumn = rightColumn.Substring(2);
+                rightColumn = rightColumn[2..];
             }
 
             while (rightColumn.EndsWith("\r\n"))
             {
-                rightColumn = rightColumn.Substring(0, rightColumn.Length - 2);
+                rightColumn = rightColumn[..^2];
             }
         }
 

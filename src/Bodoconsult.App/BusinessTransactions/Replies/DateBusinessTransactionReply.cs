@@ -3,7 +3,7 @@
 namespace Bodoconsult.App.BusinessTransactions.Replies;
 
 /// <summary>
-/// Reply return a date <see cref="Value"/>
+/// Reply returnind a date
 /// </summary>
 public class DateBusinessTransactionReply: DefaultBusinessTransactionReply
 {

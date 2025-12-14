@@ -9,7 +9,7 @@
 		<PackageOutputPath>..\..\packages\</PackageOutputPath>
 		<Copyright>Bodoconsult EDV-Dienstleistungen GmbH</Copyright>
 		<Authors>Robert Leisner</Authors>
-		<VersionPrefix>1.0.6</VersionPrefix>
+		<VersionPrefix>1.0.8</VersionPrefix>
 		<Version />
 		<Company>Bodoconsult EDV-Dienstleistungen GmbH</Company>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -21,7 +21,7 @@
 		<PackageId>Bodoconsult.I18N</PackageId>
 		<PackageTags>App;I18N;</PackageTags>
 		<Description>I18N supporting resources from multiple assemblies and other sources</Description>
-		<PackageReleaseNotes>Added references to Bodoconsult.App.Abstractions and Bodoconsult.App and moved interfaces to Bodoconsult.App.Abstractions</PackageReleaseNotes>
+		<PackageReleaseNotes>Added API docu and new packages</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 
@@ -35,7 +35,7 @@
 
 	<ItemGroup>
 	  <Content Include="..\..\LICENSE.md" />
-	  <Content Include="..\..\doc\Bodoconsult.I18N\README.md" Pack="true" PackagePath="\" />
+	  <Content Include="..\..\docs\Bodoconsult.I18N\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>

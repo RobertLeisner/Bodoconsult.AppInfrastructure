@@ -42,31 +42,39 @@ The following basic features are for all types of service based, console based o
 
 This repository contains the following Nuget packages:
 
->   [**Bodoconsult.App**: basic features nearly every app needs like configuration, logging, APM, Toast messages, business transactions and client notifications to simplify client communication...](doc/Bodoconsult.App/README.md)
+>   [**Bodoconsult.App**: basic features nearly every app needs like configuration, logging, APM, Toast messages, business transactions and client notifications to simplify client communication...](docs/Bodoconsult.App/README.md)
 
->   [**Bodoconsult.App.WinForms**: more basic features for WinForms based apps](doc/Bodoconsult.App.WinForms/README.md)
+>   [**Bodoconsult.App.WinForms**: more basic features for WinForms based apps](docs/Bodoconsult.App.WinForms/README.md)
 
->   [**Bodoconsult.App.Wpf**: more basic features for WPF based apps](doc/Bodoconsult.App.Wpf/README.md)
+>   [**Bodoconsult.App.Wpf**: more basic features for WPF based apps](docs/Bodoconsult.App.Wpf/README.md)
 
->   [**Bodoconsult.App.Wpf.Documents**: creating reports with WPF based apps](doc/Bodoconsult.App.Wpf.Documents/README.md)
+>   [**Bodoconsult.App.Wpf.Documents**: creating reports with WPF based apps](docs/Bodoconsult.App.Wpf.Documents/README.md)
 
->   [**Bodoconsult.App.Avalonia**: more basic features for Avalonia based apps](doc/Bodoconsult.App.Avalonia/README.md)
+>   [**Bodoconsult.App.Avalonia**: more basic features for Avalonia based apps](docs/Bodoconsult.App.Avalonia/README.md)
 
->   [**Bodoconsult.Pdf**: simplified generation of PDF files](doc/Bodoconsult.Pdf/README.md)
+>   [**Bodoconsult.Pdf**: simplified generation of PDF files](docs/Bodoconsult.Pdf/README.md)
 
->   [**Bodoconsult.Text**: generating structured text documents like reports with IDocumentBuilder and export them to HTML, RTF](doc/Bodoconsult.Text/README.md)
+>   [**Bodoconsult.Text**: generating structured text documents like reports with IDocumentBuilder and export them to HTML, RTF](docs/Bodoconsult.Text/README.md)
 
->   [**Bodoconsult.Text.Pdf**: generating structured text documents like reports with IDocumentBuilder and export them to PDF and XPS](doc/Bodoconsult.Text.Pdf/README.md)
+>   [**Bodoconsult.Text.Pdf**: generating structured text documents like reports with IDocumentBuilder and export them to PDF and XPS](docs/Bodoconsult.Text.Pdf/README.md)
 
->   [**Bodoconsult.Test**: generate a structured documentation of unit test results i.e. for auditors](doc/Bodoconsult.Test/README.md)
+>   [**Bodoconsult.Test**: generate a structured documentation of unit test results i.e. for auditors](docs/Bodoconsult.Test/README.md)
 
->   [**Bodoconsult.App.BackgroundService**: more basic features for based background service apps hosting no GRPC service](doc/Bodoconsult.App.BackgroundService/README.md)
+>   [**Bodoconsult.App.BackgroundService**: more basic features for based background service apps hosting no GRPC service](docs/Bodoconsult.App.BackgroundService/README.md)
 
->   [**Bodoconsult.App.GrpcBackgroundService**: more basic features for based background service apps hosting a GRPC service](doc/Bodoconsult.App.GrpcBackgroundService/README.md)
+>   [**Bodoconsult.App.GrpcBackgroundService**: more basic features for based background service apps hosting a GRPC service](docs/Bodoconsult.App.GrpcBackgroundService/README.md)
 
->   [**Bodoconsult.App.Windows**: MS Windows specific tools](doc/Bodoconsult.App.Windows/README.md)
+>   [**Bodoconsult.App.Windows**: MS Windows specific tools](docs/Bodoconsult.App.Windows/README.md)
 
->   [**Bodoconsult.I18N**: standardized internationalisation for apps based on service, console, WinFirms, WPF or Avalonia](doc/Bodoconsult.I18N/README.md)
+>   [**Bodoconsult.I18N**: standardized internationalisation for apps based on service, console, WinFirms, WPF or Avalonia](docs/Bodoconsult.I18N/README.md)
+
+>   [**Bodoconsult.Drawing**: System.Drawing based graphic functionality](docs/Bodoconsult.Drawing/README.md)
+
+>   [**Bodoconsult.Drawing.SkiaSharp**: SkiaSharp based graphic functionality](docs/Bodoconsult.Drawing.SkiaSharp/README.md)
+
+>   [**Bodoconsult.Charting.Base**: Base definitions for charting](docs/Bodoconsult.Charting.Base/README.md)
+
+>   [**Bodoconsult.Charting**: Charting based on ScottPlot and SkiaSharp](docs/Bodoconsult.Charting/README.md)
 
 # Features missing currently
 

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>More tools for developers | Bodoconsult.AppInfrastructure </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="More tools for developers | Bodoconsult.AppInfrastructure ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure/blob/main/docs/Bodoconsult.App/Others.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="Bodoconsult.AppInfrastructure">
+            Bodoconsult.AppInfrastructure
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="more-tools-for-developers">More tools for developers</h1>
+
+<h1 id="overview">Overview</h1>
+<blockquote>
+<p><a href="#iwatchdog--watchdog">Basic watchdog implementation IWatchDog / WatchDog as replacement for timers for non-time critical tasks</a></p>
+</blockquote>
+<blockquote>
+<p><a href="#bufferpoolt">BufferPool&lt;T&gt; for reusing frequently used tiny to medium size classes</a> to reduce garbage collection pressure</p>
+</blockquote>
+<blockquote>
+<p><a href="#producerconsumerqueue">ProducerConsumerQueue<t></t> implementing the producer-consumer-pattern for one or many producers but only one consumer</a> with running the consumer always on the same thread</p>
+</blockquote>
+<blockquote>
+<p><a href="#dataprotectionmanager-for-protecting-secrets-like-credentials">DataProtectionManager for protecting secrets like credentials</a></p>
+</blockquote>
+<blockquote>
+<p><a href="#protecting-entities-entityprotectionservice-class">Protecting entities: EntityProtectionService class</a></p>
+</blockquote>
+<blockquote>
+<p><a href="#zip-file-handling">ZIP file handling</a></p>
+</blockquote>
+<blockquote>
+<p><a href="#extension-methods-for-basic-and-enhanced-classes">Extension methods for basic and enhanced classes</a></p>
+</blockquote>
+<h1 id="iwatchdog--watchdog">IWatchDog / WatchDog</h1>
+<p>WatchDog is something similar to a timer. Timers do have the potential issue with multiple running tasks if tasks may run longer than the timer interval.
+So if your timer task will potentially run longer then the timer interval you should think about using IWatchDog implementations.</p>
+<p>The runner method is fired and processed until done. Then the watchdog waits for the delay interval until it restarts the runner method.</p>
+<p>For time critical tasks WatchDog is not a good solution. If you have to ensure that your task is running i.e. every minute exactly, you better should use a Timer.</p>
+<p>The runner method is running always on the same separated background thread.</p>
+<pre><code class="lang-csharp">WatchDogRunnerDelegate runner = Runner;
+
+var w = new WatchDog(runner, delayTime);
+w.StartWatchDog();
+...
+
+w.StopWatchDog();		
+</code></pre>
+<pre><code class="lang-csharp">/// &lt;summary&gt;
+/// Runner method for the watchdog
+/// &lt;/summary&gt;
+private void Runner()
+{
+    // Do your tasks here
+}
+</code></pre>
+<h1 id="bufferpoolt">BufferPool&lt;T&gt;</h1>
+<p>BufferPool&lt;T&gt; is used to handle and reuse multiple instances of potentially small objects of a type to reduce garbage pressure.</p>
+<p>Heavily used small objects of a type lead to a relatively high demand for object creation and disposing. In such cases it might be a good idea to reuse the already created instances.</p>
+<p>Classes used with BufferPool&lt;T&gt; should implement IResetable interface.</p>
+<pre><code class="lang-csharp">// Arrange 
+
+var myPool = new BufferPool&lt;byte[]&gt;(() =&gt; new byte[65535]);
+myPool.Allocate(1000);
+
+var buffer = myPool.Dequeue();
+
+// Act  
+myPool.Enqueue(buffer);
+
+// Assert
+Assert.That(myPool.LengthOfQueue, Is.EqualTo(NumberOfItems));
+</code></pre>
+<h1 id="producerconsumerqueue">ProducerConsumerQueue<t></t></h1>
+<p>ProducerConsumerQueue<t></t> implements the producer-consumer-pattern for one or many producers but only one consumer with running the consumer always on the same thread. This may be helpful if the consumer is maybe a database or a file which should not be accessed by multiple threads at the same time.</p>
+<pre><code class="lang-csharp">const string s1 = &quot;Blubb&quot;;
+const string s2 = &quot;Blabb&quot;;
+const string s3 = &quot;Blobb&quot;;
+
+var pc = new ProducerConsumerQueue&lt;string&gt;();
+pc.ConsumerTaskDelegate = ConsumerTaskDelegate;
+pc.StartConsumer();
+
+// Act  
+pc.Enqueue(s1);
+pc.Enqueue(s2);
+pc.Enqueue(s3);
+
+// Assert
+Wait.Until(() =&gt; _counter &gt; 0);
+Assert.That(_counter, Is.EqualTo(3));
+Assert.That(_received.Count, Is.EqualTo(3));
+Assert.That(_received.Contains(s1), Is.True);
+Assert.That(_received.Contains(s2), Is.True);
+Assert.That(_received.Contains(s3), Is.True);
+
+...
+
+private void ConsumerTaskDelegate(string value)
+{
+    _counter++;
+    _received.Add(value);
+    _wasFired = true;
+}
+</code></pre>
+<h1 id="data-protection">Data protection</h1>
+<h2 id="dataprotectionmanager-for-protecting-secrets-like-credentials">DataProtectionManager for protecting secrets like credentials</h2>
+<p>DataProtectionManager implements a file based solution for save storage of sensitive data based on Microsoft.AspNetCore.DataProtection to be used in console apps etc. without the need of more sophisticated tools like Azure Vault etc..</p>
+<p>Important: unprotecting data is possible only on the machine the data protection was done.</p>
+<h3 id="using-without-di-container">Using without DI container</h3>
+<p>See the following example for how to use DataProtectionManager without DI container:</p>
+<pre><code class="lang-csharp">[Test]
+public void Unprotect_ValidSetup_SecretUnprotectedCorrectly()
+{
+    // Arrange 
+    var path = Globals.Instance.AppStartParameter.DataPath;
+    var instance = DataProtectionService.CreateInstance(path, AppName);
+
+    var filePath = Path.Combine(path, $&quot;appData.{Extension}&quot;);
+    if (File.Exists(filePath))
+    {
+        File.Delete(filePath);
+    }
+
+    var dpm = new DataProtectionManager(instance, FileProtectionService, filePath);
+
+    dpm.Protect(Key, Secret);
+
+    // Act  
+    var result = dpm.Unprotect(Key);
+
+    // Assert
+    Assert.That(result, Is.EqualTo(Secret));
+    dpm.Dispose();
+}
+</code></pre>
+<h3 id="using-with-di-container">Using with DI container</h3>
+<p>See the following example for how to use DataProtectionManager without DI container:</p>
+<pre><code class="lang-csharp">private static SimpleDataProtectionDiContainerServiceProvider CreateProvider()
+{
+    var destinationFolderPath = TestHelper.TempPath;
+    var provider = new SimpleDataProtectionDiContainerServiceProvider(destinationFolderPath);
+    return provider;
+}
+
+[Test]
+public void CreateInstance_DefaultSetup_InstanceCreated()
+{
+    // Arrange
+    var filePath = Path.Combine(TestHelper.TempPath, &quot;blubb.dat&quot;);
+
+    var provider = CreateProvider();
+
+    var container = new DiContainer();
+
+    Assert.That(container.ServiceCollection.Count, Is.EqualTo(0));
+
+    provider.AddServices(container);
+    container.BuildServiceProvider();
+
+    Assert.That(container.ServiceCollection.Count, Is.Not.EqualTo(0));
+
+    var dpm = container.Get&lt;IDataProtectionManagerFactory&gt;();
+    Assert.That(dpm, Is.Not.Null);
+
+    // Act 
+    var instance = dpm.CreateInstance(filePath);
+
+    // Assert
+    Assert.That(instance, Is.Not.Null);
+}
+</code></pre>
+<p>There is another implementation NoDataProtectionDiContainerServiceProvider of IDiContainerServiceProvider to load a data protection solution letting the file itself unprotected but not the secrets stored in the file.</p>
+<p>Please use SimpleDataProtectionDiContainerServiceProvider normally.</p>
+<h2 id="protecting-entities-entityprotectionservice-class">Protecting entities: EntityProtectionService class</h2>
+<p>If you want to protect properties of an entity use EntityProtectionService class.</p>
+<p>You have to prepare your entity class with two attributes DataProtectionKey and DataProtectionSecret:</p>
+<pre><code class="lang-csharp">internal class EntityWithUidWithSecrets
+{
+    [DataProtectionKey]
+    public Guid Uid { get; set; }
+
+    [DataProtectionSecret]
+    public string Secret { get; set; }
+
+    [DataProtectionSecret]
+    public string Secret2 { get; set; }
+}
+</code></pre>
+<p>The DataProtectionKey attribute has to be set once.</p>
+<p>The following sample shows how to use</p>
+<pre><code class="lang-csharp">private readonly EntityProtectionService _entityProtectionService;
+
+protected const string AppName = &quot;MyApp&quot;;
+
+public EntityProtectionServiceTests()
+{
+    var path = Globals.Instance.AppStartParameter.DataPath;
+    var dataProtectionService = DataProtectionService.CreateInstance(path, AppName);
+    _entityProtectionService = new EntityProtectionService(dataProtectionService);
+}
+
+[Test]
+public void Unprotect_MultipleSecretsWithUid_PropsWithDataProtectionSecretAttributeProtected()
+{
+    // Arrange 
+    const string secret = &quot;Secret&quot;;
+    const string secret2 = &quot;Secret2&quot;;
+    var uid = Guid.NewGuid();
+
+    var entity = new EntityWithUidWithSecrets
+    {
+        Uid = uid,
+        Secret = secret,
+        Secret2 = secret2
+    };
+
+    _entityProtectionService.Protect(entity);
+
+    Assert.That(entity.Uid, Is.EqualTo(uid));
+    Assert.That(entity.Secret, Is.Not.EqualTo(secret));
+    Assert.That(entity.Secret2, Is.Not.EqualTo(secret2));
+    Assert.That(entity.Secret, Is.Not.EqualTo(entity.Secret2));
+
+    // Act  
+    _entityProtectionService.Unprotect(entity);
+
+    // Assert
+    Assert.That(entity.Uid, Is.EqualTo(uid));
+    Assert.That(entity.Secret, Is.EqualTo(secret));
+    Assert.That(entity.Secret2, Is.EqualTo(secret2));
+}
+</code></pre>
+<pre><code class="lang-csharp">
+
+</code></pre>
+<h1 id="iexceptionreplybuilder--exceptionreplybuilder">IExceptionReplyBuilder / ExceptionReplyBuilder</h1>
+<p>ExceptionReplyBuilder delivers a central exception management to be used standalone or in conjunction with business transactions.</p>
+<p>ToDo: add more information</p>
+<h1 id="zip-file-handling">ZIP file handling</h1>
+<p>The classes ZipHelper, ZipHandler and UnZipHandler simplify the creation and extracting of unprotected ZIP files</p>
+<h1 id="extension-methods-for-basic-and-enhanced-classes">Extension methods for basic and enhanced classes</h1>
+<ul>
+<li><p>AsyncExtensions</p>
+<ul>
+<li>GetAwaiter() for CancellationToken</li>
+</ul>
+</li>
+<li><p>BoolExtensions</p>
+<ul>
+<li>AsSqlString()</li>
+</ul>
+</li>
+<li><p>DoubleExtensions</p>
+<ul>
+<li>AsSqlString()</li>
+</ul>
+</li>
+<li><p>FiletimeExtensions</p>
+<ul>
+<li>ToDateTime()</li>
+</ul>
+</li>
+<li><p>IntExtensions</p>
+<ul>
+<li><p>RomanToArabic()</p>
+</li>
+<li><p>ArabicToRoman()</p>
+</li>
+</ul>
+</li>
+<li><p>GuidExtensions</p>
+<ul>
+<li>ToPlainString()</li>
+</ul>
+</li>
+<li><p>StringExtensions</p>
+<ul>
+<li><p>ReplaceHexTag()</p>
+</li>
+<li><p>AsSqlString()</p>
+</li>
+<li><p>FirstCharToLowerCase()</p>
+</li>
+<li><p>FirstCharToUpperCase()</p>
+</li>
+<li><p>LimitToLength()</p>
+</li>
+<li><p>SecureStringToString()</p>
+</li>
+<li><p>Repeat()</p>
+</li>
+<li><p>SpaceCount()</p>
+</li>
+<li><p>ToGuid()</p>
+</li>
+<li><p>EscapeForXml()</p>
+</li>
+</ul>
+</li>
+<li><p>TaskExtensions</p>
+<ul>
+<li><p>Forget()</p>
+</li>
+<li><p>ForgetAwaited()</p>
+</li>
+</ul>
+</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure/blob/main/docs/Bodoconsult.App/Others.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -43,7 +43,7 @@ public class HtmlHelper
 
                 var link = $"<a href=\"{url}\" alt=\"{name}\">{name}</a>";
 
-                html = html.Substring(0, pos1) + link + html.Substring(e + 1, html.Length - e - 1);
+                html = html[..pos1] + link + html.Substring(e + 1, html.Length - e - 1);
             }
             else
             {

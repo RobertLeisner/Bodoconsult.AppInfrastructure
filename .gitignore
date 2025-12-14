@@ -30,6 +30,7 @@ Thumbs.db
 _ReSharper*/
 [Tt]est[Rr]esult*/
 [Tt]ools/
+api/
 .vs/
 #Nuget packages folder
 packages/

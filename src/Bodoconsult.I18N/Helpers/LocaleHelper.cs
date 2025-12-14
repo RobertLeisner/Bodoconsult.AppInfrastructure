@@ -23,7 +23,7 @@ public static class LocaleHelper
 
         if (success) return requestedLanguage;
 
-        var shortLanguage = requestedLanguage.Substring(0, 2);
+        var shortLanguage = requestedLanguage[..2];
         success = resourceItems.Keys.Contains(shortLanguage);
 
         if (success) return shortLanguage;
@@ -49,7 +49,7 @@ public static class LocaleHelper
 
         if (success) return requestedLanguage;
 
-        var shortLanguage = requestedLanguage.Substring(0, 2);
+        var shortLanguage = requestedLanguage[..2];
         success = localeItems.Contains(shortLanguage);
 
         if (success) return shortLanguage;

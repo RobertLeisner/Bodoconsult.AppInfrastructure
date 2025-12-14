@@ -65,38 +65,38 @@ public static class StructuredTextExtensions
 
             if (row.ToLower().StartsWith("h1 "))
             {
-                master.AddHeader1(row.Substring(3).Trim());
+                master.AddHeader1(row[3..].Trim());
                 continue;
             }
 
             if (row.ToLower().StartsWith("h2 "))
             {
-                master.AddHeader2(row.Substring(3).Trim());
+                master.AddHeader2(row[3..].Trim());
                 continue;
             }
 
             if (row.ToLower().StartsWith("h3 "))
             {
-                master.AddHeader3(row.Substring(3).Trim());
+                master.AddHeader3(row[3..].Trim());
                 continue;
             }
 
             if (row.ToLower().StartsWith("h4 "))
             {
-                master.AddHeader4(row.Substring(3).Trim());
+                master.AddHeader4(row[3..].Trim());
                 continue;
             }
 
 
             if (row.ToLower().StartsWith("code "))
             {
-                master.AddCode(GetText(row.Substring(5), dir));
+                master.AddCode(GetText(row[5..], dir));
                 continue;
             }
 
             if (row.ToLower().StartsWith("li "))
             {
-                master.AddListItem(row.Substring(3).Trim());
+                master.AddListItem(row[3..].Trim());
                 continue;
             }
 
@@ -109,13 +109,13 @@ public static class StructuredTextExtensions
 
                 if (i < 0)
                 {
-                    c1 = row.Substring(2).Trim();
+                    c1 = row[2..].Trim();
                     c2 = string.Empty;
                 }
                 else
                 {
-                    c1 = row.Substring(0, i).Substring(2).Trim();
-                    c2 = row.Substring(i + 4).Trim();
+                    c1 = row[..i][2..].Trim();
+                    c2 = row[(i + 4)..].Trim();
                 }
 
                 master.AddDefinitionListLine(c1, c2);
@@ -166,9 +166,9 @@ public static class StructuredTextExtensions
                     s = $"<<Error:File not found: {fileName}>>";
                 }
 
-                var vorher = i == 0 ? string.Empty : text.Substring(0, i - 1);
+                var vorher = i == 0 ? string.Empty : text[..(i - 1)];
 
-                var nachher = j == text.Length ? string.Empty : text.Substring(j + 2);
+                var nachher = j == text.Length ? string.Empty : text[(j + 2)..];
 
 
                 text = vorher + s + nachher;

@@ -32,7 +32,7 @@ public static class FileSystemHelper
 
         var result = s.ToString();
 
-        return result.EndsWith(", ", StringComparison.OrdinalIgnoreCase) ? result.Substring(0, result.Length-2) : result;
+        return result.EndsWith(", ", StringComparison.OrdinalIgnoreCase) ? result[..^2] : result;
     }
 
     /// <summary>

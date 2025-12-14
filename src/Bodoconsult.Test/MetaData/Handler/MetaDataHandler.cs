@@ -318,9 +318,9 @@ public class MetaDataHandler
 
                 var z = s.LastIndexOf(".", s.LastIndexOf(".", StringComparison.Ordinal) - 1, StringComparison.Ordinal);
 
-                s = s.Substring(z + 1);
+                s = s[(z + 1)..];
 
-                value = value.Substring(0, i) + s + value.Substring(j + 4);
+                value = value[..i] + s + value[(j + 4)..];
 
                 i = value.IndexOf("<see cref=\"", StringComparison.Ordinal);
             }

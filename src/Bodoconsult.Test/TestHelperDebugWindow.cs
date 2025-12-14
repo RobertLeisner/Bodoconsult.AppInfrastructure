@@ -182,6 +182,10 @@ public class TestHelperDebugWindow : TestHelperBase
     /// <param name="data"></param>
     public override void PrintTable(string[,] data)
     {
+        if (data == null)
+        {
+            throw new ArgumentNullException(nameof(data));
+        }
         var length = new int[data.GetLength(1)];
 
 

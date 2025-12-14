@@ -229,7 +229,7 @@ public class PdfChart
         for (var index = 0; index < rows.Count; index++)
         {
             var row = rows[index];
-            x[index] = row[columnId].ToString().Substring(0, LegendLength);
+            x[index] = row[columnId].ToString()[..LegendLength];
         }
 
         //var query = from mycolumn in dataTable.AsEnumerable()

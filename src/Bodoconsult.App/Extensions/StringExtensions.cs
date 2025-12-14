@@ -38,8 +38,8 @@ public static class StringExtensions
 
             var hexInt = Convert.ToInt32(hex, 16);
 
-            data = data.Substring(0, i)
-                   + (char)hexInt + data.Substring(j + 1);
+            data = data[..i]
+                   + (char)hexInt + data[(j + 1)..];
 
 
             i = data.IndexOf("[0x", i, StringComparison.OrdinalIgnoreCase);

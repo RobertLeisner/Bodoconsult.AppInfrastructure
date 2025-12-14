@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="NUnit" Version="4.4.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="6.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+    <PackageReference Include="ScottPlot" Version="5.1.57" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Bodoconsult.Charting.Base\Bodoconsult.Charting.Base.csproj" />
+    <ProjectReference Include="..\..\src\Bodoconsult.Charting\Bodoconsult.Charting.csproj" />
+    <ProjectReference Include="..\..\src\Bodoconsult.Drawing.SkiaSharp\Bodoconsult.Drawing.SkiaSharp.csproj" />
+  </ItemGroup>
+
+</Project>

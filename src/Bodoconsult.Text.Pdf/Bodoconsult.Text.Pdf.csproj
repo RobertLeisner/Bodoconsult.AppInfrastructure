@@ -8,7 +8,7 @@
 		<PackageOutputPath>..\..\packages\</PackageOutputPath>
 		<Copyright>Bodoconsult EDV-Dienstleistungen GmbH</Copyright>
 		<Authors>Robert Leisner</Authors>
-		<VersionPrefix>1.0.2</VersionPrefix>
+		<VersionPrefix>1.0.8</VersionPrefix>
 		<Version />
 		<Company>Bodoconsult EDV-Dienstleistungen GmbH</Company>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -20,7 +20,7 @@
 		<PackageId>Bodoconsult.Text.Pdf</PackageId>
 		<PackageTags>Output structured text PDF</PackageTags>
 		<Description>Enhances Bodoconsult.Text, a simple class for collecting structured text in an app, with an export of the text to PDF. Use library to create simple reports from apps or from unit testing i.e. for auditors or as documentation.</Description>
-		<PackageReleaseNotes>Migration to new repo</PackageReleaseNotes>
+		<PackageReleaseNotes>Added API docu and new packages</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 
@@ -44,7 +44,7 @@
 		<None Include="..\..\LICENSE.md" Link="LICENSE.md">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
-		<None Include="..\..\doc\Bodoconsult.Text.Pdf\README.md" Link="README.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\docs\Bodoconsult.Text.Pdf\README.md" Link="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>

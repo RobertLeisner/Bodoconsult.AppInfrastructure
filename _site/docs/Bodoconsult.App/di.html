@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Dependency injection (DI) container DiContainer | Bodoconsult.AppInfrastructure </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Dependency injection (DI) container DiContainer | Bodoconsult.AppInfrastructure ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure/blob/main/docs/Bodoconsult.App/di.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="Bodoconsult.AppInfrastructure">
+            Bodoconsult.AppInfrastructure
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="dependency-injection-di-container-dicontainer">Dependency injection (DI) container DiContainer</h1>
+
+<blockquote>
+<p><a href="#basics-on-dependency-injection-di">Learn basics on dependency injection ()</a></p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><a href="#constructor-injection">Constructor injection</a></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><a href="#service-locator-style-of-injection">Service locator style of injection</a></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><a href="#method-injection">Method injection</a></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p><a href="#how-to-use-dicontainer-class-the-simple-way">How to use DiContainer class: the simple way</a></p>
+</blockquote>
+<blockquote>
+<p><a href="#how-to-use-dicontainer-class-organize-your-di-with-idicontainerserviceprovider-interface">How to use DiContainer class: organize your DI with IDiContainerServiceProvider interface</a></p>
+</blockquote>
+<blockquote>
+<p><a href="#idicontainerserviceprovider-implementations-in-bodoconsultappinfrastructure-repo">IDiContainerServiceProvider implementations in Bodoconsult.App.Infrastructure repo</a></p>
+</blockquote>
+<blockquote>
+<p><a href="#basicappservicesconfig1containerserviceprovider">BasicAppServicesConfig1ContainerServiceProvider</a></p>
+</blockquote>
+<blockquote>
+<p><a href="#basicappservicesconfig2containerserviceprovider">BasicAppServicesConfig2ContainerServiceProvider</a></p>
+</blockquote>
+<blockquote>
+<p><a href="">ApmDiContainerServiceProvider</a></p>
+</blockquote>
+<blockquote>
+<p><a href=""></a></p>
+</blockquote>
+<h1 id="basics-on-dependency-injection-di">Basics on dependency injection (DI)</h1>
+<p>Dependency injection makes loose coupling of classes possible. The main question is: how do I get my required dependencies in a class from outside the class. Benefits of using DI are:</p>
+<ul>
+<li><p>Helps in unit testing.</p>
+</li>
+<li><p>Boiler plate code is reduced, as initializing of dependencies is done by the injector component.</p>
+</li>
+<li><p>Extending the application becomes easier.</p>
+</li>
+<li><p>Helps to enable loose coupling, which is important in application programming.</p>
+</li>
+</ul>
+<p>There are basically three types of dependency injection:</p>
+<ul>
+<li><p>constructor injection: the dependencies are provided through a class constructor.</p>
+</li>
+<li><p>setter injection: the client exposes a setter method that the injector uses to inject the dependency.</p>
+</li>
+<li><p>interface injection: the dependency provides an injector method that will inject the dependency into any client passed to it. Clients must
+implement an interface that exposes a setter method that accepts the dependency.</p>
+</li>
+</ul>
+<p>Service locator style of injection may be called a type of dependency injection too but its usage isn't recommend (see below).</p>
+<p>The purpose of a dependency injection container class like DiContainer is to resolve the dependencies injected by constructur when a class is instanciated.</p>
+<h2 id="constructor-injection">Constructor injection</h2>
+<p>The dependencies of a class are injected via the constructor of a class. This is the preferred way on dependency injection.</p>
+<pre><code class="lang-csharp">// Using default spellchecker	
+IEngine engine = new XEngine()
+var carWithEngineX = new Car(engine)
+
+// Using another spellchecker
+engine = new YEngine()
+var carWithEngineY = new Car(engine)
+
+// Using a fake for testing	
+engine = new FakeEngine()
+var carWithFakeEngine = new Car(engine)
+</code></pre>
+<h2 id="service-locator-style-of-injection">Service locator style of injection</h2>
+<p>Via a central dependency manager like DiContainer class a required dependency is resolved from inside the class:</p>
+<pre><code class="lang-csharp">var instance = DiContainer.Get&lt;ICar&gt;()
+</code></pre>
+<p>This type of dependency injection works but is not very transparent from outside the class. Therefore it should by avoided and replaced by constructor injection or method injection.</p>
+<h2 id="method-injection">Method injection</h2>
+<p>Method dependency injection you normally do not need very often. You may need it if you have circular references if loading dependencies via ctor(). This may happen .e.e. if to classes are dependent on each other. Normally this should be avoided by class design but under rare circumstances especially during refatoring projects this may happen.</p>
+<pre><code class="lang-csharp">private IEngine _engine;
+
+public void InjectDependecy(IEngine engine)
+{
+    _engine = engine;
+}
+</code></pre>
+<h1 id="how-to-use-dicontainer-class-the-simple-way">How to use DiContainer class: the simple way</h1>
+<p>Normally the DiContainer class is a central static singleton class. If you use Bodoconsult.App you can store the DiContainer instance in your implementation of IAppGlobals. There is a proeprty DiContainer for it.</p>
+<p>Easiest but in larger projects not the best way of setting up the services delivered the DiContainer is as follows:</p>
+<pre><code class="lang-csharp">[Test]
+public void BuildServiceProvider_DefaultSetup_ServicesAddedAndServiceProviderBuilt()
+{
+    // Arrange
+    var diContainer = new DiContainer();
+
+    Assert.That(diContainer.ServiceCollection.Count, Is.EqualTo(0));
+
+    // Now add the services provided by a MS builder class
+    var builder = diContainer.ServiceCollection.AddDataProtection()
+        .SetApplicationName(&quot;TestApp&quot;)
+        .PersistKeysToFileSystem(new DirectoryInfo(TestHelper.TempPath))
+        ;
+
+    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+    {
+        builder.ProtectKeysWithDpapi();
+    }
+
+    // Add your own classes
+    diContainer.AddSingleton&lt;IFileProtectionService, NoFileProtectionService&gt;();
+    diContainer.AddSingleton&lt;IDataProtectionServiceFactory, DataProtectionServiceFactory&gt;();
+    diContainer.AddSingleton&lt;IDataProtectionManagerFactory, DataProtectionManagerFactory&gt;();
+
+    // Act  
+    diContainer.BuildServiceProvider();
+
+    // Assert
+    Assert.That(diContainer.ServiceCollection.Count, Is.Not.EqualTo(0));
+    Assert.That(diContainer.ServiceProvider, Is.Not.Null);
+
+    // Try to use an instance
+    var dpm = diContainer.Get&lt;IDataProtectionManagerFactory&gt;();
+    Assert.That(dpm, Is.Not.Null);
+}
+</code></pre>
+<h1 id="how-to-use-dicontainer-class-organize-your-di-with-idicontainerserviceprovider-interface">How to use DiContainer class: organize your DI with IDiContainerServiceProvider interface</h1>
+<p>In the above sample you see all required services added line by line. This may lead to a complex method loading the required services in the DI container.</p>
+<pre><code class="lang-csharp">/// &lt;summary&gt;
+/// Interface for classes adding DI container services to a DI container
+/// &lt;/summary&gt;
+public interface IDiContainerServiceProvider
+{
+    /// &lt;summary&gt;
+    /// Add DI container services to a DI container
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;diContainer&quot;&gt;Current DI container&lt;/param&gt;
+    void AddServices(DiContainer diContainer);
+
+    /// &lt;summary&gt;
+    /// Late bind DI container references to avoid circular DI references
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;diContainer&quot;&gt;Current DI container&lt;/param&gt;
+    void LateBindObjects(DiContainer diContainer);
+
+}
+</code></pre>
+<p>Implement a provider based on IDiContainerServiceProvider to load your dependencies as required.</p>
+<pre><code class="lang-csharp">/// &lt;summary&gt;
+/// Load all specific WpfConsoleApp1 services to DI container. Intended mainly for production
+/// &lt;/summary&gt;
+public class WpfConsoleApp1AllServicesContainerServiceProvider : IDiContainerServiceProvider
+{
+    /// &lt;summary&gt;
+    /// Add DI container services to a DI container
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;diContainer&quot;&gt;Current DI container&lt;/param&gt;
+    public void AddServices(DiContainer diContainer)
+    {
+        // Load all other services required for the app now
+        diContainer.AddSingleton&lt;IApplicationService, WpfConsoleApp1Service&gt;();
+
+        // ...
+    }
+
+    /// &lt;summary&gt;
+    /// Late bind DI container references to avoid circular DI references
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;diContainer&quot;&gt;&lt;/param&gt;
+    public void LateBindObjects(DiContainer diContainer)
+    {
+        //// Example 1: Load the job scheduler now
+        //var scheduler = diContainer.Get&lt;IJobSchedulerManagementDelegate&gt;();
+        //scheduler.StartJobScheduler();
+
+        //// Example 2: Load business transactions
+        //var btl = diContainer.Get&lt;IBusinessTransactionLoader&gt;();
+        //btl.LoadProviders();
+    }
+}
+</code></pre>
+<p>Now implement a class derived on BaseDiContainerServiceProviderPackage to build your DI setup package to load all required DI container provider:</p>
+<pre><code class="lang-csharp">/// &lt;summary&gt;
+/// Load all the complete package of WpfConsoleApp1 services based on GRPC to DI container. Intended mainly for production
+/// &lt;/summary&gt;
+public class WpfConsoleApp1AllServicesDiContainerServiceProviderPackage : BaseDiContainerServiceProviderPackage
+{
+    /// &lt;summary&gt;
+    /// Default ctor
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;appGlobals&quot;&gt;Current app globals&lt;/param&gt;
+    /// &lt;param name=&quot;statusMessageDelegate&quot;&gt;Current statis message delegate to send status messages to UI&lt;/param&gt;
+    public WpfConsoleApp1AllServicesDiContainerServiceProviderPackage(IAppGlobals appGlobals,
+        StatusMessageDelegate statusMessageDelegate) : base(appGlobals)
+    {
+        // Basic app services
+        IDiContainerServiceProvider provider = new BasicAppServicesConfig2ContainerServiceProvider(appGlobals);
+        ServiceProviders.Add(provider);
+
+        // Performance measurement
+        provider = new ApmDiContainerServiceProvider(appGlobals.AppStartParameter, statusMessageDelegate);
+        ServiceProviders.Add(provider);
+
+        // App default logging
+        provider = new DefaultAppLoggerDiContainerServiceProvider(appGlobals.LoggingConfig, appGlobals.Logger);
+        ServiceProviders.Add(provider);
+
+        // SWpfConsoleApp1 specific services
+        provider = new WpfConsoleApp1AllServicesContainerServiceProvider();
+        ServiceProviders.Add(provider);
+    }
+}
+</code></pre>
+<p>And finally create your own IDiContainerServiceProviderPackageFactory implementation based on the above created IDiContainerServiceProviderPackage class:</p>
+<pre><code class="lang-csharp">/// &lt;summary&gt;
+/// The current DI container used for production 
+/// &lt;/summary&gt;
+public class WpfConsoleApp1ProductionDiContainerServiceProviderPackageFactory : IDiContainerServiceProviderPackageFactory
+{
+    /// &lt;summary&gt;
+    /// Default ctor
+    /// &lt;/summary&gt;
+    public WpfConsoleApp1ProductionDiContainerServiceProviderPackageFactory(IAppGlobals appGlobals)
+    {
+        AppGlobals = appGlobals;
+    }
+
+    /// &lt;summary&gt;
+    /// App globals
+    /// &lt;/summary&gt;
+    public IAppGlobals AppGlobals { get; }
+
+    /// &lt;summary&gt;
+    /// Current status message delegate
+    /// &lt;/summary&gt;
+    public StatusMessageDelegate StatusMessageDelegate { get; set; }
+
+    /// &lt;summary&gt;
+    /// Create an instance of &lt;see cref=&quot;IDiContainerServiceProviderPackage&quot;/&gt;. Should be a singleton instance
+    /// &lt;/summary&gt;
+    /// &lt;returns&gt;Singleton instance of &lt;see cref=&quot;IDiContainerServiceProviderPackage&quot;/&gt;&lt;/returns&gt;
+    public IDiContainerServiceProviderPackage CreateInstance()
+    {
+        return new WpfConsoleApp1AllServicesDiContainerServiceProviderPackage(AppGlobals, StatusMessageDelegate);
+    }
+}
+</code></pre>
+<p>The IDiContainerServiceProviderPackageFactory implementation</p>
+<pre><code class="lang-csharp">/// &lt;summary&gt;
+/// &lt;see cref=&quot;IAppBuilder&quot;/&gt; implementation for WPF base service-like console app
+/// &lt;/summary&gt;
+public class WpfConsoleApp1AppBuilder : BaseWpfAppBuilder
+{
+    /// &lt;summary&gt;
+    /// Default ctor
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;appGlobals&quot;&gt;Global app settings&lt;/param&gt;
+    public WpfConsoleApp1AppBuilder(IAppGlobals appGlobals) : base(appGlobals)
+    { }
+
+    /// &lt;summary&gt;
+    /// Load the &lt;see cref=&quot;IAppBuilder.DiContainerServiceProviderPackage&quot;/&gt;
+    /// &lt;/summary&gt;
+    public override void LoadDiContainerServiceProviderPackage()
+    {
+        var factory = new WpfConsoleApp1ProductionDiContainerServiceProviderPackageFactory(AppGlobals);
+        DiContainerServiceProviderPackage = factory.CreateInstance();
+    }
+}
+</code></pre>
+<h1 id="idicontainerserviceprovider-implementations-in-bodoconsultappinfrastructure-repo">IDiContainerServiceProvider implementations in Bodoconsult.App.Infrastructure repo</h1>
+<h2 id="basicappservicesconfig1containerserviceprovider">BasicAppServicesConfig1ContainerServiceProvider</h2>
+<p>Loads basic DI services configuration 1 used my most apps to DI container. Intended mainly for production</p>
+<p>The following services are loaded:</p>
+<ul>
+<li><p>IAppLoggerProxy as central logger instance</p>
+</li>
+<li><p>IAppLoggerProxyFactory for logging for creating specialized logfiles</p>
+</li>
+<li><p>IAppBenchProxy for benchmarking</p>
+</li>
+<li><p>IGeneralAppManagementManager for general app management</p>
+</li>
+</ul>
+<h2 id="basicappservicesconfig2containerserviceprovider">BasicAppServicesConfig2ContainerServiceProvider</h2>
+<p>Loads basic DI services configuration 2 used my most apps to DI container. Intended mainly for production</p>
+<p>The following services are loaded:</p>
+<ul>
+<li><p>IAppLoggerProxy as central logger instance</p>
+</li>
+<li><p>IAppLoggerProxyFactory for logging for creating specialized logfiles</p>
+</li>
+<li><p>IAppBenchProxy for benchmarking</p>
+</li>
+<li><p>IGeneralAppManagementManager for general app management</p>
+</li>
+<li><p>IAppEventListener for app event listening</p>
+</li>
+</ul>
+<h2 id="apmdicontainerserviceprovider">ApmDiContainerServiceProvider</h2>
+<p>Loads all APM specific services to DI container. Intended mainly for production. See <a href="PerformanceLogging.html">Performance logging section</a> in this documentation.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure/blob/main/docs/Bodoconsult.App/di.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

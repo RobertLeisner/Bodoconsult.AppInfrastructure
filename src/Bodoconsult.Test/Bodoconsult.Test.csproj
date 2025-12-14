@@ -10,7 +10,7 @@
 		<PackageOutputPath>..\..\packages\</PackageOutputPath>
 		<Copyright>Bodoconsult EDV-Dienstleistungen GmbH</Copyright>
 		<Authors>Robert Leisner</Authors>
-		<VersionPrefix>1.0.2</VersionPrefix>
+		<VersionPrefix>1.0.8</VersionPrefix>
 		<Version />
 		<Company>Bodoconsult EDV-Dienstleistungen GmbH</Company>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -24,7 +24,7 @@
 		<PackageId>Bodoconsult.Test</PackageId>
 		<PackageTags>Unit;test;meta;data;classes;XML;documentation</PackageTags>
 		<Description>Tools for unit testing and creating API docu from class XML file </Description>
-		<PackageReleaseNotes>First draft after migration from .NET Framework</PackageReleaseNotes>
+		<PackageReleaseNotes>Added API docu and new packages</PackageReleaseNotes>
 
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 
@@ -53,7 +53,7 @@
 		<None Include="..\..\LICENSE.md" Link="LICENSE.md">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
-		<None Include="..\..\doc\Bodoconsult.Test\README.md" Link="README.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\docs\Bodoconsult.Test\README.md" Link="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 </Project>

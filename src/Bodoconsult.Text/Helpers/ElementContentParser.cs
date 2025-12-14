@@ -131,7 +131,7 @@ public static class ElementContentParser
             {
                 if (e < content.Length - 1)
                 {
-                    content = $"{content.Substring(0, e + 1)}<Span>{content.Substring(e + 1, content.Length - e - 1)}</Span>";
+                    content = $"{content[..(e + 1)]}<Span>{content.Substring(e + 1, content.Length - e - 1)}</Span>";
                 }
             }
             {

@@ -9,7 +9,7 @@
 		<PackageOutputPath>..\..\packages\</PackageOutputPath>
 		<Copyright>Bodoconsult EDV-Dienstleistungen GmbH</Copyright>
 		<Authors>Robert Leisner</Authors>
-		<VersionPrefix>1.0.6</VersionPrefix>
+		<VersionPrefix>1.0.8</VersionPrefix>
 		<Version />
 		<Company>Bodoconsult EDV-Dienstleistungen GmbH</Company>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -22,7 +22,7 @@
 		<PackageTags>Layered app basic tools for Windows background services hosting a GRPC service</PackageTags>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Description>Package providing basic functionality like logging, application performance measuring etc. for layered apps in a background service scenario hosting a GRPC service</Description>
-		<PackageReleaseNotes>Bugfixes and improvements</PackageReleaseNotes>
+		<PackageReleaseNotes>Added API docu and new packages</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 
@@ -35,7 +35,7 @@
 		<Content Include="..\..\LICENSE.md" Link="LICENSE.md">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="..\..\doc\Bodoconsult.App.GrpcBackgroundService\README.md" Link="README.md" Pack="true" PackagePath="\">
+		<Content Include="..\..\docs\Bodoconsult.App.GrpcBackgroundService\README.md" Link="README.md" Pack="true" PackagePath="\">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>

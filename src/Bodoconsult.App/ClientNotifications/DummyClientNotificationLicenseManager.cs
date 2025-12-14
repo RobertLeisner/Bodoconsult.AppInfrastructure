@@ -10,7 +10,7 @@ namespace Bodoconsult.App.ClientNotifications;
 public class DummyClientNotificationLicenseManager : IClientNotificationLicenseManager
 {
     /// <summary>
-    /// Check if a certain <see cref="IClient"/> implementation has permission to receive client notifications: Uses the value of <see cref="ClientShouldReceiveNotifications"/>
+    /// Check if a certain <see cref="IClient"/> implementation has permission to receive client notifications
     /// </summary>
     /// <param name="client">Current client</param>
     /// <returns>True if the client should receive client notifications</returns>

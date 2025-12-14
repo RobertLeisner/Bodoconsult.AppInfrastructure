@@ -15,7 +15,7 @@
 		<PackageOutputPath>..\..\packages\</PackageOutputPath>
 		<Copyright>Bodoconsult EDV-Dienstleistungen GmbH</Copyright>
 		<Authors>Robert Leisner</Authors>
-		<VersionPrefix>1.0.6</VersionPrefix>
+		<VersionPrefix>1.0.8</VersionPrefix>
 		<Version />
 		<Company>Bodoconsult EDV-Dienstleistungen GmbH</Company>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -26,8 +26,8 @@
 		<RepositoryUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</RepositoryUrl>
 		<PackageId>Bodoconsult.App.Wpf</PackageId>
 		<PackageTags>App;WPF</PackageTags>
-		<Description>App infrastructure for WPF based apps</Description>
-		<PackageReleaseNotes>First draft</PackageReleaseNotes>
+		<Description>Added API docu and new packages</Description>
+		<PackageReleaseNotes>Added API docu and new packages</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 
@@ -55,7 +55,7 @@
 
 	<ItemGroup>
 		<None Include="..\..\LICENSE.md" Link="LICENSE.md" />
-		<None Include="..\..\doc\Bodoconsult.App.Wpf\README.md" Link="README.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\docs\Bodoconsult.App.Wpf\README.md" Link="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>

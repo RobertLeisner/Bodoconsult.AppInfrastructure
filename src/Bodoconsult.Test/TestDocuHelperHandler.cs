@@ -345,7 +345,7 @@ public class TestDocuHelperHandler : ITestDocuHelperHandler
                     {
                         generic = listType.GenericTypeArguments.Aggregate(generic, (current, typeGeneric) => current + (typeGeneric.Name + ","));
 
-                        generic = generic.Substring(0, generic.Length - 1);
+                        generic = generic[..^1];
                     }
 
                     var dict = temp as ICollection;

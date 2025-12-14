@@ -110,9 +110,9 @@ public static class FileIcon
         {
             var i = server.IndexOf(",", StringComparison.Ordinal);
 
-            var exe = server.Substring(0, i);
+            var exe = server[..i];
 
-            var index = Convert.ToInt32(server.Substring(i + 1));
+            var index = Convert.ToInt32(server[(i + 1)..]);
 
 
             var p = ExtractIconA(IntPtr.Zero, exe, index);
