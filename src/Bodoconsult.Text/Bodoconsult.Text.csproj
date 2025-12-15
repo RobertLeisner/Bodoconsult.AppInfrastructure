@@ -22,7 +22,11 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Description>Simple class for collecting structured text in an app and export it to HTML or an ASCII plain text file. Use library to create simple reports from apps or from unit testing i.e. for auditors or as documentation.</Description>
 		<PackageReleaseNotes>Added API docu and new packages</PackageReleaseNotes>
-		<PackageProjectUrl>hhttps://github.com/Bodoconsult/Bodoconsult.AppInfrastructure</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/Bodoconsult/Bodoconsult.AppInfrastructure</PackageProjectUrl>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
@@ -30,7 +34,7 @@
 		<None Include="..\..\LICENSE.md" Link="LICENSE.md">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
-		<None Include="..\..\docs\Bodoconsult.Text\README.md" Link="README.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\doc\Bodoconsult.Text\README.md" Link="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>

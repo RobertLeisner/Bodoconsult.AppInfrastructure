@@ -25,6 +25,7 @@
 		<Description>Charting library based on ScottPlot library for easy charting of database data</Description>
 		<PackageReleaseNotes>First draft</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/Bodoconsult/Bodoconsult.AppInfrastructures</PackageProjectUrl>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -36,7 +37,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="..\..\LICENSE.md" Link="LICENSE.md" />
-		<None Include="..\..\docs\Bodoconsult.Charting\README.md" Link="README.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\doc\Bodoconsult.Charting\README.md" Link="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Bodoconsult.App.Abstractions\Bodoconsult.App.Abstractions.csproj" />

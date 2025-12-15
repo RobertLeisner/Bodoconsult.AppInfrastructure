@@ -3,7 +3,9 @@ Bodoconsult.Charting
 
 # What does Bodoconsult.Charting library
 
-Bodoconsult.Charting is a library for creating charts from database data. Here a sample chart created with Bodoconsult.Charting:
+Bodoconsult.Charting is a library for creating charts from database data. 
+
+Here a sample chart created with Bodoconsult.Charting:
 
 ![Sample for stacked column chart 100%](../../images/StackedColumn100Chart.png)
 

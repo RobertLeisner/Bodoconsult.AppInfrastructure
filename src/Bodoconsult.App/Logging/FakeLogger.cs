@@ -90,7 +90,11 @@ public class FakeLogger : ILogger, IDisposable
         GC.SuppressFinalize(this);
     }
 
-    protected virtual void Dispose(bool dispose)
+    /// <summary>
+    /// Dispose the logger
+    /// </summary>
+    /// <param name="disposing">Is disposing requested</param>
+    protected virtual void Dispose(bool disposing)
     {
         // Do nothing
     }

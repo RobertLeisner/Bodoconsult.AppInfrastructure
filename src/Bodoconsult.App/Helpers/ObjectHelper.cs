@@ -483,6 +483,7 @@ public static class ObjectHelper
     /// Get a string from a byte array
     /// </summary>
     /// <param name="data">Byte array</param>
+    /// <param name="s">Current string to write the array in</param>
     /// <returns>Byte array as string</returns>
     private static void GetStringFromArray(Memory<byte> data, StringBuilder s)
     {
@@ -491,7 +492,7 @@ public static class ObjectHelper
         for (var i = 0; i < data.Length; i++)
         {
             b = data.Slice(i, 1).Span[0];
-            if (b <= 33 || b >= 127)
+            if (b is <= 33 or >= 127)
             {
                 s.Append($"[{b:X2}]");
             }

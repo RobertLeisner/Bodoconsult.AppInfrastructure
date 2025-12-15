@@ -13,9 +13,10 @@ public class UnZipHandler : IDisposable
 
     private readonly Stream _stream;
 
-
-    public IList<FileEntry> Files { get; } = new List<FileEntry>();
-
+    /// <summary>
+    /// Ctor providing a filename of a ZIP file
+    /// </summary>
+    /// <param name="fileName">Filename of the ZIP file</param>
     public UnZipHandler(string fileName)
     {
         _stream = new FileStream(fileName, FileMode.Open);
@@ -24,7 +25,10 @@ public class UnZipHandler : IDisposable
         LoadFiles();
     }
 
-
+    /// <summary>
+    /// Ctor providing ZIP file as byte array
+    /// </summary>
+    /// <param name="data">Bytae array with ZIP file content</param>
     public UnZipHandler(byte[] data)
     {
 
@@ -35,6 +39,14 @@ public class UnZipHandler : IDisposable
         LoadFiles();
     }
 
+    /// <summary>
+    /// Files in the ZIP file
+    /// </summary>
+    public IList<FileEntry> Files { get; } = new List<FileEntry>();
+
+    /// <summary>
+    /// Load the files from the ZIP content
+    /// </summary>
     public void LoadFiles()
     {
         foreach (var entry in _archive.Entries)
@@ -99,22 +111,19 @@ public class UnZipHandler : IDisposable
             throw new Exception($"File {filePath} not found in ZIP file!");
         }
 
-        using (var s = entry.Open())
-        {
-            using (var fs = new MemoryStream())
-            {
-                s.CopyTo(fs);
+        using var s = entry.Open();
+        using var fs = new MemoryStream();
+        s.CopyTo(fs);
 
-                var bytes = new byte[fs.Length];
+        var bytes = new byte[fs.Length];
 
-                fs.Position = 0;
-                fs.Read(bytes, 0, bytes.Length);
+        fs.Position = 0;
+        fs.ReadExactly(bytes, 0, bytes.Length);
 
-                return bytes;
-            }
-        }
+        return bytes;
     }
 
+    /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
     public void Dispose()
     {
         _archive?.Dispose();

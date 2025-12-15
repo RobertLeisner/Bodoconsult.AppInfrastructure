@@ -87,6 +87,8 @@ This repository contains the following Nuget packages:
 
 >   [**Bodoconsult.Charting**: Charting based on ScottPlot and SkiaSharp](doc/Bodoconsult.Charting/README.md)
 
+>   [**Bodoconsult.Office**: Exporting System.Data.DataTable to Excel file](doc/Bodoconsult.Office/README.md) 
+
 # Features missing currently
 
 -   Generating structured text documents like reports with IDocumentBuilder: DOCX export to implement

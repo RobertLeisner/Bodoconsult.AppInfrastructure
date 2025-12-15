@@ -2,6 +2,9 @@
 
 namespace Bodoconsult.App.Abstractions.Interfaces;
 
+/// <summary>
+/// Interface for app start builder
+/// </summary>
 public interface IAppBuilder
 {
     /// <summary>

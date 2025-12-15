@@ -6,6 +6,9 @@ using Bodoconsult.App.Helpers;
 
 namespace Bodoconsult.App.PerformanceLogging;
 
+/// <summary>
+/// Current implementation of <see cref="IPerformanceLoggerManager"/>
+/// </summary>
 public class PerformanceLoggerManager: IPerformanceLoggerManager
 {
     private IWatchDog _watchDog;
@@ -23,7 +26,6 @@ public class PerformanceLoggerManager: IPerformanceLoggerManager
     /// Current instance of a performance logger
     /// </summary>
     public IPerformanceLogger PerformanceLogger { get; }
-
 
     /// <summary>
     /// Current status message delegate to be called from the <see cref="IPerformanceLoggerManager.Log"/> method

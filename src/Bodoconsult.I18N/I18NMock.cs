@@ -79,10 +79,25 @@ public class I18NMock : II18N
     /// <returns></returns>
     public II18N SetNotFoundSymbol(string symbol) => throw new NotImplementedException();
 
+    /// <summary>
+    /// Set a logger action
+    /// </summary>
+    /// <param name="output">Logger action</param>
+    /// <returns>Current <see cref="II18N"/> instance</returns>
     public II18N SetLogger(Action<string> output) => throw new NotImplementedException();
 
+    /// <summary>
+    /// Set that an exception should be thrown if a key was not found. Intended for testing
+    /// </summary>
+    /// <param name="enabled">Enable exception throwing on key not found</param>
+    /// <returns>Current <see cref="II18N"/> instance</returns>
     public II18N SetThrowWhenKeyNotFound(bool enabled) => throw new NotImplementedException();
 
+    /// <summary>
+    /// Set a fallback locale
+    /// </summary>
+    /// <param name="locale">Requested fallback locale</param>
+    /// <returns>Current <see cref="II18N"/> instance</returns>
     public II18N SetFallbackLocale(string locale) => throw new NotImplementedException();
 
     /// <summary>
@@ -138,10 +153,25 @@ public class I18NMock : II18N
     /// <returns>Translated key as string or null</returns>
     public string TranslateOrNull(string key, params object[] args) => throw new NotImplementedException();
 
+    /// <summary>
+    /// Translate an enum to a dictionary
+    /// </summary>
+    /// <typeparam name="TEnum">Enum</typeparam>
+    /// <returns>Dictionary with translated enum values</returns>
     public Dictionary<TEnum, string> TranslateEnumToDictionary<TEnum>() => throw new NotImplementedException();
 
+    /// <summary>
+    /// Translate an enum to a list
+    /// </summary>
+    /// <typeparam name="TEnum">Enum</typeparam>
+    /// <returns>List with translated enum values</returns>
     public List<string> TranslateEnumToList<TEnum>() => throw new NotImplementedException();
 
+    /// <summary>
+    /// Translate an enum to a list of <see cref="Tuple"/>>
+    /// </summary>
+    /// <typeparam name="TEnum">Enum</typeparam>
+    /// <returns>List with translated enum values as<see cref="Tuple"/> instances</returns>
     public List<Tuple<TEnum, string>> TranslateEnumToTupleList<TEnum>() => throw new NotImplementedException();
 
     /// <summary>
@@ -152,5 +182,9 @@ public class I18NMock : II18N
         // Do nothing
     }
 
+    /// <summary>
+    /// Unload
+    /// </summary>
+    /// <exception cref="NotImplementedException">Not implemented</exception>
     public void Unload() => throw new NotImplementedException();
 }

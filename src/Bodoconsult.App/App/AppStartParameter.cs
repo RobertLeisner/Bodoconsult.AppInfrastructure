@@ -5,9 +5,11 @@ using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace Bodoconsult.App;
 
+/// <summary>
+/// Base iplementation of <see cref="IAppStartParameter"/>
+/// </summary>
 public class AppStartParameter: IAppStartParameter
 {
-
     /// <summary>
     /// Is the app started as singleton?
     /// </summary>

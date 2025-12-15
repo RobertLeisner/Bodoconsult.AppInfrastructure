@@ -24,11 +24,11 @@
 		<PackageReleaseNotes>Added API docu and new packages</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/Bodoconsult/Bodoconsult.AppInfrastructure</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		
 
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
 
@@ -36,7 +36,7 @@
 		<None Include="..\..\LICENSE.md" Link="LICENSE.md">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
-		<None Include="..\..\docs\Bodoconsult.Pdf\README.md" Link="README.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\doc\Bodoconsult.Pdf\README.md" Link="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 

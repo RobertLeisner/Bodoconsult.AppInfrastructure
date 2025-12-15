@@ -35,4 +35,6 @@ For getting started see the README.md files in the project documentation folders
 
 >   [**Bodoconsult.Charting.Base**](Bodoconsult.Charting.Base/README.md)
 
->   [**Bodoconsult.Charting*](Bodoconsult.Charting/README.md)
+>   [**Bodoconsult.Charting**](Bodoconsult.Charting/README.md)
+
+>   [**Bodoconsult.Office**](Bodoconsult.Office/README.md) 

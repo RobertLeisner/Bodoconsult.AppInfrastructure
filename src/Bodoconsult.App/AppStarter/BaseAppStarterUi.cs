@@ -10,7 +10,9 @@ namespace Bodoconsult.App.AppStarter;
 /// </summary>
 public class BaseAppStarterUi : IAppStarterUi
 {
-
+    /// <summary>
+    /// Console service for managing the console
+    /// </summary>
     protected IConsoleService ConsoleService;
 
     /// <summary>

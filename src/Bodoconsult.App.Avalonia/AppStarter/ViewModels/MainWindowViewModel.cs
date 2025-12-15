@@ -490,7 +490,9 @@ public class MainWindowViewModel : ObservableObject, IMainWindowViewModel
         }
     }
 
-
+    /// <summary>
+    /// Show or hide text
+    /// </summary>
     public string ShowOrHideText
     {
         get => _showOrHideText;
@@ -502,13 +504,18 @@ public class MainWindowViewModel : ObservableObject, IMainWindowViewModel
         }
     }
 
-
+    /// <summary>
+    /// Exit text
+    /// </summary>
     public object ExitText
     {
         get => _exitText;
         private set
         {
-            if (Equals(value, _exitText)) return;
+            if (Equals(value, _exitText))
+            {
+                return;
+            }
             _exitText = value;
             OnPropertyChanged();
         }

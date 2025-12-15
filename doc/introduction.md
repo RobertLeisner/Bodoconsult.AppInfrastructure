@@ -77,3 +77,5 @@ This repository contains the following Nuget packages:
 >   [**Bodoconsult.Charting.Base**: Base definitions for charting](Bodoconsult.Charting.Base/README.md)
 
 >   [**Bodoconsult.Charting**: Charting based on ScottPlot and SkiaSharp](Bodoconsult.Charting/README.md)
+
+>   [**Bodoconsult.Office**: Exporting System.Data.DataTable to Excel file](Bodoconsult.Office/README.md) 

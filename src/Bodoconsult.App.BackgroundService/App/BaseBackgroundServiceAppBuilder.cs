@@ -16,8 +16,13 @@ public class BaseBackgroundServiceAppBuilder: BaseAppBuilder
 {
 
     private readonly HostApplicationBuilder _builder;
-    private IHost host;
+    private IHost _host;
 
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="appGlobals">Current app globals</param>
+    /// <param name="args">Current app args from command line</param>
     public BaseBackgroundServiceAppBuilder(IAppGlobals appGlobals, string[] args = null) : base(appGlobals)
     {
         // Prepare the service builder instance
@@ -42,15 +47,15 @@ public class BaseBackgroundServiceAppBuilder: BaseAppBuilder
     {
         _builder.Services.AddHostedService<BackgroundServiceAppStarter>();
 
-        host = _builder.Build();
-        AppGlobals.DiContainer.LoadServiceProvider(host.Services);
+        _host = _builder.Build();
+        AppGlobals.DiContainer.LoadServiceProvider(_host.Services);
 
         DiContainerServiceProviderPackage.LateBindObjects(AppGlobals.DiContainer);
             
 
         StartApplicationService();
 
-        host.Run();
+        _host.Run();
     }
 
     /// <summary>
@@ -60,7 +65,7 @@ public class BaseBackgroundServiceAppBuilder: BaseAppBuilder
     {
         AppGlobals.EventWaitHandle?.Reset();
         ApplicationServer?.StopApplication();
-        host?.StopAsync();
+        _host?.StopAsync();
     }
 
 }

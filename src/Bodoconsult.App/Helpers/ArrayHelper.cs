@@ -226,6 +226,11 @@ public static class ArrayHelper
             $"{s} }}";
     }
 
+    /// <summary>
+    /// Get a string with array data in C# style
+    /// </summary>
+    /// <param name="data">Array data</param>
+    /// <returns>String with array data</returns>
     public static string GetStringFromArrayCsharpStyle(ReadOnlyMemory<byte> data)
     {
 

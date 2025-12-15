@@ -4,6 +4,9 @@ using Bodoconsult.App.Extensions;
 
 namespace Bodoconsult.App.Helpers;
 
+/// <summary>
+/// Helper class for async management
+/// </summary>
 public static class AsyncHelper
 {
     private static readonly TaskFactory MyTaskFactory = new(CancellationToken.None, 
@@ -12,7 +15,7 @@ public static class AsyncHelper
             TaskScheduler.Default);
 
     /// <summary>
-    /// Run a async method call in a syncron manner
+    /// Run an async method call in a syncron manner
     /// </summary>
     /// <typeparam name="TResult">Type of return value of the method call</typeparam>
     /// <param name="func">Method call</param>

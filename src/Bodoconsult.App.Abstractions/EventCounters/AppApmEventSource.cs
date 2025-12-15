@@ -5,6 +5,9 @@ using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace Bodoconsult.App.Abstractions.EventCounters;
 
+/// <summary>
+/// App event source for APM
+/// </summary>
 [EventSource(Name = "App-APM")]
 public sealed class AppApmEventSource : EventSource, IAppEventSource
 {

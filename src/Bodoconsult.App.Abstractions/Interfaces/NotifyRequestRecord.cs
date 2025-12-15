@@ -19,6 +19,9 @@
 
 namespace Bodoconsult.App.Abstractions.Interfaces;
 
+/// <summary>
+/// Request record for a TOAST notification
+/// </summary>
 public class NotifyRequestRecord
 {
     /// <summary>

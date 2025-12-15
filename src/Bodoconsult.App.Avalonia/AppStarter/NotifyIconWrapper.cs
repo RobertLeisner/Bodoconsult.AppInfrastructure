@@ -1,6 +1,6 @@
 ﻿//// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-///*
+////*
 // * Copyright 2021 Kazuhiro Fujieda <fujieda@roundwide.com>
    
 //   Permission to use, copy, modify, and/or distribute this software for any

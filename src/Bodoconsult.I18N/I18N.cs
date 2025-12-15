@@ -15,6 +15,9 @@ using Bodoconsult.I18N.Helpers;
 
 namespace Bodoconsult.I18N;
 
+/// <summary>
+/// Implementation of <see cref="II18N"/>
+/// </summary>
 public class I18N : II18N
 {
     #region Singleton factory
@@ -474,6 +477,9 @@ public class I18N : II18N
         return list;
     }
 
+    /// <summary>
+    /// Initialize the system with the thread language
+    /// </summary>
     public void Init()
     {
         var l = GetDefaultLocale();
@@ -484,6 +490,10 @@ public class I18N : II18N
 
     #region Helpers
 
+    /// <summary>
+    /// Get the default locale
+    /// </summary>
+    /// <returns>Default local as string</returns>
     public string GetDefaultLocale()
     {
         var currentCulture = CultureInfo.CurrentCulture;
@@ -520,6 +530,7 @@ public class I18N : II18N
 
     #region Cleanup
 
+    /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
     public void Dispose()
     {
         if (PropertyChanged != null)

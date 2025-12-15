@@ -43,8 +43,26 @@ public interface II18N : INotifyPropertyChanged, IDisposable
     /// <param name="symbol">Symbol to set as not-found-symbol</param>
     /// <returns></returns>
     II18N SetNotFoundSymbol(string symbol);
+
+    /// <summary>
+    /// Set a logger action
+    /// </summary>
+    /// <param name="output">Logger action</param>
+    /// <returns>Current <see cref="II18N"/> instance</returns>
     II18N SetLogger(Action<string> output);
+
+    /// <summary>
+    /// Set that an exception should be thrown if a key was not found. Intended for testing
+    /// </summary>
+    /// <param name="enabled">Enable exception throwing on key not found</param>
+    /// <returns>Current <see cref="II18N"/> instance</returns>
     II18N SetThrowWhenKeyNotFound(bool enabled);
+
+    /// <summary>
+    /// Set a fallback locale
+    /// </summary>
+    /// <param name="locale">Requested fallback locale</param>
+    /// <returns>Current <see cref="II18N"/> instance</returns>
     II18N SetFallbackLocale(string locale);
 
     /// <summary>
@@ -94,8 +112,25 @@ public interface II18N : INotifyPropertyChanged, IDisposable
     /// <returns>Translated key as string or null</returns>
     string TranslateOrNull(string key, params object[] args);
 
+    /// <summary>
+    /// Translate an enum to a dictionary
+    /// </summary>
+    /// <typeparam name="TEnum">Enum</typeparam>
+    /// <returns>Dictionary with translated enum values</returns>
     Dictionary<TEnum, string> TranslateEnumToDictionary<TEnum>();
+
+    /// <summary>
+    /// Translate an enum to a list
+    /// </summary>
+    /// <typeparam name="TEnum">Enum</typeparam>
+    /// <returns>List with translated enum values</returns>
     List<string> TranslateEnumToList<TEnum>();
+
+    /// <summary>
+    /// Translate an enum to a list of <see cref="Tuple"/>>
+    /// </summary>
+    /// <typeparam name="TEnum">Enum</typeparam>
+    /// <returns>List with translated enum values as<see cref="Tuple"/> instances</returns>
     List<Tuple<TEnum, string>> TranslateEnumToTupleList<TEnum>();
         
     /// <summary>

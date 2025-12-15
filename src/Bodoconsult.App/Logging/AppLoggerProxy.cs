@@ -18,6 +18,9 @@ public class AppLoggerProxy : IAppLoggerProxy
 {
     private readonly ILogDataFactory _logDataFactory;
 
+    /// <summary>
+    /// Current logger factory instance
+    /// </summary>
     public ILoggerFactory LoggerFactory { get; private set; }
 
     private IProducerConsumerQueue<LogData> _logMessages;
@@ -27,19 +30,27 @@ public class AppLoggerProxy : IAppLoggerProxy
     /// <summary>
     /// Default ctor
     /// </summary>
-    public AppLoggerProxy(ILoggerFactory logger, ILogDataFactory logDataFactory)
+    public AppLoggerProxy(ILoggerFactory loggerFactory, ILogDataFactory logDataFactory)
     {
-        LoggerFactory = logger ?? throw new ArgumentNullException(nameof(logger));
-        _logger = logger.CreateLogger(string.Intern("Default"));
+        LoggerFactory = loggerFactory ?? throw new ArgumentNullException(nameof(loggerFactory));
+        _logger = loggerFactory.CreateLogger(string.Intern("Default"));
         BaseCtor();
 
         _logDataFactory = logDataFactory;
     }
 
-    public AppLoggerProxy(ILoggerFactory logger, ILogDataFactory logDataFactory, string appType)
+
+    /// <summary>
+    /// Ctor
+    /// </summary>
+    /// <param name="loggerFactory">Logger factory</param>
+    /// <param name="logDataFactory">Logger data factory></param>
+    /// <param name="appType">App type string</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    public AppLoggerProxy(ILoggerFactory loggerFactory, ILogDataFactory logDataFactory, string appType)
     {
-        LoggerFactory = logger ?? throw new ArgumentNullException(nameof(logger));
-        _logger = logger.CreateLogger(appType);
+        LoggerFactory = loggerFactory ?? throw new ArgumentNullException(nameof(loggerFactory));
+        _logger = loggerFactory.CreateLogger(appType);
         BaseCtor();
 
         _logDataFactory = logDataFactory;
@@ -1785,6 +1796,11 @@ public class AppLoggerProxy : IAppLoggerProxy
     }
 
     #endregion
+    
+    /// <summary>
+    /// Dispose the logger
+    /// </summary>
+    /// <param name="disposing">Is disposing requested</param>
     protected virtual void Dispose(bool disposing)
     {
         if (!disposing)
@@ -1793,7 +1809,6 @@ public class AppLoggerProxy : IAppLoggerProxy
         }
         StopLogging();
         LoggerFactory?.Dispose();
-
     }
 
     /// <summary>

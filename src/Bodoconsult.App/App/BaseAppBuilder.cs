@@ -336,6 +336,10 @@ namespace Bodoconsult.App;
         AppGlobals.Logger?.LogInformation(message);
     }
 
+    /// <summary>
+    /// Terminate if the license is mssing
+    /// </summary>
+    /// <param name="message">Message to send to UI</param>
     protected void TerminateIfLicenseMissing(string message)
     {
         AppGlobals.Logger?.LogError("License not found");

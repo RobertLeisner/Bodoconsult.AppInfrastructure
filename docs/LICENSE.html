@@ -125,6 +125,9 @@
 <blockquote>
 <p>Bodoconsult.Charting,</p>
 </blockquote>
+<blockquote>
+<p>Bodoconsult.Office,</p>
+</blockquote>
 <p>Here the license text:</p>
 <pre><code>Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH
 
@@ -217,6 +220,9 @@ SOFTWARE.
 <p><a href="#referenced-libraries-for-bodoconsulti18n">Bodoconsult.I18N</a></p>
 </blockquote>
 <blockquote>
+<p><a href="#referenced-libraries-for-bodoconsultoffice">Bodoconsult.Office</a></p>
+</blockquote>
+<blockquote>
 <p><a href="#referenced-libraries-for-bodoconsultpdf">Bodoconsult.Pdf</a></p>
 </blockquote>
 <blockquote>
@@ -248,6 +254,9 @@ SOFTWARE.
 </blockquote>
 <blockquote>
 <p><a href="#referenced-libraries-for-bodoconsulti18ntest">Bodoconsult.I18N.Test</a></p>
+</blockquote>
+<blockquote>
+<p><a href="#referenced-libraries-for-bodoconsultofficetests">Bodoconsult.Office.Tests</a></p>
 </blockquote>
 <blockquote>
 <p><a href="#referenced-libraries-for-bodoconsultpdftest">Bodoconsult.Pdf.Test</a></p>
@@ -952,6 +961,21 @@ SOFTWARE.</p>
 <p>License: MIT</p>
 <p>License-Url: <a href="https://licenses.nuget.org/MIT">https://licenses.nuget.org/MIT</a></p>
 <p>Project-Url: <a href="https://github.com/dotnet/runtime">https://github.com/dotnet/runtime</a></p>
+<h1 id="referenced-libraries-for-bodoconsultoffice">Referenced libraries for Bodoconsult.Office</h1>
+<h2 id="nuget-package-library-documentformatopenxml-by-microsoft">Nuget package library DocumentFormat.OpenXml by Microsoft</h2>
+<p>The Open XML SDK provides tools for working with Office Word, Excel, and PowerPoint documents. It supports scenarios such as:</p>
+<ul>
+<li>High-performance generation of word-processing documents, spreadsheets, and presentations.</li>
+<li>Populating content in Word files from an XML data source.</li>
+<li>Splitting up (shredding) a Word or PowerPoint file into multiple files, and combining multiple Word/PowerPoint files into a single file.</li>
+<li>Extraction of data from Excel documents.</li>
+<li>Searching and replacing content in Word/PowerPoint using regular expressions.</li>
+<li>Updating cached data and embedded spreadsheets for charts in Word/PowerPoint.</li>
+<li>Document modification, such as removing tracked revisions or removing unacceptable content from documents.</li>
+</ul>
+<p>License: MIT</p>
+<p>License-Url: <a href="https://licenses.nuget.org/MIT">https://licenses.nuget.org/MIT</a></p>
+<p>Project-Url: <a href="https://github.com/dotnet/Open-XML-SDK">https://github.com/dotnet/Open-XML-SDK</a></p>
 <h1 id="referenced-libraries-for-bodoconsultpdf">Referenced libraries for Bodoconsult.Pdf</h1>
 <h2 id="nuget-package-library-pdfsharp-migradoc-by-pdfsharp-team">Nuget package library PDFsharp-MigraDoc by PDFsharp Team</h2>
 <p>MigraDoc is a .NET library that allows developers to create documents such as PDF and RTF using a high-level object model. It provides an intuitive API that simplifies the creation of documents, including text formatting, tables, images, and more. MigraDoc is widely used for generating reports, invoices, and other types of documents in various applications.
@@ -1406,7 +1430,7 @@ It is a non-opinionated, broad and deep framework with multiple different ways t
 <p>License: MIT</p>
 <p>License-Url: <a href="https://licenses.nuget.org/MIT">https://licenses.nuget.org/MIT</a></p>
 <p>Project-Url: <a href="https://github.com/nunit/nunit3-vs-adapter">https://github.com/nunit/nunit3-vs-adapter</a></p>
-<h1 id="referenced-libraries-for-bodoconsultpdftest">Referenced libraries for Bodoconsult.Pdf.Test</h1>
+<h1 id="referenced-libraries-for-bodoconsultofficetests">Referenced libraries for Bodoconsult.Office.Tests</h1>
 <h2 id="nuget-package-library-microsoftnettestsdk-by-microsoft-10">Nuget package library Microsoft.NET.Test.Sdk by Microsoft</h2>
 <p>The MSbuild targets and properties for building .NET test projects.</p>
 <p>License: MIT</p>
@@ -1430,21 +1454,14 @@ It is a non-opinionated, broad and deep framework with multiple different ways t
 <p>License-Url: <a href="https://licenses.nuget.org/MIT">https://licenses.nuget.org/MIT</a></p>
 <p>Project-Url: <a href="https://github.com/nunit/nunit">https://github.com/nunit/nunit</a></p>
 <h2 id="nuget-package-library-nunit3testadapter-by-charlie-poole--terje-sandstrom-10">Nuget package library NUnit3TestAdapter by Charlie Poole,  Terje Sandstrom</h2>
-<p>The NUnit3 TestAdapter for Visual Studio, all versions from 2012 and onwards, and DotNet (incl. .Net core), versions .net framework 4.6.2 or higher, .net core 3.1, .net 5 or higher.</p>
+<p>The NUnit3 TestAdapter for Visual Studio, all versions from 2012 and onwards, and DotNet (incl. .Net core), versions .net framework 4.6.2 or higher, .net 8 or higher.</p>
 <pre><code>  Note that this package ONLY contains the adapter, not the NUnit framework.
   For VS 2017 and forward, you should add this package to every test project in your solution. (Earlier versions only require a single adapter package per solution.)
 </code></pre>
 <p>License: MIT</p>
 <p>License-Url: <a href="https://licenses.nuget.org/MIT">https://licenses.nuget.org/MIT</a></p>
 <p>Project-Url: <a href="https://github.com/nunit/nunit3-vs-adapter">https://github.com/nunit/nunit3-vs-adapter</a></p>
-<h2 id="nuget-package-library-pdfsharp-migradoc-by-pdfsharp-team-2">Nuget package library PDFsharp-MigraDoc by PDFsharp Team</h2>
-<p>MigraDoc is a .NET library that allows developers to create documents such as PDF and RTF using a high-level object model. It provides an intuitive API that simplifies the creation of documents, including text formatting, tables, images, and more. MigraDoc is widely used for generating reports, invoices, and other types of documents in various applications.
-This package does not depend on Windows and can be used on any .NET compatible platform including Linux and macOS.
-See <a href="https://docs.pdfsharp.net">https://docs.pdfsharp.net</a> for details.</p>
-<p>License: MIT</p>
-<p>License-Url: <a href="https://licenses.nuget.org/MIT">https://licenses.nuget.org/MIT</a></p>
-<p>Project-Url: <a href="https://github.com/empira/PDFsharp">https://github.com/empira/PDFsharp</a></p>
-<h1 id="referenced-libraries-for-bodoconsulttesttest">Referenced libraries for Bodoconsult.Test.Test</h1>
+<h1 id="referenced-libraries-for-bodoconsultpdftest">Referenced libraries for Bodoconsult.Pdf.Test</h1>
 <h2 id="nuget-package-library-microsoftnettestsdk-by-microsoft-11">Nuget package library Microsoft.NET.Test.Sdk by Microsoft</h2>
 <p>The MSbuild targets and properties for building .NET test projects.</p>
 <p>License: MIT</p>
@@ -1475,7 +1492,14 @@ It is a non-opinionated, broad and deep framework with multiple different ways t
 <p>License: MIT</p>
 <p>License-Url: <a href="https://licenses.nuget.org/MIT">https://licenses.nuget.org/MIT</a></p>
 <p>Project-Url: <a href="https://github.com/nunit/nunit3-vs-adapter">https://github.com/nunit/nunit3-vs-adapter</a></p>
-<h1 id="referenced-libraries-for-bodoconsulttextpdftest">Referenced libraries for Bodoconsult.Text.Pdf.Test</h1>
+<h2 id="nuget-package-library-pdfsharp-migradoc-by-pdfsharp-team-2">Nuget package library PDFsharp-MigraDoc by PDFsharp Team</h2>
+<p>MigraDoc is a .NET library that allows developers to create documents such as PDF and RTF using a high-level object model. It provides an intuitive API that simplifies the creation of documents, including text formatting, tables, images, and more. MigraDoc is widely used for generating reports, invoices, and other types of documents in various applications.
+This package does not depend on Windows and can be used on any .NET compatible platform including Linux and macOS.
+See <a href="https://docs.pdfsharp.net">https://docs.pdfsharp.net</a> for details.</p>
+<p>License: MIT</p>
+<p>License-Url: <a href="https://licenses.nuget.org/MIT">https://licenses.nuget.org/MIT</a></p>
+<p>Project-Url: <a href="https://github.com/empira/PDFsharp">https://github.com/empira/PDFsharp</a></p>
+<h1 id="referenced-libraries-for-bodoconsulttesttest">Referenced libraries for Bodoconsult.Test.Test</h1>
 <h2 id="nuget-package-library-microsoftnettestsdk-by-microsoft-12">Nuget package library Microsoft.NET.Test.Sdk by Microsoft</h2>
 <p>The MSbuild targets and properties for building .NET test projects.</p>
 <p>License: MIT</p>
@@ -1506,14 +1530,7 @@ It is a non-opinionated, broad and deep framework with multiple different ways t
 <p>License: MIT</p>
 <p>License-Url: <a href="https://licenses.nuget.org/MIT">https://licenses.nuget.org/MIT</a></p>
 <p>Project-Url: <a href="https://github.com/nunit/nunit3-vs-adapter">https://github.com/nunit/nunit3-vs-adapter</a></p>
-<h2 id="nuget-package-library-pdfsharp-migradoc-by-pdfsharp-team-3">Nuget package library PDFsharp-MigraDoc by PDFsharp Team</h2>
-<p>MigraDoc is a .NET library that allows developers to create documents such as PDF and RTF using a high-level object model. It provides an intuitive API that simplifies the creation of documents, including text formatting, tables, images, and more. MigraDoc is widely used for generating reports, invoices, and other types of documents in various applications.
-This package does not depend on Windows and can be used on any .NET compatible platform including Linux and macOS.
-See <a href="https://docs.pdfsharp.net">https://docs.pdfsharp.net</a> for details.</p>
-<p>License: MIT</p>
-<p>License-Url: <a href="https://licenses.nuget.org/MIT">https://licenses.nuget.org/MIT</a></p>
-<p>Project-Url: <a href="https://github.com/empira/PDFsharp">https://github.com/empira/PDFsharp</a></p>
-<h1 id="referenced-libraries-for-bodoconsulttexttest">Referenced libraries for Bodoconsult.Text.Test</h1>
+<h1 id="referenced-libraries-for-bodoconsulttextpdftest">Referenced libraries for Bodoconsult.Text.Pdf.Test</h1>
 <h2 id="nuget-package-library-microsoftnettestsdk-by-microsoft-13">Nuget package library Microsoft.NET.Test.Sdk by Microsoft</h2>
 <p>The MSbuild targets and properties for building .NET test projects.</p>
 <p>License: MIT</p>
@@ -1544,7 +1561,14 @@ It is a non-opinionated, broad and deep framework with multiple different ways t
 <p>License: MIT</p>
 <p>License-Url: <a href="https://licenses.nuget.org/MIT">https://licenses.nuget.org/MIT</a></p>
 <p>Project-Url: <a href="https://github.com/nunit/nunit3-vs-adapter">https://github.com/nunit/nunit3-vs-adapter</a></p>
-<h1 id="referenced-libraries-for-bodoconsulttypographytest">Referenced libraries for Bodoconsult.Typography.Test</h1>
+<h2 id="nuget-package-library-pdfsharp-migradoc-by-pdfsharp-team-3">Nuget package library PDFsharp-MigraDoc by PDFsharp Team</h2>
+<p>MigraDoc is a .NET library that allows developers to create documents such as PDF and RTF using a high-level object model. It provides an intuitive API that simplifies the creation of documents, including text formatting, tables, images, and more. MigraDoc is widely used for generating reports, invoices, and other types of documents in various applications.
+This package does not depend on Windows and can be used on any .NET compatible platform including Linux and macOS.
+See <a href="https://docs.pdfsharp.net">https://docs.pdfsharp.net</a> for details.</p>
+<p>License: MIT</p>
+<p>License-Url: <a href="https://licenses.nuget.org/MIT">https://licenses.nuget.org/MIT</a></p>
+<p>Project-Url: <a href="https://github.com/empira/PDFsharp">https://github.com/empira/PDFsharp</a></p>
+<h1 id="referenced-libraries-for-bodoconsulttexttest">Referenced libraries for Bodoconsult.Text.Test</h1>
 <h2 id="nuget-package-library-microsoftnettestsdk-by-microsoft-14">Nuget package library Microsoft.NET.Test.Sdk by Microsoft</h2>
 <p>The MSbuild targets and properties for building .NET test projects.</p>
 <p>License: MIT</p>
@@ -1568,6 +1592,37 @@ It is a non-opinionated, broad and deep framework with multiple different ways t
 <p>License-Url: <a href="https://licenses.nuget.org/MIT">https://licenses.nuget.org/MIT</a></p>
 <p>Project-Url: <a href="https://github.com/nunit/nunit">https://github.com/nunit/nunit</a></p>
 <h2 id="nuget-package-library-nunit3testadapter-by-charlie-poole--terje-sandstrom-14">Nuget package library NUnit3TestAdapter by Charlie Poole,  Terje Sandstrom</h2>
+<p>The NUnit3 TestAdapter for Visual Studio, all versions from 2012 and onwards, and DotNet (incl. .Net core), versions .net framework 4.6.2 or higher, .net core 3.1, .net 5 or higher.</p>
+<pre><code>  Note that this package ONLY contains the adapter, not the NUnit framework.
+  For VS 2017 and forward, you should add this package to every test project in your solution. (Earlier versions only require a single adapter package per solution.)
+</code></pre>
+<p>License: MIT</p>
+<p>License-Url: <a href="https://licenses.nuget.org/MIT">https://licenses.nuget.org/MIT</a></p>
+<p>Project-Url: <a href="https://github.com/nunit/nunit3-vs-adapter">https://github.com/nunit/nunit3-vs-adapter</a></p>
+<h1 id="referenced-libraries-for-bodoconsulttypographytest">Referenced libraries for Bodoconsult.Typography.Test</h1>
+<h2 id="nuget-package-library-microsoftnettestsdk-by-microsoft-15">Nuget package library Microsoft.NET.Test.Sdk by Microsoft</h2>
+<p>The MSbuild targets and properties for building .NET test projects.</p>
+<p>License: MIT</p>
+<p>License-Url: <a href="https://licenses.nuget.org/MIT">https://licenses.nuget.org/MIT</a></p>
+<p>Project-Url: <a href="https://github.com/microsoft/vstest">https://github.com/microsoft/vstest</a></p>
+<h2 id="nuget-package-library-nunit-by-charlie-poole--rob-prouse-15">Nuget package library NUnit by Charlie Poole,  Rob Prouse</h2>
+<p>NUnit is a unit-testing framework for all .NET languages.
+It can run on macOS, Linux and Windows operating systems.
+NUnit can be used for a wide range of testing, from unit testing with TDD to full-fledged system and integration testing.
+It is a non-opinionated, broad and deep framework with multiple different ways to assert that your code behaves as expected. Many aspects of NUnit can be extended to suit your specific purposes.</p>
+<pre><code>        The latest version, version 4, is an upgrade from the groundbreaking NUnit 3 framework. It is a modernized version, aimed at taking advantage of the latest .NET features and C# language constructs.
+
+        If you are upgrading from NUnit 3, be aware of the breaking changes (https://docs.nunit.org/articles/nunit/release-notes/breaking-changes.html#nunit-40). Please see the NUnit 4 Migration Guide (https://docs.nunit.org/articles/nunit/release-notes/Nunit4.0-MigrationGuide.html) and take care to prepare your NUnit 3 code before you do the upgrade.
+
+        Supported platforms:
+        - .NET Framework 4.6.2+
+        - .NET 6.0+
+        - .NET 8.0+
+</code></pre>
+<p>License: MIT</p>
+<p>License-Url: <a href="https://licenses.nuget.org/MIT">https://licenses.nuget.org/MIT</a></p>
+<p>Project-Url: <a href="https://github.com/nunit/nunit">https://github.com/nunit/nunit</a></p>
+<h2 id="nuget-package-library-nunit3testadapter-by-charlie-poole--terje-sandstrom-15">Nuget package library NUnit3TestAdapter by Charlie Poole,  Terje Sandstrom</h2>
 <p>The NUnit3 TestAdapter for Visual Studio, all versions from 2012 and onwards, and DotNet (incl. .Net core), versions .net framework 4.6.2 or higher, .net core 3.1, .net 5 or higher.</p>
 <pre><code>  Note that this package ONLY contains the adapter, not the NUnit framework.
   For VS 2017 and forward, you should add this package to every test project in your solution. (Earlier versions only require a single adapter package per solution.)

@@ -27,6 +27,7 @@
 
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -35,7 +36,7 @@
 
 	<ItemGroup>
 	  <Content Include="..\..\LICENSE.md" />
-	  <Content Include="..\..\docs\Bodoconsult.I18N\README.md" Pack="true" PackagePath="\" />
+	  <Content Include="..\..\doc\Bodoconsult.I18N\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>

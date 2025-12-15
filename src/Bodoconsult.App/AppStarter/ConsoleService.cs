@@ -4,6 +4,9 @@ using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace Bodoconsult.App.AppStarter;
 
+/// <summary>
+/// Windows console management service
+/// </summary>
 public class ConsoleService : IConsoleService
 {
     /// <summary>

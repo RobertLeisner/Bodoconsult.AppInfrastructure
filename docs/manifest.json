@@ -310,7 +310,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Abstractions.EventCounters.AppApmEventSource",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Abstractions.EventCounters.AppApmEventSource.yml\" sourcestartlinenumber=\"1\">App event source for APM</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -492,7 +492,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Abstractions.Interfaces.IAppBuilder",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Abstractions.Interfaces.IAppBuilder.yml\" sourcestartlinenumber=\"1\">Interface for app start builder</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -506,7 +506,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Abstractions.Interfaces.IAppConfigurationProvider",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Abstractions.Interfaces.IAppConfigurationProvider.yml\" sourcestartlinenumber=\"1\">Interface for app configuration provider</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -534,7 +534,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Abstractions.Interfaces.IAppEventListener",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Abstractions.Interfaces.IAppEventListener.yml\" sourcestartlinenumber=\"1\">Interface for basic features of an app event listener</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -884,7 +884,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Abstractions.Interfaces.IDataProtectionManager",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Abstractions.Interfaces.IDataProtectionManager.yml\" sourcestartlinenumber=\"1\">Interface for implementing data protection manager</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1290,7 +1290,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Abstractions.Interfaces.NotifyRequestRecord",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Abstractions.Interfaces.NotifyRequestRecord.yml\" sourcestartlinenumber=\"1\">Request record for a TOAST notification</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1458,7 +1458,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.AppStartParameter",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.AppStartParameter.yml\" sourcestartlinenumber=\"1\">Base iplementation of <xref href=\"Bodoconsult.App.Abstractions.Interfaces.IAppStartParameter\" data-throw-if-not-resolved=\"false\"></xref></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1500,7 +1500,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.AppStarter.ConsoleService",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.AppStarter.ConsoleService.yml\" sourcestartlinenumber=\"1\">Windows console management service</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -2074,7 +2074,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Avalonia.AppStarter.Views.MainWindow",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Avalonia.AppStarter.Views.MainWindow.yml\" sourcestartlinenumber=\"1\">Main app window</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -4958,7 +4958,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Helpers.AsyncHelper",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Helpers.AsyncHelper.yml\" sourcestartlinenumber=\"1\">Helper class for async management</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -4986,7 +4986,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Helpers.DateTimeHelper",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Helpers.DateTimeHelper.yml\" sourcestartlinenumber=\"1\">Helper class for <xref href=\"System.DateTime\" data-throw-if-not-resolved=\"false\"></xref></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -5938,7 +5938,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.PerformanceLogging.PerformanceLoggerManager",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.PerformanceLogging.PerformanceLoggerManager.yml\" sourcestartlinenumber=\"1\">Current implementation of <xref href=\"Bodoconsult.App.Abstractions.Interfaces.IPerformanceLoggerManager\" data-throw-if-not-resolved=\"false\"></xref></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -6414,7 +6414,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.WinForms.Interfaces.IMainWindowViewModel",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.WinForms.Interfaces.IMainWindowViewModel.yml\" sourcestartlinenumber=\"1\">View model for main WinForms form</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -10894,7 +10894,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.I18N.I18N",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.I18N.I18N.yml\" sourcestartlinenumber=\"1\">Implementation of <xref href=\"Bodoconsult.App.Abstractions.Interfaces.II18N\" data-throw-if-not-resolved=\"false\"></xref></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -10908,7 +10908,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.I18N.I18NException",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.I18N.I18NException.yml\" sourcestartlinenumber=\"1\">I18N exception</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -11160,6 +11160,188 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.I18N",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.Csv.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.Csv.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office.Csv",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.Office.Csv.yml\" sourcestartlinenumber=\"1\">Class representing a CSV file. Use it to export database data to a CSV file</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.ErrorHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.ErrorHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office.ErrorHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.ErrorHandlerDelegate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.ErrorHandlerDelegate.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office.ErrorHandlerDelegate",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.Office.ErrorHandlerDelegate.yml\" sourcestartlinenumber=\"1\">Delegate for sending error message to UI</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.ExcelLateBinding.BorderStyle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.ExcelLateBinding.BorderStyle.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office.ExcelLateBinding.BorderStyle",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.Office.ExcelLateBinding.BorderStyle.yml\" sourcestartlinenumber=\"1\">Border style enum</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.ExcelLateBinding.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.ExcelLateBinding.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office.ExcelLateBinding",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.Office.ExcelLateBinding.yml\" sourcestartlinenumber=\"1\">A helper class for late binding Microsoft (R) Excel via COM</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.ExcelStyles.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.ExcelStyles.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office.ExcelStyles",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.Office.ExcelStyles.yml\" sourcestartlinenumber=\"1\">Styles used to format OpenXml XLSX files via late binding</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.StatusHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.StatusHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office.StatusHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.StatusHandlerDelegate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.StatusHandlerDelegate.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office.StatusHandlerDelegate",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.Office.StatusHandlerDelegate.yml\" sourcestartlinenumber=\"1\">Delegate for sending status message to UI</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.XlsxDocument.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.XlsxDocument.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office.XlsxDocument",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.Office.XlsxDocument.yml\" sourcestartlinenumber=\"1\">Represents a OpenXML XLSX document</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.XlsxOpenXml.BorderStyle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.XlsxOpenXml.BorderStyle.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office.XlsxOpenXml.BorderStyle",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.Office.XlsxOpenXml.BorderStyle.yml\" sourcestartlinenumber=\"1\">Border style enum</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.XlsxOpenXml.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.XlsxOpenXml.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office.XlsxOpenXml",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.Office.XlsxOpenXml.yml\" sourcestartlinenumber=\"1\">Creates an OpenXML XLSX file</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.XlsxStyles.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.XlsxStyles.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office.XlsxStyles",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.Office.XlsxStyles.yml\" sourcestartlinenumber=\"1\">Styles used to format OpenXml XLSX files</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office",
       "Summary": null
     },
     {
@@ -20987,6 +21169,29 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "doc/Bodoconsult.Office/README.md",
+      "output": {
+        ".html": {
+          "relative_path": "doc/Bodoconsult.Office/README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "doc/Bodoconsult.Office/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/Bodoconsult.Office/toc.html"
+        },
+        ".json": {
+          "relative_path": "doc/Bodoconsult.Office/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "doc/Bodoconsult.Pdf/README.md",
       "output": {
         ".html": {
@@ -21296,6 +21501,76 @@
       "output": {
         ".html": {
           "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "licences/lic.md",
+      "output": {
+        ".html": {
+          "relative_path": "licences/lic.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "licences/lic_Bodoconsult.App.Abstractions.md",
+      "output": {
+        ".html": {
+          "relative_path": "licences/lic_Bodoconsult.App.Abstractions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "licences/lic_Bodoconsult.App.Wpf.md",
+      "output": {
+        ".html": {
+          "relative_path": "licences/lic_Bodoconsult.App.Wpf.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "licences/lic_Bodoconsult.Drawing.SkiaSharp.md",
+      "output": {
+        ".html": {
+          "relative_path": "licences/lic_Bodoconsult.Drawing.SkiaSharp.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "licences/lic_Bodoconsult.Drawing.md",
+      "output": {
+        ".html": {
+          "relative_path": "licences/lic_Bodoconsult.Drawing.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "licences/lic_Bodoconsult.I18N.md",
+      "output": {
+        ".html": {
+          "relative_path": "licences/lic_Bodoconsult.I18N.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "licences/lic_Bodoconsult.Text.md",
+      "output": {
+        ".html": {
+          "relative_path": "licences/lic_Bodoconsult.Text.html"
         }
       },
       "version": ""

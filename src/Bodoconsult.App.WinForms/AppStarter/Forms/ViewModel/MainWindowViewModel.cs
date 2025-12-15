@@ -48,6 +48,7 @@ public class MainWindowViewModel : IMainWindowViewModel
     }
 
 
+    /// <summary>Occurs when a property value changes.</summary>
     public event PropertyChangedEventHandler PropertyChanged;
 
     /// <summary>
@@ -87,16 +88,17 @@ public class MainWindowViewModel : IMainWindowViewModel
     /// Current application context
     /// </summary>
     public TaskTrayApplicationContext ApplicationContext { get; set; }
-
-
-
+    
+    /// <summary>
+    /// Implements IPropertyChanged
+    /// </summary>
+    /// <param name="propertyName">Property that has changed</param>
     [NotifyPropertyChangedInvocator]
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
-
-
+    
     /// <summary>
     /// Load the current <see cref="IAppBuilder"/> instance to use
     /// </summary>
@@ -185,7 +187,6 @@ public class MainWindowViewModel : IMainWindowViewModel
 
         OnPropertyChanged(nameof(LogData));
     }
-
 
     /// <summary>
     /// Log data as string to show on UI

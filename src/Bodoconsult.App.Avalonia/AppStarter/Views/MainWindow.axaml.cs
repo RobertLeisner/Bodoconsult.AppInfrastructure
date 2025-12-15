@@ -8,8 +8,14 @@ using Bodoconsult.App.Avalonia.Interfaces;
 
 namespace Bodoconsult.App.Avalonia.AppStarter.Views
 {
+    /// <summary>
+    /// Main app window
+    /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// View model
+        /// </summary>
         public IMainWindowViewModel MainWindowViewModel { get; private set; }
 
         /// <summary>

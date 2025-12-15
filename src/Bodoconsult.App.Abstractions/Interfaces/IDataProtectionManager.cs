@@ -4,6 +4,9 @@ using Bodoconsult.App.Abstractions.Delegates;
 
 namespace Bodoconsult.App.Abstractions.Interfaces;
 
+/// <summary>
+/// Interface for implementing data protection manager
+/// </summary>
 public interface IDataProtectionManager: IDisposable
 {
     /// <summary>

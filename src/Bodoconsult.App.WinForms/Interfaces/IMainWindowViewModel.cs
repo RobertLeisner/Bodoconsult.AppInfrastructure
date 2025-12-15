@@ -7,6 +7,9 @@ using Bodoconsult.App.WinForms.AppStarter.Forms;
 
 namespace Bodoconsult.App.WinForms.Interfaces;
 
+/// <summary>
+/// View model for main WinForms form
+/// </summary>
 public interface IMainWindowViewModel : INotifyPropertyChanged
 {
     /// <summary>

@@ -12,6 +12,9 @@ namespace Bodoconsult.App.Logging.LoggingConfigurators;
 /// </summary>
 public class ConsoleLoggingProviderConfigurator : ILoggerProviderConfigurator
 {
+    /// <summary>
+    /// The name of the section in the appsettings.json file
+    /// </summary>
     public string SectionNameAppSettingsJson => "Console";
 
     /// <summary>

@@ -11,7 +11,9 @@ namespace Bodoconsult.App.Logging;
 /// </summary>
 public class DebugAppLoggerProvider : IDefaultAppLoggerProvider
 {
-
+    /// <summary>
+    /// Default ctor
+    /// </summary>
     public DebugAppLoggerProvider()
     {
         LoggingConfig = new LoggingConfig

@@ -5,6 +5,9 @@ using System.Diagnostics.Tracing;
 
 namespace Bodoconsult.App.Abstractions.Interfaces;
 
+/// <summary>
+/// Interface for basic features of an app event listener
+/// </summary>
 public interface IAppEventListener: IDisposable
 {
     /// <summary>
@@ -16,5 +19,4 @@ public interface IAppEventListener: IDisposable
     /// Stores the log messages for later use
     /// </summary>
     ConcurrentQueue<string> Messages { get; }
-
 }

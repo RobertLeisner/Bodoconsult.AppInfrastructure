@@ -29,10 +29,15 @@ public class GrpcBackgroundServiceAppStarter : Microsoft.Extensions.Hosting.Back
 {
     private readonly IAppLoggerProxy _logger;
 
-    public GrpcBackgroundServiceAppStarter(IAppLoggerProxy logger, IAppBuilder appBilder)
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="logger">Current app logger</param>
+    /// <param name="appBuilder">Current app builder</param>
+    public GrpcBackgroundServiceAppStarter(IAppLoggerProxy logger, IAppBuilder appBuilder)
     {
         _logger = logger;
-        AppBuilder = appBilder;
+        AppBuilder = appBuilder;
         AppBuilder.LoadAppStarterUi( this);
     }
 
@@ -80,11 +85,20 @@ public class GrpcBackgroundServiceAppStarter : Microsoft.Extensions.Hosting.Back
         //AppBuilder.StartApplication();
     }
 
+    /// <summary>
+    /// Show a message and then terminate the app
+    /// </summary>
+    /// <param name="message">Message to show before app termination</param>
+    /// <param name="appTitle">App title to set</param>
     public void TerminateAppWithMessage(string message, string appTitle)
     {
             
     }
 
+    /// <summary>
+    /// Handle an exception raised
+    /// </summary>
+    /// <param name="ex">Exception raised</param>
     public void HandleException(Exception ex)
     {
         throw new NotImplementedException();

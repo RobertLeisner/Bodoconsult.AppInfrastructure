@@ -11,6 +11,9 @@ namespace Bodoconsult.App.Logging.LoggingConfigurators;
 /// </summary>
 public class EventSourceLoggingProviderConfigurator : ILoggerProviderConfigurator
 {
+    /// <summary>
+    /// The name of the section in the appsettings.json file
+    /// </summary>
     public string SectionNameAppSettingsJson => "EventSource";
 
     /// <summary>
@@ -18,6 +21,11 @@ public class EventSourceLoggingProviderConfigurator : ILoggerProviderConfigurato
     /// </summary>
     public IConfigurationSection Section { get; set; }
 
+    /// <summary>
+    /// Add the DI container service used for the current logger provider
+    /// </summary>
+    /// <param name="builder">Current logging builder</param>
+    /// <param name="loggingConfig">Current logging config</param>
     public void AddServices(ILoggingBuilder builder, LoggingConfig loggingConfig)
     {
         builder.AddEventSourceLogger();

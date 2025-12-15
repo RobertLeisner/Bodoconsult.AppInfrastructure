@@ -41,5 +41,8 @@ dotnet nuget push packages\Bodoconsult.Charting.Base.%version%.snupkg --source h
 dotnet nuget push packages\Bodoconsult.Charting.%version%.nupkg --source https://api.nuget.org/v3/index.json
 dotnet nuget push packages\Bodoconsult.Charting.%version%.snupkg --source https://api.nuget.org/v3/index.json
 
+dotnet nuget push packages\Bodoconsult.Office.%version%.nupkg --source https://api.nuget.org/v3/index.json
+dotnet nuget push packages\Bodoconsult.Office.%version%.snupkg --source https://api.nuget.org/v3/index.json
+
 
 pause

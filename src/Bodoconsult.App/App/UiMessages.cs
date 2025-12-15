@@ -9,24 +9,49 @@ namespace Bodoconsult.App;
 /// </summary>
 public static class UiMessages
 {
+    /// <summary>
+    /// Message for app is started and ready for processing workload
+    /// </summary>
     public static string MsgAppIsReady => "App is started and ready for processing workload!";
 
-    public static string MsgServerIsListeningOnPort => "StSys Server is listening on port ";
+    /// <summary>
+    /// Message for app is listening on certain port
+    /// </summary>
+    public static string MsgServerIsListeningOnPort => "App is listening on port ";
 
+    /// <summary>
+    /// Message showing how to stop the app
+    /// </summary>
     public static string MsgHowToShutdownServer => "Press CTRL+C (STRG+C) to stop the app...";
 
+    /// <summary>
+    /// Message for is app stop requested
+    /// </summary>
     public static string Exit => "Do you want to stop the app?";
 
+    /// <summary>
+    /// Message for being sure the app stop should be requested
+    /// </summary>
     public static string ExitForced => "Do you really want to stop the app?";
 
+    /// <summary>
+    /// Stop the app message
+    /// </summary>
     public static string ExitHeader => "Stop the app";
-
+    
+    /// <summary>
+    /// Message for no license found and the app will be terminating in a certain amount of time
+    /// </summary>
     public static string MsgLicenseNotFoundTerminateTime => "License not found. Application will terminate in 5s";
-
-
+    
+    /// <summary>
+    /// Message shown if there is no license and the app will be terminated therefore
+    /// </summary>
     public static string MsgLicenseNotFoundNowTerminate => "License not found. Application will terminate!";
 
-
+    /// <summary>
+    /// Current process ID message
+    /// </summary>
     public static string MsgServerProcessId => "App main process ID: ";
 
     /// <summary>
@@ -43,7 +68,7 @@ public static class UiMessages
             return $"{MsgLicenseNotFoundTerminateTime}:{ex.Message}";
         }
 
-        var msg =  "An error occurs when trying to start application server";
+        const string msg = "An error occurs when trying to start application server";
 
         return $"{msg} {e.InnerException ?? e}: {e.StackTrace}";
     }
@@ -57,17 +82,16 @@ public static class UiMessages
     {
         while (true)
         {
-            if (e == null)
+            switch (e)
             {
-                return null;
+                case null:
+                    return null;
+                case LicenseMissingException ex:
+                    return ex;
+                default:
+                    e = e.InnerException;
+                    break;
             }
-
-            if (e is LicenseMissingException ex)
-            {
-                return ex;
-            }
-
-            e = e.InnerException;
         }
     }
 }

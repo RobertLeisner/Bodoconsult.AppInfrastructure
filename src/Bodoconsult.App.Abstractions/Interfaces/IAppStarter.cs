@@ -24,6 +24,9 @@ public interface IAppStarter : IDisposable
     /// <param name="appTitle">App title to set</param>
     void TerminateAppWithMessage(string message, string appTitle);
 
-
+    /// <summary>
+    /// Handle an exception raised
+    /// </summary>
+    /// <param name="ex">Exception raised</param>
     void HandleException(Exception ex);
 }

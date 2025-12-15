@@ -61,6 +61,8 @@ public class AppEventListener : EventListener, IAppEventListener
     public ConcurrentQueue<string> Messages { get; } = new();
 
 
+    /// <summary>Called for all existing event sources when the event listener is created and when a new event source is attached to the listener.</summary>
+    /// <param name="eventSource">The event source.</param>
     protected override void OnEventSourceCreated(EventSource eventSource)
     {
         if (eventSource == null)
@@ -80,6 +82,8 @@ public class AppEventListener : EventListener, IAppEventListener
         MyEnableEvents();
     }
 
+    /// <summary>Called whenever an event has been written by an event source for which the event listener has enabled events.</summary>
+    /// <param name="eventData">The event arguments that describe the event.</param>
     protected override void OnEventWritten(EventWrittenEventArgs eventData)
     {
 

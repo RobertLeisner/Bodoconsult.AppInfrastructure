@@ -4,6 +4,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace Bodoconsult.App.Abstractions.Interfaces;
 
+/// <summary>
+/// Interface for app configuration provider
+/// </summary>
 public interface IAppConfigurationProvider
 {
     /// <summary>

@@ -17,6 +17,9 @@ public class AppBenchProxy : IAppBenchProxy
 {
     private readonly ILogDataFactory _logDataFactory;
 
+    /// <summary>
+    ///  Current bench logger factory
+    /// </summary>
     public ILoggerFactory LoggerFactory { get; }
 
     private IProducerConsumerQueue<LogData> _logMessages;
