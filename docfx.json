@@ -19,7 +19,7 @@
           "**/*.{md,yml}"
         ],
         "exclude": [
-          "pages/**", "tests/**", "samples/**", "lic.md", "lic_*.md", "**/bin/**", "**/obj/**"
+          "docs/**", "tests/**", "samples/**", "lic.md", "lic_*.md", "**/bin/**", "**/obj/**"
         ]
       }
     ],
@@ -32,7 +32,7 @@
         ]
       }
     ],
-    "output": "pages",
+    "output": "docs",
     "template": [
       "default",
       "modern"

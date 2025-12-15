@@ -20585,537 +20585,537 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.App.Abstractions/README.md",
+      "source_relative_path": "doc/Bodoconsult.App.Abstractions/README.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App.Abstractions/README.html"
+          "relative_path": "doc/Bodoconsult.App.Abstractions/README.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.App.Abstractions/Typography.md",
+      "source_relative_path": "doc/Bodoconsult.App.Abstractions/Typography.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App.Abstractions/Typography.html"
+          "relative_path": "doc/Bodoconsult.App.Abstractions/Typography.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/Bodoconsult.App.Abstractions/toc.yml",
+      "source_relative_path": "doc/Bodoconsult.App.Abstractions/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App.Abstractions/toc.html"
+          "relative_path": "doc/Bodoconsult.App.Abstractions/toc.html"
         },
         ".json": {
-          "relative_path": "docs/Bodoconsult.App.Abstractions/toc.json"
+          "relative_path": "doc/Bodoconsult.App.Abstractions/toc.json"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.App.Avalonia/README.md",
+      "source_relative_path": "doc/Bodoconsult.App.Avalonia/README.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App.Avalonia/README.html"
+          "relative_path": "doc/Bodoconsult.App.Avalonia/README.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/Bodoconsult.App.Avalonia/toc.yml",
+      "source_relative_path": "doc/Bodoconsult.App.Avalonia/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App.Avalonia/toc.html"
+          "relative_path": "doc/Bodoconsult.App.Avalonia/toc.html"
         },
         ".json": {
-          "relative_path": "docs/Bodoconsult.App.Avalonia/toc.json"
+          "relative_path": "doc/Bodoconsult.App.Avalonia/toc.json"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.App.BackgroundService/README.md",
+      "source_relative_path": "doc/Bodoconsult.App.BackgroundService/README.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App.BackgroundService/README.html"
+          "relative_path": "doc/Bodoconsult.App.BackgroundService/README.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/Bodoconsult.App.BackgroundService/toc.yml",
+      "source_relative_path": "doc/Bodoconsult.App.BackgroundService/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App.BackgroundService/toc.html"
+          "relative_path": "doc/Bodoconsult.App.BackgroundService/toc.html"
         },
         ".json": {
-          "relative_path": "docs/Bodoconsult.App.BackgroundService/toc.json"
+          "relative_path": "doc/Bodoconsult.App.BackgroundService/toc.json"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.App.GrpcBackgroundService/README.md",
+      "source_relative_path": "doc/Bodoconsult.App.GrpcBackgroundService/README.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App.GrpcBackgroundService/README.html"
+          "relative_path": "doc/Bodoconsult.App.GrpcBackgroundService/README.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/Bodoconsult.App.GrpcBackgroundService/toc.yml",
+      "source_relative_path": "doc/Bodoconsult.App.GrpcBackgroundService/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App.GrpcBackgroundService/toc.html"
+          "relative_path": "doc/Bodoconsult.App.GrpcBackgroundService/toc.html"
         },
         ".json": {
-          "relative_path": "docs/Bodoconsult.App.GrpcBackgroundService/toc.json"
+          "relative_path": "doc/Bodoconsult.App.GrpcBackgroundService/toc.json"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.App.WinForms/README.md",
+      "source_relative_path": "doc/Bodoconsult.App.WinForms/README.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App.WinForms/README.html"
+          "relative_path": "doc/Bodoconsult.App.WinForms/README.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/Bodoconsult.App.WinForms/toc.yml",
+      "source_relative_path": "doc/Bodoconsult.App.WinForms/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App.WinForms/toc.html"
+          "relative_path": "doc/Bodoconsult.App.WinForms/toc.html"
         },
         ".json": {
-          "relative_path": "docs/Bodoconsult.App.WinForms/toc.json"
+          "relative_path": "doc/Bodoconsult.App.WinForms/toc.json"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.App.Windows/README.md",
+      "source_relative_path": "doc/Bodoconsult.App.Windows/README.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App.Windows/README.html"
+          "relative_path": "doc/Bodoconsult.App.Windows/README.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/Bodoconsult.App.Windows/toc.yml",
+      "source_relative_path": "doc/Bodoconsult.App.Windows/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App.Windows/toc.html"
+          "relative_path": "doc/Bodoconsult.App.Windows/toc.html"
         },
         ".json": {
-          "relative_path": "docs/Bodoconsult.App.Windows/toc.json"
+          "relative_path": "doc/Bodoconsult.App.Windows/toc.json"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.App.Wpf.Documents/README.md",
+      "source_relative_path": "doc/Bodoconsult.App.Wpf.Documents/README.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App.Wpf.Documents/README.html"
+          "relative_path": "doc/Bodoconsult.App.Wpf.Documents/README.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/Bodoconsult.App.Wpf.Documents/toc.yml",
+      "source_relative_path": "doc/Bodoconsult.App.Wpf.Documents/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App.Wpf.Documents/toc.html"
+          "relative_path": "doc/Bodoconsult.App.Wpf.Documents/toc.html"
         },
         ".json": {
-          "relative_path": "docs/Bodoconsult.App.Wpf.Documents/toc.json"
+          "relative_path": "doc/Bodoconsult.App.Wpf.Documents/toc.json"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.App.Wpf/README.md",
+      "source_relative_path": "doc/Bodoconsult.App.Wpf/README.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App.Wpf/README.html"
+          "relative_path": "doc/Bodoconsult.App.Wpf/README.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/Bodoconsult.App.Wpf/toc.yml",
+      "source_relative_path": "doc/Bodoconsult.App.Wpf/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App.Wpf/toc.html"
+          "relative_path": "doc/Bodoconsult.App.Wpf/toc.html"
         },
         ".json": {
-          "relative_path": "docs/Bodoconsult.App.Wpf/toc.json"
+          "relative_path": "doc/Bodoconsult.App.Wpf/toc.json"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.App/AppStartInfrastructure.md",
+      "source_relative_path": "doc/Bodoconsult.App/AppStartInfrastructure.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App/AppStartInfrastructure.html"
+          "relative_path": "doc/Bodoconsult.App/AppStartInfrastructure.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.App/BusinessTransactions.md",
+      "source_relative_path": "doc/Bodoconsult.App/BusinessTransactions.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App/BusinessTransactions.html"
+          "relative_path": "doc/Bodoconsult.App/BusinessTransactions.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.App/ClientNotification.md",
+      "source_relative_path": "doc/Bodoconsult.App/ClientNotification.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App/ClientNotification.html"
+          "relative_path": "doc/Bodoconsult.App/ClientNotification.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.App/Logging.md",
+      "source_relative_path": "doc/Bodoconsult.App/Logging.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App/Logging.html"
+          "relative_path": "doc/Bodoconsult.App/Logging.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.App/Others.md",
+      "source_relative_path": "doc/Bodoconsult.App/Others.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App/Others.html"
+          "relative_path": "doc/Bodoconsult.App/Others.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.App/PerformanceLogging.md",
+      "source_relative_path": "doc/Bodoconsult.App/PerformanceLogging.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App/PerformanceLogging.html"
+          "relative_path": "doc/Bodoconsult.App/PerformanceLogging.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.App/README.md",
+      "source_relative_path": "doc/Bodoconsult.App/README.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App/README.html"
+          "relative_path": "doc/Bodoconsult.App/README.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.App/di.md",
+      "source_relative_path": "doc/Bodoconsult.App/di.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App/di.html"
+          "relative_path": "doc/Bodoconsult.App/di.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/Bodoconsult.App/toc.yml",
+      "source_relative_path": "doc/Bodoconsult.App/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.App/toc.html"
+          "relative_path": "doc/Bodoconsult.App/toc.html"
         },
         ".json": {
-          "relative_path": "docs/Bodoconsult.App/toc.json"
+          "relative_path": "doc/Bodoconsult.App/toc.json"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.Charting.Base/README.md",
+      "source_relative_path": "doc/Bodoconsult.Charting.Base/README.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.Charting.Base/README.html"
+          "relative_path": "doc/Bodoconsult.Charting.Base/README.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/Bodoconsult.Charting.Base/toc.yml",
+      "source_relative_path": "doc/Bodoconsult.Charting.Base/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.Charting.Base/toc.html"
+          "relative_path": "doc/Bodoconsult.Charting.Base/toc.html"
         },
         ".json": {
-          "relative_path": "docs/Bodoconsult.Charting.Base/toc.json"
+          "relative_path": "doc/Bodoconsult.Charting.Base/toc.json"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.Charting/README.md",
+      "source_relative_path": "doc/Bodoconsult.Charting/README.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.Charting/README.html"
+          "relative_path": "doc/Bodoconsult.Charting/README.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/Bodoconsult.Charting/toc.yml",
+      "source_relative_path": "doc/Bodoconsult.Charting/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.Charting/toc.html"
+          "relative_path": "doc/Bodoconsult.Charting/toc.html"
         },
         ".json": {
-          "relative_path": "docs/Bodoconsult.Charting/toc.json"
+          "relative_path": "doc/Bodoconsult.Charting/toc.json"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.Drawing.SkiaSharp/README.md",
+      "source_relative_path": "doc/Bodoconsult.Drawing.SkiaSharp/README.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.Drawing.SkiaSharp/README.html"
+          "relative_path": "doc/Bodoconsult.Drawing.SkiaSharp/README.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/Bodoconsult.Drawing.SkiaSharp/toc.yml",
+      "source_relative_path": "doc/Bodoconsult.Drawing.SkiaSharp/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.Drawing.SkiaSharp/toc.html"
+          "relative_path": "doc/Bodoconsult.Drawing.SkiaSharp/toc.html"
         },
         ".json": {
-          "relative_path": "docs/Bodoconsult.Drawing.SkiaSharp/toc.json"
+          "relative_path": "doc/Bodoconsult.Drawing.SkiaSharp/toc.json"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.Drawing/README.md",
+      "source_relative_path": "doc/Bodoconsult.Drawing/README.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.Drawing/README.html"
+          "relative_path": "doc/Bodoconsult.Drawing/README.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/Bodoconsult.Drawing/toc.yml",
+      "source_relative_path": "doc/Bodoconsult.Drawing/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.Drawing/toc.html"
+          "relative_path": "doc/Bodoconsult.Drawing/toc.html"
         },
         ".json": {
-          "relative_path": "docs/Bodoconsult.Drawing/toc.json"
+          "relative_path": "doc/Bodoconsult.Drawing/toc.json"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.I18N/README.md",
+      "source_relative_path": "doc/Bodoconsult.I18N/README.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.I18N/README.html"
+          "relative_path": "doc/Bodoconsult.I18N/README.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/Bodoconsult.I18N/toc.yml",
+      "source_relative_path": "doc/Bodoconsult.I18N/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.I18N/toc.html"
+          "relative_path": "doc/Bodoconsult.I18N/toc.html"
         },
         ".json": {
-          "relative_path": "docs/Bodoconsult.I18N/toc.json"
+          "relative_path": "doc/Bodoconsult.I18N/toc.json"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.Pdf/README.md",
+      "source_relative_path": "doc/Bodoconsult.Pdf/README.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.Pdf/README.html"
+          "relative_path": "doc/Bodoconsult.Pdf/README.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/Bodoconsult.Pdf/toc.yml",
+      "source_relative_path": "doc/Bodoconsult.Pdf/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.Pdf/toc.html"
+          "relative_path": "doc/Bodoconsult.Pdf/toc.html"
         },
         ".json": {
-          "relative_path": "docs/Bodoconsult.Pdf/toc.json"
+          "relative_path": "doc/Bodoconsult.Pdf/toc.json"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.Test/README.md",
+      "source_relative_path": "doc/Bodoconsult.Test/README.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.Test/README.html"
+          "relative_path": "doc/Bodoconsult.Test/README.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/Bodoconsult.Test/toc.yml",
+      "source_relative_path": "doc/Bodoconsult.Test/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.Test/toc.html"
+          "relative_path": "doc/Bodoconsult.Test/toc.html"
         },
         ".json": {
-          "relative_path": "docs/Bodoconsult.Test/toc.json"
+          "relative_path": "doc/Bodoconsult.Test/toc.json"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.Text.Pdf/README.md",
+      "source_relative_path": "doc/Bodoconsult.Text.Pdf/README.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.Text.Pdf/README.html"
+          "relative_path": "doc/Bodoconsult.Text.Pdf/README.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/Bodoconsult.Text.Pdf/toc.yml",
+      "source_relative_path": "doc/Bodoconsult.Text.Pdf/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.Text.Pdf/toc.html"
+          "relative_path": "doc/Bodoconsult.Text.Pdf/toc.html"
         },
         ".json": {
-          "relative_path": "docs/Bodoconsult.Text.Pdf/toc.json"
+          "relative_path": "doc/Bodoconsult.Text.Pdf/toc.json"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.Text/Documents.md",
+      "source_relative_path": "doc/Bodoconsult.Text/Documents.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.Text/Documents.html"
+          "relative_path": "doc/Bodoconsult.Text/Documents.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Bodoconsult.Text/README.md",
+      "source_relative_path": "doc/Bodoconsult.Text/README.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.Text/README.html"
+          "relative_path": "doc/Bodoconsult.Text/README.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/Bodoconsult.Text/toc.yml",
+      "source_relative_path": "doc/Bodoconsult.Text/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/Bodoconsult.Text/toc.html"
+          "relative_path": "doc/Bodoconsult.Text/toc.html"
         },
         ".json": {
-          "relative_path": "docs/Bodoconsult.Text/toc.json"
+          "relative_path": "doc/Bodoconsult.Text/toc.json"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/getting-started.md",
+      "source_relative_path": "doc/getting-started.md",
       "output": {
         ".html": {
-          "relative_path": "docs/getting-started.html"
+          "relative_path": "doc/getting-started.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/introduction.md",
+      "source_relative_path": "doc/introduction.md",
       "output": {
         ".html": {
-          "relative_path": "docs/introduction.html"
+          "relative_path": "doc/introduction.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/toc.yml",
+      "source_relative_path": "doc/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/toc.html"
+          "relative_path": "doc/toc.html"
         },
         ".json": {
-          "relative_path": "docs/toc.json"
+          "relative_path": "doc/toc.json"
         }
       },
       "version": ""
