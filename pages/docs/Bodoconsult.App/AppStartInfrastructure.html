@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Bodoconsult.App nuget package | Bodoconsult.AppInfrastructure </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Bodoconsult.App nuget package | Bodoconsult.AppInfrastructure ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Bodoconsult/Bodoconsult.AppInfrastructure/blob/main/docs/Bodoconsult.App/AppStartInfrastructure.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="Bodoconsult.AppInfrastructure">
+            Bodoconsult.AppInfrastructure
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="bodoconsultapp-nuget-package">Bodoconsult.App nuget package</h1>
+
+<h1 id="app-start-infrastructure-for-console-and-winforms-apps">App start infrastructure for console and Winforms apps</h1>
+<p>The Bodoconsult.App contains the infrastructure to set up certain types of apps with commonly used features like</p>
+<ul>
+<li>Reading appsettings.json, keep it in memory for later usage and extract connection string and logging settings from it</li>
+<li>Setup a central logger</li>
+<li>Setup DI containers for production and testing environment</li>
+<li>Start the console app and run workload in a separate thread</li>
+<li>Unhandled exception handling</li>
+</ul>
+<p>Bodoconsult.App supports the following MS Windows apps:</p>
+<ul>
+<li>Console app</li>
+<li>WinForms apps (classical WinForms app or service-like app with a very limited WinForms based UI)</li>
+<li>Windows background service</li>
+<li>Windows background service hosting a GRPC server service</li>
+</ul>
+<p>Base classes for app start infrastructure are the</p>
+<ul>
+<li>BaseAppBuilder class for console app,</li>
+<li>BaseWinFormsAppBuilder class for WinForms based projects,</li>
+<li>BaseBackgroundServiceAppBuilder for windows services,</li>
+<li>BaseGrpcBackgroundServiceAppBuilder for windows services hosting a GRPC server service.</li>
+</ul>
+<h2 id="implementation-steps">Implementation steps</h2>
+<h3 id="iappglobals">IAppGlobals</h3>
+<p>Interface IAppGlobals requires basic properties like logging config, central app logger or the DI container used for the app etc. often needed in apps to be implemented:</p>
+<pre><code class="lang-csharp">/// &lt;summary&gt;
+/// Interface for global app settings with lifetime for the whole app lifetime. 
+/// It requires basic properties like logging config, central app logger or the DI container used for the app etc. often needed in apps to be implemented
+/// &lt;/summary&gt;
+public interface IAppGlobals: IDisposable
+{
+
+    /// &lt;summary&gt;
+    /// This event is set if the application is started only as singleton
+    /// &lt;/summary&gt;
+    public EventWaitHandle EventWaitHandle { get; set; }
+
+    /// &lt;summary&gt;
+    /// App start parameter
+    /// &lt;/summary&gt;
+    IAppStartParameter AppStartParameter { get; set; }
+
+    /// &lt;summary&gt;
+    /// Current log data entry factory
+    /// &lt;/summary&gt;
+    ILogDataFactory LogDataFactory { get; set; }
+
+    /// &lt;summary&gt;
+    /// Current logging config
+    /// &lt;/summary&gt;
+    LoggingConfig LoggingConfig { get; set; }
+
+    /// &lt;summary&gt;
+    /// Current app logger. Use this instance only if no DI container is available. Nonetheless, use DiContainer.Get&amp;lt;IAppLoggerProxy&amp;gt; to fetch the default app logger from DI container. Don't forget to load it during DI setup!
+    /// &lt;/summary&gt;
+    IAppLoggerProxy Logger { get; set; }
+
+    /// &lt;summary&gt;
+    /// Current dependency injection (DI) container
+    /// &lt;/summary&gt;
+    DiContainer DiContainer { get; set; }
+
+    /// &lt;summary&gt;
+    /// Delegate called if a fatale app exception has been raised and a message to the UI has to be sent before app terminates
+    /// &lt;/summary&gt;
+    HandleFatalExceptionDelegate HandleFatalExceptionDelegate  { get; set; }
+
+    /// &lt;summary&gt;
+    /// Current app storage connection check instance or null
+    /// &lt;/summary&gt;
+    IAppStorageConnectionCheck AppStorageConnectionCheck { get; set; }
+
+
+    /// &lt;summary&gt;
+    /// Current status message delegate
+    /// &lt;/summary&gt;
+    public StatusMessageDelegate StatusMessageDelegate { get; set; }
+
+    /// &lt;summary&gt;
+    /// Current license management delegate
+    /// &lt;/summary&gt;
+    public LicenseMissingDelegate LicenseMissingDelegate { get; set; }
+
+  }
+</code></pre>
+<p>Using Bodoconsult.App should should first implement a class Globals inheriting from IAppGlobals as a singleton instance class without ctor:</p>
+<pre><code class="lang-csharp">/// &lt;summary&gt;
+/// App global values
+/// &lt;/summary&gt;
+public class Globals : IAppGlobals
+{
+
+    #region Singleton factory
+
+    // Thread-safe implementation of singleton pattern
+    private static Lazy&lt;Globals&gt; _instance;
+
+    /// &lt;summary&gt;
+    /// Get a singleton instance of 
+    /// &lt;/summary&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    public static Globals Instance
+    {
+        get
+        {
+            try
+            {
+                _instance ??= new Lazy&lt;Globals&gt;(() =&gt; new Globals());
+                return _instance.Value;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
+    }
+
+#endregion
+
+    ...
+
+}
+
+</code></pre>
+<p>The properties AppStartParameter and LoggingConfig must have a default value not null.</p>
+<p>For a sample implementation see project WinFormsApp1.</p>
+<h3 id="create-your-own-iappbuilder-instance">Create your own IAppBuilder instance</h3>
+<p>You have to derive a class from one of this base classes and implement the method LoadDiContainerServiceProviderPackage to load a IDiContainerServiceProviderPackage base implementation providing your DI container setup.</p>
+<pre><code class="lang-csharp">
+public class ConsoleApp1AppBuilder: BaseAppBuilder
+{
+    /// &lt;summary&gt;
+    /// Default ctor
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;appGlobals&quot;&gt;Global app settings&lt;/param&gt;
+    public ConsoleApp1AppBuilder(IAppGlobals appGlobals) : base(appGlobals)
+    {
+
+    }
+
+    /// &lt;summary&gt;
+    /// Load the &lt;see cref=&quot;IAppBuilder.DiContainerServiceProviderPackage&quot;/&gt;
+    /// &lt;/summary&gt;
+    public override void LoadDiContainerServiceProviderPackage()
+    {
+        var factory = new ConsoleApp1ProductionDiContainerServiceProviderPackageFactory(AppGlobals);
+        DiContainerServiceProviderPackage = factory.CreateInstance();
+    }
+}
+
+</code></pre>
+<h2 id="using-app-start-infrastructure-for-console-apps">Using app start infrastructure for console apps</h2>
+<p>Here a sample from Program.cs Main() how to setup the console app in project ConsoleApp1. contained in this repo:</p>
+<pre><code class="lang-csharp">
+            var globals = Globals.Instance;
+            globals.LoggingConfig.AddDefaultLoggerProviderConfiguratorsForConsoleApp();
+
+            // Set additional app start parameters as required
+            var param = globals.AppStartParameter;
+            param.AppName = &quot;ConsoleApp1: Demo app&quot;;
+            param.SoftwareTeam = &quot;Robert Leisner&quot;;
+            param.LogoRessourcePath = &quot;ConsoleApp1.Resources.logo.jpg&quot;;
+            param.AppFolderName = &quot;ConsoleApp1&quot;;
+
+            const string performanceToken = &quot;--PERF&quot;;
+
+            if (args.Contains(performanceToken))
+            {
+                param.IsPerformanceLoggingActivated = true;
+            }
+
+            // Now start app buiding process
+            IAppBuilder builder = new ConsoleApp1AppBuilder(globals);
+#if !DEBUG
+            AppDomain.CurrentDomain.UnhandledException += builder.CurrentDomainOnUnhandledException;
+#endif
+
+            // Load basic app metadata
+            builder.LoadBasicSettings(typeof(Program));
+
+            // Process the config file
+            builder.ProcessConfiguration();
+
+            // Now load the globally needed settings
+            builder.LoadGlobalSettings();
+
+            // Write first log entry with default logger
+            Globals.Instance.Logger.LogInformation($&quot;{param.AppName} {param.AppVersion} starts...&quot;);
+            Console.WriteLine(&quot;Logging started...&quot;);
+
+            // App is ready now for doing something
+            Console.WriteLine($&quot;Connection string loaded: {param.DefaultConnectionString}&quot;);
+
+            Console.WriteLine(&quot;&quot;);
+            Console.WriteLine(&quot;&quot;);
+
+            Console.WriteLine($&quot;App name loaded: {param.AppName}&quot;);
+            Console.WriteLine($&quot;App version loaded: {param.AppVersion}&quot;);
+            Console.WriteLine($&quot;App path loaded: {param.AppPath}&quot;);
+
+            Console.WriteLine(&quot;&quot;);
+            Console.WriteLine(&quot;&quot;);
+
+            Console.WriteLine($&quot;Logging config: {ObjectHelper.GetObjectPropertiesAsString(Globals.Instance.LoggingConfig)}&quot;);
+
+            // Prepare the DI container package
+            builder.LoadDiContainerServiceProviderPackage();
+            builder.RegisterDiServices();
+            builder.FinalizeDiContainerSetup();
+
+            // Now finally start the app and wait
+            builder.StartApplication();
+
+            Environment.Exit(0);
+
+</code></pre>
+<p>To run your own workload simply start adjusting method StartApplication in ConsoleApp1Service class.</p>
+<h2 id="loading-app-start-parameters-from-appsettingsjson">Loading app start parameters from appsettings.json</h2>
+<p>Certain properties existing in IAppStartParameters and its implementations can be loaded from appsettings.json at app start.</p>
+<p>See the following example of appsettings.json from project WinFormsApp1 with all possible properties loaded:</p>
+<pre><code class="lang-json">
+{
+  &quot;ConnectionStrings&quot;: {
+    &quot;DefaultConnection&quot;: &quot;Data Source=(LocalDB)\\MSSQLLocalDb;Initial Catalog=XYDatabase;Integrated Security=true;MultipleActiveResultSets=True;App=WinFormsApp1&quot;
+  },
+  &quot;AppStartParameter&quot;: {
+    &quot;AppName&quot;: &quot;Your app name&quot;,
+    &quot;AppFolderName&quot;: &quot;YorAppName&quot;,
+    &quot;Port&quot;: &quot;&quot;,
+    &quot;BackupPath&quot;: &quot;&quot;,
+    &quot;NumberOfBackupsToKeep&quot;: &quot;25&quot;
+  },
+  &quot;Logging&quot;: {
+    &quot;MinimumLogLevel&quot;: &quot;Debug&quot;,
+    &quot;LogLevel&quot;: {
+      &quot;Default&quot;: &quot;Information&quot;,
+      &quot;System&quot;: &quot;Information&quot;,
+      &quot;Microsoft&quot;: &quot;Information&quot;,
+      &quot;Microsoft.EntityFrameworkCore&quot;: &quot;Warning&quot;
+    },
+    &quot;Log4Net&quot;: {
+      &quot;LogLevel&quot;: {
+        &quot;Default&quot;: &quot;Debug&quot;
+      }
+    },
+    &quot;Debug&quot;: {
+      &quot;LogLevel&quot;: {
+        &quot;Default&quot;: &quot;Debug&quot;
+      }
+    },
+    &quot;EventSource&quot;: {
+      &quot;LogLevel&quot;: {
+        &quot;Default&quot;: &quot;Error&quot;
+      }
+    }
+  }
+}
+
+</code></pre>
+<h2 id="load-customer-configuration-properties-from-appsetiingsjson">Load customer configuration properties from appsetiings.json</h2>
+<p>See AvaloniaApp1 project in the repo for full sample srouce code.</p>
+<p>Add a new section to your appsettings.json. See section &quot;DemoSection&quot; with a property &quot;TestProperty&quot; in this example:</p>
+<pre><code class="lang-json">{
+  &quot;ConnectionStrings&quot;: {
+    &quot;DefaultConnection&quot;: &quot;Data Source=(LocalDB)\\MSSQLLocalDb;Initial Catalog=XYDatabase;Integrated Security=true;MultipleActiveResultSets=True;App=WpfApp1&quot;
+  },
+  &quot;DemoSection&quot;: {
+    &quot;TestProperty&quot;: &quot;TestPropertyValueXYZ&quot;
+  },
+  &quot;Logging&quot;: {
+    &quot;MinimumLogLevel&quot;: &quot;Debug&quot;,
+    &quot;LogLevel&quot;: {
+      &quot;Default&quot;: &quot;Information&quot;,
+      &quot;System&quot;: &quot;Information&quot;,
+      &quot;Microsoft&quot;: &quot;Information&quot;,
+      &quot;Microsoft.EntityFrameworkCore&quot;: &quot;Warning&quot;
+    },
+    &quot;Log4Net&quot;: {
+      &quot;LogLevel&quot;: {
+        &quot;Default&quot;: &quot;Debug&quot;
+      }
+    },
+    &quot;Debug&quot;: {
+      &quot;LogLevel&quot;: {
+        &quot;Default&quot;: &quot;Debug&quot;
+      }
+    },
+    &quot;EventSource&quot;: {
+      &quot;LogLevel&quot;: {
+        &quot;Default&quot;: &quot;Error&quot;
+      }
+    }
+  }
+}
+</code></pre>
+<p>Add the properties requested to your IAddGlobals instance - in the sample called Globals -.</p>
+<pre><code class="lang-csharp">/// &lt;summary&gt;
+/// App global values
+/// &lt;/summary&gt;
+public class Globals : IAppGlobals
+{
+
+    ...
+
+    /// &lt;summary&gt;
+    /// A string test property not included in &lt;see cref=&quot;IAppGlobals&quot;/&gt;
+    /// &lt;/summary&gt;
+    public string TestProperty { get; set; }
+}
+</code></pre>
+<p>In your current IAppBuilder instance - in the sample AvaloniaApp1AppBuilder class - create a override for method ProcessConfiguration(). In this method run base.ProcessConfiguration(); first to get the config basically load from appsettings.json. Then you can access the config and process values out of it as requested.</p>
+<pre><code class="lang-csharp">    /// &lt;summary&gt;
+    /// Process the configuration from &lt;see cref=&quot;IAppStartParameter.ConfigFile&quot;/&gt;. Uses the &lt;see cref=&quot;DefaultAppStartProvider&quot;/&gt;.
+    /// &lt;/summary&gt;
+    public override void ProcessConfiguration()
+    {
+        // Load basic config
+        base.ProcessConfiguration();
+
+        // Now get the root comfiguration element
+        var root = AppStartProvider.AppConfigurationProvider.Configuration;
+
+        // Get your derived IAppGlobals instance here to access added properties
+        var globals = (Globals)AppGlobals;
+
+        // Now get the requested config elements out of the root config element
+        globals.TestProperty = root?.GetSection(&quot;DemoSection&quot;)[&quot;TestProperty&quot;];
+    }
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Bodoconsult/Bodoconsult.AppInfrastructure/blob/main/docs/Bodoconsult.App/AppStartInfrastructure.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

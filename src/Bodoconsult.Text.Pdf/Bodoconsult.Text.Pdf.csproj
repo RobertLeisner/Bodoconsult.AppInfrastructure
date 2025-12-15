@@ -15,13 +15,13 @@
 		<RepositoryType>git</RepositoryType>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<RepositoryUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</RepositoryUrl>
+		<RepositoryUrl>https://github.com/Bodoconsult/Bodoconsult.AppInfrastructure</RepositoryUrl>
 
 		<PackageId>Bodoconsult.Text.Pdf</PackageId>
 		<PackageTags>Output structured text PDF</PackageTags>
 		<Description>Enhances Bodoconsult.Text, a simple class for collecting structured text in an app, with an export of the text to PDF. Use library to create simple reports from apps or from unit testing i.e. for auditors or as documentation.</Description>
 		<PackageReleaseNotes>Added API docu and new packages</PackageReleaseNotes>
-		<PackageProjectUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/Bodoconsult/Bodoconsult.AppInfrastructure</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 
 		<IncludeSymbols>true</IncludeSymbols>

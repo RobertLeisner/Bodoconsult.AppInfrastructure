@@ -19,12 +19,12 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 
-		<RepositoryUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</RepositoryUrl>
+		<RepositoryUrl>https://github.com/Bodoconsult/Bodoconsult.AppInfrastructure</RepositoryUrl>
 		<PackageId>Bodoconsult.Charting</PackageId>
 		<PackageTags>Chart database datatable ScottPlot piechart linechart risk return barchart pointchart</PackageTags>
 		<Description>Charting library based on ScottPlot library for easy charting of database data</Description>
 		<PackageReleaseNotes>First draft</PackageReleaseNotes>
-		<PackageProjectUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructures</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/Bodoconsult/Bodoconsult.AppInfrastructures</PackageProjectUrl>
 
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>

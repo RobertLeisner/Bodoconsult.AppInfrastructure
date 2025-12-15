@@ -18,11 +18,11 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 
 		<PackageId>Bodoconsult.Pdf</PackageId>
-		<RepositoryUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</RepositoryUrl>
+		<RepositoryUrl>https://github.com/Bodoconsult/Bodoconsult.AppInfrastructure</RepositoryUrl>
 		<PackageTags>Migradoc;simplify;PDF;creation</PackageTags>
 		<Description>Simplifies creation of PDF files based on MigraDoc</Description>
 		<PackageReleaseNotes>Added API docu and new packages</PackageReleaseNotes>
-		<PackageProjectUrl>https://github.com/RobertLeisner/Bodoconsult.AppInfrastructure</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/Bodoconsult/Bodoconsult.AppInfrastructure</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 
