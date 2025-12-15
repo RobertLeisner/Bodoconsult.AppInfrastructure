@@ -88,7 +88,9 @@
 <h1 id="bodoconsultcharting">Bodoconsult.Charting</h1>
 
 <h1 id="what-does-bodoconsultcharting-library">What does Bodoconsult.Charting library</h1>
-<p>Bodoconsult.Charting is a library for creating charts from database data. The workflow for using the library is generally as follows:</p>
+<p>Bodoconsult.Charting is a library for creating charts from database data. Here a sample chart created with Bodoconsult.Charting:</p>
+<p><img src="../../images/StackedColumn100Chart.png" alt="Sample for stacked column chart 100%"></p>
+<p>The workflow for using the library is generally as follows:</p>
 <ol>
 <li>Getting data as DataTable from a database</li>
 <li>Create a ChartData object to make general settings for the chart and load the data from the DataTable as list of IChartItemData items</li>
@@ -226,7 +228,7 @@
 <h1 id="creating-charts">Creating charts</h1>
 <h2 id="line-chart">Line chart</h2>
 <h3 id="sample-image">Sample image</h3>
-<p><img src="../../images/StackedColumn100Chart.png" alt="Sample for stacked column chart 100%"></p>
+<p><img src="../../images/LineChart.png" alt="Sample for a line chart"></p>
 <h3 id="chart-data">Chart data</h3>
 <p>ChartItemData class</p>
 <pre><code class="lang-csharp">/// &lt;summary&gt;
@@ -716,7 +718,67 @@ x.Export();
 <p><img src="../../images/StackedColumn100Chart.png" alt="Sample for stacked column chart 100%"></p>
 <h2 id="chart-data-5">Chart data</h2>
 <p>ChartItemData class</p>
-<pre><code class="lang-csharp">
+<pre><code class="lang-csharp">/// &lt;summary&gt;
+/// Data items for line charts, stacked bar charts and others.
+/// &lt;/summary&gt;
+public class ChartItemData : IChartItemData
+{
+    /// &lt;summary&gt;
+    /// Value for the x axis
+    /// &lt;/summary&gt;
+    public double XValue { get; set; }
+
+    /// &lt;summary&gt;
+    /// Value for the data series 1
+    /// &lt;/summary&gt;
+    public double YValue1 { get; set; }
+    /// &lt;summary&gt;
+    /// Value for the data series 2
+    /// &lt;/summary&gt;
+    public double YValue2 { get; set; }
+    /// &lt;summary&gt;
+    /// Value for the data series 3
+    /// &lt;/summary&gt;
+    public double YValue3 { get; set; }
+    /// &lt;summary&gt;
+    /// Value for the data series 4
+    /// &lt;/summary&gt;
+    public double YValue4 { get; set; }
+    /// &lt;summary&gt;
+    /// Value for the data series 5
+    /// &lt;/summary&gt;
+    public double YValue5 { get; set; }
+    /// &lt;summary&gt;
+    /// Value for the data series 6
+    /// &lt;/summary&gt;
+    public double YValue6 { get; set; }
+    /// &lt;summary&gt;
+    /// Value for the data series 7
+    /// &lt;/summary&gt;
+    public double YValue7 { get; set; }
+    /// &lt;summary&gt;
+    /// Value for the data series 8
+    /// &lt;/summary&gt;
+    public double YValue8 { get; set; }
+    /// &lt;summary&gt;
+    /// Value for the data series 9
+    /// &lt;/summary&gt;
+    public double YValue9 { get; set; }
+    /// &lt;summary&gt;
+    /// Value for the data series 10
+    /// &lt;/summary&gt;
+    public double YValue10 { get; set; }
+
+    /// &lt;summary&gt;
+    /// Are x axis values dates?
+    /// &lt;/summary&gt;
+    public bool IsDate { get; set; }
+
+    /// &lt;summary&gt;
+    /// Label to show for the item. May be null. If null, the XValue is used as label.
+    /// &lt;/summary&gt;
+    public string Label  { get; set; }
+}
 </code></pre>
 <h2 id="code-5">Code</h2>
 <pre><code class="lang-csharp">const string fileName = @&quot;d:\temp\ScottPlott_Db_StackedColumn100Chart.png&quot;;
