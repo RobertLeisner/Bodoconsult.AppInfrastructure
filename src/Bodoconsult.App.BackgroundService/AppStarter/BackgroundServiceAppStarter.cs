@@ -11,6 +11,11 @@ public class BackgroundServiceAppStarter : Microsoft.Extensions.Hosting.Backgrou
 {
     private readonly IAppLoggerProxy _logger;
 
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="logger">Current app logger</param>
+    /// <param name="appBilder">Current app builder</param>
     public BackgroundServiceAppStarter(IAppLoggerProxy logger, IAppBuilder appBilder)
     {
         _logger = logger;

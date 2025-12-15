@@ -19,10 +19,3 @@ public class PagedEmptyBusinessTransactionRequestData : BaseBusinessTransactionR
     public int PageSize { get; set; }
 
 }
-
-
-public enum TestoutTerminalConfig
-{
-    Alternate,
-    FixedTerminal
-}

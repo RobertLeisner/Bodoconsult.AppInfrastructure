@@ -22,7 +22,12 @@ public class DataProtectionManager : IDataProtectionManager
 
     private readonly List<KeyValuePair<string, string>> _values = new();
 
-
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="dataProtectionService">Current data protection service</param>
+    /// <param name="fileProtectionService">Current file protection service</param>
+    /// <param name="filePath">File path to store the protected data in</param>
     public DataProtectionManager(IDataProtectionService dataProtectionService, IFileProtectionService fileProtectionService, string filePath)
     {
         DataProtectionService = dataProtectionService;

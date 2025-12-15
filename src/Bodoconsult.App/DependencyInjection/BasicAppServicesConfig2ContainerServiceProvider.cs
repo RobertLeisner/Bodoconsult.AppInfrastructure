@@ -27,6 +27,10 @@ public class BasicAppServicesConfig2ContainerServiceProvider : IDiContainerServi
 
     private readonly IAppGlobals _appGlobals;
 
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="appGlobals">Current app globals</param>
     public BasicAppServicesConfig2ContainerServiceProvider(IAppGlobals appGlobals)
     {
         _appGlobals = appGlobals;

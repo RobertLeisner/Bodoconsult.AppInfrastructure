@@ -2,6 +2,9 @@
 
 namespace Bodoconsult.App;
 
+/// <summary>
+/// License missing event args
+/// </summary>
 public class LicenseMissingArgs : EventArgs
 {
     /// <summary>

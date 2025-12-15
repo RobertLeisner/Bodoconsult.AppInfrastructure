@@ -34,12 +34,27 @@ public class BaseGrpcBusinessTransactionReplyMappingService : IGrpcBusinessTrans
 
     // ToDo: JW add unit tests for methods
 
+    /// <summary>
+    /// Add reply mapping container content delegate
+    /// </summary>
+    /// <param name="reply">GRPC reply</param>
+    /// <param name="internalReply">Business gtransaction reply</param>
     protected delegate void AddContainerContentDelegate(BusinessTransactionReply reply, IBusinessTransactionReply internalReply);
 
+    /// <summary>
+    /// Containers
+    /// </summary>
     protected readonly Dictionary<string, AddContainerContentDelegate> Containers = new();
 
+    /// <summary>
+    /// Current app logger
+    /// </summary>
     protected readonly IAppLoggerProxy AppLogger;
 
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="appLogger">Current app logger</param>
     public BaseGrpcBusinessTransactionReplyMappingService(IAppLoggerProxy appLogger)
     {
         AppLogger = appLogger;
@@ -104,7 +119,11 @@ public class BaseGrpcBusinessTransactionReplyMappingService : IGrpcBusinessTrans
         return result;
     }
 
-
+    /// <summary>
+    /// Map a UidListBusinessTransactionReply to a ObjectNamesReply message. Public for unit tests
+    /// </summary>
+    /// <param name="reply">Internal business transaction reply</param>
+    /// <param name="internalReply">GRPC reply</param>
     public void CreateUidListBusinessTransactionReply(BusinessTransactionReply reply, IBusinessTransactionReply internalReply)
     {
         if (internalReply is not UidListBusinessTransactionReply sr)
@@ -123,7 +142,11 @@ public class BaseGrpcBusinessTransactionReplyMappingService : IGrpcBusinessTrans
 
     }
 
-
+    /// <summary>
+    /// Map a DateBusinessTransactionReply to a DateReply message. Public for unit tests
+    /// </summary>
+    /// <param name="reply">Internal business transaction reply</param>
+    /// <param name="internalReply">GRPC reply</param>
     public void CreateDateBusinessTransactionReply(BusinessTransactionReply reply, IBusinessTransactionReply internalReply)
     {
         if (internalReply is not DateBusinessTransactionReply sr)
@@ -139,6 +162,11 @@ public class BaseGrpcBusinessTransactionReplyMappingService : IGrpcBusinessTrans
         reply.ReplyData = Google.Protobuf.WellKnownTypes.Any.Pack(ir);
     }
 
+    /// <summary>
+    /// Map a IntegerBusinessTransactionReply to a IntegerReply message. Public for unit tests
+    /// </summary>
+    /// <param name="reply">Internal business transaction reply</param>
+    /// <param name="internalReply">GRPC reply</param>
     public void CreateIntegerBusinessTransactionReply(BusinessTransactionReply reply, IBusinessTransactionReply internalReply)
     {
         if (internalReply is not IntegerBusinessTransactionReply sr)
@@ -154,7 +182,11 @@ public class BaseGrpcBusinessTransactionReplyMappingService : IGrpcBusinessTrans
         reply.ReplyData = Google.Protobuf.WellKnownTypes.Any.Pack(ir);
     }
 
-
+    /// <summary>
+    /// Map a BoolBusinessTransactionReply to a BoolReply message. Public for unit tests
+    /// </summary>
+    /// <param name="reply">Internal business transaction reply</param>
+    /// <param name="internalReply">GRPC reply</param>
     public void CreateBoolBusinessTransactionReply(BusinessTransactionReply reply, IBusinessTransactionReply internalReply)
     {
         if (internalReply is not BoolBusinessTransactionReply sr)
@@ -170,7 +202,11 @@ public class BaseGrpcBusinessTransactionReplyMappingService : IGrpcBusinessTrans
         reply.ReplyData = Google.Protobuf.WellKnownTypes.Any.Pack(ir);
     }
 
-
+    /// <summary>
+    /// Map a StringBusinessTransactionReply to a StringReply message. Public for unit tests
+    /// </summary>
+    /// <param name="reply">Internal business transaction reply</param>
+    /// <param name="internalReply">GRPC reply</param>
     public void CreateStringBusinessTransactionReply(BusinessTransactionReply reply, IBusinessTransactionReply internalReply)
     {
         if (internalReply is not StringBusinessTransactionReply lr)
@@ -186,6 +222,11 @@ public class BaseGrpcBusinessTransactionReplyMappingService : IGrpcBusinessTrans
         reply.ReplyData = Google.Protobuf.WellKnownTypes.Any.Pack(ir);
     }
 
+    /// <summary>
+    /// Map a ObjectUidBusinessTransactionReply to a ObjectUidReply message. Public for unit tests
+    /// </summary>
+    /// <param name="reply">Internal business transaction reply</param>
+    /// <param name="internalReply">GRPC reply</param>
     public void CreateStringListBusinessTransactionReply(BusinessTransactionReply reply, IBusinessTransactionReply internalReply)
     {
 
@@ -205,6 +246,11 @@ public class BaseGrpcBusinessTransactionReplyMappingService : IGrpcBusinessTrans
         reply.ReplyData = Google.Protobuf.WellKnownTypes.Any.Pack(ir);
     }
 
+    /// <summary>
+    /// Map a ObjectUidBusinessTransactionReply to a ObjectUidReply message. Public for unit tests
+    /// </summary>
+    /// <param name="reply">Internal business transaction reply</param>
+    /// <param name="internalReply">GRPC reply</param>
     public void CreateObjectUidReply(BusinessTransactionReply reply, IBusinessTransactionReply internalReply)
     {
         // Object UID provided

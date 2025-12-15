@@ -17,20 +17,65 @@ public static class MiniDump
     /// </summary>
     public enum MiniDumpTypeEnum
     {
+        /// <summary>
+        /// MiniDumpNormal 
+        /// </summary>
         MiniDumpNormal = 0x00000000,
+        /// <summary>
+        /// MiniDumpWithDataSegs
+        /// </summary>
         MiniDumpWithDataSegs = 0x00000001,
+        /// <summary>
+        /// MiniDumpWithFullMemory
+        /// </summary>
         MiniDumpWithFullMemory = 0x00000002,
+        /// <summary>
+        /// MiniDumpWithHandleData
+        /// </summary>
         MiniDumpWithHandleData = 0x00000004,
+        /// <summary>
+        /// MiniDumpFilterMemory
+        /// </summary>
         MiniDumpFilterMemory = 0x00000008,
+        /// <summary>
+        /// MiniDumpScanMemory
+        /// </summary>
         MiniDumpScanMemory = 0x00000010,
+        /// <summary>
+        /// MiniDumpWithUnloadedModules
+        /// </summary>
         MiniDumpWithUnloadedModules = 0x00000020,
-        MiniDumpWithIndirectlyReferencedMemory = 0x00000040,
+        /// <summary>
+        /// MiniDumpWithIndirectlyReferencedMemory
+        /// </summary>
+         MiniDumpWithIndirectlyReferencedMemory= 0x00000040,
+        /// <summary>
+        /// MiniDumpFilterModulePaths 
+        /// </summary>
         MiniDumpFilterModulePaths = 0x00000080,
+        /// <summary>
+        /// MiniDumpWithProcessThreadData 
+        /// </summary>
         MiniDumpWithProcessThreadData = 0x00000100,
+        /// <summary>
+        /// MiniDumpWithPrivateReadWriteMemory
+        /// </summary>
         MiniDumpWithPrivateReadWriteMemory = 0x00000200,
+        /// <summary>
+        /// MiniDumpWithoutOptionalData
+        /// </summary>
         MiniDumpWithoutOptionalData = 0x00000400,
+        /// <summary>
+        /// MiniDumpWithFullMemoryInfo
+        /// </summary>
         MiniDumpWithFullMemoryInfo = 0x00000800,
+        /// <summary>
+        /// MiniDumpWithThreadInfo
+        /// </summary>
         MiniDumpWithThreadInfo = 0x00001000,
+        /// <summary>
+        /// MiniDumpWithCodeSegs
+        /// </summary>
         MiniDumpWithCodeSegs = 0x00002000
     }
 

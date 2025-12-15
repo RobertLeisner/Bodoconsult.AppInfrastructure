@@ -7,7 +7,9 @@ namespace Bodoconsult.App.Extensions;
 
 // See https://gist.github.com/icanhasjonas/bdacabee5898f3ec91603945847a2e22
 
-
+/// <summary>
+/// Extensions for asny processing
+/// </summary>
 public static class AsyncExtensions
 {
     /// <summary>
@@ -41,6 +43,12 @@ public static class AsyncExtensions
 
         internal CancellationToken CancellationToken;
 
+        /// <summary>
+        /// Get the result
+        /// </summary>
+        /// <returns>nothing</returns>
+        /// <exception cref="OperationCanceledException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         public object GetResult()
         {
             // this is called by compiler generated methods when the
@@ -54,15 +62,16 @@ public static class AsyncExtensions
             throw new InvalidOperationException("The cancellation token has not yet been cancelled.");
         }
 
-        // called by compiler generated/.net internals to check
-        // if the task has completed.
+        /// <summary>
+        /// called by compiler generated/.net internals to check if the task has completed
+        /// </summary>
         public bool IsCompleted => CancellationToken.IsCancellationRequested;
-
-        // The compiler will generate stuff that hooks in
-        // here. We hook those methods directly into the
-        // cancellation token.
-        public void OnCompleted(Action continuation) =>
-            CancellationToken.Register(continuation);
+        
+        /// <summary>
+        /// The compiler will generate stuff that hooks in here. We hook those methods directly into the // cancellation token
+        /// </summary>
+        /// <param name="continuation"></param>
+        public void OnCompleted(Action continuation) => CancellationToken.Register(continuation);
 
         /// <summary>Schedules the continuation action that's invoked when the instance completes.</summary>
         /// <param name="continuation">The action to invoke when the operation completes.</param>

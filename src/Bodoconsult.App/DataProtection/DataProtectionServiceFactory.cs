@@ -4,6 +4,9 @@ using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace Bodoconsult.App.DataProtection;
 
+/// <summary>
+/// Current implementaion of <see cref="IDataProtectionServiceFactory"/> providing a <see cref="DataProtectionService"/> instance
+/// </summary>
 public class DataProtectionServiceFactory : IDataProtectionServiceFactory
 {
     /// <summary>

@@ -2,6 +2,9 @@
 
 namespace Bodoconsult.App.Extensions;
 
+/// <summary>
+/// Extension methods for task management
+/// </summary>
 public static class TaskExtensions
 {
     /// <summary>

@@ -2,21 +2,28 @@
 
 namespace Bodoconsult.App.Helpers;
 
+/// <summary>
+/// Class implements waiting in a non-blocking manner
+/// </summary>
 public static class Wait
     {
-        //Mininum time in mSec waited before execution
-        public static int MinIntervalMills => 1;
+        ///// <summary>
+        ///// Minimum time in mSec waited before execution
+        ///// </summary>
+        //public static int MinIntervalMills => 1;
+        
+        ///// <summary>
+        ///// Maximum time in mSec waited before next execution
+        ///// </summary>
+        //public static int MaxIntervalMills => 100;
 
-        //Maximum time in mSec waited before next execution
-        public static int MaxIntervalMills => 100;
+        ////Maxium time to be waited before timeout
+        //public static int TimeoutInMilliseconds => 1000 * 5;
 
-        //Maxium time to be waited before timeout
-        public static int TimeoutInMilliseconds => 1000 * 5;
-
-        /// <summary>
-        /// The delay time between a check run in <see cref="Until"/>
-        /// </summary>
-        public static int DelayTime { get; set; } = 5;
+        ///// <summary>
+        ///// The delay time between a check run in <see cref="Until"/>
+        ///// </summary>
+        //public static int DelayTime { get; set; } = 5;
 
         //public const int TimeoutInMills = 60 * 1000 * 30;
 
@@ -40,24 +47,20 @@ public static class Wait
                 throw new System.ComponentModel.InvalidEnumArgumentException("The timeout must be a positive value");
             }
 
-            using (var cts = new CancellationTokenSource(timeoutMilliseconds))
+            using var cts = new CancellationTokenSource(timeoutMilliseconds);
+            var token = cts.Token;
+
+            EventWaitHandle waitHandle = new AutoResetEvent(false);
+
+            var wi = new WaitInternal(token, predicate);
+
+            Task.Run(() =>
             {
+                wi.CheckCondition();
+                return true;
+            }, token).ContinueWith(x => waitHandle.Set());
 
-                var token = cts.Token;
-
-                EventWaitHandle waitHandle = new AutoResetEvent(false);
-
-                var wi = new WaitInternal(token, predicate);
-
-                Task.Run(() =>
-                {
-                    wi.CheckCondition();
-                    return true;
-                }, token).ContinueWith(x => waitHandle.Set());
-
-                waitHandle.WaitOne();
-            }
-
+            waitHandle.WaitOne();
 
 
             //// RL: 20230221
@@ -90,16 +93,6 @@ public static class Wait
             return false;
 
         }
-
-
-
-
-
-
-
-
-
-
 
         /// <summary>
         /// Blocks while condition is true or timeout occurs.

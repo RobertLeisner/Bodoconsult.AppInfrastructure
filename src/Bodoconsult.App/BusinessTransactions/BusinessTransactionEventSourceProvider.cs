@@ -11,8 +11,14 @@ namespace Bodoconsult.App.BusinessTransactions;
 /// </summary>
 public class BusinessTransactionEventSourceProvider: IEventSourceProvider
 {
+    /// <summary>
+    /// Event source provider entry string for BT success
+    /// </summary>
     public const string BtmRunBusinessTransactionSuccess = "Btm.RunBusinessTransaction.Success";
 
+    /// <summary>
+    /// Event source provider entry string for BT duration
+    /// </summary>
     public const string BtmRunBusinessTransactionDuration = "Btm.RunBusinessTransaction.Duration";
 
     /// <summary>
