@@ -15,6 +15,9 @@ namespace Bodoconsult.App.Windows.Logging.LoggingConfigurators;
 [SupportedOSPlatform("windows")]
 public class EventLogLoggingProviderConfigurator : ILoggerProviderConfigurator
 {
+    /// <summary>
+    /// The name of the section in the appsettings.json file
+    /// </summary>
     public string SectionNameAppSettingsJson => "EventSource";
 
     /// <summary>

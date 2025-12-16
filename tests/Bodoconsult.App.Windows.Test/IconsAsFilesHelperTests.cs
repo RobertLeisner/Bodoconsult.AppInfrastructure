@@ -19,7 +19,7 @@ public class IconsAsFilesHelperTests
     //}
 
     [Test]
-    public void TestSaveIcons()
+    public void SaveIcons_OfficeDocuments_IconExtracted()
     {
 
         var iconDocx = Path.Combine(TestHelper.OutputPath, "docx.gif");

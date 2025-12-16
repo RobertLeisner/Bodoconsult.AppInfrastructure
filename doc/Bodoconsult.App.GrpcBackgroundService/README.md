@@ -1,4 +1,9 @@
-# What does the library
+Bodoconsult.App.GrpcBackgroundServices
+=====================
+
+# Overview
+
+## What does the library
 
 Bodoconsult.App is a library with basic functionality for multilayered monolithic applications like database based client server apps or windows services. 
 
@@ -8,7 +13,7 @@ It delivers the following main functionality:
 
 1. App start infrastructure for Windows services apps using GRPC
 
-# How to use the library
+## How to use the library
 
 The source code contains NUnit test classes the following source code is extracted from. The samples below show the most helpful use cases for the library.
 
