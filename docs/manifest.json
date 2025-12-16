@@ -3390,7 +3390,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.DataProtection.DataProtectionServiceFactory",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.DataProtection.DataProtectionServiceFactory.yml\" sourcestartlinenumber=\"1\">Current implementaion of <xref href=\"Bodoconsult.App.Abstractions.Interfaces.IDataProtectionServiceFactory\" data-throw-if-not-resolved=\"false\"></xref> providing a <xref href=\"Bodoconsult.App.DataProtection.DataProtectionService\" data-throw-if-not-resolved=\"false\"></xref> instance</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -3768,7 +3768,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Extensions.AsyncExtensions",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Extensions.AsyncExtensions.yml\" sourcestartlinenumber=\"1\">Extensions for asny processing</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -3922,7 +3922,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Extensions.TaskExtensions",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Extensions.TaskExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for task management</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -4244,7 +4244,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.GrpcBackgroundService.BusinessTransactions.BaseGrpcBusinessTransactionReplyMappingService.AddContainerContentDelegate",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.GrpcBackgroundService.BusinessTransactions.BaseGrpcBusinessTransactionReplyMappingService.AddContainerContentDelegate.yml\" sourcestartlinenumber=\"1\">Add reply mapping container content delegate</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -5070,7 +5070,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Helpers.Wait",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Helpers.Wait.yml\" sourcestartlinenumber=\"1\">Class implements waiting in a non-blocking manner</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -5462,7 +5462,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.LicenseMissingArgs",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.LicenseMissingArgs.yml\" sourcestartlinenumber=\"1\">License missing event args</p>\n"
     },
     {
       "type": "ManagedReference",

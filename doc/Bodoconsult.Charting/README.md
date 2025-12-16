@@ -1,7 +1,9 @@
 Bodoconsult.Charting
 ============================
 
-# What does Bodoconsult.Charting library
+# Overview
+
+## What does Bodoconsult.Charting library
 
 Bodoconsult.Charting is a library for creating charts from database data. 
 
@@ -44,7 +46,7 @@ To work properly the DataTable objects must have a certain logical structure dep
 
 >   [Extension methods for charting](#extension-methods-for-charting)
 
-# How to use the library
+## How to use the library
 
 The source code contains NUnit test classes the following source code is extracted from. The samples below show the most helpful use cases for the library.
 
@@ -62,7 +64,7 @@ The following classes are implementing IChartItemData currently:
 
 See the description for each chart type below for the required type of data input.
 
-# Style the charts
+# Styling the charts
 
 Chart styling is based on the class ChartStyle from the library Bodoconsult.App.Abstractions you can download via Nuget. See the following code fragments for how chart styling is done in the test project.
 

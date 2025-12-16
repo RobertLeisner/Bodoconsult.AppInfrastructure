@@ -1,7 +1,9 @@
 Bodoconsult.App
 ================
 
-# What does the library
+# Overview
+
+## What does the library
 
 Bodoconsult.App is a library with basic functionality for multilayered monolithic applications like database based client server apps. 
 It delivers the following main functionality:
@@ -21,7 +23,7 @@ It delivers the following main functionality:
 > [More tools for developers](#more-tools-for-developers)
 
 
-# Prerequisites
+## Prerequisites
 
 If you get an exception "Could not load file or assembly 'Microsoft.Extensions.Logging.Console, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60'. ..." you need to add the following packages to your app.
 
@@ -36,8 +38,7 @@ If you get an exception "Could not load file or assembly 'Microsoft.Extensions.L
 
 During JSON deserialization of appsettings.json this packages are required.
 
-
-# How to use the library
+## How to use the library
 
 The source code contains NUnit test classes the following source code is extracted from. The samples below show the most helpful use cases for the library.
 

@@ -1,73 +1,112 @@
 Bodoconsult.Office
 ===================
 
-# What does the library
+# Overview
 
-Bodoconsult.Office library simplifies creating OpenXml spredsheets (xlsx) for database data in form of System.Data.DataTable objects.
+## What does the library
 
-It was developed with the intention to easily export database data to Excel spreadsheets.
+Bodoconsult.Office library simplifies creating OpenXML spredsheets (XLSX) for database data in form of System.Data.DataTable objects.
 
-# How to use the library
+It was developed with the intention to easily export database data to OpenXML XLSX spreadsheet files for use in Microsoft Excel (R).
 
-The following code samples make usage of repository <https://github.com/RobertLeisner/Bodoconsult.Database> for accessing Microsoft SqlServer database.
-The method GetDataTable used below returns a plain old System.Data.DataTable object.
+For users of older versions of this library: the central classes were renamed starting with package version 1.0.8:
+
+-   Csv => CsvBuilder
+
+-   XslxOpenXml => XslxBuilder
+
+-   ExcelLateBinding => XslxLateBindingBuilder
+
+## How to use the library
 
 The source code contain NUnit test classes, the following source code is extracted from. The samples below show the most helpful use cases for the library.
 
-## Use ExcelLateBinding class
+# Use XlsxBuilder class
 
-The ExcelLateBinding class uses COM late binding to export a DataTable (in the sample code the variable dt) to an Excel spreadsheet.
+The XlsxBuilder class writes the content of a DataTable (in the sample code the variable dt) directly to an OpenXML spreadsheet file.
 
 ``` csharp
+var path = Path.Combine(FileHelper.TempPath, "openxml.xlsx");
 
-            var db = SqlClientConnManager.GetConnManager("Data Source=.\\SQLEXPRESS;Initial Catalog=MediaDb;Integrated Security=True");
-            var dt = db.GetDataTable("select top 1000 * from settings");
+if (File.Exists(path))
+{
+    File.Delete(path);
+}
 
-            var excel = new ExcelLateBinding();
-            excel.Status += ExcelStatus;
-            excel.NewWorkbook();
-            //if (e.ErrorCode != 0) return;
+var dt = TestHelper.GetDataTable("LineChart.xml");
 
-            //excel.NewSheet("Daten");
-            excel.SelectSheetFirst("TransactionData");
-            excel.Header("Test");
-            excel.NumberFormat = "#,##0.000000";
-            excel.FillDataTable(dt, 4, 1);
+var oe = new XlsxBuilder();
+oe.Status += ShowStatus;
+oe.Error += ShowError;
+oe.NumberFormatDouble = "#,##0.000000";
+oe.NewWorkbook(path);
 
-            excel.NewSheet("Daten2");
-            excel.Header("Test2");
-            excel.NumberFormat = "#,##0.00";
-            excel.FillDataTable(dt, 4, 1);
+oe.NewSheet("Daten");
 
-            excel.Dispose();
+oe.SelectRange(1, 1);
+oe.Style = XlsxStyles.Header;
+oe.SetValue("Hallo Welt1");
+			
+oe.FillDataTable(dt, 4, 1);
 
+oe.Quit();
 ```
 
-## Use XlsxOpenXml class
+# Use XlsxLateBindingBuilder class
 
-The XlsxOpenXml class writes the content of a DataTable (in the sample code the variable dt) directly to an OpenXml spreadsheet file.
+The XlsxLateBindingBuilder class uses COM late binding to export a DataTable (in the sample code the variable dt) to an Excel spreadsheet.
 
 ``` csharp
+var dt = TestHelper.GetDataTable("LineChart.xml");
 
-            var db = SqlClientConnManager.GetConnManager("Data Source=.\\SQLEXPRESS;Initial Catalog=MediaDb;Integrated Security=True");
-            var dt = db.GetDataTable("select top 1000 * from settings");
+var excel = new XlsxLateBindingBuilder();
+excel.Status += ShowStatus;
+excel.NewWorkbook();
+//if (e.ErrorCode != 0) return;
 
-            var oe = new XlsxOpenXml();
-            oe.Status += ExcelStatus;
-            oe.Error += ExcelError;
-            oe.NumberFormatDouble = "#,##0.000000";
-            oe.NewWorkbook(path);
+//excel.NewSheet("Daten");
+excel.SelectSheetFirst("TransactionData");
+excel.Header("Test");
+excel.NumberFormat = "#,##0.000000";
+excel.FillDataTable(dt, 4, 1);
 
-            oe.NewSheet("Daten");
+excel.NewSheet("Daten2");
+excel.Header("Test2");
+excel.NumberFormat = "#,##0.00";
+excel.FillDataTable(dt, 4, 1);
 
-            oe.SelectRange(1, 1);
-            oe.Style = XlsxStyles.Header;
-            oe.SetValue("Hallo Welt1");
-			
-            oe.FillDataTable(dt, 4, 1);
+excel.Dispose();
+```
 
-            oe.Quit();
+# Use CsvBuilder class
 
+Use the CsvBuilder class to create CSV formatted data files.
+
+``` csharp
+[Test]
+public void Export_ValidDataTable_FileCreated()
+{
+    // Assert
+    var path = Path.Combine(FileHelper.TempPath, "test.csv");
+
+    if (File.Exists(path))
+    {
+        File.Delete(path);
+    }
+
+    var dt = TestHelper.GetDataTable("LineChart.xml");
+
+    var excel = new CsvBuilder(dt)
+    {
+        FileName = path
+    };
+
+    // Act
+    excel.Export();
+
+    // Assert
+    Assert.That(File.Exists(path));
+}
 ```
 
 # About us

@@ -1,12 +1,16 @@
 Bodoconsult.App.Abstractions
 ================
 
-# What does the library
+# Overview
+
+## What does the library
 
 Bodoconsult.App.Abstractions is a library with providing abstractions for basic functionality for multilayered monolithic applications like database based client server apps. 
 It delivers the following main functionality:
 
+## How to use the library
 
+The source code contains NUnit test classes the following source code is extracted from. The samples below show the most helpful use cases for the library.
 
 # About us
 
