@@ -37,6 +37,11 @@ public class BaseGrpcBusinessTransactionRequestMappingService : IGrpcBusinessTra
 {
     // ToDo: JW add unit tests for methods
 
+    /// <summary>
+    /// Delegate method to create business transaction request data
+    /// </summary>
+    /// <param name="request">Business tramsaction request</param>
+    /// <returns>Internal request data object</returns>
     protected delegate IBusinessTransactionRequestData CreateBusinessTransactionRequestDataDelegate(BusinessTransactionRequest request);
 
     /// <summary>
@@ -49,6 +54,10 @@ public class BaseGrpcBusinessTransactionRequestMappingService : IGrpcBusinessTra
     /// </summary>
     protected readonly IAppLoggerProxy AppLogger;
 
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="appLogger">Current app logger</param>
     public BaseGrpcBusinessTransactionRequestMappingService(IAppLoggerProxy appLogger)
     {
         AppLogger = appLogger;
@@ -70,6 +79,11 @@ public class BaseGrpcBusinessTransactionRequestMappingService : IGrpcBusinessTra
 
     }
 
+    /// <summary>
+    /// Map <see cref="TwoObjectIdRequest"/> to <see cref="TwoObjectIdBusinessTransactionRequestData"/>. Public for unit testing. Do not use directly
+    /// </summary>
+    /// <param name="request">GRPC request data</param>
+    /// <returns>Internal request data</returns>
     public IBusinessTransactionRequestData CreateTwoObjectIdRequest(BusinessTransactionRequest request)
     {
         var o = request.RequestData.Unpack<TwoObjectIdRequest>();
@@ -83,6 +97,11 @@ public class BaseGrpcBusinessTransactionRequestMappingService : IGrpcBusinessTra
         return r1;
     }
 
+    /// <summary>
+    /// Map <see cref="TwoObjectUidRequest"/> to <see cref="TwoObjectGuidBusinessTransactionRequestData"/>. Public for unit testing. Do not use directly
+    /// </summary>
+    /// <param name="request">GRPC request data</param>
+    /// <returns>Internal request data</returns>
     public IBusinessTransactionRequestData CreateTwoObjectUidRequest(BusinessTransactionRequest request)
     {
         var o = request.RequestData.Unpack<TwoObjectUidRequest>();
@@ -96,6 +115,11 @@ public class BaseGrpcBusinessTransactionRequestMappingService : IGrpcBusinessTra
         return r1;
     }
 
+    /// <summary>
+    /// Map <see cref="ObjectNameListRequest"/> to <see cref="ObjectNameListBusinessTransactionRequestData"/>. Public for unit testing. Do not use directly
+    /// </summary>
+    /// <param name="request">GRPC request data</param>
+    /// <returns>Internal request data</returns>
     public IBusinessTransactionRequestData CreateObjectListNameRequest(BusinessTransactionRequest request)
     {
         var o = request.RequestData.Unpack<ObjectNameListRequest>();
@@ -110,6 +134,11 @@ public class BaseGrpcBusinessTransactionRequestMappingService : IGrpcBusinessTra
         return r1;
     }
 
+    /// <summary>
+    /// Map <see cref="ObjectUidListRequest"/> to <see cref="ObjectGuidListBusinessTransactionRequestData"/>. Public for unit testing. Do not use directly
+    /// </summary>
+    /// <param name="request">GRPC request data</param>
+    /// <returns>Internal request data</returns>
     public IBusinessTransactionRequestData CreateObjectUidListRequest(BusinessTransactionRequest request)
     {
         var o = request.RequestData.Unpack<ObjectUidListRequest>();
@@ -124,7 +153,11 @@ public class BaseGrpcBusinessTransactionRequestMappingService : IGrpcBusinessTra
         return ir;
     }
 
-
+    /// <summary>
+    /// Map <see cref="StringRequest"/> to <see cref="StringBusinessTransactionRequestData"/>. Public for unit testing. Do not use directly
+    /// </summary>
+    /// <param name="request">GRPC request data</param>
+    /// <returns>Internal request data</returns>
     IBusinessTransactionRequestData CreateStringRequest(BusinessTransactionRequest request)
     {
         var o = request.RequestData.Unpack<StringRequest>();
@@ -136,13 +169,11 @@ public class BaseGrpcBusinessTransactionRequestMappingService : IGrpcBusinessTra
         return ir;
     }
 
-
-
     /// <summary>
-    /// Create an object name and string request. Public for unit testing. Do not use directly
+    /// Map <see cref="ObjectNameStringRequest"/> to <see cref="ObjectNameStringBusinessTransactionRequestData"/>. Public for unit testing. Do not use directly
     /// </summary>
-    /// <param name="request">Current GRPC request</param>
-    /// <returns>Internal business transaction request</returns>
+    /// <param name="request">GRPC request data</param>
+    /// <returns>Internal request data</returns>
     public IBusinessTransactionRequestData CreateObjectNameStringRequest(BusinessTransactionRequest request)
     {
         var o = request.RequestData.Unpack<ObjectNameStringRequest>();
@@ -156,10 +187,10 @@ public class BaseGrpcBusinessTransactionRequestMappingService : IGrpcBusinessTra
     }
 
     /// <summary>
-    /// Create an object name and string request. Public for unit testing. Do not use directly
+    /// Map <see cref="ObjectIdIntRequest"/> to <see cref="ObjectIdIntBusinessTransactionRequestData"/>. Public for unit testing. Do not use directly
     /// </summary>
-    /// <param name="request">Current GRPC request</param>
-    /// <returns>Internal business transaction request</returns>
+    /// <param name="request">GRPC request data</param>
+    /// <returns>Internal request data</returns>
     public IBusinessTransactionRequestData CreateObjectIdIntRequest(BusinessTransactionRequest request)
     {
         var o = request.RequestData.Unpack<ObjectIdIntRequest>();
@@ -173,10 +204,10 @@ public class BaseGrpcBusinessTransactionRequestMappingService : IGrpcBusinessTra
     }
 
     /// <summary>
-    /// Create an object name and string request. Public for unit testing. Do not use directly
+    /// Map <see cref="ObjectIdStringRequest"/> to <see cref="ObjectIdStringBusinessTransactionRequestData"/>. Public for unit testing. Do not use directly
     /// </summary>
-    /// <param name="request">Current GRPC request</param>
-    /// <returns>Internal business transaction request</returns>
+    /// <param name="request">GRPC request data</param>
+    /// <returns>Internal request data</returns>
     public IBusinessTransactionRequestData CreateObjectIdStringRequest(BusinessTransactionRequest request)
     {
         var o = request.RequestData.Unpack<ObjectIdStringRequest>();
@@ -189,15 +220,11 @@ public class BaseGrpcBusinessTransactionRequestMappingService : IGrpcBusinessTra
         return ir;
     }
 
-
-
-
-
     /// <summary>
-    /// Create an empty request returning a list. Public for unit testing. Do not use directly
+    /// Map <see cref="EmptyListRequest"/> to <see cref="EmptyListBusinessTransactionRequestData"/>. Public for unit testing. Do not use directly
     /// </summary>
-    /// <param name="request">Current GRPC request</param>
-    /// <returns>Internal business transaction request</returns>
+    /// <param name="request">GRPC request data</param>
+    /// <returns>Internal request data</returns>
     public IBusinessTransactionRequestData CreateEmptyListRequest(BusinessTransactionRequest request)
     {
         var o = request.RequestData.Unpack<EmptyListRequest>();
@@ -212,12 +239,11 @@ public class BaseGrpcBusinessTransactionRequestMappingService : IGrpcBusinessTra
     }
 
 
-
     /// <summary>
-    /// Create a request with an object name delivered. Public for unit testing. Do not use directly
+    /// Map <see cref="ObjectNameRequest"/> to <see cref="ObjectNameBusinessTransactionRequestData"/>. Public for unit testing. Do not use directly
     /// </summary>
-    /// <param name="request">Current GRPC request</param>
-    /// <returns>Internal business transaction request</returns>
+    /// <param name="request">GRPC request data</param>
+    /// <returns>Internal request data</returns>
     public IBusinessTransactionRequestData CreateObjectNameRequest(BusinessTransactionRequest request)
     {
         var o = request.RequestData.Unpack<ObjectNameRequest>();
@@ -233,10 +259,10 @@ public class BaseGrpcBusinessTransactionRequestMappingService : IGrpcBusinessTra
 
 
     /// <summary>
-    /// Create a request with an object GUID delivered. Public for unit testing. Do not use directly
+    /// Map <see cref="ObjectUidRequest"/> to <see cref="ObjectGuidBusinessTransactionRequestData"/>. Public for unit testing. Do not use directly
     /// </summary>
-    /// <param name="request">Current GRPC request</param>
-    /// <returns>Internal business transaction request</returns>
+    /// <param name="request">GRPC request data</param>
+    /// <returns>Internal request data</returns>
     private IBusinessTransactionRequestData CreateObjectGuidRequest(BusinessTransactionRequest request)
     {
         var o = request.RequestData.Unpack<ObjectUidRequest>();
@@ -264,10 +290,10 @@ public class BaseGrpcBusinessTransactionRequestMappingService : IGrpcBusinessTra
     }
 
     /// <summary>
-    /// Create a request with an entity ID delivered. Public for unit testing. Do not use directly
+    /// Map <see cref="ObjectIdRequest"/> to <see cref="ObjectIdBusinessTransactionRequestData"/>. Public for unit testing. Do not use directly
     /// </summary>
-    /// <param name="request">Current GRPC request</param>
-    /// <returns>Internal business transaction request</returns>
+    /// <param name="request">GRPC request data</param>
+    /// <returns>Internal request data</returns>
     public IBusinessTransactionRequestData CreateObjectIdRequest(BusinessTransactionRequest request)
     {
         var o = request.RequestData.Unpack<ObjectIdRequest>();
@@ -281,10 +307,10 @@ public class BaseGrpcBusinessTransactionRequestMappingService : IGrpcBusinessTra
     }
 
     /// <summary>
-    /// Create a request with an entity ID delivered. Public for unit testing. Do not use directly
+    /// Map <see cref="ObjectIdListRequest"/> to <see cref="ObjectIdListBusinessTransactionRequestData"/>. Public for unit testing. Do not use directly
     /// </summary>
-    /// <param name="request">Current GRPC request</param>
-    /// <returns>Internal business transaction request</returns>
+    /// <param name="request">GRPC request data</param>
+    /// <returns>Internal request data</returns>
     public IBusinessTransactionRequestData CreateObjectIdListRequest(BusinessTransactionRequest request)
     {
         var o = request.RequestData.Unpack<ObjectIdListRequest>();

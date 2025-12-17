@@ -193,4 +193,14 @@ public static class MeasurementHelper
         var result = twips / TwipsPerInchTypographicPoint * 2.54f;
         return result * CmFactor;
     }
+
+    /// <summary>
+    /// Get EMU from pixel
+    /// </summary>
+    /// <param name="pixels">Pixels</param>
+    /// <returns>EMU value</returns>
+    public static long? GetEmuFromPx(int pixels)
+    {
+        return pixels * 9525;
+    }
 }

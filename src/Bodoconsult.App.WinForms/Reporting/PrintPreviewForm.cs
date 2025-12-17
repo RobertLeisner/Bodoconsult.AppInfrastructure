@@ -8,6 +8,9 @@ using System.Globalization;
 
 namespace Bodoconsult.App.WinForms.Reporting;
 
+/// <summary>
+/// Print preview form code behind
+/// </summary>
 public sealed partial class PrintPreviewForm : Form
 {
 
@@ -23,6 +26,10 @@ public sealed partial class PrintPreviewForm : Form
     //[DefaultValue(0)]
     public int NumberOfPages { get; set; }
 
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="translateDelegate">Delegate for translation</param>
     public PrintPreviewForm(TranslateDelegate translateDelegate)
     {
 
@@ -79,7 +86,9 @@ public sealed partial class PrintPreviewForm : Form
         textBoxPage.Text = (printPreviewControl1.StartPage + 1).ToString();
     }
 
-
+    /// <summary>
+    /// Change the zoom
+    /// </summary>
     public void ChangeZoom()
     {
         try
@@ -94,6 +103,9 @@ public sealed partial class PrintPreviewForm : Form
         textBoxCurrentZoom.Text = Math.Round(printPreviewControl1.Zoom * 100, 0).ToString(CultureInfo.InvariantCulture);
     }
 
+    /// <summary>
+    /// Change the page
+    /// </summary>
     public void PageChange()
     {
         try

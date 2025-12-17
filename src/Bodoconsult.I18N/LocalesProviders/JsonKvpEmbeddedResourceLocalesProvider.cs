@@ -20,7 +20,11 @@ public class JsonKvpEmbeddedResourceLocalesProvider : BaseResourceProvider
     private readonly string _resourceFolder;
 
 
-
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="assembly">Current assembly</param>
+    /// <param name="resourceFolder">Ressource folder name</param>
     public JsonKvpEmbeddedResourceLocalesProvider(Assembly assembly, string resourceFolder)
     {
         _assembly = assembly;
@@ -84,6 +88,9 @@ public class JsonKvpEmbeddedResourceLocalesProvider : BaseResourceProvider
 
         return translations;
     }
+
+    /// <summary>Returns a string that represents the current object.</summary>
+    /// <returns>A string that represents the current object.</returns>
     public override string ToString()
     {
         return $"{GetType().Name}({_resourceFolder})";

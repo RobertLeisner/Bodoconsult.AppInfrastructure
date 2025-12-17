@@ -38,14 +38,14 @@ using Microsoft.Extensions.Logging;
 
 namespace Bodoconsult.App.Logging;
 
+/// <summary>
+/// <see cref="Microsoft.Extensions.Logging.ILogger"/> implementation for Log4Net
+/// </summary>
 public class Log4NetLogger : Microsoft.Extensions.Logging.ILogger
 {
     ////private readonly string _name;
     ////private readonly XmlElement _xmlElement;
     private ILog _log;
-
-
-
 
     #region Ctors
 
@@ -79,8 +79,7 @@ public class Log4NetLogger : Microsoft.Extensions.Logging.ILogger
 
         var plainFileName = fi.Name.Replace(fi.Extension, string.Empty);
 
-        var layout =
-            new PatternLayout("%message%newline");
+        var layout = new PatternLayout("%message%newline");
         var filter = new LevelMatchFilter { LevelToMatch = Level.All };
         filter.ActivateOptions();
 
@@ -143,12 +142,17 @@ public class Log4NetLogger : Microsoft.Extensions.Logging.ILogger
 
         var filePath = Path.Combine(new FileInfo(type.Assembly.Location).DirectoryName, configFileName);
 
-        var xmlElement = Parselog4NetConfigFile(filePath);
+        var xmlElement = ParseLog4NetConfigFile(filePath);
 
         InitLoggerFromXml(name, xmlElement);
 
     }
 
+    /// <summary>
+    /// Ctor to provide XML content to configure the Log4Net logger
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="xmlElement"></param>
     public Log4NetLogger(string name, XmlElement xmlElement)
     {
         InitLoggerFromXml(name, xmlElement);
@@ -169,7 +173,12 @@ public class Log4NetLogger : Microsoft.Extensions.Logging.ILogger
 
 
 
-    public static XmlElement Parselog4NetConfigFile(string filename)
+    /// <summary>
+    /// Parse a Log4Net config file
+    /// </summary>
+    /// <param name="filename">Log4Net config filename</param>
+    /// <returns>XML element</returns>
+    public static XmlElement ParseLog4NetConfigFile(string filename)
     {
         var log4NetConfig = new XmlDocument();
 
@@ -199,11 +208,21 @@ public class Log4NetLogger : Microsoft.Extensions.Logging.ILogger
     }
 
 
+    /// <summary>Begins a logical operation scope.</summary>
+    /// <param name="state">The identifier for the scope.</param>
+    /// <typeparam name="TState">The type of the state to begin scope for.</typeparam>
+    /// <returns>An <see cref="T:System.IDisposable" /> that ends the logical operation scope on dispose.</returns>
     public IDisposable BeginScope<TState>(TState state)
     {
         return null;
     }
 
+    /// <summary>
+    /// Is logging enabled for a certain log level
+    /// </summary>
+    /// <param name="logLevel">Log level</param>
+    /// <returns>True if logging is enabled for the requested log level else false</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Log level not existing</exception>
     public bool IsEnabled(LogLevel logLevel)
     {
         switch (logLevel)
@@ -224,6 +243,13 @@ public class Log4NetLogger : Microsoft.Extensions.Logging.ILogger
         }
     }
 
+    /// <summary>Writes a log entry.</summary>
+    /// <param name="logLevel">Entry will be written on this level.</param>
+    /// <param name="eventId">Id of the event.</param>
+    /// <param name="state">The entry to be written. Can be also an object.</param>
+    /// <param name="exception">The exception related to this entry.</param>
+    /// <param name="formatter">Function to create a <see cref="T:System.String" /> message of the <paramref name="state" /> and <paramref name="exception" />.</param>
+    /// <typeparam name="TState">The type of the object to be written.</typeparam>
     public void Log<TState>(LogLevel logLevel, EventId eventId, TState state,
         Exception exception, Func<TState, Exception, string> formatter)
     {

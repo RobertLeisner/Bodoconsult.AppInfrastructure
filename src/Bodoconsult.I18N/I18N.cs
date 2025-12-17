@@ -73,6 +73,7 @@ public class I18N : II18N
     { }
 
     // PropertyChanged
+    /// <summary>Occurs when a property value changes.</summary>
     public event PropertyChangedEventHandler PropertyChanged;
 
 
@@ -399,7 +400,12 @@ public class I18N : II18N
     }
 
 
-
+    /// <summary>
+    /// Translate the given key. If key is not existing an empty string is returned
+    /// </summary>
+    /// <param name="key">Key to translate</param>
+    /// <param name="args">Optional args</param>
+    /// <returns>Translated key as string</returns>
     public string Translate(string key, params object[] args)
     {
         if (_translations.ContainsKey(key))

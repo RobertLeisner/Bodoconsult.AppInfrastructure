@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>What does the library | Bodoconsult.AppInfrastructure </title>
+      <title>Bodoconsult.App.Windows | Bodoconsult.AppInfrastructure </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="What does the library | Bodoconsult.AppInfrastructure ">
+      <meta name="title" content="Bodoconsult.App.Windows | Bodoconsult.AppInfrastructure ">
       
       
       <link rel="icon" href="../../favicon.ico">
@@ -85,242 +85,172 @@
         </div>
 
         <article data-uid="">
-<h1 id="what-does-the-library">What does the library</h1>
+<h1 id="bodoconsultappwindows">Bodoconsult.App.Windows</h1>
 
-<p>Bodoconsult.Core.Windows provides features related to Microsoft Windows operating system.</p>
+<h1 id="overview">Overview</h1>
+<h2 id="what-does-the-library">What does the library</h2>
+<p>Bodoconsult.App.Windows provides features related to Microsoft Windows operating system.</p>
 <p>Current features are:</p>
-<p>+Icon extraction as bitmap
-+Reading data from url files (get the included link address in file)</p>
-<h1 id="how-to-use-the-library">How to use the library</h1>
+<blockquote>
+<p><a href="#logging-to-os-event-log-via-eventlogloggingproviderconfigurator">Logging to OS event log via EventLogLoggingProviderConfigurator</a></p>
+</blockquote>
+<blockquote>
+<p><a href="#sending-toast-messages-via-windowstoastmessagingservice">Sending TOAST messages via WindowsToastMessagingService</a></p>
+</blockquote>
+<blockquote>
+<p><a href="#using-clipboard-with-clipboard-class">Using clipboard with Clipboard class</a></p>
+</blockquote>
+<blockquote>
+<p><a href="#using-dataprotectionservice-to-protect-sensible-string-data">Using DataProtectionService to protect critical string data</a></p>
+</blockquote>
+<blockquote>
+<p><a href="#using-iconsasfileshelper-to-get-gif-images-from-an-app-icon">Icon extraction as bitmap</a></p>
+</blockquote>
+<blockquote>
+<p><a href="#using-filesystemurl-classes-extract-a-link-address">Reading data from url files (get the included link address in file)</a></p>
+</blockquote>
+<h2 id="how-to-use-the-library">How to use the library</h2>
 <p>The source code contain a NUnit test classes, the following source code is extracted from. The samples below show the most helpful use cases for the library.</p>
-<h2 id="using-filesystemurl-classes-extract-a-link-address">Using FileSystemUrl classes: extract a link address</h2>
-<pre><code>        // Arrange
-        var url = Path.Combine(TestHelper.TestDataPath, &quot;Bodoconsult.url&quot;);
-
-        var fri = new FileInfo(url);
-
-        var urlFile = new FileSystemUrl(fri);
-
-        // Act
-        urlFile.Read();
-
-        // Assert
-        Assert.AreEqual(&quot;http://www.bodoconsult.de/&quot;, urlFile.Url);
-        Assert.AreEqual(&quot;Bodoconsult&quot;, urlFile.Caption);
+<h1 id="logging-to-os-event-log-via-eventlogloggingproviderconfigurator">Logging to OS event log via EventLogLoggingProviderConfigurator</h1>
+<p>With EventLogLoggingProviderConfigurator you can enhance the logging system from Bodoconsult.App based on IAppLoggerProxy with logging to OS event log.</p>
+<pre><code class="lang-csharp">
 </code></pre>
-<h2 id="using-iconsasfileshelper-to-get-gif-images-from-an-app-icon">Using IconsAsFilesHelper to get GIF images from an app icon</h2>
-<pre><code>        var iconDocx = Path.Combine(TestHelper.OutputPath, &quot;docx.gif&quot;);
-        if (File.Exists(iconDocx)) File.Delete(iconDocx);
-
-        var iconXlsx = Path.Combine(TestHelper.OutputPath, &quot;xlsx.gif&quot;);
-        if (File.Exists(iconXlsx)) File.Delete(iconXlsx);
-
-
-        var icons = new IconsAsFilesHelper {IconPath = TestHelper.OutputPath};
-
-        var path = Path.Combine(TestHelper.TestDataPath, &quot;Test.docx&quot;);
-
-        var fri = new FileInfo(path);
-        icons.AddExtension(fri);
-
-
-        path = Path.Combine(TestHelper.TestDataPath, &quot;Test.xlsx&quot;);
-
-        fri = new FileInfo(path);
-        icons.AddExtension(fri);
-
-        icons.SaveIcons();
-
-        Assert.That(File.Exists(iconDocx));
-        Assert.That(File.Exists(iconXlsx));
-</code></pre>
-<h2 id="metadata-services">metadata services</h2>
-<h3 id="dns-via-ad-and-cim">DNS (via AD and CIM)</h3>
-<pre><code>        var pwd = TestHelper.GetSecureString(Password);
-
-        var d = new DnsServer(DomainServer, Domain, UserName, pwd);
-
-        Debug.Print(&quot;DNS structure &quot;+ settings.DomainServer);
-
-        Debug.Print(&quot;DNS domains&quot;);
-        foreach (var domain in d.GetListOfDomains())
-        {
-            Debug.Print(&quot;\t&quot; + domain.Name + &quot; (&quot; + domain.ZoneType+ (domain.ReverseZone ? &quot;, Reverse zone&quot;:&quot;&quot;)+ &quot;)&quot;);
-            //and a list of all the records in the domain:-
-            foreach (var record in d.GetRecordsForDomain(domain.Name))
-            {
-                Debug.Print(&quot;\t\t&quot; + record);
-                //any domains we are primary for we could go and edit the record now!
-            }
-        }
-</code></pre>
-<h3 id="dhcp">DHCP</h3>
-<pre><code>        var dhcpServer = DhcpServer.Connect(dhcpServerName);
-
-        Result.AddHeader1(&quot;DHCP server &quot; + dhcpServerName);
-        Result.AddParagraph(&quot;Domain: &quot;+_domain);
-        Result.AddHeader2(&quot;Basic DHCP Configuration&quot;);
-
-        // Display some configuration
-        Result.AddDefinitionListLine(&quot;Protocol Support:&quot;, dhcpServer.Configuration.ApiProtocolSupport.ToString());
-        Result.AddDefinitionListLine(&quot;Database Name:&quot;, dhcpServer.Configuration.DatabaseName);
-        Result.AddDefinitionListLine(&quot;Database Path:&quot;, dhcpServer.Configuration.DatabasePath);
-
-        // Show all bound interfaces
-        foreach (var binding in dhcpServer.BindingElements)
-        {
-            Result.AddDefinitionListLine(&quot;Binding Interface Id:&quot;, binding.InterfaceGuidId.ToString());
-            Result.AddDefinitionListLine(&quot;Description:&quot;, binding.InterfaceDescription);
-            Result.AddDefinitionListLine(&quot;Adapter Address:&quot;, binding.AdapterPrimaryIpAddress.ToString());
-            Result.AddDefinitionListLine(&quot;Adapter Subnet:&quot;, binding.AdapterSubnetAddress.ToString());
-        }
-
-
-        // Display scope information
-        Result.AddHeader2(&quot;Scope information&quot;);
-        foreach (var scope in dhcpServer.Scopes)
-        {
-            Result.AddHeader3($&quot;Scope '{scope.Name}'&quot;);
-            Result.AddDefinitionListLine(&quot;Address:&quot;, scope.Address.ToString());
-            Result.AddDefinitionListLine(&quot;Mask:&quot;, scope.Mask.ToString());
-            Result.AddDefinitionListLine(&quot;Range:&quot;, scope.IpRange.ToString());
-            Result.AddDefinitionListLine(&quot;State:&quot;, scope.State.ToString());
-
-            var activeClients = scope.Clients
-                .Where(c =&gt; c.AddressState == DhcpServerClientAddressStates.Active);
-
-            Result.AddHeader4(&quot;Client leases&quot;);
-
-            // Display client information
-            foreach (var client in activeClients.OrderBy(x =&gt; x.IpAddress.ToString()))
-            {
-                Result.AddDefinitionListLine(client.IpAddress.ToString(),
-                    $&quot;[{client.HardwareAddress}] {client.Name}, Expires: {client.LeaseExpires}&quot;);
-            }
-
-            Result.AddHeader4(&quot;Reservations&quot;);
-            foreach (var reservation in scope.Reservations.OrderBy(x =&gt; x.IpAddress.ToString()))
-            {
-                Result.AddDefinitionListLine(reservation.IpAddress.ToString(),
-                    $&quot;[{reservation.HardwareAddress}] {reservation.Client.Name}&quot;);
-            }
-
-
-            Result.AddHeader4(&quot;Scope options&quot;);
-            foreach (var optionValue in scope.OptionValues)
-            {
-                var s = string.Empty;
-                foreach (var value in optionValue.Values)
-                {
-                    s += $&quot;{value.Value} [{value.Type}]\r\n&quot;;
-                }
-
-                Result.AddDefinitionListLine($&quot;{optionValue.Option.Name} [{optionValue.OptionId}]:&quot;, s);
-            }
-        }
-</code></pre>
-<h3 id="active-directory-get-general-domain-infos-dhcp-servers-and-all-users-and-groups">Active Directory: get general domain infos, dhcp servers and all users and groups</h3>
-<pre><code>      public AdTree GetAdDomainInfos
-
-        AdTree root = null;
-
-        var buildOuStructure = Task.Factory.StartNew(() =&gt; { root = new AdTree(AdHelper.GetLdapDomainForCurrentUser(), false); });
-
-        buildOuStructure.Wait();
-
-        var domain = root.Domain;
-
-        // Get user data
-        AdHelper.GetUserData(domain);
-
-        Assert.That(root != null);
-
-        Debug.Print(&quot;General AD info&quot;);
-        foreach (var prop in domain.GeneralInfos)
-        {
-            Debug.Print(prop.Key +&quot;: &quot; +prop.Value);
-        }
-
-
-        Debug.Print(&quot;\r\n\r\nDHCP&quot;);
-        foreach (var dhcp in domain.DhcpServers)
-        {
-            Debug.Print(dhcp.Name );
-            Debug.Print(dhcp.DistinguishedName);
-        }
-
-
-        EnumerateTree(root, 0);
-		
-		return root;
-    }
-
-    //(objectCategory=group)
-
-    private void EnumerateTree(AdTree node, int level)
+<h1 id="sending-toast-messages-via-windowstoastmessagingservice">Sending TOAST messages via WindowsToastMessagingService</h1>
+<pre><code class="lang-csharp">[Test]
+public void SendSimpleToastMessage_NotifyRequestRecord_NotificationIsShown()
+{
+    // Arrange 
+    var request = new NotifyRequestRecord
     {
+        Text = &quot;Das ist eine Message&quot;,
+        Title = &quot;Title&quot;
+    };
 
-        var space = string.Empty.PadRight(level * 5);
-        var space1 = string.Empty.PadRight((level + 1) * 5);
-        var space2 = string.Empty.PadRight((level + 2) * 5);
+    var s = new WindowsToastMessagingService();
 
-        Debug.Print(&quot;&quot;);
-        Debug.Print(&quot;&quot;);
-        Debug.Print(space + node.Name);
+    // Act and assert
+    Assert.DoesNotThrow(() =&gt;
+    {
+        s.SendSimpleToastMessage(request);
+    });
+}
+</code></pre>
+<h1 id="using-clipboard-with-clipboard-class">Using clipboard with Clipboard class</h1>
+<pre><code class="lang-csharp">[Test]
+public void TestSetText()
+{
+    // Arrange
+    const string text = &quot;CopyToClipboard&quot;;
 
+    // Act
+    Clipboard.SetText(text);
 
-
-        if (node.Computers.Any())
-        {
-            Debug.Print(space1 + &quot;Computers&quot;);
-
-            foreach (var computer in node.Computers)
-            {
-                Debug.Print(space2 + &quot;Computer: &quot; + computer.Name);
-            }
-        }
-
-        if (node.Users.Any())
-        {
-            Debug.Print(space1 + &quot;Users&quot;);
-
-            foreach (var user in node.Users)
-            {
-                Debug.Print(space2 + &quot;User: &quot; + user.Name);
-
-                foreach (var m in user.MemberOf)
-                {
-                    Debug.Print(space2 + &quot;  &quot;+m.Name);
-                }
-            }
-        }
+    var result = Clipboard.GetText();
 
 
-        if (node.Groups.Any())
-        {
-            Debug.Print(space1 + &quot;Groups&quot;);
+    // Assert
+    Assert.That(result, Is.EqualTo(text));
+}
+</code></pre>
+<h1 id="using-dataprotectionservice-to-protect-sensible-string-data">Using DataProtectionService to protect sensible string data</h1>
+<pre><code class="lang-csharp">[SetUp]
+public void Setup()
+{
+    _service = new DataProtectionService();
+}
 
-            foreach (var group in node.Groups)
-            {
-                Debug.Print(space2 + &quot;Group: &quot; + group.Name + &quot; (&quot;+(AdGroupTypeShort)group.GroupType+&quot;)&quot;);
+[Test]
+public void ProtectUnprotect_CurrentUser_Successful()
+{
+    const string secret = &quot;Test123!&quot;;
 
-                foreach (var m in group.Members)
-                {
-                    Debug.Print(space2 + &quot;  &quot; + m.Name);
-                }
+    _service.CurrentDataProtectionScope = DataProtectionScope.CurrentUser;
 
-            }
-        }
+    //Encrypt the data.
+    var encryptedSecret = _service.ProtectString(secret);
+    Debug.Print($&quot;The encrypted byte array is: {ArrayHelper.GetStringFromArray(encryptedSecret)}&quot;);
 
-        if (node.ChildOUs.Any())
-        {
-            Debug.Print(space1 + &quot;OUs&quot;);
-            foreach (var subNode in node.ChildOUs.OrderBy(x =&gt; x.Name))
-            {
-                EnumerateTree(subNode, level + 2);
-            }
-        }
+    // Decrypt the data and store in a byte array.
+    var originalData = _service.UnprotectString(encryptedSecret);
+    Debug.Print($&quot;The original data is: {originalData}&quot;); 
+
+    Assert.That(originalData, Is.EqualTo(secret));
+}
+
+[Test]
+public void ProtectUnprotect_LocalMachine_Successful()
+{
+    const string secret = &quot;Test123!&quot;;
+
+    _service.CurrentDataProtectionScope = DataProtectionScope.LocalMachine;
+
+    //Encrypt the data.
+    var encryptedSecret = _service.ProtectString(secret);
+    Debug.Print($&quot;The encrypted byte array is: {ArrayHelper.GetStringFromArray(encryptedSecret)}&quot;);
+
+    // Decrypt the data and store in a byte array.
+    var originalData = _service.UnprotectString(encryptedSecret);
+    Debug.Print($&quot;The original data is: {originalData}&quot;);
+
+    Assert.That(originalData, Is.EqualTo(secret));
+}
+``` csharp
+
+</code></pre>
+<h1 id="using-filesystemurl-classes-extract-a-link-address">Using FileSystemUrl classes: extract a link address</h1>
+<pre><code class="lang-csharp">[Test]
+public void TestRead()
+{
+    // Arrange
+    var url = Path.Combine(TestHelper.TestDataPath, &quot;Bodoconsult.url&quot;);
+
+    var fri = new FileInfo(url);
+
+    var urlFile = new FileSystemUrl(fri);
+
+    // Act
+    urlFile.Read();
+
+    // Assert
+    Assert.That(urlFile.Url, Is.EqualTo(&quot;http://www.bodoconsult.de/&quot;));
+    Assert.That(urlFile.Caption, Is.EqualTo(&quot;Bodoconsult&quot;));
+}
+</code></pre>
+<h1 id="using-iconsasfileshelper-to-get-gif-images-from-an-app-icon">Using IconsAsFilesHelper to get GIF images from an app icon</h1>
+<pre><code class="lang-csharp">[Test]
+public void SaveIcons_OfficeDocuments_IconExtracted()
+{
+    var iconDocx = Path.Combine(TestHelper.OutputPath, &quot;docx.gif&quot;);
+    if (File.Exists(iconDocx))
+    {
+        File.Delete(iconDocx);
     }
+
+    var iconXlsx = Path.Combine(TestHelper.OutputPath, &quot;xlsx.gif&quot;);
+    if (File.Exists(iconXlsx))
+    {
+        File.Delete(iconXlsx);
+    }
+
+
+    var icons = new IconsAsFilesHelper {IconPath = TestHelper.OutputPath};
+
+    var path = Path.Combine(TestHelper.TestDataPath, &quot;Test.docx&quot;);
+
+    var fri = new FileInfo(path);
+    icons.AddExtension(fri);
+
+
+    path = Path.Combine(TestHelper.TestDataPath, &quot;Test.xlsx&quot;);
+
+    fri = new FileInfo(path);
+    icons.AddExtension(fri);
+
+    icons.SaveIcons();
+
+    Assert.That(File.Exists(iconDocx));
+    Assert.That(File.Exists(iconXlsx));
+}
 </code></pre>
 <h1 id="about-us">About us</h1>
 <p>Bodoconsult (<a href="http://www.bodoconsult.de">http://www.bodoconsult.de</a>) is a Munich based software development company from Germany.</p>

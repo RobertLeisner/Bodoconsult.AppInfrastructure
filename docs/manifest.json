@@ -4230,7 +4230,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.GrpcBackgroundService.BusinessTransactionServiceImpl",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.GrpcBackgroundService.BusinessTransactionServiceImpl.yml\" sourcestartlinenumber=\"1\">Business transction GRPC service implementation</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -4272,7 +4272,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.GrpcBackgroundService.BusinessTransactions.BaseGrpcBusinessTransactionRequestMappingService.CreateBusinessTransactionRequestDataDelegate",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.GrpcBackgroundService.BusinessTransactions.BaseGrpcBusinessTransactionRequestMappingService.CreateBusinessTransactionRequestDataDelegate.yml\" sourcestartlinenumber=\"1\">Delegate method to create business transaction request data</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -5616,7 +5616,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Logging.Log4NetExtensions",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Logging.Log4NetExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for Log4Net lgging</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -5630,7 +5630,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Logging.Log4NetLogger",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Logging.Log4NetLogger.yml\" sourcestartlinenumber=\"1\"><xref href=\"Microsoft.Extensions.Logging.ILogger\" data-throw-if-not-resolved=\"false\"></xref> implementation for Log4Net</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -5658,7 +5658,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Logging.Log4NetProvider",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Logging.Log4NetProvider.yml\" sourcestartlinenumber=\"1\">Implementation of <xref href=\"Microsoft.Extensions.Logging.ILoggerProvider\" data-throw-if-not-resolved=\"false\"></xref> for Log4Net</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -6442,7 +6442,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.WinForms.Reporting.PrintPreviewForm",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.WinForms.Reporting.PrintPreviewForm.yml\" sourcestartlinenumber=\"1\">Print preview form code behind</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -6498,7 +6498,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Windows.CredentialManager.CredentialAttribute",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Windows.CredentialManager.CredentialAttribute.yml\" sourcestartlinenumber=\"1\">Credential attribute struct</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -6526,7 +6526,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Windows.CredentialManager.CredentialsPrompt",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Windows.CredentialManager.CredentialsPrompt.yml\" sourcestartlinenumber=\"1\">Prompt for asking user for credentials</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -6540,7 +6540,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Windows.CredentialManager.CredentialsPromptResult",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Windows.CredentialManager.CredentialsPromptResult.yml\" sourcestartlinenumber=\"1\">Result of a credential prompt</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -6554,7 +6554,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Windows.CredentialManager.Win32.SafeHandles.CredentialCoTaskSafeHandle",
-      "Summary": null
+      "Summary": ""
     },
     {
       "type": "ManagedReference",
@@ -6652,7 +6652,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Windows.Crypto.Hashing.HashingOptions",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Windows.Crypto.Hashing.HashingOptions.yml\" sourcestartlinenumber=\"1\">Hashing options</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -6666,7 +6666,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Windows.Crypto.Hashing.IPasswordHasher",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Windows.Crypto.Hashing.IPasswordHasher.yml\" sourcestartlinenumber=\"1\">Interface for password hasher implementations</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -6680,7 +6680,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Windows.Crypto.Hashing.PasswordHasher",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Windows.Crypto.Hashing.PasswordHasher.yml\" sourcestartlinenumber=\"1\">Simple class for hashing passwords</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -6764,7 +6764,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Windows.System.FileIcon",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Windows.System.FileIcon.yml\" sourcestartlinenumber=\"1\">Class to extract file icons from file system files</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -6791,8 +6791,8 @@
       "version": "",
       "Uid": null,
       "IsMRef": true,
-      "Title": "Bodoconsult.App.Windows.System.Shell32.Browseinfo",
-      "Summary": null
+      "Title": "Bodoconsult.App.Windows.System.Shell32.BrowseInfo",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Windows.System.Shell32.Browseinfo.yml\" sourcestartlinenumber=\"1\">BrowseInfo</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -6805,8 +6805,8 @@
       "version": "",
       "Uid": null,
       "IsMRef": true,
-      "Title": "Bodoconsult.App.Windows.System.Shell32.Itemidlist",
-      "Summary": null
+      "Title": "Bodoconsult.App.Windows.System.Shell32.ItemIdList",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Windows.System.Shell32.Itemidlist.yml\" sourcestartlinenumber=\"1\">ItemIdList</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -6819,8 +6819,8 @@
       "version": "",
       "Uid": null,
       "IsMRef": true,
-      "Title": "Bodoconsult.App.Windows.System.Shell32.Shfileinfo",
-      "Summary": null
+      "Title": "Bodoconsult.App.Windows.System.Shell32.ShFileInfo",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Windows.System.Shell32.Shfileinfo.yml\" sourcestartlinenumber=\"1\">Struct for file info.\nSee <a href=\"https://learn.microsoft.com/en-us/windows/win32/api/shellapi/ns-shellapi-shfileinfoa\" sourcefile=\"api/Bodoconsult.App.Windows.System.Shell32.Shfileinfo.yml\" sourcestartlinenumber=\"2\">https://learn.microsoft.com/en-us/windows/win32/api/shellapi/ns-shellapi-shfileinfoa</a> for details</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -6833,8 +6833,8 @@
       "version": "",
       "Uid": null,
       "IsMRef": true,
-      "Title": "Bodoconsult.App.Windows.System.Shell32.Shitemid",
-      "Summary": null
+      "Title": "Bodoconsult.App.Windows.System.Shell32.ShItemId",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Windows.System.Shell32.Shitemid.yml\" sourcestartlinenumber=\"1\">ShItemId</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -6848,7 +6848,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.App.Windows.System.Shell32",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.App.Windows.System.Shell32.yml\" sourcestartlinenumber=\"1\">Shell32 WIN API access class</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -10488,7 +10488,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.Core.Windows.System.Clipboard",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.Core.Windows.System.Clipboard.yml\" sourcestartlinenumber=\"1\">Helper class for clipboard handling</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -10838,7 +10838,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.I18N.ErrorMessages",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.I18N.ErrorMessages.yml\" sourcestartlinenumber=\"1\">Error messages used by I18N</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -10866,7 +10866,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.I18N.Helpers.LocaleHelper",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.I18N.Helpers.LocaleHelper.yml\" sourcestartlinenumber=\"1\">Helper class for locale handling</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -11020,7 +11020,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bodoconsult.I18N.LocalesProviders.JsonKvp",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Bodoconsult.I18N.LocalesProviders.JsonKvp.yml\" sourcestartlinenumber=\"1\">I18N JSON key-value-pait</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -11178,6 +11178,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.CsvBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.CsvBuilder.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office.CsvBuilder",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.Office.CsvBuilder.yml\" sourcestartlinenumber=\"1\">Class representing a CSV file. Use it to export database data to a CSV file</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Bodoconsult.Office.ErrorHandler.yml",
       "output": {
         ".html": {
@@ -11248,6 +11262,76 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.Interfaces.BorderStyle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.Interfaces.BorderStyle.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office.Interfaces.BorderStyle",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.Office.Interfaces.BorderStyle.yml\" sourcestartlinenumber=\"1\">Border style enum</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.Interfaces.ErrorHandlerDelegate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.Interfaces.ErrorHandlerDelegate.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office.Interfaces.ErrorHandlerDelegate",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.Office.Interfaces.ErrorHandlerDelegate.yml\" sourcestartlinenumber=\"1\">Delegate for sending error message to UI</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.Interfaces.SpreadsheetStyles.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.Interfaces.SpreadsheetStyles.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office.Interfaces.SpreadsheetStyles",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.Office.Interfaces.SpreadsheetStyles.yml\" sourcestartlinenumber=\"1\">Styles used to format OpenXml XLSX files</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.Interfaces.StatusHandlerDelegate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.Interfaces.StatusHandlerDelegate.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office.Interfaces.StatusHandlerDelegate",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.Office.Interfaces.StatusHandlerDelegate.yml\" sourcestartlinenumber=\"1\">Delegate for sending status message to UI</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.Interfaces.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.Interfaces.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office.Interfaces",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Bodoconsult.Office.StatusHandler.yml",
       "output": {
         ".html": {
@@ -11276,6 +11360,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.XlsxBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.XlsxBuilder.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office.XlsxBuilder",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.Office.XlsxBuilder.yml\" sourcestartlinenumber=\"1\">Creates an OpenXML XLSX file</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Bodoconsult.Office.XlsxDocument.yml",
       "output": {
         ".html": {
@@ -11287,6 +11385,20 @@
       "IsMRef": true,
       "Title": "Bodoconsult.Office.XlsxDocument",
       "Summary": "<p sourcefile=\"api/Bodoconsult.Office.XlsxDocument.yml\" sourcestartlinenumber=\"1\">Represents a OpenXML XLSX document</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Bodoconsult.Office.XlsxLateBindingBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Bodoconsult.Office.XlsxLateBindingBuilder.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Bodoconsult.Office.XlsxLateBindingBuilder",
+      "Summary": "<p sourcefile=\"api/Bodoconsult.Office.XlsxLateBindingBuilder.yml\" sourcestartlinenumber=\"1\">A helper class for late binding Microsoft (R) Excel via COM and creating XLSX spreadsheets</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -21521,6 +21633,16 @@
       "output": {
         ".html": {
           "relative_path": "licences/lic_Bodoconsult.App.Abstractions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "licences/lic_Bodoconsult.App.Windows.md",
+      "output": {
+        ".html": {
+          "relative_path": "licences/lic_Bodoconsult.App.Windows.html"
         }
       },
       "version": ""

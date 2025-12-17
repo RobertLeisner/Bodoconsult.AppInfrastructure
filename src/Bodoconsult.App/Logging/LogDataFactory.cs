@@ -49,6 +49,10 @@ public class LogDataFactory: ILogDataFactory
         return logData;
     }
 
+    /// <summary>
+    /// Reset the logdata entity and give it back to pool
+    /// </summary>
+    /// <param name="logData"></param>
     public void EnqueueInstance(LogData logData)
     {
         logData.Reset();

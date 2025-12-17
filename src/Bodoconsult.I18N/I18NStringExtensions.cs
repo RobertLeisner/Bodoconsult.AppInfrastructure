@@ -38,6 +38,11 @@ public static class I18NStringExtensions
         return s.Length == 1 ? s.ToUpper() : $"{s.Remove(1).ToUpper()}{s[1..]}";
     }
 
+    /// <summary>
+    /// Unescape line breaks
+    /// </summary>
+    /// <param name="str">String to unescape</param>
+    /// <returns>Unescaped string</returns>
     public static string UnescapeLineBreaks(this string str)
         => str
             .Replace("\\r\\n", "\\n")

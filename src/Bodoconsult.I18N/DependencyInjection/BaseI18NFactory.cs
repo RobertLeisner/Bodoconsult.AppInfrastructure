@@ -10,8 +10,10 @@ namespace Bodoconsult.I18N.DependencyInjection;
 public class BaseI18NFactory : II18NFactory
 {
 
+    /// <summary>
+    ///  Current <see cref="II18N"/> instance
+    /// </summary>
     protected II18N I18NInstance;
-
 
     /// <summary>
     /// Default ctor

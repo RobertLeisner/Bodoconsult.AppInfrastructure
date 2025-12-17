@@ -30,8 +30,18 @@ using Microsoft.Extensions.Logging;
 
 namespace Bodoconsult.App.Logging;
 
+/// <summary>
+/// Extension methods for Log4Net lgging
+/// </summary>
 public static class Log4NetExtensions
 {
+    /// <summary>
+    /// Add Log4Net logging to logger factory
+    /// </summary>
+    /// <param name="factory">Current logger factory</param>
+    /// <param name="log4NetConfigFile">Config file to use</param>
+    /// <returns>Logger factory</returns>
+    /// <exception cref="ArgumentNullException">Throws if factory is null</exception>
     public static ILoggerFactory AddLog4Net(this ILoggerFactory factory, string log4NetConfigFile)
     {
         if (factory == null)
@@ -39,14 +49,18 @@ public static class Log4NetExtensions
             throw new ArgumentNullException(nameof(factory));
         }
 
-        using (var p = new Log4NetProvider(log4NetConfigFile))
-        {
-            factory.AddProvider(p);
-        }
+        using var p = new Log4NetProvider(log4NetConfigFile);
+        factory.AddProvider(p);
 
         return factory;
     }
 
+    /// <summary>
+    /// Add Log4Net logging to logger factory
+    /// </summary>
+    /// <param name="factory">Current logger factory</param>
+    /// <returns>Logger factory</returns>
+    /// <exception cref="ArgumentNullException">Throws if factory is null</exception>
     public static ILoggerFactory AddLog4Net(this ILoggerFactory factory)
     {
         if (factory == null)
@@ -59,16 +73,16 @@ public static class Log4NetExtensions
         // ReSharper disable once AssignNullToNotNullAttribute
         s = Path.Combine(new FileInfo(s).DirectoryName, "log4net.config");
 
-        using (var p = new Log4NetProvider(s))
-        {
-            factory.AddProvider(p);
-        }
+        using var p = new Log4NetProvider(s);
+        factory.AddProvider(p);
 
         return factory;
     }
 
 
-    /// <summary>Adds a debug logger named 'Debug' to the factory.</summary>
+    /// <summary>
+    /// Adds a Log4Net logger provider named to the factory
+    /// </summary>
     /// <param name="builder">The extension method argument.</param>
     public static ILoggingBuilder AddLog4Net(this ILoggingBuilder builder)
     {

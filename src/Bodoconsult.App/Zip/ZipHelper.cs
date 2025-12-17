@@ -27,48 +27,43 @@ public static class ZipHelper
             File.Delete(zipPath);
         }
 
-        using (var zipToOpen = new FileStream(zipPath, FileMode.OpenOrCreate))
+        using var zipToOpen = new FileStream(zipPath, FileMode.OpenOrCreate);
+        using var archive = new ZipArchive(zipToOpen, ZipArchiveMode.Update);
+        var dir = new DirectoryInfo(folderPath);
+
+        var files = filter == null ? dir.GetFiles() : dir.GetFiles().Where(s => filter.Contains($"*{s.Extension}"));
+
+        foreach (var file in files)
         {
-            using (var archive = new ZipArchive(zipToOpen, ZipArchiveMode.Update))
+            try
             {
+                archive.CreateEntryFromFile(file.FullName, file.Name);
+            }
+            catch
+            {
+                // First retry
+                Thread.Sleep(33);
 
-                var dir = new DirectoryInfo(folderPath);
-
-                var files = filter == null ? dir.GetFiles() : dir.GetFiles().Where(s => filter.Contains($"*{s.Extension}"));
-
-                foreach (var file in files)
+                try
                 {
+                    archive.CreateEntryFromFile(file.FullName, file.Name);
+                }
+                catch
+                {
+                    // First retry
+                    Thread.Sleep(33);
+
                     try
                     {
                         archive.CreateEntryFromFile(file.FullName, file.Name);
                     }
                     catch
                     {
-                        // First retry
-                        Thread.Sleep(33);
-
-                        try
-                        {
-                            archive.CreateEntryFromFile(file.FullName, file.Name);
-                        }
-                        catch
-                        {
-                            // First retry
-                            Thread.Sleep(33);
-
-                            try
-                            {
-                                archive.CreateEntryFromFile(file.FullName, file.Name);
-                            }
-                            catch
-                            {
-                                // Do nothing
-                            }
-                        }
+                        // Do nothing
                     }
-
                 }
             }
+
         }
     }
 }

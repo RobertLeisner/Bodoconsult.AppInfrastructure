@@ -59,6 +59,13 @@ public class I18NFileLocalesProvider : BaseResourceProvider
         }
     }
 
+    /// <summary>
+    /// Load key value pairs for string translations in a translation dictionary.
+    /// If a key is already contained in the translation dictionary it should not be added again.
+    /// </summary>
+    /// <param name="language">Requested language</param>
+    /// <returns>Translation dictionary with key value pairs in.
+    /// </returns>
     public override IDictionary<string, string> LoadLocaleItem(string language)
     {
         var translations = new Dictionary<string, string>();
@@ -118,6 +125,8 @@ public class I18NFileLocalesProvider : BaseResourceProvider
         return translations;
     }
 
+    /// <summary>Returns a string that represents the current object.</summary>
+    /// <returns>A string that represents the current object.</returns>
     public override string ToString()
     {
         return $"{GetType().Name}({_resourceFolder})";

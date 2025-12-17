@@ -46,11 +46,8 @@ public class IconsAsFilesHelper
 
             if (File.Exists(fileName)) continue;
 
-            using (var i = FileIcon.GetIcon(x.Key))
-            {
-                i.Save(fileName, ImageFormat.Gif);
-
-            }
+            using var i = FileIcon.GetIcon(x.Key);
+            i.Save(fileName, ImageFormat.Gif);
         }
     }
 }

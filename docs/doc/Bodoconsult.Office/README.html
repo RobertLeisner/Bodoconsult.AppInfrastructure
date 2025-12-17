@@ -87,60 +87,96 @@
         <article data-uid="">
 <h1 id="bodoconsultoffice">Bodoconsult.Office</h1>
 
-<h1 id="what-does-the-library">What does the library</h1>
-<p>Bodoconsult.Office library simplifies creating OpenXml spredsheets (xlsx) for database data in form of System.Data.DataTable objects.</p>
-<p>It was developed with the intention to easily export database data to Excel spreadsheets.</p>
-<h1 id="how-to-use-the-library">How to use the library</h1>
-<p>The following code samples make usage of repository <a href="https://github.com/RobertLeisner/Bodoconsult.Database">https://github.com/RobertLeisner/Bodoconsult.Database</a> for accessing Microsoft SqlServer database.
-The method GetDataTable used below returns a plain old System.Data.DataTable object.</p>
+<h1 id="overview">Overview</h1>
+<h2 id="what-does-the-library">What does the library</h2>
+<p>Bodoconsult.Office library simplifies creating OpenXML spredsheets (XLSX) for database data in form of System.Data.DataTable objects.</p>
+<p>It was developed with the intention to easily export database data to OpenXML XLSX spreadsheet files for use in Microsoft Excel (R).</p>
+<p>For users of older versions of this library: the central classes were renamed starting with package version 1.0.8:</p>
+<ul>
+<li><p>Csv =&gt; CsvBuilder</p>
+</li>
+<li><p>XslxOpenXml =&gt; XslxBuilder</p>
+</li>
+<li><p>ExcelLateBinding =&gt; XslxLateBindingBuilder</p>
+</li>
+</ul>
+<h2 id="how-to-use-the-library">How to use the library</h2>
 <p>The source code contain NUnit test classes, the following source code is extracted from. The samples below show the most helpful use cases for the library.</p>
-<h2 id="use-excellatebinding-class">Use ExcelLateBinding class</h2>
-<p>The ExcelLateBinding class uses COM late binding to export a DataTable (in the sample code the variable dt) to an Excel spreadsheet.</p>
-<pre><code class="lang-csharp">
-            var db = SqlClientConnManager.GetConnManager(&quot;Data Source=.\\SQLEXPRESS;Initial Catalog=MediaDb;Integrated Security=True&quot;);
-            var dt = db.GetDataTable(&quot;select top 1000 * from settings&quot;);
+<h1 id="use-xlsxbuilder-class">Use XlsxBuilder class</h1>
+<p>The XlsxBuilder class writes the content of a DataTable (in the sample code the variable dt) directly to an OpenXML spreadsheet file.</p>
+<pre><code class="lang-csharp">var path = Path.Combine(FileHelper.TempPath, &quot;openxml.xlsx&quot;);
 
-            var excel = new ExcelLateBinding();
-            excel.Status += ExcelStatus;
-            excel.NewWorkbook();
-            //if (e.ErrorCode != 0) return;
+if (File.Exists(path))
+{
+    File.Delete(path);
+}
 
-            //excel.NewSheet(&quot;Daten&quot;);
-            excel.SelectSheetFirst(&quot;TransactionData&quot;);
-            excel.Header(&quot;Test&quot;);
-            excel.NumberFormat = &quot;#,##0.000000&quot;;
-            excel.FillDataTable(dt, 4, 1);
+var dt = TestHelper.GetDataTable(&quot;LineChart.xml&quot;);
 
-            excel.NewSheet(&quot;Daten2&quot;);
-            excel.Header(&quot;Test2&quot;);
-            excel.NumberFormat = &quot;#,##0.00&quot;;
-            excel.FillDataTable(dt, 4, 1);
+var oe = new XlsxBuilder();
+oe.Status += ShowStatus;
+oe.Error += ShowError;
+oe.NumberFormatDouble = &quot;#,##0.000000&quot;;
+oe.NewWorkbook(path);
 
-            excel.Dispose();
+oe.NewSheet(&quot;Daten&quot;);
 
-</code></pre>
-<h2 id="use-xlsxopenxml-class">Use XlsxOpenXml class</h2>
-<p>The XlsxOpenXml class writes the content of a DataTable (in the sample code the variable dt) directly to an OpenXml spreadsheet file.</p>
-<pre><code class="lang-csharp">
-            var db = SqlClientConnManager.GetConnManager(&quot;Data Source=.\\SQLEXPRESS;Initial Catalog=MediaDb;Integrated Security=True&quot;);
-            var dt = db.GetDataTable(&quot;select top 1000 * from settings&quot;);
-
-            var oe = new XlsxOpenXml();
-            oe.Status += ExcelStatus;
-            oe.Error += ExcelError;
-            oe.NumberFormatDouble = &quot;#,##0.000000&quot;;
-            oe.NewWorkbook(path);
-
-            oe.NewSheet(&quot;Daten&quot;);
-
-            oe.SelectRange(1, 1);
-            oe.Style = XlsxStyles.Header;
-            oe.SetValue(&quot;Hallo Welt1&quot;);
+oe.SelectRange(1, 1);
+oe.Style = XlsxStyles.Header;
+oe.SetValue(&quot;Hallo Welt1&quot;);
 			
-            oe.FillDataTable(dt, 4, 1);
+oe.FillDataTable(dt, 4, 1);
 
-            oe.Quit();
+oe.Quit();
+</code></pre>
+<h1 id="use-xlsxlatebindingbuilder-class">Use XlsxLateBindingBuilder class</h1>
+<p>The XlsxLateBindingBuilder class uses COM late binding to export a DataTable (in the sample code the variable dt) to an Excel spreadsheet.</p>
+<pre><code class="lang-csharp">var dt = TestHelper.GetDataTable(&quot;LineChart.xml&quot;);
 
+var excel = new XlsxLateBindingBuilder();
+excel.Status += ShowStatus;
+excel.NewWorkbook();
+//if (e.ErrorCode != 0) return;
+
+//excel.NewSheet(&quot;Daten&quot;);
+excel.SelectSheetFirst(&quot;TransactionData&quot;);
+excel.Header(&quot;Test&quot;);
+excel.NumberFormat = &quot;#,##0.000000&quot;;
+excel.FillDataTable(dt, 4, 1);
+
+excel.NewSheet(&quot;Daten2&quot;);
+excel.Header(&quot;Test2&quot;);
+excel.NumberFormat = &quot;#,##0.00&quot;;
+excel.FillDataTable(dt, 4, 1);
+
+excel.Dispose();
+</code></pre>
+<h1 id="use-csvbuilder-class">Use CsvBuilder class</h1>
+<p>Use the CsvBuilder class to create CSV formatted data files.</p>
+<pre><code class="lang-csharp">[Test]
+public void Export_ValidDataTable_FileCreated()
+{
+    // Assert
+    var path = Path.Combine(FileHelper.TempPath, &quot;test.csv&quot;);
+
+    if (File.Exists(path))
+    {
+        File.Delete(path);
+    }
+
+    var dt = TestHelper.GetDataTable(&quot;LineChart.xml&quot;);
+
+    var excel = new CsvBuilder(dt)
+    {
+        FileName = path
+    };
+
+    // Act
+    excel.Export();
+
+    // Assert
+    Assert.That(File.Exists(path));
+}
 </code></pre>
 <h1 id="about-us">About us</h1>
 <p>Bodoconsult (<a href="http://www.bodoconsult.de">http://www.bodoconsult.de</a>) is a Munich based software development company.</p>

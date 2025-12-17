@@ -24,7 +24,11 @@ public class I18NEmbeddedResourceLocalesProvider : BaseResourceProvider
     private readonly string _resourceFolder;
 
 
-
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="assembly">Current assembly</param>
+    /// <param name="resourceFolder">Ressource folder name</param>
     public I18NEmbeddedResourceLocalesProvider(Assembly assembly, string resourceFolder)
     {
         _assembly = assembly;
@@ -125,6 +129,8 @@ public class I18NEmbeddedResourceLocalesProvider : BaseResourceProvider
         return translations;
     }
 
+    /// <summary>Returns a string that represents the current object.</summary>
+    /// <returns>A string that represents the current object.</returns>
     public override string ToString()
     {
         return $"{GetType().Name}({_resourceFolder})";

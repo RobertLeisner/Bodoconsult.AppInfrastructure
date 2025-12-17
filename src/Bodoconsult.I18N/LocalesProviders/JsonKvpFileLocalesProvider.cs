@@ -20,7 +20,11 @@ public class JsonKvpFileLocalesProvider : BaseResourceProvider
     private readonly string _resourceFolder;
 
 
-
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="assembly">Current assembly</param>
+    /// <param name="resourceFolder">Ressource folder name</param>
     public JsonKvpFileLocalesProvider(Assembly assembly, string resourceFolder)
     {
         var dir = new FileInfo(assembly.Location).DirectoryName;
@@ -82,6 +86,10 @@ public class JsonKvpFileLocalesProvider : BaseResourceProvider
 
         return translations;
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public override string ToString()
     {
         return $"{GetType().Name}({_resourceFolder})";

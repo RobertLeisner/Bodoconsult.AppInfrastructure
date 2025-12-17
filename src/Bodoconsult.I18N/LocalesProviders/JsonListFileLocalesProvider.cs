@@ -22,8 +22,11 @@ public class JsonListFileLocalesProvider : BaseResourceProvider
 
     private readonly string _resourceFolder;
 
-
-
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="assembly">Current assembly</param>
+    /// <param name="resourceFolder">Ressource folder name</param>
     public JsonListFileLocalesProvider(Assembly assembly, string resourceFolder)
     {
         var dir = new FileInfo(assembly.Location).DirectoryName;
@@ -32,7 +35,6 @@ public class JsonListFileLocalesProvider : BaseResourceProvider
 
         _resourceFolder = Path.Combine(dir, resourceFolder);
     }
-
 
     /// <summary>
     /// Register all available resource items
@@ -85,6 +87,10 @@ public class JsonListFileLocalesProvider : BaseResourceProvider
 
         return translations;
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public override string ToString()
     {
         return $"{GetType().Name}({_resourceFolder})";

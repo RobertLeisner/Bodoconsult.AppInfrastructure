@@ -11,6 +11,9 @@ using Microsoft.Win32;
 
 namespace Bodoconsult.App.Windows.System;
 
+/// <summary>
+/// Class to extract file icons from file system files
+/// </summary>
 [SupportedOSPlatform("windows")]
 public static class FileIcon
 {
@@ -26,9 +29,6 @@ public static class FileIcon
     /// </summary>
     private static readonly Dictionary<string, Image> Icons = new(50);
 
-
-       
-        
     /// <summary>
     /// Get an icon as <see cref="Image"/> for file
     /// </summary>
@@ -37,31 +37,32 @@ public static class FileIcon
     public static Image GetIcon(string filepath)
     {
         // if specified file path != null and string length > 0 
-        if (filepath != null | filepath.Length != 0)
+        if (filepath == null || string.IsNullOrEmpty(filepath))
         {
-            //get file info of image that can be found with specified filepath
-            var file = new FileInfo(filepath);
-            // get file extension of image
-            var extension = file.Extension.ToLower();
-
-            //if dictionary contains specified file extension -->return extension
-            if (Icons.ContainsKey(extension))
-            {
-                return Icons[extension];
-            }
-            // if specified file extension == .dir --> get and return default folder icon
-            if (extension == ".dir")
-            {
-                GetFolderIcon();
-            }
-            // if specified exttension neither exist in the dictionary nor matchs with default folder icon --> get and return default unknown file icon
-            else
-            {
-                GetFileIcon(filepath);
-            }
-            return GetIcon(extension);
+            return null;
         }
-        return null;
+
+        //get file info of image that can be found with specified filepath
+        var file = new FileInfo(filepath);
+        // get file extension of image
+        var extension = file.Extension.ToLower();
+
+        //if dictionary contains specified file extension -->return extension
+        if (Icons.TryGetValue(extension, out var icon))
+        {
+            return icon;
+        }
+        // if specified file extension == .dir --> get and return default folder icon
+        if (extension == ".dir")
+        {
+            GetFolderIcon();
+        }
+        // if specified exttension neither exist in the dictionary nor matchs with default folder icon --> get and return default unknown file icon
+        else
+        {
+            GetFileIcon(filepath);
+        }
+        return GetIcon(extension);
     }
 
     /// <summary>
@@ -74,7 +75,7 @@ public static class FileIcon
         flags += Shell32.ShgfiLargeicon;
 
         // Get the folder icon from the file information
-        var shfi = new Shell32.Shfileinfo();
+        var shfi = new Shell32.ShFileInfo();
         Shell32.SHGetFileInfo(null,
             Shell32.FileAttributeDirectory,
             ref shfi,
@@ -99,16 +100,40 @@ public static class FileIcon
     {
 
         var extension = Path.GetExtension(filepath);
-        if (extension == null) return;
-
-        var className = Registry.ClassesRoot.OpenSubKey(extension).GetValue("").ToString();
-
-        var server = Registry.ClassesRoot.OpenSubKey($@"{className}\DefaultIcon").GetValue("").ToString();
-
-
-        if (server.Contains(","))
+        if (extension == null)
         {
-            var i = server.IndexOf(",", StringComparison.Ordinal);
+            return;
+        }
+
+        var regKey = Registry.ClassesRoot.OpenSubKey(extension);
+
+        var value = regKey?.GetValue("");
+
+        if (value == null)
+        {
+            return;
+        }
+
+        var className = value.ToString();
+
+        var subRegKey = Registry.ClassesRoot.OpenSubKey($@"{className}\DefaultIcon");
+
+        if (subRegKey == null)
+        {
+            return;
+        }
+
+        value = subRegKey.GetValue("");
+
+        var server = value?.ToString();
+        if (server == null)
+        {
+            return;
+        }
+
+        if (server.Contains(','))
+        {
+            var i = server.IndexOf(',', StringComparison.Ordinal);
 
             var exe = server[..i];
 
@@ -166,10 +191,10 @@ public static class FileIcon
     /// <summary>
     /// Get an icon for a certain extension
     /// </summary>
-    /// <param name="extension"></param>
-    /// <returns></returns>
+    /// <param name="extension">File extension</param>
+    /// <returns>Icon image</returns>
     public static Image GetIconForExtension(string extension)
     {
-        return Icons.ContainsKey(extension) ? Icons[extension] : null;
+        return Icons.GetValueOrDefault(extension);
     }
 }

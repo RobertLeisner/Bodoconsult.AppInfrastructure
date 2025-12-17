@@ -42,7 +42,9 @@ public class Log4NetLoggerFactory : ILoggerFactory
         _logger = null;
     }
 
-
+    /// <summary>
+    /// Filename of the Log4Net logging without path
+    /// </summary>
     public string ConfigFileName { get; set; } = "log4net.config";
 
     /// <summary>

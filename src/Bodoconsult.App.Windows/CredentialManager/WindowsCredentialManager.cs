@@ -30,7 +30,7 @@ public class WindowsCredentialManager : ICredentialManager
         return LoadInternal(targetName, CredentialType.Generic);
     }
 
-    public unsafe ICredentials LoadInternal(string targetName, CredentialType type)
+    private unsafe ICredentials LoadInternal(string targetName, CredentialType type)
     {
 
         WindowsCredentials credential;
@@ -72,7 +72,6 @@ public class WindowsCredentialManager : ICredentialManager
 
         return credential;
     }
-
 
     /// <summary>
     /// Save a credential
@@ -125,7 +124,6 @@ public class WindowsCredentialManager : ICredentialManager
             }
         }
     }
-
 
     /// <summary>
     /// Delete credentials

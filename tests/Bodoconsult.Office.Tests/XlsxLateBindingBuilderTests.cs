@@ -8,6 +8,8 @@ using NUnit.Framework;
 namespace Bodoconsult.Office.Tests;
 
 [TestFixture]
+[NonParallelizable]
+[SingleThreaded]
 [SupportedOSPlatform("windows")]
 public class XlsxLateBindingBuilderTests
 {

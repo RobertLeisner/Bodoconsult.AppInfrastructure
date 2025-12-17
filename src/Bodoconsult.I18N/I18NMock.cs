@@ -50,11 +50,18 @@ public class I18NMock : II18N
     private void NotifyPropertyChanged(string info) =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
 
+    /// <summary>Occurs when a property value changes.</summary>
     public event PropertyChangedEventHandler PropertyChanged;
 
     /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
     public void Dispose() { }
 
+
+    /// <summary>
+    /// Indexer to translate string. Intended for usage with MVVM / WPF / Xamarin
+    /// </summary>
+    /// <param name="key">String key to translate</param>
+    /// <returns>Translated string</returns>
     public string this[string key] => throw new NotImplementedException();
 
     /// <summary>

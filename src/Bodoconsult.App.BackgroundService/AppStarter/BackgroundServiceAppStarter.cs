@@ -70,11 +70,20 @@ public class BackgroundServiceAppStarter : Microsoft.Extensions.Hosting.Backgrou
         AppBuilder.StartApplication();
     }
 
+    /// <summary>
+    /// Show a message and then terminate the app
+    /// </summary>
+    /// <param name="message">Message to show before app termination</param>
+    /// <param name="appTitle">App title to set</param>
     public void TerminateAppWithMessage(string message, string appTitle)
     {
-            
+           // Do nothing 
     }
 
+    /// <summary>
+    /// Handle an exception raised
+    /// </summary>
+    /// <param name="ex">Exception raised</param>
     public void HandleException(Exception ex)
     {
         throw new NotImplementedException();

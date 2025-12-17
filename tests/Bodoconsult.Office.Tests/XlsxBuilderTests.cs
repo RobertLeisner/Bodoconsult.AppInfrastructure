@@ -10,6 +10,8 @@ using NUnit.Framework;
 namespace Bodoconsult.Office.Tests;
 
 [TestFixture]
+[NonParallelizable]
+[SingleThreaded]
 public class XlsxBuilderTests
 {
 

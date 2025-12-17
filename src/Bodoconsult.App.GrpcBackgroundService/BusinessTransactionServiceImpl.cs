@@ -21,6 +21,9 @@ using Grpc.Core;
 
 namespace Bodoconsult.App.GrpcBackgroundService;
 
+/// <summary>
+/// Business transction GRPC service implementation
+/// </summary>
 public class BusinessTransactionServiceImpl : BusinessTransactionService.BusinessTransactionServiceBase
 {
     private readonly IGrpcBusinessTransactionRequestMappingService _requestMappingService;
@@ -28,6 +31,14 @@ public class BusinessTransactionServiceImpl : BusinessTransactionService.Busines
     private readonly IBusinessTransactionManager _businessTransactionManager;
     private readonly IGrpcBusinessTransactionReplyMappingService _replyMappingService;
 
+
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="requestMappingService">Current request mapping service</param>
+    /// <param name="replyMappingService">Current reply mapping service</param>
+    /// <param name="businessTransactionManager">Current business transaction managr instance</param>
+    /// <param name="logger">Current app logger</param>
     public BusinessTransactionServiceImpl(IGrpcBusinessTransactionRequestMappingService requestMappingService, IGrpcBusinessTransactionReplyMappingService replyMappingService, IBusinessTransactionManager businessTransactionManager, IAppLoggerProxy logger)
     {
         _requestMappingService = requestMappingService;
@@ -36,6 +47,12 @@ public class BusinessTransactionServiceImpl : BusinessTransactionService.Busines
         _replyMappingService = replyMappingService;
     }
 
+    /// <summary>
+    /// Start a business transaction
+    /// </summary>
+    /// <param name="request">Current business transaction request</param>
+    /// <param name="context">Current GRPC context</param>
+    /// <returns>Task wit a business transaction reply</returns>
     public override Task<BusinessTransactionReply> StartTransaction(BusinessTransactionRequest request, ServerCallContext context)
     { 
         try
@@ -64,7 +81,5 @@ public class BusinessTransactionServiceImpl : BusinessTransactionService.Busines
 
             return Task.FromResult(reply);
         }
-
     }
-
 }

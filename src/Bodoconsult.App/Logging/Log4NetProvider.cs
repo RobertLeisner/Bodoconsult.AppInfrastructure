@@ -30,13 +30,18 @@ using Microsoft.Extensions.Logging;
 
 namespace Bodoconsult.App.Logging;
 
+/// <summary>
+/// Implementation of <see cref="ILoggerProvider"/> for Log4Net
+/// </summary>
 public class Log4NetProvider : ILoggerProvider
 {
     private readonly string _log4NetConfigFile;
 
     private readonly ConcurrentDictionary<string, Log4NetLogger> _loggers = new();
 
-
+    /// <summary>
+    /// Default ctor
+    /// </summary>
     public Log4NetProvider()
     {
         var s = typeof(Log4NetProvider).Assembly.Location;
@@ -45,12 +50,20 @@ public class Log4NetProvider : ILoggerProvider
         _log4NetConfigFile = s;
     }
 
-
+    /// <summary>
+    /// Ctor with a Log4Net file path to load
+    /// </summary>
+    /// <param name="log4NetConfigFile">Log4Net file path to</param>
     public Log4NetProvider(string log4NetConfigFile)
     {
         _log4NetConfigFile = log4NetConfigFile;
     }
 
+    /// <summary>
+    /// Creates a new <see cref="T:Microsoft.Extensions.Logging.ILogger" /> instance.
+    /// </summary>
+    /// <param name="categoryName">The category name for messages produced by the logger.</param>
+    /// <returns>The instance of <see cref="T:Microsoft.Extensions.Logging.ILogger" /> that was created.</returns>
     public ILogger CreateLogger(string categoryName)
     {
         var impl = CreateLoggerImplementation(categoryName);
@@ -61,12 +74,14 @@ public class Log4NetProvider : ILoggerProvider
         return _loggers.GetOrAdd(categoryName, CreateLoggerImplementation);
     }
 
+    /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
     public void Dispose()
     {
         Dispose(true);
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
     protected virtual void Dispose(bool disposing)
     {
 
@@ -87,7 +102,6 @@ public class Log4NetProvider : ILoggerProvider
         }
     }
 
-
     private Log4NetLogger CreateLoggerImplementation(string name)
     {
         var l = new Log4NetLogger(name, Parselog4NetConfigFile(_log4NetConfigFile));
@@ -105,5 +119,4 @@ public class Log4NetProvider : ILoggerProvider
 
         return log4NetConfig["log4net"];
     }
-
 }

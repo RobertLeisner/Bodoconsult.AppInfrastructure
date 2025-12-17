@@ -36,13 +36,9 @@ public class ZipHandler
             File.Delete(fileName);
         }
 
-        using (var zipToOpen = new FileStream(fileName, FileMode.OpenOrCreate))
-        {
-            using (var archive = new ZipArchive(zipToOpen, ZipArchiveMode.Update))
-            {
-                GenerateZipBase(archive);
-            }
-        }
+        using var zipToOpen = new FileStream(fileName, FileMode.OpenOrCreate);
+        using var archive = new ZipArchive(zipToOpen, ZipArchiveMode.Update);
+        GenerateZipBase(archive);
     }
 
     /// <summary>

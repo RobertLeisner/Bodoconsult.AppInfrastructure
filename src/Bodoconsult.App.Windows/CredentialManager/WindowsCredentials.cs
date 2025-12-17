@@ -2,6 +2,8 @@
 
 // Copyright (c) 2020 Widauer Patrick. All rights reserved.
 
+// https://github.com/a-ctor/WindowsCredentialManager
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -23,6 +23,10 @@ public class WinFormsStarterUi : BaseAppStarterUi
 
     private IMainWindowViewModel _viewModel;
 
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="appBuilder">Current app bilder instance</param>
     public WinFormsStarterUi(IAppBuilder appBuilder) : base(appBuilder)
     {
         ConsoleService = new WinConsoleService();
@@ -109,6 +113,11 @@ public class WinFormsStarterUi : BaseAppStarterUi
         Application.Run(_context);
     }
 
+    /// <summary>
+    /// Show a message and then terminate the app
+    /// </summary>
+    /// <param name="message">Message to show before app termination</param>
+    /// <param name="appTitle">App title to set</param>
     public override void TerminateAppWithMessage(string message, string appTitle)
     {
         MessageBox.Show(message, appTitle);

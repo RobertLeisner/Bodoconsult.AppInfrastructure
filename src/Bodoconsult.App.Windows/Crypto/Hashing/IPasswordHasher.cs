@@ -1,15 +1,17 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-
 namespace Bodoconsult.App.Windows.Crypto.Hashing;
 
+/// <summary>
+/// Interface for password hasher implementations
+/// </summary>
 public interface IPasswordHasher
 {
     /// <summary>
     /// Calculate a hash value for a password (or another string) 
     /// </summary>
-    /// <param name="password"></param>
-    /// <returns></returns>
+    /// <param name="password">Password to hash</param>
+    /// <returns>Hash value for the password</returns>
     string Hash(string password);
 
     /// <summary>

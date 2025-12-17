@@ -9,6 +9,19 @@ internal class MeasurementHelperTests
 {
 
     [Test]
+    public void GetEmuFromPixels_600px_ReturnsDxa()
+    {
+        // Arrange 
+        const int input = 600;
+
+        // Act  
+        var result = MeasurementHelper.GetEmuFromPx(input);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(5715000));
+    }
+
+    [Test]
     public void GetPtFromCm_1cm_ReturnsPt()
     {
         // Arrange 
@@ -19,7 +32,6 @@ internal class MeasurementHelperTests
 
         // Assert
         Assert.That(result, Is.EqualTo(28.3));
-
     }
 
     [Test]
@@ -33,7 +45,6 @@ internal class MeasurementHelperTests
 
         // Assert
         Assert.That(result, Is.EqualTo(2.83));
-
     }
 
     [Test]
@@ -47,7 +58,6 @@ internal class MeasurementHelperTests
 
         // Assert
         Assert.That(result, Is.EqualTo(569));
-
     }
 
 }

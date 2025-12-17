@@ -22,7 +22,7 @@ To work properly the DataTable objects must have a certain logical structure dep
 
 >   [Chart data input](#chart-data-input)
 
->   [Style the charts](#style-the-charts)
+>   [Styling the charts](#styling-the-charts)
 
 >   [Creating charts](#creating-charts)
 

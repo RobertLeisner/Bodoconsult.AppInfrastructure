@@ -33,9 +33,21 @@ namespace Bodoconsult.App.GrpcBackgroundService.App;
 /// </summary>
 public class BaseGrpcBackgroundServiceAppBuilder : BaseAppBuilder
 {
+    /// <summary>
+    /// Current app builder instance
+    /// </summary>
     protected readonly WebApplicationBuilder Builder;
+
+    /// <summary>
+    /// Current GRPC server instance
+    /// </summary>
     protected WebApplication GrpcServer;
 
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="appGlobals">Current app globals</param>
+    /// <param name="args">Current app args from command line</param>
     public BaseGrpcBackgroundServiceAppBuilder(IAppGlobals appGlobals, string[] args) : base(appGlobals)
     {
         // Prepare the service builder instance
@@ -111,5 +123,4 @@ public class BaseGrpcBackgroundServiceAppBuilder : BaseAppBuilder
         ApplicationServer?.StopApplication();
         GrpcServer?.StopAsync();
     }
-
 }

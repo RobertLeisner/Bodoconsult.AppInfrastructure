@@ -24,13 +24,17 @@ public class CsvEmbeddedResourceLocalesProvider : BaseResourceProvider
     private readonly string _resourceFolder;
 
 
-
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="assembly">Current assembly</param>
+    /// <param name="resourceFolder">Ressource folder name</param>
     public CsvEmbeddedResourceLocalesProvider(Assembly assembly, string resourceFolder)
     {
         _assembly = assembly;
         _resourceFolder = resourceFolder;
 
-        if (!_resourceFolder.EndsWith("."))
+        if (!_resourceFolder.EndsWith('.'))
         {
             _resourceFolder += ".";
         }
@@ -42,7 +46,6 @@ public class CsvEmbeddedResourceLocalesProvider : BaseResourceProvider
     /// </summary>
     public override void RegisterLocalesItems()
     {
-
 
         var len = _resourceFolder.Length;
 
@@ -133,6 +136,8 @@ public class CsvEmbeddedResourceLocalesProvider : BaseResourceProvider
         return translations;
     }
 
+    /// <summary>Returns a string that represents the current object.</summary>
+    /// <returns>A string that represents the current object.</returns>
     public override string ToString()
     {
         return $"{GetType().Name}({_resourceFolder})";

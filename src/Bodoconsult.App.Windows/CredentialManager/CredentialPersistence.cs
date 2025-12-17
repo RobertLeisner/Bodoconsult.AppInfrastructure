@@ -9,7 +9,16 @@ namespace Bodoconsult.App.Windows.CredentialManager;
 /// </summary>
 public enum CredentialPersistence
 {
+    /// <summary>
+    /// Persistence per session
+    /// </summary>
     Session,
+    /// <summary>
+    /// Persistence on local machine
+    /// </summary>
     LocalMachine,
+    /// <summary>
+    /// Persistence for an enterprise
+    /// </summary>
     Enterprise
 }

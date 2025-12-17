@@ -7,6 +7,9 @@ using System.Security.Cryptography;
 
 namespace Bodoconsult.App.Windows.Crypto.Hashing;
 
+/// <summary>
+/// Simple class for hashing passwords
+/// </summary>
 public sealed class PasswordHasher : IPasswordHasher
 {
     private const int SaltSize = 16; // 128 bit 
@@ -26,7 +29,6 @@ public sealed class PasswordHasher : IPasswordHasher
     /// </summary>
     public HashingOptions Options { get; }
 
-
     /// <summary>
     /// Calculate a hash value for a password (or another string) 
     /// </summary>
@@ -34,17 +36,15 @@ public sealed class PasswordHasher : IPasswordHasher
     /// <returns></returns>
     public string Hash(string password)
     {
-        using (var algorithm = new Rfc2898DeriveBytes(
-                   password,
-                   SaltSize,
-                   Options.Iterations,
-                   HashAlgorithmName.SHA512))
-        {
-            var key = Convert.ToBase64String(algorithm.GetBytes(KeySize));
-            var salt = Convert.ToBase64String(algorithm.Salt);
+        using var algorithm = new Rfc2898DeriveBytes(
+            password,
+            SaltSize,
+            Options.Iterations,
+            HashAlgorithmName.SHA512);
+        var key = Convert.ToBase64String(algorithm.GetBytes(KeySize));
+        var salt = Convert.ToBase64String(algorithm.Salt);
 
-            return $"{Options.Iterations}.{salt}.{key}";
-        }
+        return $"{Options.Iterations}.{salt}.{key}";
     }
 
     /// <summary>
@@ -68,17 +68,15 @@ public sealed class PasswordHasher : IPasswordHasher
 
         var needsUpgrade = iterations != Options.Iterations;
 
-        using (var algorithm = new Rfc2898DeriveBytes(
-                   password,
-                   salt,
-                   iterations,
-                   HashAlgorithmName.SHA512))
-        {
-            var keyToCheck = algorithm.GetBytes(KeySize);
+        using var algorithm = new Rfc2898DeriveBytes(
+            password,
+            salt,
+            iterations,
+            HashAlgorithmName.SHA512);
+        var keyToCheck = algorithm.GetBytes(KeySize);
 
-            var verified = keyToCheck.SequenceEqual(key);
+        var verified = keyToCheck.SequenceEqual(key);
 
-            return (verified, needsUpgrade);
-        }
+        return (verified, needsUpgrade);
     }
 }

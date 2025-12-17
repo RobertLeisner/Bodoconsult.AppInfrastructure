@@ -38,9 +38,17 @@ namespace Bodoconsult.Core.Windows.System;
 #nullable enable
 #nullable disable warnings
 
+/// <summary>
+/// Helper class for clipboard handling
+/// </summary>
 [SupportedOSPlatform("windows")]
 public static class Clipboard
 {
+    /// <summary>
+    /// Place a text in the clipboard
+    /// </summary>
+    /// <param name="text">Text to place in the clipboard</param>
+    /// <param name="cancellation">Current cancellation token</param>
     public static async Task SetTextAsync(string text, CancellationToken cancellation)
     {
         await TryOpenClipboardAsync(cancellation);
@@ -48,6 +56,10 @@ public static class Clipboard
         InnerSet(text);
     }
 
+    /// <summary>
+    /// Place a text in the clipboard
+    /// </summary>
+    /// <param name="text">Text to place in the clipboard</param>
     public static void SetText(string text)
     {
         TryOpenClipboard();
@@ -55,23 +67,23 @@ public static class Clipboard
         InnerSet(text);
     }
 
-    static void InnerSet(string text)
+    private static void InnerSet(string text)
     {
         EmptyClipboard();
-        IntPtr hGlobal = default;
+        IntPtr hGlobal = 0;
         try
         {
             var bytes = (text.Length + 1) * 2;
             hGlobal = Marshal.AllocHGlobal(bytes);
 
-            if (hGlobal == default)
+            if (hGlobal == 0)
             {
                 ThrowWin32();
             }
 
             var target = GlobalLock(hGlobal);
 
-            if (target == default)
+            if (target == 0)
             {
                 ThrowWin32();
             }
@@ -85,16 +97,16 @@ public static class Clipboard
                 GlobalUnlock(target);
             }
 
-            if (SetClipboardData(CfUnicodeText, hGlobal) == default)
+            if (SetClipboardData(CfUnicodeText, hGlobal) == 0)
             {
                 ThrowWin32();
             }
 
-            hGlobal = default;
+            hGlobal = 0;
         }
         finally
         {
-            if (hGlobal != default)
+            if (hGlobal != 0)
             {
                 Marshal.FreeHGlobal(hGlobal);
             }
@@ -103,12 +115,12 @@ public static class Clipboard
         }
     }
 
-    static async Task TryOpenClipboardAsync(CancellationToken cancellation)
+    private static async Task TryOpenClipboardAsync(CancellationToken cancellation)
     {
         var num = 10;
         while (true)
         {
-            if (OpenClipboard(default))
+            if (OpenClipboard(0))
             {
                 break;
             }
@@ -122,12 +134,12 @@ public static class Clipboard
         }
     }
 
-    static void TryOpenClipboard()
+    private static void TryOpenClipboard()
     {
         var num = 10;
         while (true)
         {
-            if (OpenClipboard(default))
+            if (OpenClipboard(0))
             {
                 break;
             }
@@ -141,6 +153,11 @@ public static class Clipboard
         }
     }
 
+    /// <summary>
+    /// Get clipboard content
+    /// </summary>
+    /// <param name="cancellation">Current cancellation token</param>
+    /// <returns>Clipboard content</returns>
     public static async Task<string?> GetTextAsync(CancellationToken cancellation)
     {
         if (!IsClipboardFormatAvailable(CfUnicodeText))
@@ -152,6 +169,10 @@ public static class Clipboard
         return InnerGet();
     }
 
+    /// <summary>
+    /// Get clipboard content
+    /// </summary>
+    /// <returns>Clipboard content</returns>
     public static string? GetText()
     {
         if (!IsClipboardFormatAvailable(CfUnicodeText))
@@ -163,21 +184,21 @@ public static class Clipboard
         return InnerGet();
     }
 
-    static string? InnerGet()
+    private static string? InnerGet()
     {
-        IntPtr handle = default;
+        IntPtr handle = 0;
 
-        IntPtr pointer = default;
+        IntPtr pointer = 0;
         try
         {
             handle = GetClipboardData(CfUnicodeText);
-            if (handle == default)
+            if (handle == 0)
             {
                 return null;
             }
 
             pointer = GlobalLock(handle);
-            if (pointer == default)
+            if (pointer == 0)
             {
                 return null;
             }
@@ -191,7 +212,7 @@ public static class Clipboard
         }
         finally
         {
-            if (pointer != default)
+            if (pointer != 0)
             {
                 GlobalUnlock(handle);
             }
@@ -200,41 +221,41 @@ public static class Clipboard
         }
     }
 
-    const uint CfUnicodeText = 13;
+    private const uint CfUnicodeText = 13;
 
-    static void ThrowWin32()
+    private static void ThrowWin32()
     {
         throw new Win32Exception(Marshal.GetLastWin32Error());
     }
 
     [DllImport("User32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    static extern bool IsClipboardFormatAvailable(uint format);
+    private static extern bool IsClipboardFormatAvailable(uint format);
 
     [DllImport("User32.dll", SetLastError = true)]
-    static extern IntPtr GetClipboardData(uint uFormat);
+    private static extern IntPtr GetClipboardData(uint uFormat);
 
     [DllImport("kernel32.dll", SetLastError = true)]
-    static extern IntPtr GlobalLock(IntPtr hMem);
+    private static extern IntPtr GlobalLock(IntPtr hMem);
 
     [DllImport("kernel32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    static extern bool GlobalUnlock(IntPtr hMem);
+    private static extern bool GlobalUnlock(IntPtr hMem);
 
     [DllImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    static extern bool OpenClipboard(IntPtr hWndNewOwner);
+    private static extern bool OpenClipboard(IntPtr hWndNewOwner);
 
     [DllImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    static extern bool CloseClipboard();
+    private static extern bool CloseClipboard();
 
     [DllImport("user32.dll", SetLastError = true)]
-    static extern IntPtr SetClipboardData(uint uFormat, IntPtr data);
+    private static extern IntPtr SetClipboardData(uint uFormat, IntPtr data);
 
     [DllImport("user32.dll")]
-    static extern bool EmptyClipboard();
+    private static extern bool EmptyClipboard();
 
     [DllImport("Kernel32.dll", SetLastError = true)]
-    static extern int GlobalSize(IntPtr hMem);
+    private static extern int GlobalSize(IntPtr hMem);
 }

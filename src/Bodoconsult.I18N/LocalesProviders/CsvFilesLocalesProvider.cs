@@ -24,8 +24,11 @@ public class CsvFileLocalesProvider : BaseResourceProvider
 
     private readonly string _resourceFolder;
 
-
-
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="assembly">Current assembly</param>
+    /// <param name="resourceFolder">Ressource folder name</param>
     public CsvFileLocalesProvider(Assembly assembly, string resourceFolder)
     {
         var dir = new FileInfo(assembly.Location).DirectoryName;
@@ -133,6 +136,8 @@ public class CsvFileLocalesProvider : BaseResourceProvider
         return translations;
     }
 
+    /// <summary>Returns a string that represents the current object.</summary>
+    /// <returns>A string that represents the current object.</returns>
     public override string ToString()
     {
         return $"{GetType().Name}({_resourceFolder})";
