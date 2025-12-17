@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using Bodoconsult.App.Abstractions.Interfaces;
+
 namespace Bodoconsult.Text.Documents;
 
 /// <summary>
@@ -14,6 +16,6 @@ public class ParagraphCenterStyle : ParagraphStyleBase
     {
         TagToUse = "ParagraphCenterStyle";
         Name = TagToUse;
-        TextAlignment = TextAlignment.Center;
+        TextAlignment = TypoTextAlignment.Center;
     }
 }

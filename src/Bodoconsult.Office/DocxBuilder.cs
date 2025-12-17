@@ -1,6 +1,8 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Abstractions.Extensions;
 using Bodoconsult.App.Abstractions.Helpers;
+using Bodoconsult.App.Abstractions.Interfaces;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
@@ -95,20 +97,58 @@ public class DocxBuilder: IDisposable
 
         return part;
     }
-
-    // .
-    
     
     /// <summary>
     /// Create a new style with the specified styleid and stylename
     /// </summary>
-    /// <param name="styleid"></param>
-    /// <param name="stylename"></param>
-    /// <param name="styleRunProperties"></param>
-    /// <param name="uiPriority"></param>
-    /// <returns></returns>
+    /// <param name="styleid">Style ID</param>
+    /// <param name="stylename">Style name</param>
+    /// <param name="styleRunProperties">Run properties for styling</param>
+    /// <param name="uiPriority">UI priority</param>
+    /// <returns>OpenXML Style</returns>
     public Style AddNewStyle(string styleid, string stylename, StyleRunProperties styleRunProperties, int uiPriority)
     {
+        // Create a new paragraph style and specify some of the properties.
+        var style = new Style
+        {
+            Type = StyleValues.Paragraph,
+            StyleId = styleid,
+            CustomStyle = true
+        };
+        style.Append(new StyleName { Val = stylename });
+        style.Append(new BasedOn { Val = "Normal" });
+        style.Append(new NextParagraphStyle { Val = "Normal" });
+        style.Append(new UIPriority { Val = uiPriority });
+        style.Append(styleRunProperties);
+
+        Styles.Append(style);
+        return style;
+    }
+
+    /// <summary>
+    /// Create a new style with the specified styleid and stylename
+    /// </summary>
+    /// <param name="styleid">Style ID</param>
+    /// <param name="stylename">Style name</param>
+    /// <param name="typoStyle">Style to create</param>
+    /// <param name="uiPriority">UI priority</param>
+    /// <returns>OpenXML Style</returns>
+    public Style AddNewStyle(string styleid, string stylename, ITypoParagraphStyle typoStyle, int uiPriority)
+    {
+
+        StyleRunProperties styleRunProperties = new();
+
+        var color1 = new Color{ Val = typoStyle.FontColor.ToHtml() };
+        styleRunProperties.Append(color1);
+
+        // Specify a 16 point size. 16x2 because it’s half-point size
+        var fontSize1 = new FontSize
+        {
+            Val = new StringValue((typoStyle.FontSize * 2).ToString("0"))
+        };
+        
+        styleRunProperties.Append(fontSize1);
+
         // Create a new paragraph style and specify some of the properties.
         var style = new Style
         {
@@ -170,26 +210,26 @@ public class DocxBuilder: IDisposable
         var element =
          new Drawing(
              new DW.Inline(
-                 new DW.Extent() { Cx = xTwips, Cy = yTwips },
-                 new DW.EffectExtent()
+                 new DW.Extent { Cx = xTwips, Cy = yTwips },
+                 new DW.EffectExtent
                  {
                      LeftEdge = 0L,
                      TopEdge = 0L,
                      RightEdge = 0L,
                      BottomEdge = 0L
                  },
-                 new DW.DocProperties()
+                 new DW.DocProperties
                  {
                      Id = (uint)_imageCounter,
                      Name = $"Image {_imageCounter}"
                  },
                  new DW.NonVisualGraphicFrameDrawingProperties(
-                     new A.GraphicFrameLocks() { NoChangeAspect = true }),
+                     new A.GraphicFrameLocks { NoChangeAspect = true }),
                  new A.Graphic(
                      new A.GraphicData(
                          new PIC.Picture(
                              new PIC.NonVisualPictureProperties(
-                                 new PIC.NonVisualDrawingProperties()
+                                 new PIC.NonVisualDrawingProperties
                                  {
                                      Id = (UInt32Value)0U,
                                      Name = fi.Name
@@ -198,7 +238,7 @@ public class DocxBuilder: IDisposable
                              new PIC.BlipFill(
                                  new A.Blip(
                                      new A.BlipExtensionList(
-                                         new A.BlipExtension()
+                                         new A.BlipExtension
                                          {
                                              Uri =
                                                 "{28A0092B-C50C-407E-A947-70E740481C1C}"
@@ -213,8 +253,8 @@ public class DocxBuilder: IDisposable
                                      new A.FillRectangle())),
                              new PIC.ShapeProperties(
                                  new A.Transform2D(
-                                     new A.Offset() { X = 0L, Y = 0L },
-                                     new A.Extents() { Cx = xTwips, Cy = yTwips }),
+                                     new A.Offset { X = 0L, Y = 0L },
+                                     new A.Extents { Cx = xTwips, Cy = yTwips }),
                                  new A.PresetGeometry(
                                      new A.AdjustValueList()
                                  )
@@ -291,125 +331,19 @@ public class DocxBuilder: IDisposable
         return imagePart;
     }
 
-    // To insert the picture
-    //private static Drawing DrawingManager(string relationshipId, string name, Int64Value cxVal, Int64Value cyVal, string impPosition)
-    //{
-    //    var haPosition = impPosition;
-    //    if (string.IsNullOrEmpty(haPosition))
-    //    {
-    //        haPosition = "left";
-    //    }
-    //    // Define the reference of the image.
-    //    var anchor = new Anchor();
-    //    anchor.Append(new SimplePosition { X = 0L, Y = 0L });
-    //    anchor.Append(
-    //        new HorizontalPosition(
-    //            new HorizontalAlignment(haPosition)
-    //        )
-    //        {
-    //            RelativeFrom = HorizontalRelativePositionValues.Margin
-    //        }
-    //    );
-    //    anchor.Append(
-    //        new VerticalPosition(
-    //            new PositionOffset("0")
-    //        )
-    //        {
-    //            RelativeFrom =
-    //            VerticalRelativePositionValues.Paragraph
-    //        }
-    //    );
-    //    anchor.Append(
-    //        new Extent
-    //        {
-    //            Cx = cxVal,
-    //            Cy = cyVal
-    //        }
-    //    );
-    //    anchor.Append(
-    //        new EffectExtent
-    //        {
-    //            LeftEdge = 0L,
-    //            TopEdge = 0L,
-    //            RightEdge = 0L,
-    //            BottomEdge = 0L
-    //        }
-    //    );
-    //    if (!string.IsNullOrEmpty(impPosition))
-    //    {
-    //        anchor.Append(new WrapSquare { WrapText = WrapTextValues.BothSides });
-    //    }
-    //    else
-    //    {
-    //        anchor.Append(new WrapTopBottom());
-    //    }
-    //    anchor.Append(
-    //        new DocProperties
-    //        {
-    //            Id = (UInt32Value)1U,
-    //            Name = name
-    //        }
-    //    );
-    //    anchor.Append(
-    //        new NonVisualGraphicFrameDrawingProperties(
-    //              new GraphicFrameLocks { NoChangeAspect = true })
-    //    );
-    //    anchor.Append(
-    //        new Graphic(
-    //              new GraphicData(
-    //                new Picture(
-    //                  new NonVisualPictureProperties(
-    //                    new NonVisualDrawingProperties
-    //                    {
-    //                        Id = (UInt32Value)0U,
-    //                        Name = name + ".jpg"
-    //                    },
-    //                    new NonVisualPictureDrawingProperties()),
-    //                    new BlipFill(
-    //                        new Blip(
-    //                            new BlipExtensionList(
-    //                                new BlipExtension
-    //                                {
-    //                                    Uri =
-    //                                    "{28A0092B-C50C-407E-A947-70E740481C1C}"
-    //                                })
-    //                        )
-    //                        {
-    //                            Embed = relationshipId,
-    //                            CompressionState =
-    //                            BlipCompressionValues.Print
-    //                        },
-    //                        new Stretch(
-    //                            new FillRectangle())),
-    //                  new ShapeProperties(
-    //                    new Transform2D(
-    //                      new Offset { X = 0L, Y = 0L },
-    //                      new Extents
-    //                      {
-    //                          Cx = cxVal,
-    //                          Cy = cyVal
-    //                      }),
-    //                    new PresetGeometry(
-    //                      new AdjustValueList()
-    //                    )
-    //                    { Preset = ShapeTypeValues.Rectangle }
-    //                  )
-    //                )
-    //          )
-    //              { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
-    //    );
-    //    anchor.DistanceFromTop = 0U;
-    //    anchor.DistanceFromBottom = 0U;
-    //    anchor.DistanceFromLeft = 114300U;
-    //    anchor.DistanceFromRight = 114300U;
-    //    anchor.SimplePos = false;
-    //    anchor.RelativeHeight = 251658240U;
-    //    anchor.BehindDoc = true;
-    //    anchor.Locked = false;
-    //    anchor.LayoutInCell = true;
-    //    anchor.AllowOverlap = true;
-    //    var element = new Drawing();
-    //    element.Append(anchor);
-    //    return element;
-    //}
+    private static Hyperlink CreateHyperlink(string url, string text, MainDocumentPart mainPart)
+    {
+        var hr = mainPart.AddHyperlinkRelationship(new Uri(url), true);
+        var hrContactId = hr.Id;
+        return
+            new Hyperlink(
+                    new ProofError { Type = ProofingErrorValues.GrammarStart },
+                    new Run(
+                        new RunProperties(
+                            new RunStyle { Val = "Hyperlink" },
+                            new Color { ThemeColor = ThemeColorValues.Hyperlink }),
+                        new Text(text) { Space = SpaceProcessingModeValues.Preserve }
+                    ))
+                { History = OnOffValue.FromBoolean(true), Id = hrContactId };
+    }
 }

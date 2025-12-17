@@ -15,7 +15,7 @@ public class CitationStyle : ParagraphStyleBase
     {
         TagToUse = "CitationStyle";
         Name = TagToUse;
-        TextAlignment = TextAlignment.Center;
+        TextAlignment = App.Abstractions.Interfaces.TypoTextAlignment.Center;
         Margins.Top = 3 * Styleset.DefaultPaddingWidth;
         Margins.Bottom = 0;
         Margins.Left = Styleset.DefaultMarginLeft;

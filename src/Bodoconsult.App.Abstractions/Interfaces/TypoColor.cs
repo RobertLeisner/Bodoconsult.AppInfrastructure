@@ -36,6 +36,9 @@
  * SOFTWARE.
  */
 
+using System.Drawing;
+using System.Text;
+
 namespace Bodoconsult.App.Abstractions.Interfaces;
 
 /// <summary>
@@ -167,4 +170,34 @@ public class TypoColor
     /// <param name="blue">Blue</param>
     /// <returns>ARGB color</returns>
     public static TypoColor FromArgb(byte red, byte green, byte blue) => FromArgb(byte.MaxValue, red, green, blue);
+}
+
+/// <summary>
+/// A brush using a solid color
+/// </summary>
+public class TypoSolidColorBrush : TypoBrush
+{
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    public TypoSolidColorBrush()
+    { }
+
+    /// <summary>
+    /// Ctor to load a Color
+    /// </summary>
+    /// <param name="color"></param>
+    public TypoSolidColorBrush(TypoColor color)
+    {
+        Color = color;
+    }
+
+    /// <summary>
+    /// Ctor with a HTML color index
+    /// </summary>
+    /// <param name="color"></param>
+    public TypoSolidColorBrush(string color)
+    {
+        Color = TypoColor.FromHtml(color);
+    }
 }

@@ -2,14 +2,16 @@
 
 using System;
 using System.Text;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.Text.Extensions;
+using Bodoconsult.Text.Interfaces;
 
 namespace Bodoconsult.Text.Documents;
 
 /// <summary>
 /// Color defined in ARGB mode
 /// </summary>
-public class Color: PropertyAsAttributeElement
+public class Color: TypoColor, IPropertyAsAttributeElement
 {
     /// <summary>
     /// Default ctor
@@ -52,30 +54,40 @@ public class Color: PropertyAsAttributeElement
     }
 
     /// <summary>
-    /// A
+    /// Current indenttation for LDML creation
     /// </summary>
-    public byte A { get; set; } = byte.MaxValue;
+    [DoNotSerialize]
+    public string Indentation { get; set; } = "    ";
 
     /// <summary>
-    /// 
+    /// Parent element
     /// </summary>
-    public byte R { get; set; }
+    [DoNotSerialize]
+    public DocumentElement Parent { get; set; }
 
     /// <summary>
-    /// G
+    /// Add the current element to a document defined in LDML (Logical document markup language)
     /// </summary>
-    public byte G { get; set; }
+    /// <param name="document">StringBuilder instance to create the LDML in</param>
+    /// <param name="indent">Current indent</param>
+    public void ToLdmlString(StringBuilder document, string indent)
+    {
+        document.Append(this.ToHtml());
+    }
 
     /// <summary>
-    /// B
+    /// Get the element data as formatted property value for an LDML attribute
     /// </summary>
-    public byte B { get; set; }
+    public string ToPropertyValue()
+    {
+        return this.ToHtml();
+    }
 
     ///<summary>
     /// Color - sRgb legacy interface, assumes Rgb values are sRgb
     /// Source: System.Windows.Media by Microsoft
     ///</summary>
-    public static Color FromUInt32(uint argb)// internal legacy sRGB interface
+    public new static Color FromUInt32(uint argb)// internal legacy sRGB interface
     {
         var c1 = new Color
         {
@@ -92,7 +104,7 @@ public class Color: PropertyAsAttributeElement
     /// </summary>
     /// <param name="htmlColor">HTML color string with 7 chars length</param>
     /// <returns>Color or null</returns>
-    public static Color FromHtml(string htmlColor)
+    public new static Color FromHtml(string htmlColor)
     {
         var color = new Color();
 
@@ -115,20 +127,24 @@ public class Color: PropertyAsAttributeElement
     }
 
     /// <summary>
-    /// Add the current element to a document defined in LDML (Logical document markup language)
+    /// Get a color from full ARGB
     /// </summary>
-    /// <param name="document">StringBuilder instance to create the LDML in</param>
-    /// <param name="indent">Current indent</param>
-    public override void ToLdmlString(StringBuilder document, string indent)
+    /// <param name="alpha">Alpha</param>
+    /// <param name="red">Red</param>
+    /// <param name="green">Green</param>
+    /// <param name="blue">Blue</param>
+    /// <returns>ARGB color</returns>
+    public new static Color FromArgb(byte alpha, byte red, byte green, byte blue)
     {
-        document.Append(this.ToHtml());
+        return new Color(alpha, red, green, blue);
     }
 
     /// <summary>
-    /// Get the element data as formatted property value for an LDML attribute
+    /// Get a color from RGB
     /// </summary>
-    public override string ToPropertyValue()
-    {
-        return this.ToHtml();
-    }
+    /// <param name="red">Red</param>
+    /// <param name="green">Green</param>
+    /// <param name="blue">Blue</param>
+    /// <returns>ARGB color</returns>
+    public new static Color FromArgb(byte red, byte green, byte blue) => FromArgb(byte.MaxValue, red, green, blue);
 }

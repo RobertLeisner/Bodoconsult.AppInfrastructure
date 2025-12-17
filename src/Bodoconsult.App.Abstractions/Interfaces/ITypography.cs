@@ -1,6 +1,9 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 
+using Bodoconsult.App.Abstractions.Helpers;
+using System.Drawing;
+
 namespace Bodoconsult.App.Abstractions.Interfaces;
 
 /// <summary>

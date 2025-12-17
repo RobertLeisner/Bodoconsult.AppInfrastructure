@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Abstractions.Interfaces;
+
 namespace Bodoconsult.Text.Documents;
 
 /// <summary>
@@ -18,6 +20,6 @@ public class TableHeaderLeftStyle : ParagraphStyleBase
         BorderBrush = new SolidColorBrush(Styleset.DefaultColor);
         BorderThickness = new Thickness(1.0, 1.0, 1.0, 1.0);
         Paddings = new Thickness(Styleset.DefaultTablePaddingWidth);
-        TextAlignment = TextAlignment.Left;
+        TextAlignment = TypoTextAlignment.Left;
     }
 }

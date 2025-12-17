@@ -30,51 +30,6 @@ namespace Bodoconsult.App.Wpf.AppStarter;
 /// </summary>
 public class NotifyIconWrapper : FrameworkElement, IDisposable
 {
-    public static readonly DependencyProperty TextProperty =
-        DependencyProperty.Register("Text", typeof(string), typeof(NotifyIconWrapper), new PropertyMetadata(
-            (d, e) =>
-            {
-                var notifyIcon = ((NotifyIconWrapper)d)._notifyIcon;
-                if (notifyIcon == null)
-                {
-                    return;
-                }
-                notifyIcon.Text = (string)e.NewValue;
-            }));
-
-    public static readonly DependencyProperty OpenMenuTextProperty =
-        DependencyProperty.Register("OpenMenuText", typeof(string), typeof(NotifyIconWrapper), new PropertyMetadata(
-            (d, e) =>
-            {
-                var wr = (NotifyIconWrapper)d;
-                if (wr == null)
-                {
-                    return;
-                }
-                wr.OpenMenuText = (string)e.NewValue;
-            }));
-
-    public static readonly DependencyProperty ExitMenuTextProperty =
-        DependencyProperty.Register("ExitMenuText", typeof(string), typeof(NotifyIconWrapper), new PropertyMetadata(
-            (d, e) =>
-            {
-                var wr = (NotifyIconWrapper)d;
-                if (wr == null)
-                {
-                    return;
-                }
-                wr.ExitMenuText = (string)e.NewValue;
-            }));
-
-    private static readonly DependencyProperty NotifyRequestProperty =
-        DependencyProperty.Register("NotifyRequest", typeof(NotifyRequestRecord), typeof(NotifyIconWrapper),
-            new PropertyMetadata(
-                (d, e) =>
-                {
-                    var r = (NotifyRequestRecord)e.NewValue;
-                    ((NotifyIconWrapper)d)._notifyIcon?.ShowBalloonTip(r.Duration, r.Title, r.Text, ToolTipIcon.Info);
-                }));
-
     private static readonly RoutedEvent OpenSelectedEvent = EventManager.RegisterRoutedEvent("OpenSelected",
         RoutingStrategy.Direct, typeof(RoutedEventHandler), typeof(NotifyIconWrapper));
 
@@ -107,6 +62,63 @@ public class NotifyIconWrapper : FrameworkElement, IDisposable
     }
 
     /// <summary>
+    /// Dependecy property Text
+    /// </summary>
+    public static readonly DependencyProperty TextProperty =
+        DependencyProperty.Register("Text", typeof(string), typeof(NotifyIconWrapper), new PropertyMetadata(
+            (d, e) =>
+            {
+                var notifyIcon = ((NotifyIconWrapper)d)._notifyIcon;
+                if (notifyIcon == null)
+                {
+                    return;
+                }
+                notifyIcon.Text = (string)e.NewValue;
+            }));
+
+    /// <summary>
+    /// Dependecy property OpenMenuText
+    /// </summary>
+    public static readonly DependencyProperty OpenMenuTextProperty =
+        DependencyProperty.Register("OpenMenuText", typeof(string), typeof(NotifyIconWrapper), new PropertyMetadata(
+            (d, e) =>
+            {
+                var wr = (NotifyIconWrapper)d;
+                if (wr == null)
+                {
+                    return;
+                }
+                wr.OpenMenuText = (string)e.NewValue;
+            }));
+
+    /// <summary>
+    /// Dependecy property ExitMenuText
+    /// </summary>
+    public static readonly DependencyProperty ExitMenuTextProperty =
+        DependencyProperty.Register("ExitMenuText", typeof(string), typeof(NotifyIconWrapper), new PropertyMetadata(
+            (d, e) =>
+            {
+                var wr = (NotifyIconWrapper)d;
+                if (wr == null)
+                {
+                    return;
+                }
+                wr.ExitMenuText = (string)e.NewValue;
+            }));
+
+    /// <summary>
+    /// Dependecy property NotifyRequest
+    /// </summary>
+    private static readonly DependencyProperty NotifyRequestProperty =
+        DependencyProperty.Register("NotifyRequest", typeof(NotifyRequestRecord), typeof(NotifyIconWrapper),
+            new PropertyMetadata(
+                (d, e) =>
+                {
+                    var r = (NotifyRequestRecord)e.NewValue;
+                    ((NotifyIconWrapper)d)._notifyIcon?.ShowBalloonTip(r.Duration, r.Title, r.Text, ToolTipIcon.Info);
+                }));
+
+    /// <summary>
     /// Menu text for open menu in system tray bar
     /// </summary>
     public string OpenMenuText
@@ -124,13 +136,18 @@ public class NotifyIconWrapper : FrameworkElement, IDisposable
         set => SetValue(ExitMenuTextProperty, value);
     }
 
-
+    /// <summary>
+    /// Text
+    /// </summary>
     public string Text
     {
         get => (string)GetValue(TextProperty);
         set => SetValue(TextProperty, value);
     }
 
+    /// <summary>
+    /// Notifaction request record
+    /// </summary>
     public NotifyRequestRecord NotifyRequest
     {
         get => (NotifyRequestRecord)GetValue(NotifyRequestProperty);
@@ -143,12 +160,18 @@ public class NotifyIconWrapper : FrameworkElement, IDisposable
         _notifyIcon?.Dispose();
     }
 
+    /// <summary>
+    /// Event handler for OpenSelected
+    /// </summary>
     public event RoutedEventHandler OpenSelected
     {
         add => AddHandler(OpenSelectedEvent, value);
         remove => RemoveHandler(OpenSelectedEvent, value);
     }
 
+    /// <summary>
+    /// Event handler for ExitSelected
+    /// </summary>
     public event RoutedEventHandler ExitSelected
     {
         add => AddHandler(ExitSelectedEvent, value);

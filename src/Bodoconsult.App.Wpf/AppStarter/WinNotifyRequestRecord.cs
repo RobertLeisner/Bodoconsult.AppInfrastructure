@@ -20,6 +20,9 @@ using System.Windows.Forms;
 
 namespace Bodoconsult.App.Wpf.AppStarter;
 
+/// <summary>
+/// Notification request record for TOAST on Windows OS
+/// </summary>
 public class WinNotifyRequestRecord : NotifyRequestRecord
 {
     /// <summary>

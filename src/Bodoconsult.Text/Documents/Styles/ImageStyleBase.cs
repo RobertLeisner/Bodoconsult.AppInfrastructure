@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Abstractions.Interfaces;
+
 namespace Bodoconsult.Text.Documents;
 
 /// <summary>
@@ -12,7 +14,7 @@ public abstract class ImageStyleBase : ParagraphStyleBase
     /// </summary>
     protected ImageStyleBase()
     {
-        TextAlignment = TextAlignment.Center;
+        TextAlignment = TypoTextAlignment.Center;
         Margins.Top = 0.5 * Styleset.DefaultFontSize;
         Margins.Bottom = 0.5 * Styleset.DefaultFontSize;
         Italic = true;

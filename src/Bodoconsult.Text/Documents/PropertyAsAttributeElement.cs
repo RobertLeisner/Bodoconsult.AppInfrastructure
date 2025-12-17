@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Bodoconsult.Text.Interfaces;
+using System;
 
 namespace Bodoconsult.Text.Documents;
 
 /// <summary>
 /// A property element produces as an attribute in LDML
 /// </summary>
-public abstract class PropertyAsAttributeElement: DocumentElement
+public abstract class PropertyAsAttributeElement: DocumentElement, IPropertyAsAttributeElement
 {
     /// <summary>
     /// Get the element data as formatted property value for an LDML attribute

@@ -1,4 +1,6 @@
-﻿namespace Bodoconsult.Office.Tests.Models;
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
+
+namespace Bodoconsult.Office.Tests.Models;
 
 /// <summary>
 /// Contains a result of a time path simulation for 1 period

@@ -2,27 +2,27 @@
 
 using Bodoconsult.App.Abstractions.Interfaces;
 
-namespace Bodoconsult.Text.Documents;
+namespace Bodoconsult.Office.Tests.Models;
 
 /// <summary>
-/// A style for a normal left aligned paragraph
+/// A demo class for a <see cref="ITypoParagraphStyle"/> implementation
 /// </summary>
-public class ParagraphStyleBase : StyleBase
+public class DemoStyle : ITypoParagraphStyle
 {
     /// <summary>
     /// Font name
     /// </summary>
-    public string FontName { get; set; } = Styleset.DefaultFontName;
+    public string FontName { get; set; }
 
     /// <summary>
     /// Font size in pt
     /// </summary>
-    public int FontSize { get; set; } = Styleset.DefaultFontSize;
+    public int FontSize { get; set; }
 
     /// <summary>
     /// Font color
     /// </summary>
-    public Color FontColor { get; set; } = Styleset.DefaultColor;
+    public TypoColor FontColor { get; set; }
 
     /// <summary>
     /// Bold
@@ -35,29 +35,29 @@ public class ParagraphStyleBase : StyleBase
     public bool Italic { get; set; }
 
     /// <summary>
-    /// Text alignment legt, center, justify or right. Default: left
+    /// Text alignment legt, center, justify or right
     /// </summary>
-    public TypoTextAlignment TextAlignment { get; set; } = TypoTextAlignment.Left;
+    public TypoTextAlignment TextAlignment { get; set; }
 
     /// <summary>
     /// Margins
     /// </summary>
-    public Thickness Margins { get; set; } = new(0, Styleset.DefaultFontSize * 0.5, 0, 0);
+    public TypoThickness Margins { get; set; }
 
     /// <summary>
     /// Border brush
     /// </summary>
-    public Brush BorderBrush { get; set; }
+    public TypoBrush BorderBrush { get; set; }
 
     /// <summary>
     /// Current borderline width setting
     /// </summary>
-    public Thickness BorderThickness { get; set; } = new(0, 0, 0, 0);
+    public TypoThickness BorderThickness { get; set; }
 
     /// <summary>
     /// Paddings. Padding settings are applied only if a border is set
     /// </summary>
-    public Thickness Paddings { get; set; } = new(0, 0, 0, 0);
+    public TypoThickness Paddings { get; set; }
 
     /// <summary>
     /// Indent of the first line in pt. Negative number is indicating a hanging indent
@@ -67,15 +67,15 @@ public class ParagraphStyleBase : StyleBase
     /// <summary>
     /// Add a page break before the heading. Default: false
     /// </summary>
-    public bool PageBreakBefore { get; set; } = false;
+    public bool PageBreakBefore { get; set; }
 
     /// <summary>
     /// Add a page break before the heading. Default: false
     /// </summary>
-    public bool KeepWithNextParagraph { get; set; } = false;
+    public bool KeepWithNextParagraph { get; set; }
 
     /// <summary>
     /// Keep the paragraph together on one side. Default: false
     /// </summary>
-    public bool KeepTogether { get; set; } = false;
+    public bool KeepTogether { get; set; }
 }

@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 using Bodoconsult.App.Extensions;
+using Bodoconsult.Text.Interfaces;
 
 namespace Bodoconsult.Text.Documents;
 
@@ -19,14 +20,14 @@ namespace Bodoconsult.Text.Documents;
 public class LdmlReader
 {
 
-    private DocumentElement _textElement;
+    private IDocumentElement _textElement;
 
     private readonly Type _popertyElementTpye = typeof(PropertyAsAttributeElement);
 
     /// <summary>
-    /// Read-only access to current <see cref="DocumentElement"/> instance
+    /// Read-only access to current <see cref="IDocumentElement"/> instance
     /// </summary>
-    public DocumentElement TextElement => _textElement;
+    public IDocumentElement TextElement => _textElement;
 
     /// <summary>
     /// LDML string to parse. Public only for unit testing
@@ -37,9 +38,7 @@ public class LdmlReader
     /// Default ctor. Used together with <see cref="LoadLdmlFile"/> to load a LDML file from disk
     /// </summary>
     public LdmlReader()
-    {
-
-    }
+    { }
 
     /// <summary>
     /// Ctor loading a LDML string
@@ -84,7 +83,7 @@ public class LdmlReader
         Debug.Print(sb.ToString());
     }
 
-    private DocumentElement GetDocumentElement(string elementName, XElement node, DocumentElement parent)
+    private IDocumentElement GetDocumentElement(string elementName, XElement node, DocumentElement parent)
     {
         var type = Type.GetType($"Bodoconsult.Text.Documents.{elementName}");
 
@@ -109,7 +108,7 @@ public class LdmlReader
 
         switch (obj)
         {
-            case PropertyAsBlockElement propertyAsBlock:
+            case IPropertyAsBlockElement propertyAsBlock:
                 LoadProperties(propertyAsBlock, node);
                 return propertyAsBlock;
             case SpanBase span:
@@ -283,7 +282,7 @@ public class LdmlReader
         }
     }
 
-    private void LoadProperties(DocumentElement element, XElement node)
+    private void LoadProperties(IDocumentElement element, XElement node)
     {
         if (!node.HasAttributes)
         {
@@ -300,7 +299,7 @@ public class LdmlReader
         }
     }
 
-    private void LoadProperty(DocumentElement element, PropertyInfo prop, List<XAttribute> attributes)
+    private void LoadProperty(IDocumentElement element, PropertyInfo prop, List<XAttribute> attributes)
     {
         var propType = prop.PropertyType;
 

@@ -19,7 +19,7 @@ public static class DispatcherService
     /// <summary>
     /// Contains the current WPF application
     /// </summary>
-    public static System.Windows.Application CurrentApplication { get; set; }
+    public static Application CurrentApplication { get; set; }
 
     /// <summary>
     /// Dispose the dispatcher to close the application finally (only needed in NON-WPF-Applications)
@@ -29,7 +29,7 @@ public static class DispatcherService
         try
         {
             CurrentApplication.Dispatcher.InvokeShutdown();
-            System.Windows.Application.Current.Dispatcher.InvokeShutdown();
+            Application.Current.Dispatcher.InvokeShutdown();
         }
         catch
         {
@@ -51,7 +51,7 @@ public static class DispatcherService
     {
         TempFiles = new List<string>();
 
-        if (System.Windows.Application.Current != null)
+        if (Application.Current != null)
         {
             return;
         }
@@ -65,13 +65,13 @@ public static class DispatcherService
 
     private static void CreateApp()
     {
-        if (System.Windows.Application.Current != null)
+        if (Application.Current != null)
         {
-            CurrentApplication = System.Windows.Application.Current;
+            CurrentApplication = Application.Current;
             return;
         }
 
-        CurrentApplication = new System.Windows.Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
+        CurrentApplication = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
         CurrentApplication.Run();
     }
 

@@ -348,7 +348,10 @@ public class ReportBase : IDisposable
     /// <param name="content"></param>
     public void AddParagraphCentered(string content)
     {
-        if (string.IsNullOrEmpty(content)) return;
+        if (string.IsNullOrEmpty(content))
+        {
+            return;
+        }
         Components.Add(new ReportParagraphElement
         {
             Content = content,
@@ -362,7 +365,10 @@ public class ReportBase : IDisposable
     /// <param name="content"></param>
     public void AddParagraphRight(string content)
     {
-        if (string.IsNullOrEmpty(content)) return;
+        if (string.IsNullOrEmpty(content))
+        {
+            return;
+        }
         Components.Add(new ReportParagraphElement
         {
             Content = content,
@@ -476,7 +482,10 @@ public class ReportBase : IDisposable
     /// </example>
     public void AddTextblock(string textblock, string styleName)
     {
-        if (string.IsNullOrEmpty(textblock)) return;
+        if (string.IsNullOrEmpty(textblock))
+        {
+            return;
+        }
         Components.Add(new ReportTextBlockElement { Content = textblock, StyleName = styleName });
     }
 

@@ -34,11 +34,11 @@ können beispielsweise über eine Normalverteilung mit dem bekannten glockenför
 gut abgebildet werden. Kennzeichen der Normalverteilung ist, daß positive und negative Renditen gleich 
 wahrscheinlich sind.</P>
 
-<Image src="C:\Daten\Projekte\Tools\Bodoconsult.Simulation\Bodoconsult.Simulation.Wpf\Resources\Styling\BitmapGraphics\Assets\NormalDistribution.de.png" />
+<Image src="@Path\Resources\NormalDistribution.de.png" />
 
 <P>Andere Einflußfaktoren besitzen natürliche oder wahrscheinliche Wertgrenzen. So können Betriebskosten nicht unter Null sinken und sind nach oben hin zumindest abschätzbar eingrenzbar. Für derartige Einflußfaktoren kann man die Dreiecksverteilung als Verteilungsfunktion verwenden.</P>
  
- <Image src="C:\Daten\Projekte\Tools\Bodoconsult.Simulation\Bodoconsult.Simulation.Wpf\Resources\Styling\BitmapGraphics\Assets\TriangularDistribution.de.png" />
+ <Image src="@Path\Resources\TriangularDistribution.de.png" />
 
 <P>Auch andere, weniger gebräuchliche Verteilungsfunktionen sind denkbar. Entscheidend ist dabei immer, 
 daß die gewählte Verteilungsfunktion möglichst gut die Wirklichkeit abbildet.</P>

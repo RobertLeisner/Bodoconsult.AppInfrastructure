@@ -6,9 +6,32 @@ using System.Text;
 namespace Bodoconsult.Text.Documents;
 
 /// <summary>
+/// Base interface for documents elements
+/// </summary>
+public interface IDocumentElement
+{
+    /// <summary>
+    /// Current indenttation for LDML creation
+    /// </summary>
+    string Indentation { get; set; }
+
+    /// <summary>
+    /// Parent element
+    /// </summary>
+    DocumentElement Parent { get; set; }
+
+    /// <summary>
+    /// Add the current element to a document defined in LDML (Logical document markup language)
+    /// </summary>
+    /// <param name="document">StringBuilder instance to create the LDML in</param>
+    /// <param name="indent">Current indent</param>
+    void ToLdmlString(StringBuilder document, string indent);
+}
+
+/// <summary>
 ///  base class for all <see cref="Document"/> related LDML objects
 /// </summary>
-public abstract class DocumentElement
+public abstract class DocumentElement : IDocumentElement
 {
     /// <summary>
     /// Current indenttation for LDML creation

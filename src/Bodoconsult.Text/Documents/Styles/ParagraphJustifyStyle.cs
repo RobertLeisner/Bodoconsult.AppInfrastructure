@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using Bodoconsult.App.Abstractions.Interfaces;
+
 namespace Bodoconsult.Text.Documents;
 
 /// <summary>
@@ -14,6 +16,6 @@ public class ParagraphJustifyStyle : ParagraphStyleBase
     {
         TagToUse = "ParagraphJustifyStyle";
         Name = TagToUse;
-        TextAlignment = TextAlignment.Justify;
+        TextAlignment = TypoTextAlignment.Justify;
     }
 }

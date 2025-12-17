@@ -36,7 +36,9 @@ public class ListItemStyleHtmlTextRendererElement : HtmlParagraphStyleTextRender
         sb.AppendLine($"     font-size: {Style.FontSize}pt;");
         sb.AppendLine($"     margin: {Style.Margins.Top}pt {Style.Margins.Right}pt {Style.Margins.Bottom}pt {Style.Margins.Left}pt;");
         sb.AppendLine($"     border-width: {Style.BorderThickness.Top}pt {Style.BorderThickness.Right}pt {Style.BorderThickness.Bottom}pt {Style.BorderThickness.Left}pt;");
-        sb.AppendLine($"     border-color: {Style.BorderBrush?.Color.ToHtml() ?? "#000000"};");
+
+        var color = (Color)Style.BorderBrush?.Color;
+        sb.AppendLine($"     border-color: {color?.ToHtml() ?? "#000000"};");
         sb.AppendLine("}");
         renderer.Content.Append(sb);
     }

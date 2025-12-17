@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Abstractions.Interfaces;
+
 namespace Bodoconsult.Text.Documents;
 
 /// <summary>
@@ -14,7 +16,7 @@ public class CellLeftStyle : ParagraphStyleBase
     {
         TagToUse = "CellLeftStyle";
         Name = TagToUse;
-        TextAlignment = TextAlignment.Left;
+        TextAlignment = TypoTextAlignment.Left;
         BorderBrush = new SolidColorBrush(Styleset.DefaultColor);
         BorderThickness = new Thickness(1.0, 1.0, 1.0, 1.0);
         Paddings = new Thickness(Styleset.DefaultTablePaddingWidth);

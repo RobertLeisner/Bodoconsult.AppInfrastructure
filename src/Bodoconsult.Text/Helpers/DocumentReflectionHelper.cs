@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Bodoconsult.Text.Documents;
+using Bodoconsult.Text.Interfaces;
 
 namespace Bodoconsult.Text.Helpers;
 
@@ -83,7 +84,7 @@ public static class DocumentReflectionHelper
 
             var propType = propInfo.PropertyType;
 
-            var isPropElement = typeof(PropertyAsBlockElement).IsAssignableFrom(propType);
+            var isPropElement = typeof(IPropertyAsBlockElement).IsAssignableFrom(propType);
 
             if (!isPropElement)
             {

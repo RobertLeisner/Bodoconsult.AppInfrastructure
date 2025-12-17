@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Text;
 using Bodoconsult.Text.Helpers;
+using Bodoconsult.Text.Interfaces;
 
 namespace Bodoconsult.Text.Documents;
 
@@ -41,7 +42,7 @@ public abstract class StyleBase : Block
             var valueAdded = false;
             foreach (var pi in pis)
             {
-                var value = (PropertyAsBlockElement)pi.GetValue(this);
+                var value = (IPropertyAsBlockElement)pi.GetValue(this);
                 if (value is null)
                 {
                     continue;

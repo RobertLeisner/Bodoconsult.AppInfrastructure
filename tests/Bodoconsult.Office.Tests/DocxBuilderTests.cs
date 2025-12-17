@@ -13,6 +13,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bodoconsult.App.Abstractions.Interfaces;
+using Bodoconsult.Office.Tests.Models;
 
 namespace Bodoconsult.Office.Tests;
 
@@ -129,6 +131,48 @@ internal class DocxBuilderTests
 
         // Act  
         docx.AddNewStyle( "heading1", "heading 1", styleRunPropertiesH1, 2);
+        docx.AddParagraph("Heading 1", "heading1");
+
+        // Assert
+        docx.AddParagraph("Blubb", "Normal");
+
+        Assert.That(File.Exists(path));
+
+        Assert.That(docx, Is.Not.Null);
+        Assert.That(docx.docx, Is.Not.Null);
+        Assert.That(docx.mainDocumentPart, Is.Not.Null);
+        Assert.That(docx.body, Is.Not.Null);
+
+        docx.Dispose();
+
+        FileSystemHelper.RunInDebugMode(path);
+    }
+
+
+    [Test]
+    public void AddParagraph_SimpleTextDemoStyleHeading1_DocxCreated()
+    {
+        // Arrange 
+        var path = Path.Combine(FileHelper.TempPath, "test.docx");
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+
+        // Heading 1
+        var style = new DemoStyle
+        {
+            FontColor = TypoColors.Cyan,
+            FontName = "Arial Black",
+            FontSize = 20
+        };
+
+        var docx = new DocxBuilder();
+        docx.CreateDocument(path);
+
+        // Act  
+        docx.AddNewStyle("heading1", "heading 1", style, 2);
         docx.AddParagraph("Heading 1", "heading1");
 
         // Assert

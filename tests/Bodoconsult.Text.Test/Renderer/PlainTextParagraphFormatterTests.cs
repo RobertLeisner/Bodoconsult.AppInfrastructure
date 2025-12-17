@@ -1,10 +1,11 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using System.Diagnostics;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Renderer.PlainText;
 using Bodoconsult.Text.Test.Helpers;
 using NUnit.Framework;
+using System.Diagnostics;
 
 namespace Bodoconsult.Text.Test.Renderer;
 
@@ -124,7 +125,7 @@ internal class PlainTextParagraphFormatterTests
         // Arrange 
         var paragraphStyle = new ParagraphStyle
         {
-            TextAlignment = TextAlignment.Right
+            TextAlignment = TypoTextAlignment.Right
         };
         var pageStyle = new DocumentStyle();
 
@@ -147,7 +148,7 @@ internal class PlainTextParagraphFormatterTests
         // Arrange 
         var paragraphStyle = new ParagraphStyle
         {
-            TextAlignment = TextAlignment.Justify
+            TextAlignment = TypoTextAlignment.Justify
         };
         var pageStyle = new DocumentStyle();
 
@@ -203,7 +204,7 @@ internal class PlainTextParagraphFormatterTests
         // Arrange 
         var paragraphStyle = new ParagraphStyle
         {
-            TextAlignment = TextAlignment.Center
+            TextAlignment = TypoTextAlignment.Center
         };
         var pageStyle = new DocumentStyle();
 
@@ -259,7 +260,7 @@ internal class PlainTextParagraphFormatterTests
                 Left = Styleset.DefaultMarginLeft,
                 Right = Styleset.DefaultMarginLeft
             },
-            TextAlignment = TextAlignment.Justify
+            TextAlignment = TypoTextAlignment.Justify
         };
 
         var pageStyle = new DocumentStyle();
@@ -283,7 +284,7 @@ internal class PlainTextParagraphFormatterTests
         // Arrange 
         var paragraphStyle = new ParagraphStyle
         {
-            TextAlignment = TextAlignment.Right,
+            TextAlignment = TypoTextAlignment.Right,
             Margins =
             {
                 Left = Styleset.DefaultMarginLeft,
@@ -311,7 +312,7 @@ internal class PlainTextParagraphFormatterTests
         // Arrange 
         var paragraphStyle = new ParagraphStyle
         {
-            TextAlignment = TextAlignment.Center,
+            TextAlignment = TypoTextAlignment.Center,
             Margins =
             {
                 Left = Styleset.DefaultMarginLeft,
@@ -398,7 +399,7 @@ internal class PlainTextParagraphFormatterTests
                 Left = Styleset.DefaultMarginLeft,
                 Right = Styleset.DefaultMarginLeft
             },
-            TextAlignment = TextAlignment.Right
+            TextAlignment = TypoTextAlignment.Right
         };
 
         var pageStyle = new DocumentStyle();
@@ -440,7 +441,7 @@ internal class PlainTextParagraphFormatterTests
                 Left = Styleset.DefaultMarginLeft,
                 Right = Styleset.DefaultMarginLeft
             },
-            TextAlignment = TextAlignment.Center
+            TextAlignment = TypoTextAlignment.Center
         };
 
         var pageStyle = new DocumentStyle();

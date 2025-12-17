@@ -118,7 +118,7 @@ public class DocumentMetaDataRtfTextRendererElement : RtfTextRendererElementBase
                                              x.B == paragraphStyle.BorderBrush.Color.B &&
                                              x.A == paragraphStyle.BorderBrush.Color.A))
             {
-                styleset.Colors.Add(paragraphStyle.BorderBrush.Color);
+                styleset.Colors.Add((Color)paragraphStyle.BorderBrush.Color);
             }
         }
 

@@ -1,11 +1,12 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Abstractions.Helpers;
+using Bodoconsult.App.Abstractions.Interfaces;
+using Bodoconsult.App.Extensions;
 using Bodoconsult.Text.Documents;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Bodoconsult.App.Abstractions.Helpers;
-using Bodoconsult.App.Extensions;
 
 namespace Bodoconsult.Text.Renderer.PlainText;
 
@@ -231,10 +232,10 @@ public class PlainTextParagraphFormatter
         switch (_paragraphStyle.TextAlignment)
         {
 
-            case TextAlignment.Right:
+            case TypoTextAlignment.Right:
                 fLine = $"{_leftMargin}{_leftBorderChar}{_leftPadding}{line.PadLeft(WidthInChars)}{_rightPadding}{_rightBorderChar}";
                 break;
-            case TextAlignment.Center:
+            case TypoTextAlignment.Center:
             {
                 var length = (uint)((WidthInChars - line.Length) / 2.0);
                 fLine = (length > 0
@@ -244,7 +245,7 @@ public class PlainTextParagraphFormatter
                 break;
             }
             // ToDo: justify
-            case TextAlignment.Justify:
+            case TypoTextAlignment.Justify:
                 line = FillLine(line, missinglength, WidthInChars);
                 fLine = $"{_leftMargin}{_leftBorderChar}{_leftPadding}{line}{_rightPadding}{_rightBorderChar}";
                 break;

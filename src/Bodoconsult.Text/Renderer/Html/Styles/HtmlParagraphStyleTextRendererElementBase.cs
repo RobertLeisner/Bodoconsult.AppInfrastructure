@@ -68,7 +68,9 @@ public class HtmlParagraphStyleTextRendererElementBase: ITextRendererElement
         sb.AppendLine($"     margin: {Style.Margins.Top.ToString("0")}pt {Style.Margins.Right.ToString("0")}pt {Style.Margins.Bottom.ToString("0")}pt {Style.Margins.Left.ToString("0")}pt;");
         sb.AppendLine($"     padding: {Style.Paddings.Top.ToString("0")}pt {Style.Paddings.Right.ToString("0")}pt {Style.Paddings.Bottom.ToString("0")}pt {Style.Paddings.Left.ToString("0")}pt;");
         sb.AppendLine($"     border-width: {Style.BorderThickness.Top.ToString("0")}pt {Style.BorderThickness.Right.ToString("0")}pt {Style.BorderThickness.Bottom.ToString("0")}pt {Style.BorderThickness.Left.ToString("0")}pt;");
-        sb.AppendLine($"     border-color: {Style.BorderBrush?.Color.ToHtml() ?? "#000000"};");
+        
+        var color = (Color)Style.BorderBrush?.Color;
+        sb.AppendLine($"     border-color: {color?.ToHtml() ?? "#000000"};");
         sb.AppendLine($"     border-style: solid;");
         sb.AppendLine($"     text-align: {Style.TextAlignment.ToString().ToLowerInvariant()};");
 

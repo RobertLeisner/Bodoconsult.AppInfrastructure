@@ -1,14 +1,17 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using System;
 using Bodoconsult.App.Abstractions.Helpers;
+using Bodoconsult.App.Abstractions.Interfaces;
+using Bodoconsult.Text.Interfaces;
+using System;
+using System.Text;
 
 namespace Bodoconsult.Text.Documents;
 
 /// <summary>
 /// Thickness definition for margins and 
 /// </summary>
-public class Thickness : PropertyAsAttributeElement
+public class Thickness : TypoThickness, IPropertyAsAttributeElement
 {
     /// <summary>
     /// Default ctor
@@ -58,29 +61,34 @@ public class Thickness : PropertyAsAttributeElement
     }
 
     /// <summary>
-    /// Left thickness in pt
+    /// Current indenttation for LDML creation
     /// </summary>
-    public double Left { get; set; }
+    [DoNotSerialize]
+    public string Indentation { get; set; } = "    ";
 
     /// <summary>
-    /// Top thickness in pt
+    /// Parent element
     /// </summary>
-    public double Top { get; set; } = Styleset.DefaultFontSize * 0.5;
+    [DoNotSerialize]
+    public DocumentElement Parent { get; set; }
 
     /// <summary>
-    /// Right thickness in pt
+    /// Add the current element to a document defined in LDML (Logical document markup language)
     /// </summary>
-    public double Right { get; set; }
-
-    /// <summary>
-    /// Bottom thickness in pt
-    /// </summary>
-    public double Bottom { get; set; }
+    /// <param name="document">StringBuilder instance to create the LDML in</param>
+    /// <param name="indent">Current indent</param>
+    public void ToLdmlString(StringBuilder document, string indent)
+    {
+        // Do nothing
+        
+        
+        //document.Append(this.ToHtml());
+    }
 
     /// <summary>
     /// Get the element data as formatted property value for an LDML attribute
     /// </summary>
-    public override string ToPropertyValue()
+    public string ToPropertyValue()
     {
         if (Left < TypeHelper.ToleranceValueComparisonsDouble && Top < TypeHelper.ToleranceValueComparisonsDouble &&
             Right < TypeHelper.ToleranceValueComparisonsDouble && Bottom < TypeHelper.ToleranceValueComparisonsDouble)

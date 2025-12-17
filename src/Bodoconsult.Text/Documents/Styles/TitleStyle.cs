@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using Bodoconsult.App.Abstractions.Interfaces;
+
 namespace Bodoconsult.Text.Documents;
 
 /// <summary>
@@ -17,7 +19,7 @@ public class TitleStyle : ParagraphStyleBase
         FontSize = Styleset.DefaultFontSize + 8;
         Margins.Top = Styleset.DefaultFontSize * 4;
         Margins.Bottom = Styleset.DefaultFontSize * 2;
-        TextAlignment = TextAlignment.Center;
+        TextAlignment = TypoTextAlignment.Center;
         Bold = true;
     }
 }

@@ -1,9 +1,10 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using System.Text;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Extensions;
 using Bodoconsult.Text.Interfaces;
+using System;
+using System.Text;
 
 namespace Bodoconsult.Text.Pdf.Renderer.Styles;
 
@@ -38,7 +39,9 @@ public class ListItemStylePdfTextRendererElement : PdfParagraphStyleTextRenderer
         sb.AppendLine($"     font-size: {Style.FontSize}pt;");
         sb.AppendLine($"     margin: {Style.Margins.Top}pt {Style.Margins.Right}pt {Style.Margins.Bottom}pt {Style.Margins.Left}pt;");
         sb.AppendLine($"     border-width: {Style.BorderThickness.Top}pt {Style.BorderThickness.Right}pt {Style.BorderThickness.Bottom}pt {Style.BorderThickness.Left}pt;");
-        sb.AppendLine($"     border-color: {Style.BorderBrush?.Color.ToHtml() ?? "#000000"};");
+
+        var color = (Color)Style.BorderBrush?.Color;
+        sb.AppendLine($"     border-color: {color?.ToHtml() ?? "#000000"};");
         sb.AppendLine("}");
         renderer.Content.Append(sb);
     }

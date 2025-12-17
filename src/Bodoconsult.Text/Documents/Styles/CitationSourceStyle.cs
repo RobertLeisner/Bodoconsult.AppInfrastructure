@@ -1,5 +1,8 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+
+using Bodoconsult.App.Abstractions.Interfaces;
+
 namespace Bodoconsult.Text.Documents;
 
 /// <summary>
@@ -14,7 +17,7 @@ public class CitationSourceStyle : ParagraphStyleBase
     {
         TagToUse = "CitationSourceStyle";
         Name = TagToUse;
-        TextAlignment = TextAlignment.Center;
+        TextAlignment = TypoTextAlignment.Center;
         Margins.Top = 0;
         Margins.Bottom = Styleset.DefaultPaddingWidth;
         Margins.Left = Styleset.DefaultMarginLeft;

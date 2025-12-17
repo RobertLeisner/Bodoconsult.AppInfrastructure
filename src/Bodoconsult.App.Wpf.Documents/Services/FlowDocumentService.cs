@@ -5,6 +5,7 @@ using Bodoconsult.App.Wpf.Documents.General;
 using Bodoconsult.App.Wpf.Documents.Paginators;
 using Bodoconsult.App.Wpf.Documents.WpfElements;
 using Bodoconsult.App.Wpf.Helpers;
+using Bodoconsult.Text.Documents;
 using PropertyChanged;
 using System.IO;
 using System.IO.Packaging;
@@ -14,11 +15,11 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Windows.Xps.Packaging;
 using System.Windows.Xps.Serialization;
 using System.Xaml;
-using Bodoconsult.Text.Documents;
 using Figure = System.Windows.Documents.Figure;
 using Image = System.Windows.Controls.Image;
 using List = System.Windows.Documents.List;
@@ -43,6 +44,8 @@ public class FlowDocumentService
     private ResourceDictionary _styleRd;
 
     private readonly II18N _i18N;
+
+    private string _currentDir;
 
     #region Ctor
 
@@ -83,6 +86,19 @@ public class FlowDocumentService
     /// </summary>
     private void BaseConstructor()
     {
+        try
+        {
+            var fileName = GetType().Assembly.Location;
+
+            var fi = new FileInfo(fileName);
+
+            _currentDir = fi.DirectoryName;
+        }
+        catch
+        {
+            // Do nothing
+        }
+
         Dispatcher = Application.Current.Dispatcher;
         Dispatcher.Invoke(() =>
         {
@@ -444,6 +460,7 @@ public class FlowDocumentService
         if (content.Contains("<Paragraph"))
         {
             AddXamlTextblock(content);
+            return;
         }
 
 
@@ -719,6 +736,13 @@ public class FlowDocumentService
 
                         var source = content.Substring(sourceBeginIndex + 5, sourceEndIndex - sourceBeginIndex - 5);
 
+                        source = CheckPath(source);
+
+                        if (!File.Exists(source))
+                        {
+                            i = content.IndexOf("<image", i + 5, StringComparison.InvariantCultureIgnoreCase);
+                            continue;
+                        }
                         var image = string.Format(TypographySettingsService.ImageTemplate, source, null, TypographySettingsService.MaxImageHeight, TypographySettingsService.MaxImageWidth);
 
                         content = leftPart
@@ -1016,14 +1040,22 @@ public class FlowDocumentService
 
 
     /// <summary>
-    /// Add a image from a local or web path
+    /// Add an image from a local or web path
     /// </summary>
     /// <param name="path"></param>
     public void AddImage(string path)
     {
+        path = CheckPath(path);
+
+        if (!File.Exists(path))
+        {
+            return;
+        }
 
         Dispatcher.Invoke(() =>
         {
+
+            // ToDo: check why images are not loaded from resources
 
             var image = new Image { Name = $"image{_imageCounter}" };
             _imageCounter++;
@@ -1042,15 +1074,32 @@ public class FlowDocumentService
         });
     }
 
+    private string CheckPath(string path)
+    {
+        if (!path.Contains("@Path"))
+        {
+            return path;
+        }
+
+        var s = path.Replace("@Path", _currentDir, StringComparison.InvariantCultureIgnoreCase);
+        return s;
+    }
+
 
     /// <summary>
-    /// Add a image from a local or web path
+    /// Add an image from a local or web path
     /// </summary>
     /// <param name="path"></param>
     /// <param name="width">width of the image in pixels</param>
     /// <param name="height">height of the image in pixels</param>
     public void AddImage(string path, int width, int height)
     {
+        path = CheckPath(path);
+
+        if (!File.Exists(path))
+        {
+            return;
+        }
 
         Dispatcher.Invoke(() =>
         {
@@ -1211,12 +1260,18 @@ public class FlowDocumentService
 
 
     /// <summary>
-    /// Add a image from a local or web path
+    /// Add an image from a local or web path
     /// </summary>
     /// <param name="path"></param>
     /// <param name="title"></param>
     public void AddFigure(string path, string title)
     {
+        path = CheckPath(path);
+
+        if (!File.Exists(path))
+        {
+            return;
+        }
 
         _figureCounter++;
 
@@ -1229,16 +1284,13 @@ public class FlowDocumentService
             bimg.EndInit();
             image.Source = bimg;
 
-
-
             AddFigureBase(image, title, 0, 0);
-
         });
     }
 
 
     /// <summary>
-    /// Add a image from a local or web path
+    /// Add an image from a local or web path
     /// </summary>
     /// <param name="path"></param>
     /// <param name="title"></param>
@@ -1246,6 +1298,12 @@ public class FlowDocumentService
     /// <param name="height"></param>
     public void AddFigure(string path, string title, int width, int height)
     {
+        path = CheckPath(path);
+
+        if (!File.Exists(path))
+        {
+            return;
+        }
 
         _figureCounter++;
 
@@ -1258,10 +1316,7 @@ public class FlowDocumentService
             bimg.EndInit();
             image.Source = bimg;
 
-
-
             AddFigureBase(image, title, width, height);
-
         });
     }
 

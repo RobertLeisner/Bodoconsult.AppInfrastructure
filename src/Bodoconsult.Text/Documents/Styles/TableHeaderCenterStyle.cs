@@ -1,4 +1,6 @@
-﻿namespace Bodoconsult.Text.Documents;
+﻿using Bodoconsult.App.Abstractions.Interfaces;
+
+namespace Bodoconsult.Text.Documents;
 
 /// <summary>
 /// Style for <see cref="Table"/> instances
@@ -16,6 +18,6 @@ public class TableHeaderCenterStyle : ParagraphStyleBase
         BorderBrush = new SolidColorBrush(Styleset.DefaultColor);
         BorderThickness = new Thickness(1.0, 1.0, 1.0, 1.0);
         Paddings = new Thickness(Styleset.DefaultTablePaddingWidth);
-        TextAlignment = TextAlignment.Center;
+        TextAlignment = TypoTextAlignment.Center;
     }
 }

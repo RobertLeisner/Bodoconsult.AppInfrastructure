@@ -78,23 +78,25 @@ public static class PdfDocumentRendererHelper
         // ToDo: Border
         var black = TypoColors.Black.ToLdmlColor();
 
+        var color = (Documents.Color)style.BorderBrush?.Color ?? black;
+
         var lb = pdfStyle.ParagraphFormat.Borders.Left;
-        lb.Color = GetPdfColor(style.BorderBrush?.Color ?? black);
+        lb.Color = GetPdfColor(color);
         lb.Visible = style.BorderThickness.Left > 0;
         lb.Width = Unit.FromPoint(style.BorderThickness.Left);
 
         var rb = pdfStyle.ParagraphFormat.Borders.Right;
-        rb.Color = GetPdfColor(style.BorderBrush?.Color ?? black);
+        rb.Color = GetPdfColor(color);
         rb.Visible = style.BorderThickness.Right > 0;
         rb.Width = Unit.FromPoint(style.BorderThickness.Right);
 
         var tb = pdfStyle.ParagraphFormat.Borders.Top;
-        tb.Color = GetPdfColor(style.BorderBrush?.Color ?? black);
+        tb.Color = GetPdfColor(color);
         tb.Visible = style.BorderThickness.Top > 0;
         tb.Width = Unit.FromPoint(style.BorderThickness.Top);
 
         var bb = pdfStyle.ParagraphFormat.Borders.Bottom;
-        bb.Color = GetPdfColor(style.BorderBrush?.Color ?? black);
+        bb.Color = GetPdfColor(color);
         bb.Visible = style.BorderThickness.Bottom > 0;
         bb.Width = Unit.FromPoint(style.BorderThickness.Bottom);
     }

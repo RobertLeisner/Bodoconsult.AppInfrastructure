@@ -1,8 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Abstractions.Helpers;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.Text.Documents;
 using System.Text;
-using Bodoconsult.App.Abstractions.Helpers;
 
 namespace Bodoconsult.Text.Helpers;
 
@@ -48,7 +49,7 @@ public static class RtfHelper
         // bordor top
         if (style.BorderBrush != null && !isTable)
         {
-            var colorIndex = styleset.GetIndexOfColor(style.BorderBrush.Color) + 1;
+            var colorIndex = styleset.GetIndexOfColor((Color)style.BorderBrush.Color) + 1;
 
             if (style.BorderThickness.Top > 0)
             {
@@ -77,16 +78,16 @@ public static class RtfHelper
         // Horizontal alignment
         switch (style.TextAlignment)
         {
-            case TextAlignment.Left:
+            case TypoTextAlignment.Left:
                 sb.Append("\\ql");
                 break;
-            case TextAlignment.Right:
+            case TypoTextAlignment.Right:
                 sb.Append("\\qr");
                 break;
-            case TextAlignment.Center:
+            case TypoTextAlignment.Center:
                 sb.Append("\\qc");
                 break;
-            case TextAlignment.Justify:
+            case TypoTextAlignment.Justify:
                 sb.Append("\\qj");
                 break;
         }

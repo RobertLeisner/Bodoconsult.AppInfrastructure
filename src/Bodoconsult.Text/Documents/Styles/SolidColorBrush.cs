@@ -32,7 +32,7 @@ public class SolidColorBrush : Brush
     /// <param name="color"></param>
     public SolidColorBrush(string color)
     {
-        Color = Color.FromHtml(color);
+        Color = Bodoconsult.Text.Documents.Color.FromHtml(color);
     }
 
     /// <summary>
@@ -42,6 +42,7 @@ public class SolidColorBrush : Brush
     /// <param name="indent">Current indent</param>
     public override void ToLdmlString(StringBuilder document, string indent)
     {
-        document.Append($"{indent}<SolidColorBrush Color=\"{Color.ToHtml()}\"/>{Environment.NewLine}");
+        var color = (Color)Color;
+        document.Append($"{indent}<SolidColorBrush Color=\"{color.ToHtml()}\"/>{Environment.NewLine}");
     }
 }
