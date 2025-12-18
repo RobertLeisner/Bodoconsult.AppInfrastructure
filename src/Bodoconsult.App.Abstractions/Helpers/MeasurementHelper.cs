@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+// https://stackoverflow.com/questions/20194403/openxml-distance-size-units
+
 namespace Bodoconsult.App.Abstractions.Helpers;
 
 /// <summary>
@@ -21,7 +23,6 @@ public static class MeasurementHelper
     /// Twips per inch for PostScript(R) points
     /// </summary>
     public const double TwipsPerInchPostscriptPoint = 1440;
-
 
     /// <summary>
     /// Convert cm into Twips
@@ -202,5 +203,45 @@ public static class MeasurementHelper
     public static long? GetEmuFromPx(int pixels)
     {
         return pixels * 9525;
+    }
+
+    /// <summary>
+    /// Get EMU from cm
+    /// </summary>
+    /// <param name="cm">cm</param>
+    /// <returns>EMU</returns>
+    public static int GetEmuFromCm(double cm)
+    {
+        return (int)(cm * 360000);
+    }
+
+    /// <summary>
+    /// Get EMU from pt
+    /// </summary>
+    /// <param name="pt">pt</param>
+    /// <returns>EMU</returns>
+    public static int GetEmuFromPt(double pt)
+    {
+        return (int)(pt * 12.700);
+    }
+
+    /// <summary>
+    /// Get DXA (twentieths of a point) from cm (72dpi)
+    /// </summary>
+    /// <param name="cm"></param>
+    /// <returns>DXA (twentieths of a point)</returns>
+    public static uint GetDxaFromCm(double cm)
+    {
+        return (uint)(1 / 2.54F * 72F * 20F * cm);
+    }
+
+    /// <summary>
+    /// Get DXA (twentieths of a point) from inch (72dpi)
+    /// </summary>
+    /// <param name="cm"></param>
+    /// <returns>DXA (twentieths of a point)</returns>
+    public static uint GetDxaFromInch(double cm)
+    {
+        return (uint)(72F * 20F * cm);
     }
 }

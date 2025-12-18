@@ -6,14 +6,15 @@ using Bodoconsult.App.Abstractions.Interfaces;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
+using System.Numerics;
 using A = DocumentFormat.OpenXml.Drawing;
 using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
-using PIC = DocumentFormat.OpenXml.Drawing.Pictures;
 using Paragraph = DocumentFormat.OpenXml.Wordprocessing.Paragraph;
 using ParagraphProperties = DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties;
+using PIC = DocumentFormat.OpenXml.Drawing.Pictures;
 using Run = DocumentFormat.OpenXml.Wordprocessing.Run;
-using Text = DocumentFormat.OpenXml.Wordprocessing.Text;
 using Style = DocumentFormat.OpenXml.Wordprocessing.Style;
+using Text = DocumentFormat.OpenXml.Wordprocessing.Text;
 
 
 namespace Bodoconsult.Office;
@@ -21,19 +22,19 @@ namespace Bodoconsult.Office;
 /// <summary>
 /// Create OpenXML DOCX files
 /// </summary>
-public class DocxBuilder: IDisposable
+public class DocxBuilder : IDisposable
 {
     private int _imageCounter = -1;
 
     /// <summary>
     /// DOCX document
     /// </summary>
-    public WordprocessingDocument docx { get; private set; }
+    public WordprocessingDocument Docx { get; private set; }
 
     /// <summary>
     /// Main part of the document
     /// </summary>
-    public MainDocumentPart mainDocumentPart { get; private set; }
+    public MainDocumentPart MainDocumentPart { get; private set; }
 
     /// <summary>
     /// Style definition part
@@ -48,43 +49,120 @@ public class DocxBuilder: IDisposable
     /// <summary>
     /// Body of the document
     /// </summary>
-    public Body body { get; private set; }
+    public Body Body { get; private set; }
+
+    /// <summary>
+    /// Memory stream representing the document. Is only set if <see cref="CreateDocument()"/> was used to create the document
+    /// </summary>
+    public MemoryStream MemoryStream { get; private set; }
+
+    /// <summary>
+    /// All sections in the document
+    /// </summary>
+    public List<SectionProperties> Sections { get; } = new();
 
 
-
+    public SectionProperties CurrentSection { get; private set; }
 
     /// <summary>
     /// Create document in memory
     /// </summary>
+    public void CreateDocument()
+    {
+        MemoryStream = new MemoryStream();
+        Docx = WordprocessingDocument.Create(MemoryStream, WordprocessingDocumentType.Document, true);
+        LoadBaseData();
+    }
+
+    /// <summary>
+    /// Create document as file
+    /// </summary>
     /// <param name="filePath">Full file path to save the document in</param>
     public void CreateDocument(string filePath)
     {
-        docx = WordprocessingDocument.Create(filePath, WordprocessingDocumentType.Document);
+        Docx = WordprocessingDocument.Create(filePath, WordprocessingDocumentType.Document, true);
         LoadBaseData();
+    }
+
+    /// <summary>
+    /// Save document as file. Works only if the document was created with Create() method withour filepath
+    /// </summary>
+    /// <param name="filePath">Full file path to save the document in</param>
+    public void SaveDocument(string filePath)
+    {
+        if (MemoryStream == null)
+        {
+            Docx.Save();
+            return;
+        }
+
+        if (string.IsNullOrEmpty(filePath))
+        {
+            throw new ArgumentNullException(nameof(filePath));
+        }
+
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+        }
+
+        Docx.Save();
+
+        MemoryStream.Position = 0;
+
+        using var fis = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
+        MemoryStream.CopyTo(fis);
     }
 
 
     private void LoadBaseData()
     {
         // Assign a reference to the existing document body.
-        mainDocumentPart = docx.MainDocumentPart ?? docx.AddMainDocumentPart();
-        mainDocumentPart.Document ??= new Document();
-        mainDocumentPart.Document.Body ??= mainDocumentPart.Document.AppendChild(new Body());
-        body = docx.MainDocumentPart!.Document!.Body!;
+        MainDocumentPart = Docx.MainDocumentPart ?? Docx.AddMainDocumentPart();
+        MainDocumentPart.Document ??= new Document();
+        MainDocumentPart.Document.Body ??= MainDocumentPart.Document.AppendChild(new Body());
+        Body = Docx.MainDocumentPart!.Document!.Body!;
 
-        StyleDefinitionsPart = docx.MainDocumentPart.StyleDefinitionsPart ?? AddStylesPartToPackage();
+        // Set to latest OpenXML version
+        var objDocumentSettingPart = MainDocumentPart.AddNewPart<DocumentSettingsPart>();
+        objDocumentSettingPart.Settings = new Settings();
+        var objCompatibility = new Compatibility();
+        var objCompatibilitySetting = new CompatibilitySetting
+        {
+            Name = CompatSettingNameValues.CompatibilityMode,
+            Uri = "http://schemas.microsoft.com/office/word",
+            Val = "15"
+        };
+        objCompatibility.Append(objCompatibilitySetting);
+        objDocumentSettingPart.Settings.Append(objCompatibility);
+
+        // Add style part
+        StyleDefinitionsPart = Docx.MainDocumentPart.StyleDefinitionsPart ?? AddStylesPartToPackage();
         Styles = StyleDefinitionsPart?.Styles;
+
+
+        //// Sections
+        //Sections = Body.ChildElements.OfType<SectionProperties>();
+
+        //if (Sections.Any())
+        //{
+        //    return;
+        //}
+
+        //Body.AddChild(new SectionProperties());
+
+        //Sections = Body.ChildElements.OfType<SectionProperties>();
     }
 
     // Add a StylesDefinitionsPart to the document.  Returns a reference to it.
     private StyleDefinitionsPart AddStylesPartToPackage()
     {
-        if (mainDocumentPart is null)
+        if (MainDocumentPart is null)
         {
-            throw new ArgumentNullException(nameof(MainDocumentPart));
+            throw new ArgumentNullException(nameof(DocumentFormat.OpenXml.Packaging.MainDocumentPart));
         }
 
-        var part = mainDocumentPart.AddNewPart<StyleDefinitionsPart>();
+        var part = MainDocumentPart.AddNewPart<StyleDefinitionsPart>();
 
         part.Styles = new Styles();
 
@@ -97,7 +175,36 @@ public class DocxBuilder: IDisposable
 
         return part;
     }
-    
+
+    /// <summary>
+    /// Set basic page properties like width and height and margins
+    /// </summary>
+    /// <param name="pageWidth"></param>
+    /// <param name="pageHeight"></param>
+    /// <param name="marginLeft"></param>
+    /// <param name="marginTop"></param>
+    /// <param name="marginRight"></param>
+    /// <param name="marginBottom"></param>
+    public void SetBasicPageProperties(double pageWidth, double pageHeight, double marginLeft, double marginTop, double marginRight, double marginBottom)
+    {
+        // Paper size
+        var width = MeasurementHelper.GetDxaFromCm(pageWidth);
+        var height = MeasurementHelper.GetDxaFromCm(pageHeight);
+
+        // Margins
+        var left = MeasurementHelper.GetDxaFromCm(marginLeft);
+        var top = MeasurementHelper.GetDxaFromCm(marginTop);
+        var right = MeasurementHelper.GetDxaFromCm(marginRight);
+        var bottom = MeasurementHelper.GetDxaFromCm(marginBottom);
+
+        var pgSz = CurrentSection.ChildElements.OfType<PageSize>().FirstOrDefault() ?? CurrentSection.AppendChild(new PageSize { Width = width, Height = height });
+
+        pgSz.Orient = pageWidth > pageHeight ? new EnumValue<PageOrientationValues>(PageOrientationValues.Landscape) : new EnumValue<PageOrientationValues>(PageOrientationValues.Portrait);
+
+        var pageMargin = new PageMargin { Top = (int)top, Right = right, Bottom = (int)bottom, Left = left };
+        CurrentSection.Append(pageMargin);
+    }
+
     /// <summary>
     /// Create a new style with the specified styleid and stylename
     /// </summary>
@@ -138,16 +245,34 @@ public class DocxBuilder: IDisposable
 
         StyleRunProperties styleRunProperties = new();
 
-        var color1 = new Color{ Val = typoStyle.FontColor.ToHtml() };
+        // Font color
+        var color1 = new Color { Val = typoStyle.FontColor.ToHtml() };
         styleRunProperties.Append(color1);
 
+        // Font size
         // Specify a 16 point size. 16x2 because it’s half-point size
         var fontSize1 = new FontSize
         {
             Val = new StringValue((typoStyle.FontSize * 2).ToString("0"))
         };
-        
+
         styleRunProperties.Append(fontSize1);
+
+        // Font name
+        var font = new RunFonts { Ascii = typoStyle.FontName };
+        styleRunProperties.Append(font);
+
+        // Bold
+        if (typoStyle.Bold)
+        {
+            styleRunProperties.Append(new Bold());
+        }
+
+        // Italic
+        if (typoStyle.Italic)
+        {
+            styleRunProperties.Append(new Italic());
+        }
 
         // Create a new paragraph style and specify some of the properties.
         var style = new Style
@@ -169,7 +294,16 @@ public class DocxBuilder: IDisposable
     /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
     public void Dispose()
     {
-        docx?.Dispose();
+        // Dispose doc first
+        Docx?.Dispose();
+
+        // And now the stream if available
+        if (MemoryStream == null)
+        {
+            return;
+        }
+        MemoryStream.Close();
+        MemoryStream.Dispose();
     }
 
     /// <summary>
@@ -179,10 +313,24 @@ public class DocxBuilder: IDisposable
     /// <param name="styleName">Name of the style for the paragraph</param>
     public Paragraph AddParagraph(string text, string styleName)
     {
+        var run = CreateRun(text);
+        var list = new List<OpenXmlElement> { run };
+        return AddParagraph(list, styleName);
+    }
+
+    /// <summary>
+    /// Add a paragraph
+    /// </summary>
+    /// <param name="runs">Text parts to add to the paragraph</param>
+    /// <param name="styleName">Name of the style for the paragraph</param>
+    public Paragraph AddParagraph(IList<OpenXmlElement> runs, string styleName)
+    {
         var para = CreateBaseParagraph(styleName);
 
-        var run = para.AppendChild(new Run());
-        run.AppendChild(new Text(text));
+        foreach (var run in runs)
+        {
+            para.AppendChild(run);
+        }
         return para;
     }
 
@@ -205,7 +353,7 @@ public class DocxBuilder: IDisposable
         var fi = new FileInfo(path);
 
         var ip = AddImagePart(path);
-        var relationshipId = mainDocumentPart.GetIdOfPart(ip);
+        var relationshipId = MainDocumentPart.GetIdOfPart(ip);
 
         var element =
          new Drawing(
@@ -278,7 +426,7 @@ public class DocxBuilder: IDisposable
 
     private Paragraph CreateBaseParagraph(string styleName)
     {
-        var para = body.AppendChild(new Paragraph());
+        var para = Body.AppendChild(new Paragraph());
 
         // If the paragraph has no ParagraphProperties object, create one.
         if (!para.Elements<ParagraphProperties>().Any())
@@ -324,19 +472,59 @@ public class DocxBuilder: IDisposable
                 imageType = ImagePartType.Jpeg;
                 break;
         }
-        
-        var imagePart = mainDocumentPart.AddImagePart(imageType);
+
+        var imagePart = MainDocumentPart.AddImagePart(imageType);
         using var fis = new FileStream(path, FileMode.Open, FileAccess.Read);
         imagePart.FeedData(fis);
         return imagePart;
     }
 
-    private static Hyperlink CreateHyperlink(string url, string text, MainDocumentPart mainPart)
+    // https://learn.microsoft.com/en-us/dotnet/api/documentformat.openxml.wordprocessing.sectionproperties?view=openxml-3.0.1
+
+    /// <summary>
+    /// Add a section
+    /// </summary>
+    public SectionProperties AddSection()
+    {
+
+        var section = new SectionProperties();
+
+        var sectionBreakType = new SectionType { Val = SectionMarkValues.NextPage };
+        section.Append(sectionBreakType);
+
+        var added = Body.AddChild(section);
+        Sections.Add(section);
+        CurrentSection = section;
+
+
+
+
+        //MainDocumentPart myMainPart = mydoc.MainDocumentPart;
+        //Paragraph paragraphSectionBreak = new Paragraph();
+        //ParagraphProperties paragraphSectionBreakProperties = new ParagraphProperties();
+        //SectionProperties SectionBreakProperties = new SectionProperties();
+        //SectionType SectionBreakType = new SectionType() { Val = SectionMarkValues.NextPage };
+        //SectionBreakProperties.Append(SectionBreakType);
+        //paragraphSectionBreakProperties.Append(SectionBreakProperties);
+        //paragraphSectionBreak.Append(paragraphSectionBreakProperties);
+        //myMainPart.Document.Body.InsertAfter(paragraphSectionBreak, myMainPart.Document.Body.LastChild);
+        //myMainPart.Document.Save();
+
+        return section;
+    }
+
+    /// <summary>
+    /// Create a hyperlink 
+    /// </summary>
+    /// <param name="url">Url</param>
+    /// <param name="text">Text</param>
+    /// <param name="mainPart">Current main part. Use <see cref="MainDocumentPart"/> normally</param>
+    /// <returns>Hyperlink item</returns>
+    public static Hyperlink CreateHyperlink(string url, string text, MainDocumentPart mainPart)
     {
         var hr = mainPart.AddHyperlinkRelationship(new Uri(url), true);
         var hrContactId = hr.Id;
-        return
-            new Hyperlink(
+        return new Hyperlink(
                     new ProofError { Type = ProofingErrorValues.GrammarStart },
                     new Run(
                         new RunProperties(
@@ -344,6 +532,186 @@ public class DocxBuilder: IDisposable
                             new Color { ThemeColor = ThemeColorValues.Hyperlink }),
                         new Text(text) { Space = SpaceProcessingModeValues.Preserve }
                     ))
-                { History = OnOffValue.FromBoolean(true), Id = hrContactId };
+        { History = OnOffValue.FromBoolean(true), Id = hrContactId };
+    }
+
+    /// <summary>
+    /// Create a hyperlink 
+    /// </summary>
+    /// <param name="url">Url</param>
+    /// <param name="runs">Text parts to add to the run</param>
+    /// <param name="mainPart">Current main part. Use <see cref="MainDocumentPart"/> normally</param>
+    /// <returns>Hyperlink item</returns>
+    public static Hyperlink CreateHyperlink(string url, IList<OpenXmlElement> runs, MainDocumentPart mainPart)
+    {
+        var hr = mainPart.AddHyperlinkRelationship(new Uri(url), true);
+        var hrContactId = hr.Id;
+
+        var run = new Run(
+            new RunProperties(
+                new RunStyle { Val = "Hyperlink" },
+                new Color { ThemeColor = ThemeColorValues.Hyperlink }));
+
+        foreach (var subRun in runs)
+        {
+            //subRun.Space = SpaceProcessingModeValues.Preserve;
+            run.AppendChild(subRun);
+        }
+
+        return new Hyperlink(
+                new ProofError { Type = ProofingErrorValues.GrammarStart },
+                run)
+        { History = OnOffValue.FromBoolean(true), Id = hrContactId };
+    }
+
+    /// <summary>
+    /// Create a simple run without formatting
+    /// </summary>
+    /// <param name="text">Text</param>
+    /// <returns>Run object</returns>
+    public static Run CreateRun(string text)
+    {
+        var run = new Run();
+        run.AppendChild(new Text(text) { Space = SpaceProcessingModeValues.Preserve });
+        return run;
+    }
+
+    /// <summary>
+    /// Create a run with bold formatting
+    /// </summary>
+    /// <param name="text">Text</param>
+    /// <returns>Run object</returns>
+    public static Run CreateRunBold(string text)
+    {
+        var run = new Run();
+        var rp = new RunProperties
+        {
+            Bold = new Bold()
+        };
+        // Always add properties first
+        run.Append(rp);
+        run.AppendChild(new Text(text) { Space = SpaceProcessingModeValues.Preserve });
+        return run;
+    }
+
+    /// <summary>
+    /// Create a run with italic formatting
+    /// </summary>
+    /// <param name="text">Text</param>
+    /// <returns>Run object</returns>
+    public static Run CreateRunItalic(string text)
+    {
+        var run = new Run();
+        var rp = new RunProperties
+        {
+            Italic = new Italic()
+        };
+        // Always add properties first
+        run.Append(rp);
+        run.AppendChild(new Text(text) { Space = SpaceProcessingModeValues.Preserve });
+        return run;
+    }
+
+    /// <summary>
+    /// Create a simple run without formatting
+    /// </summary>
+    /// <param name="text">Text</param>
+    /// <param name="useSpaceProcessingModePreserve">Use SpaceProcessingModeValues.Preserve? Intended mainly for hyperlinks</param>
+    /// <returns>Run object</returns>
+    public static Run CreateRun(string text, bool useSpaceProcessingModePreserve)
+    {
+        var run = new Run();
+        run.AppendChild(useSpaceProcessingModePreserve
+            ? new Text(text) { Space = SpaceProcessingModeValues.Preserve }
+            : new Text(text));
+        return run;
+    }
+
+    /// <summary>
+    /// Create a simple run without formatting
+    /// </summary>
+    /// <param name="runs">Text parts to add to the run</param>
+    /// <returns>Run object</returns>
+    public static Run CreateRun(IList<OpenXmlElement> runs)
+    {
+        var run = new Run();
+        foreach (var subRun in runs)
+        {
+            run.AppendChild(subRun);
+        }
+        return run;
+    }
+
+    /// <summary>
+    /// Create a simple run with bold formatting
+    /// </summary>
+    /// <param name="runs">Text parts to add to the run</param>
+    /// <returns>Run object</returns>
+    public static Run CreateRunBold(IList<OpenXmlElement> runs)
+    {
+        var run = new Run();
+        var rp = new RunProperties
+        {
+            Bold = new Bold()
+        };
+        // Always add properties first
+        run.Append(rp);
+
+        // Now add the sub runs
+        foreach (var subRun in runs)
+        {
+            run.AppendChild(subRun);
+        }
+        return run;
+    }
+
+    /// <summary>
+    /// Create a simple run with bold formatting
+    /// </summary>
+    /// <param name="runs">Text parts to add to the run</param>
+    /// <returns>Run object</returns>
+    public static Run CreateRunItalic(IList<OpenXmlElement> runs)
+    {
+        var run = new Run();
+        var rp = new RunProperties
+        {
+            Italic = new Italic()
+        };
+        // Always add properties first
+        run.Append(rp);
+
+        // Now add the sub runs
+        foreach (var subRun in runs)
+        {
+            run.AppendChild(subRun);
+        }
+        return run;
+    }
+
+    /// <summary>
+    /// Create a line break
+    /// </summary>
+    /// <returns>Line break run</returns>
+    public static Run CreateLineBreak()
+    {
+        return new Run(new Break() { Type = BreakValues.TextWrapping });
+    }
+
+    /// <summary>
+    /// Create a page break
+    /// </summary>
+    /// <returns>Page break run</returns>
+    public static Run CreatePageBreak()
+    {
+        return new Run(new Break() { Type = BreakValues.Page });
+    }
+
+    /// <summary>
+    /// Create column break
+    /// </summary>
+    /// <returns>Column break run</returns>
+    public static Run ColumnPageBreak()
+    {
+        return new Run(new Break() { Type = BreakValues.Column });
     }
 }

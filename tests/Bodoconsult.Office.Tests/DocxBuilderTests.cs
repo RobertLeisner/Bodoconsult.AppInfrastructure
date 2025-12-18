@@ -2,9 +2,16 @@
 
 // Info: https://ludovicperrichon.com/create-a-word-document-with-openxml-and-c/
 
+// https://pvs-studio.com/en/blog/posts/csharp/0856/
+
+// https://stackoverflow.com/questions/14144599/open-xml-word-c-sharp-split-into-two-columns
+
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.Office.Tests.Helpers;
+using Bodoconsult.Office.Tests.Models;
 using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Office2010.PowerPoint;
 using DocumentFormat.OpenXml.Wordprocessing;
 using NUnit.Framework;
 using System;
@@ -13,10 +20,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Bodoconsult.App.Abstractions.Interfaces;
-using Bodoconsult.Office.Tests.Models;
 
 namespace Bodoconsult.Office.Tests;
+
+// https://woodsworkblog.wordpress.com/2012/08/06/add-header-and-footer-to-an-existing-word-document-with-openxml-sdk-2-0/
 
 [TestFixture]
 internal class DocxBuilderTests
@@ -38,15 +45,15 @@ internal class DocxBuilderTests
 
         // Assert
         Assert.That(docx, Is.Not.Null);
-        Assert.That(docx.docx, Is.Null);
-        Assert.That(docx.mainDocumentPart, Is.Null);
-        Assert.That(docx.body, Is.Null);
+        Assert.That(docx.Docx, Is.Null);
+        Assert.That(docx.MainDocumentPart, Is.Null);
+        Assert.That(docx.Body, Is.Null);
 
         docx.Dispose();
     }
 
     [Test]
-    public void Create_ValidSetup_DocxCreated()
+    public void Create_ValidSetupFilePath_DocxCreated()
     {
         // Arrange 
         var path = Path.Combine(FileHelper.TempPath, "test.docx");
@@ -65,9 +72,75 @@ internal class DocxBuilderTests
         Assert.That(File.Exists(path));
 
         Assert.That(docx, Is.Not.Null);
-        Assert.That(docx.docx, Is.Not.Null);
-        Assert.That(docx.mainDocumentPart, Is.Not.Null);
-        Assert.That(docx.body, Is.Not.Null);
+        Assert.That(docx.Docx, Is.Not.Null);
+        Assert.That(docx.MainDocumentPart, Is.Not.Null);
+        Assert.That(docx.Body, Is.Not.Null);
+
+        docx.Dispose();
+    }
+
+    [Test]
+    public void Create_ValidSetupMemoryStream_DocxCreated()
+    {
+        // Arrange 
+        var docx = new DocxBuilder();
+
+        // Act  
+        docx.CreateDocument();
+
+        // Assert
+
+        Assert.That(docx, Is.Not.Null);
+        Assert.That(docx.Docx, Is.Not.Null);
+        Assert.That(docx.MainDocumentPart, Is.Not.Null);
+        Assert.That(docx.Body, Is.Not.Null);
+
+        docx.Dispose();
+    }
+
+    [Test]
+    public void SaveDocument_ValidSetupMemoryStream_DocxCreated()
+    {
+        // Arrange 
+        var path = Path.Combine(FileHelper.TempPath, "test.docx");
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+
+        var docx = new DocxBuilder();
+        docx.CreateDocument();
+        docx.AddParagraph("Blubb", "Normal");
+
+        // Act  
+        docx.SaveDocument(path);
+
+        // Assert
+        Assert.That(File.Exists(path));
+
+        Assert.That(docx, Is.Not.Null);
+        Assert.That(docx.Docx, Is.Not.Null);
+        Assert.That(docx.MainDocumentPart, Is.Not.Null);
+        Assert.That(docx.Body, Is.Not.Null);
+
+        docx.Dispose();
+
+        FileSystemHelper.RunInDebugMode(path);
+    }
+
+    [Test]
+    public void AddSection_ValidSetupMemoryStream_DocxCreated()
+    {
+        // Arrange 
+        var docx = new DocxBuilder();
+        docx.CreateDocument();
+
+        // Act  
+        docx.AddSection();
+
+        // Assert
+        Assert.That(docx.CurrentSection, Is.Not.Null);
 
         docx.Dispose();
     }
@@ -85,6 +158,7 @@ internal class DocxBuilderTests
 
         var docx = new DocxBuilder();
         docx.CreateDocument(path);
+        docx.AddSection();
 
         // Act  
         docx.AddParagraph("Blubb", "Normal");
@@ -93,9 +167,109 @@ internal class DocxBuilderTests
         Assert.That(File.Exists(path));
 
         Assert.That(docx, Is.Not.Null);
-        Assert.That(docx.docx, Is.Not.Null);
-        Assert.That(docx.mainDocumentPart, Is.Not.Null);
-        Assert.That(docx.body, Is.Not.Null);
+        Assert.That(docx.Docx, Is.Not.Null);
+        Assert.That(docx.MainDocumentPart, Is.Not.Null);
+        Assert.That(docx.Body, Is.Not.Null);
+
+        docx.Dispose();
+
+        FileSystemHelper.RunInDebugMode(path);
+    }
+
+    [Test]
+    public void AddParagraph_MultipleRunsNormal_DocxCreated()
+    {
+        // Arrange 
+        var path = Path.Combine(FileHelper.TempPath, "test.docx");
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+
+        var docx = new DocxBuilder();
+        docx.CreateDocument(path);
+        docx.AddSection();
+        docx.SetBasicPageProperties(21, 29.4, 5, 2, 2, 2);
+
+        // Act  
+        var runs = new List<OpenXmlElement>
+        {
+            DocxBuilder.CreateRun("Das ist "),
+            DocxBuilder.CreateRunBold("ein "),
+            DocxBuilder.CreateRunItalic("Test für einen Hyperlink "),
+            DocxBuilder.CreateHyperlink("http://www.bodoconsult.de", "Bodoconsult", docx.MainDocumentPart),
+            DocxBuilder.CreateRun(" im Text!"),
+            DocxBuilder.CreateLineBreak(),
+            DocxBuilder.CreateRun("Das ist 1 ..."),
+            DocxBuilder.CreatePageBreak(),
+            DocxBuilder.CreateRun("Das ist 2 ..."),
+        };
+
+        docx.AddParagraph(runs, "Normal");
+
+        // Assert
+        Assert.That(File.Exists(path));
+
+        Assert.That(docx, Is.Not.Null);
+        Assert.That(docx.Docx, Is.Not.Null);
+        Assert.That(docx.MainDocumentPart, Is.Not.Null);
+        Assert.That(docx.Body, Is.Not.Null);
+
+        docx.Dispose();
+
+        FileSystemHelper.RunInDebugMode(path);
+    }
+
+    [Test]
+    public void AddParagraph_MultipleSections_DocxCreated()
+    {
+        // Arrange 
+        var path = Path.Combine(FileHelper.TempPath, "test.docx");
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+
+        var docx = new DocxBuilder();
+        docx.CreateDocument(path);
+        docx.AddSection();
+        docx.SetBasicPageProperties(21, 29.4, 5, 2, 2, 2);
+
+        docx.AddParagraph("Section1", "Normal");
+
+        // Act  
+        var section = docx.AddSection();
+        var columns = new Columns();
+        columns.EqualWidth = true;
+        columns.ColumnCount = 3;
+        section.Append(columns);
+
+        docx.SetBasicPageProperties(21, 29.4, 8, 2, 2, 2);
+
+        var runs = new List<OpenXmlElement>
+        {
+            DocxBuilder.CreateRun("Das ist "),
+            DocxBuilder.CreateRunBold("ein "),
+            DocxBuilder.CreateRunItalic("Test für einen Hyperlink "),
+            DocxBuilder.CreateHyperlink("http://www.bodoconsult.de", "Bodoconsult", docx.MainDocumentPart),
+            DocxBuilder.CreateRun(" im Text!"),
+            DocxBuilder.CreateLineBreak(),
+            DocxBuilder.CreateRun("Das ist 1 ..."),
+            DocxBuilder.CreatePageBreak(),
+            DocxBuilder.CreateRun("Das ist 2 ..."),
+        };
+
+        docx.AddParagraph(runs, "Normal");
+
+        // Assert
+        Assert.That(File.Exists(path));
+
+        Assert.That(docx, Is.Not.Null);
+        Assert.That(docx.Docx, Is.Not.Null);
+        Assert.That(docx.MainDocumentPart, Is.Not.Null);
+        Assert.That(docx.Body, Is.Not.Null);
 
         docx.Dispose();
 
@@ -128,6 +302,7 @@ internal class DocxBuilderTests
 
         var docx = new DocxBuilder();
         docx.CreateDocument(path);
+        docx.AddSection();
 
         // Act  
         docx.AddNewStyle( "heading1", "heading 1", styleRunPropertiesH1, 2);
@@ -139,9 +314,9 @@ internal class DocxBuilderTests
         Assert.That(File.Exists(path));
 
         Assert.That(docx, Is.Not.Null);
-        Assert.That(docx.docx, Is.Not.Null);
-        Assert.That(docx.mainDocumentPart, Is.Not.Null);
-        Assert.That(docx.body, Is.Not.Null);
+        Assert.That(docx.Docx, Is.Not.Null);
+        Assert.That(docx.MainDocumentPart, Is.Not.Null);
+        Assert.That(docx.Body, Is.Not.Null);
 
         docx.Dispose();
 
@@ -165,11 +340,14 @@ internal class DocxBuilderTests
         {
             FontColor = TypoColors.Cyan,
             FontName = "Arial Black",
-            FontSize = 20
+            FontSize = 20,
+            Bold = true,
+            Italic = true,
         };
 
         var docx = new DocxBuilder();
         docx.CreateDocument(path);
+        docx.AddSection();
 
         // Act  
         docx.AddNewStyle("heading1", "heading 1", style, 2);
@@ -181,9 +359,9 @@ internal class DocxBuilderTests
         Assert.That(File.Exists(path));
 
         Assert.That(docx, Is.Not.Null);
-        Assert.That(docx.docx, Is.Not.Null);
-        Assert.That(docx.mainDocumentPart, Is.Not.Null);
-        Assert.That(docx.body, Is.Not.Null);
+        Assert.That(docx.Docx, Is.Not.Null);
+        Assert.That(docx.MainDocumentPart, Is.Not.Null);
+        Assert.That(docx.Body, Is.Not.Null);
 
         docx.Dispose();
 
@@ -218,6 +396,7 @@ internal class DocxBuilderTests
 
         var docx = new DocxBuilder();
         docx.CreateDocument(path);
+        docx.AddSection();
 
         // Act  
         docx.AddNewStyle("heading1", "heading 1", styleRunPropertiesH1, 2);
@@ -230,9 +409,57 @@ internal class DocxBuilderTests
         Assert.That(File.Exists(path));
 
         Assert.That(docx, Is.Not.Null);
-        Assert.That(docx.docx, Is.Not.Null);
-        Assert.That(docx.mainDocumentPart, Is.Not.Null);
-        Assert.That(docx.body, Is.Not.Null);
+        Assert.That(docx.Docx, Is.Not.Null);
+        Assert.That(docx.MainDocumentPart, Is.Not.Null);
+        Assert.That(docx.Body, Is.Not.Null);
+
+        docx.Dispose();
+
+        FileSystemHelper.RunInDebugMode(path);
+    }
+
+    [Test]
+    public void SetBasicPageProperties_SimpleTextHeading1_DocxCreated()
+    {
+        // Arrange 
+        var path = Path.Combine(FileHelper.TempPath, "test.docx");
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+
+        // Heading 1
+        var styleRunPropertiesH1 = new StyleRunProperties();
+        var color1 = new Color() { Val = "2F5496" };
+        // Specify a 16 point size. 16x2 because it’s half-point size
+        var fontSize1 = new FontSize
+        {
+            Val = new StringValue("32")
+        };
+        styleRunPropertiesH1.Append(color1);
+        styleRunPropertiesH1.Append(fontSize1);
+        // Check above at the begining of the word creation to check where mainPart come from
+
+
+        var docx = new DocxBuilder();
+        docx.CreateDocument(path);
+        docx.AddSection();
+        
+        // Act 
+        docx.SetBasicPageProperties(21, 29.4, 5, 2, 2, 2);
+        docx.AddNewStyle("heading1", "heading 1", styleRunPropertiesH1, 2);
+        docx.AddParagraph("Heading 1", "heading1");
+
+        // Assert
+        docx.AddParagraph("Blubb", "Normal");
+
+        Assert.That(File.Exists(path));
+
+        Assert.That(docx, Is.Not.Null);
+        Assert.That(docx.Docx, Is.Not.Null);
+        Assert.That(docx.MainDocumentPart, Is.Not.Null);
+        Assert.That(docx.Body, Is.Not.Null);
 
         docx.Dispose();
 

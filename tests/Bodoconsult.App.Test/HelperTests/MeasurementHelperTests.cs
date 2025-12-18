@@ -7,9 +7,47 @@ namespace Bodoconsult.App.Test.HelperTests;
 [TestFixture]
 internal class MeasurementHelperTests
 {
+    [Test]
+    public void GetDxaFromInch_8Inch_ReturnsDxa()
+    {
+        // Arrange 
+        const double input = 8.2677;    // 21cm
+
+        // Act  
+        var result = MeasurementHelper.GetDxaFromInch(input);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(11905));
+    }
 
     [Test]
-    public void GetEmuFromPixels_600px_ReturnsDxa()
+    public void GetDxaFromCm_21cm_ReturnsDxa()
+    {
+        // Arrange 
+        const int input = 21;
+
+        // Act  
+        var result = MeasurementHelper.GetDxaFromCm(input);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(11905));
+    }
+
+    [Test]
+    public void GetEmuFromCm_1cm_ReturnsEmu()
+    {
+        // Arrange 
+        const int input = 1;
+
+        // Act  
+        var result = MeasurementHelper.GetEmuFromCm(input);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(360000));
+    }
+
+    [Test]
+    public void GetEmuFromPixels_600px_ReturnsEmu()
     {
         // Arrange 
         const int input = 600;
