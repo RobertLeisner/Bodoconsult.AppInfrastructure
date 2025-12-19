@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using System.Diagnostics;
 using Bodoconsult.App.Helpers;
 
 namespace Bodoconsult.Office.Tests.Helpers;

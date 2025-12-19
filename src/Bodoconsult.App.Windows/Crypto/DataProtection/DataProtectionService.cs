@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 using System.Diagnostics;
-using System.Runtime.Versioning;
 using System.Security.Cryptography;
 using System.Text;
 

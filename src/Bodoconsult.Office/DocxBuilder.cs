@@ -6,7 +6,6 @@ using Bodoconsult.App.Abstractions.Interfaces;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
-using System.Numerics;
 using A = DocumentFormat.OpenXml.Drawing;
 using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using Paragraph = DocumentFormat.OpenXml.Wordprocessing.Paragraph;
@@ -61,7 +60,9 @@ public class DocxBuilder : IDisposable
     /// </summary>
     public List<SectionProperties> Sections { get; } = new();
 
-
+    /// <summary>
+    /// Current section in the document
+    /// </summary>
     public SectionProperties CurrentSection { get; private set; }
 
     /// <summary>
@@ -139,19 +140,6 @@ public class DocxBuilder : IDisposable
         // Add style part
         StyleDefinitionsPart = Docx.MainDocumentPart.StyleDefinitionsPart ?? AddStylesPartToPackage();
         Styles = StyleDefinitionsPart?.Styles;
-
-
-        //// Sections
-        //Sections = Body.ChildElements.OfType<SectionProperties>();
-
-        //if (Sections.Any())
-        //{
-        //    return;
-        //}
-
-        //Body.AddChild(new SectionProperties());
-
-        //Sections = Body.ChildElements.OfType<SectionProperties>();
     }
 
     // Add a StylesDefinitionsPart to the document.  Returns a reference to it.
@@ -168,23 +156,18 @@ public class DocxBuilder : IDisposable
 
         Styles = part.Styles;
 
-        //Styles.DocDefaults = new DocDefaults()
-        //{
-        //    ParagraphPropertiesDefault = 
-        //};
-
         return part;
     }
 
     /// <summary>
     /// Set basic page properties like width and height and margins
     /// </summary>
-    /// <param name="pageWidth"></param>
-    /// <param name="pageHeight"></param>
-    /// <param name="marginLeft"></param>
-    /// <param name="marginTop"></param>
-    /// <param name="marginRight"></param>
-    /// <param name="marginBottom"></param>
+    /// <param name="pageWidth">Page width in cm</param>
+    /// <param name="pageHeight">Page height in cm</param>
+    /// <param name="marginLeft">Margin left in cm</param>
+    /// <param name="marginTop">Margin top in cm</param>
+    /// <param name="marginRight">Margin right in cm</param>
+    /// <param name="marginBottom">Margin bottom in cm</param>
     public void SetBasicPageProperties(double pageWidth, double pageHeight, double marginLeft, double marginTop, double marginRight, double marginBottom)
     {
         // Paper size
@@ -245,6 +228,160 @@ public class DocxBuilder : IDisposable
 
         StyleRunProperties styleRunProperties = new();
 
+        var pPr = new ParagraphProperties();
+        styleRunProperties.Append(pPr);
+
+        // Margins and indentation
+        CreateMargins(typoStyle, pPr);
+
+        // Create paragraph settings like KeepLines, KeepNext etc.
+        CreateAdvancedParagraphSettings(typoStyle, pPr);
+
+        // Create borders
+        CreateBorders(typoStyle, pPr);
+
+        // Create font settings
+        CreateFontSettings(typoStyle, styleRunProperties);
+
+        // Justification
+        CreateJustification(typoStyle, styleRunProperties);
+
+        // Create a new paragraph style and specify some of the properties.
+        var style = CreateStyle(Styles, styleid, stylename, uiPriority, styleRunProperties);
+        return style;
+    }
+
+    /// <summary>
+    /// Set margins and indentation
+    /// </summary>
+    /// <param name="typoStyle">Type style</param>
+    /// <param name="pPr">Paragraph properties</param>
+    private static void CreateMargins(ITypoParagraphStyle typoStyle, ParagraphProperties pPr)
+    {
+        var left = MeasurementHelper.GetTwipsFromCm(typoStyle.Margins.Left);
+        var top = MeasurementHelper.GetTwipsFromCm(typoStyle.Margins.Top);
+        var right = MeasurementHelper.GetTwipsFromCm(typoStyle.Margins.Right);
+        var bottom = MeasurementHelper.GetTwipsFromCm(typoStyle.Margins.Bottom);
+        var leftFirstLine = MeasurementHelper.GetTwipsFromCm(typoStyle.FirstLineIndent);
+
+        var spacing = new SpacingBetweenLines { Before = new StringValue(top.ToString()), After = new StringValue(bottom.ToString()), BeforeAutoSpacing = OnOffValue.FromBoolean(false), AfterAutoSpacing = OnOffValue.FromBoolean(false) };
+        pPr.Append(spacing);
+
+        var indentation = new Indentation { Left = new StringValue(left.ToString()), Right = new StringValue(right.ToString()) , FirstLine = new StringValue(leftFirstLine.ToString()) };
+        pPr.Append(indentation);
+    }
+
+    /// <summary>
+    /// Create paragraph settings like KeepLines, KeepNext etc.
+    /// </summary>
+    /// <param name="typoStyle">Type style</param>
+    /// <param name="pPr">Paragraph properties</param>
+    private static void CreateAdvancedParagraphSettings(ITypoParagraphStyle typoStyle, ParagraphProperties pPr)
+    {
+        // Keep the paragraph on one page if possible
+        if (typoStyle.KeepTogether)
+        {
+            var keepLines = new KeepLines
+            {
+                Val = OnOffValue.FromBoolean(true)
+            };
+            pPr.Append(keepLines);
+        }
+
+        // Keep the paragraph with next on one page if possible
+        if (typoStyle.KeepWithNextParagraph)
+        {
+            var keepNext = new KeepNext
+            {
+                Val = OnOffValue.FromBoolean(true)
+            };
+            pPr.Append(keepNext);
+        }
+
+        // page break before
+        if (typoStyle.PageBreakBefore)
+        {
+            var pageBreakBefore = new PageBreakBefore
+            {
+                Val = OnOffValue.FromBoolean(true)
+            };
+            pPr.Append(pageBreakBefore);
+        }
+    }
+
+    /// <summary>
+    /// Create borders
+    /// </summary>
+    /// <param name="typoStyle">Type style</param>
+    /// <param name="pPr">Paragraph properties</param>
+    private static void CreateBorders(ITypoParagraphStyle typoStyle, ParagraphProperties pPr)
+    {
+        // Borders
+        var tblBorders = new ParagraphBorders();
+        pPr.Append(tblBorders);
+        var borderColor = typoStyle.BorderBrush.Color.ToHtml();
+        const uint size = 9 * 10; // 9 per mm
+
+        // Top border
+        if (typoStyle.BorderThickness.Top > 0)
+        {
+            var topBorder = new TopBorder
+            {
+                Val = new EnumValue<BorderValues>(BorderValues.Thick),
+                Color = borderColor,
+                Size = (uint)(typoStyle.BorderThickness.Top * size),
+                Space = (uint)MeasurementHelper.GetEmuFromCm(typoStyle.Paddings.Top)
+            };
+            tblBorders.AppendChild(topBorder);
+        }
+
+        // Bottom
+        if (typoStyle.BorderThickness.Bottom > 0)
+        {
+            var bottomBorder = new BottomBorder
+            {
+                Val = new EnumValue<BorderValues>(BorderValues.Thick),
+                Color = borderColor,
+                Size = (uint)(typoStyle.BorderThickness.Bottom * size),
+                Space = (uint)MeasurementHelper.GetEmuFromCm(typoStyle.Paddings.Bottom)
+            };
+            tblBorders.AppendChild(bottomBorder);
+        }
+
+        // Right border
+        if (typoStyle.BorderThickness.Right > 0)
+        {
+            var rightBorder = new RightBorder
+            {
+                Val = new EnumValue<BorderValues>(BorderValues.Thick),
+                Color = borderColor,
+                Size = (uint)(typoStyle.BorderThickness.Right * size),
+                Space = (uint)MeasurementHelper.GetEmuFromCm(typoStyle.Paddings.Right)
+            };
+            tblBorders.AppendChild(rightBorder);
+        }
+
+        // Left border
+        if (typoStyle.BorderThickness.Left > 0)
+        {
+            var leftBorder = new LeftBorder
+            {
+                Val = new EnumValue<BorderValues>(BorderValues.Thick),
+                Color = borderColor,
+                Size = (uint)(typoStyle.BorderThickness.Left * size),
+                Space = (uint)MeasurementHelper.GetEmuFromCm(typoStyle.Paddings.Left)
+            };
+            tblBorders.AppendChild(leftBorder);
+        }
+    }
+
+    /// <summary>
+    /// Create font settings
+    /// </summary>
+    /// <param name="typoStyle">Type style</param>
+    /// <param name="styleRunProperties">Style run properties to set</param>
+    private static void CreateFontSettings(ITypoParagraphStyle typoStyle, StyleRunProperties styleRunProperties)
+    {
         // Font color
         var color1 = new Color { Val = typoStyle.FontColor.ToHtml() };
         styleRunProperties.Append(color1);
@@ -273,8 +410,48 @@ public class DocxBuilder : IDisposable
         {
             styleRunProperties.Append(new Italic());
         }
+    }
 
-        // Create a new paragraph style and specify some of the properties.
+    /// <summary>
+    /// Create justification
+    /// </summary>
+    /// <param name="typoStyle">Type style</param>
+    /// <param name="styleRunProperties">Style run properties to set</param>
+    private static void CreateJustification(ITypoParagraphStyle typoStyle, StyleRunProperties styleRunProperties)
+    {
+        var justification = new Justification();
+
+        switch (typoStyle.TextAlignment)
+        {
+            case TypoTextAlignment.Center:
+                justification.Val = JustificationValues.Center;
+                break;
+            case TypoTextAlignment.Justify:
+                justification.Val = JustificationValues.Both;
+                break;
+            case TypoTextAlignment.Right:
+                justification.Val = JustificationValues.Right;
+                break;
+            case TypoTextAlignment.Left:
+            default:
+                justification.Val = JustificationValues.Left;
+                break;
+        }
+
+        styleRunProperties.Append(justification);
+    }
+
+    /// <summary>
+    /// Create a style
+    /// </summary>
+    /// <param name="styles">Styles list to add the new style</param>
+    /// <param name="styleid">Style ID</param>
+    /// <param name="stylename">Style name</param>
+    /// <param name="uiPriority">UI priority</param>
+    /// <param name="styleRunProperties">Current style run properties</param>
+    /// <returns></returns>
+    private static Style CreateStyle(Styles styles, string styleid, string stylename, int uiPriority, StyleRunProperties styleRunProperties)
+    {
         var style = new Style
         {
             Type = StyleValues.Paragraph,
@@ -287,7 +464,7 @@ public class DocxBuilder : IDisposable
         style.Append(new UIPriority { Val = uiPriority });
         style.Append(styleRunProperties);
 
-        Styles.Append(style);
+        styles.Append(style);
         return style;
     }
 
@@ -484,32 +661,60 @@ public class DocxBuilder : IDisposable
     /// <summary>
     /// Add a section
     /// </summary>
-    public SectionProperties AddSection()
+    /// <param name="isLastSection">Is the new section the last section. Default: true</param>
+    public SectionProperties AddSection(bool isLastSection = true)
     {
+
+        if (CurrentSection != null)
+        {
+            var p = Body.Descendants<Paragraph>().LastOrDefault();
+            if (p != null)
+            {
+                var pPr = p.ParagraphProperties;
+                if (pPr == null)
+                {
+                    pPr = new ParagraphProperties();
+                    p.Append(pPr);
+                }
+
+                pPr.Append(CurrentSection);
+            }
+        }
+
 
         var section = new SectionProperties();
 
         var sectionBreakType = new SectionType { Val = SectionMarkValues.NextPage };
         section.Append(sectionBreakType);
 
-        var added = Body.AddChild(section);
         Sections.Add(section);
         CurrentSection = section;
 
+        if (isLastSection)
+        {
+            Body.AddChild(section);
+        }
 
+        return section;
+    }
 
+    /// <summary>
+    /// Add a 2 column section
+    /// </summary>
+    /// <param name="space">The space between the equalwidth columns in cm</param>
+    /// <param name="isLastSection">Is the new section the last section. Default: true</param>
+    public SectionProperties Add2ColumnsSection(double space, bool isLastSection = true)
+    {
+        var spaceString = MeasurementHelper.GetDxaFromCm(space).ToString("0");
 
-        //MainDocumentPart myMainPart = mydoc.MainDocumentPart;
-        //Paragraph paragraphSectionBreak = new Paragraph();
-        //ParagraphProperties paragraphSectionBreakProperties = new ParagraphProperties();
-        //SectionProperties SectionBreakProperties = new SectionProperties();
-        //SectionType SectionBreakType = new SectionType() { Val = SectionMarkValues.NextPage };
-        //SectionBreakProperties.Append(SectionBreakType);
-        //paragraphSectionBreakProperties.Append(SectionBreakProperties);
-        //paragraphSectionBreak.Append(paragraphSectionBreakProperties);
-        //myMainPart.Document.Body.InsertAfter(paragraphSectionBreak, myMainPart.Document.Body.LastChild);
-        //myMainPart.Document.Save();
-
+        var section = AddSection(isLastSection);
+        var columns = new Columns
+        {
+            EqualWidth = true,
+            ColumnCount = 2,
+            Space = new StringValue(spaceString)
+        };
+        section.Append(columns);
         return section;
     }
 
@@ -694,7 +899,7 @@ public class DocxBuilder : IDisposable
     /// <returns>Line break run</returns>
     public static Run CreateLineBreak()
     {
-        return new Run(new Break() { Type = BreakValues.TextWrapping });
+        return new Run(new Break { Type = BreakValues.TextWrapping });
     }
 
     /// <summary>
@@ -703,15 +908,15 @@ public class DocxBuilder : IDisposable
     /// <returns>Page break run</returns>
     public static Run CreatePageBreak()
     {
-        return new Run(new Break() { Type = BreakValues.Page });
+        return new Run(new Break { Type = BreakValues.Page });
     }
 
     /// <summary>
     /// Create column break
     /// </summary>
     /// <returns>Column break run</returns>
-    public static Run ColumnPageBreak()
+    public static Run CreateColumnBreak()
     {
-        return new Run(new Break() { Type = BreakValues.Column });
+        return new Run(new Break { Type = BreakValues.Column });
     }
 }

@@ -3,7 +3,6 @@
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Extensions;
 using Bodoconsult.Text.Interfaces;
-using System;
 using System.Text;
 
 namespace Bodoconsult.Text.Pdf.Renderer.Styles;

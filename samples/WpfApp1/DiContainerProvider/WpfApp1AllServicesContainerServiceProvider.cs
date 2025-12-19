@@ -2,7 +2,6 @@
 
 using Bodoconsult.App.Abstractions.DependencyInjection;
 using Bodoconsult.App.Abstractions.Interfaces;
-using Bodoconsult.App.Logging;
 using Bodoconsult.App.Wpf.Interfaces;
 using WpfApp1.AppData;
 using WpfApp1.ViewModels;

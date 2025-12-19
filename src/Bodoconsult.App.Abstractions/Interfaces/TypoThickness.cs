@@ -3,7 +3,7 @@
 namespace Bodoconsult.App.Abstractions.Interfaces;
 
 /// <summary>
-/// Thickness definition for margins and 
+/// Thickness definition for margins and paddings
 /// </summary>
 public class TypoThickness
 {
@@ -41,7 +41,7 @@ public class TypoThickness
     }
 
     /// <summary>
-    /// Ctor providing a LDML property string with 4 numbers separated by comma like 0,6,0,0
+    /// Ctor providing a string with 4 numbers separated by comma like 0,6,0,0
     /// </summary>
     /// <param name="values">LDML property string</param>
     public TypoThickness(string values)

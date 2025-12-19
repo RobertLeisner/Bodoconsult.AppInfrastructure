@@ -1,9 +1,6 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 
-using Bodoconsult.App.Abstractions.Helpers;
-using System.Drawing;
-
 namespace Bodoconsult.App.Abstractions.Interfaces;
 
 /// <summary>
@@ -11,6 +8,12 @@ namespace Bodoconsult.App.Abstractions.Interfaces;
 /// </summary>
 public interface ITypography
 {
+
+    /// <summary>
+    /// Papersize
+    /// </summary>
+    TypoPaperSize PaperSize { get; set; }
+
     /// <summary>
     /// Name of the paper format, i.e. A4, Letter, Legal
     /// </summary>
@@ -126,12 +129,10 @@ public interface ITypography
     /// </summary>
     double MarginTopFactor { get; set; }
 
-
     /// <summary>
     /// Sets the factor for the calculation of the bottom margin. See <see cref="SetMargins"/> for details
     /// </summary>
     double MarginBottomFactor { get; set; }
-
 
     /// <summary>
     /// Number of columns to use for the layout in the type area
@@ -142,6 +143,11 @@ public interface ITypography
     /// Unit used for margins in cm (Teil in cm)
     /// </summary>
     double MarginUnit { get; }
+
+    /// <summary>
+    /// Current margins in cm
+    /// </summary>
+    public TypoThickness Margins { get; set; }
 
     /// <summary>
     /// Left margin in cm

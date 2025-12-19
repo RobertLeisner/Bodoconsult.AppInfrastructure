@@ -6,20 +6,17 @@
 
 // https://stackoverflow.com/questions/14144599/open-xml-word-c-sharp-split-into-two-columns
 
+// https://github.com/devel0/netcore-docx/blob/master/src/docx/Styles.cs
+
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.Office.Tests.Helpers;
 using Bodoconsult.Office.Tests.Models;
 using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Office2010.PowerPoint;
 using DocumentFormat.OpenXml.Wordprocessing;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bodoconsult.Office.Tests;
 
@@ -234,17 +231,14 @@ internal class DocxBuilderTests
 
         var docx = new DocxBuilder();
         docx.CreateDocument(path);
-        docx.AddSection();
+        docx.AddSection(false);
         docx.SetBasicPageProperties(21, 29.4, 5, 2, 2, 2);
 
         docx.AddParagraph("Section1", "Normal");
 
         // Act  
         var section = docx.AddSection();
-        var columns = new Columns();
-        columns.EqualWidth = true;
-        columns.ColumnCount = 3;
-        section.Append(columns);
+
 
         docx.SetBasicPageProperties(21, 29.4, 8, 2, 2, 2);
 
@@ -259,6 +253,59 @@ internal class DocxBuilderTests
             DocxBuilder.CreateRun("Das ist 1 ..."),
             DocxBuilder.CreatePageBreak(),
             DocxBuilder.CreateRun("Das ist 2 ..."),
+        };
+
+        docx.AddParagraph(runs, "Normal");
+
+        // Assert
+        Assert.That(File.Exists(path));
+
+        Assert.That(docx, Is.Not.Null);
+        Assert.That(docx.Docx, Is.Not.Null);
+        Assert.That(docx.MainDocumentPart, Is.Not.Null);
+        Assert.That(docx.Body, Is.Not.Null);
+
+        docx.Dispose();
+
+        FileSystemHelper.RunInDebugMode(path);
+    }
+
+    [Test]
+    public void AddParagraph_MultipleSections2Columns_DocxCreated()
+    {
+        // Arrange 
+        var path = Path.Combine(FileHelper.TempPath, "test.docx");
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+
+        var docx = new DocxBuilder();
+        docx.CreateDocument(path);
+        docx.AddSection(false);
+        docx.SetBasicPageProperties(21, 29.4, 2, 2, 2, 2);
+
+        docx.AddParagraph("Section1", "Normal");
+
+        // Act  
+        docx.Add2ColumnsSection(0.5);
+        docx.SetBasicPageProperties(21, 29.4, 8, 2, 2, 2);
+
+        var runs = new List<OpenXmlElement>
+        {
+            DocxBuilder.CreateRun("Das ist "),
+            DocxBuilder.CreateRunBold("ein "),
+            DocxBuilder.CreateRunItalic("Test für einen Hyperlink "),
+            DocxBuilder.CreateHyperlink("http://www.bodoconsult.de", "Bodoconsult", docx.MainDocumentPart),
+            DocxBuilder.CreateRun(" im Text!"),
+            DocxBuilder.CreateLineBreak(),
+            DocxBuilder.CreateRun("Das ist 1 ..."),
+            DocxBuilder.CreateColumnBreak(),
+            DocxBuilder.CreateRun("Das ist 2 ..."),
+            DocxBuilder.CreatePageBreak(),
+            DocxBuilder.CreateRun("Das ist 3 ..."),
+
         };
 
         docx.AddParagraph(runs, "Normal");
@@ -343,6 +390,26 @@ internal class DocxBuilderTests
             FontSize = 20,
             Bold = true,
             Italic = true,
+            Margins =
+            {
+                Bottom = 2.5,
+                Left = 1.5
+            },
+            TextAlignment = TypoTextAlignment.Center,
+            BorderThickness =
+            {
+                Bottom = 0.1,
+                Left = 0.1,
+                Right = 0.1,
+                Top = 0.1,
+            },
+            Paddings =
+            {
+                Bottom = 0.1,
+                Left = 0.1,
+                Right = 0.1,
+                Top = 0.1,
+            }
         };
 
         var docx = new DocxBuilder();

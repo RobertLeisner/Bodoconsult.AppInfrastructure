@@ -79,6 +79,12 @@ public class TypographyBase : ITypography
     /// </summary>
     public string Copyright { get; set; }
 
+
+    /// <summary>
+    /// Papersize
+    /// </summary>
+    public TypoPaperSize PaperSize { get; set; }
+
     /// <summary>
     /// Name of the paper format, i.e. A4, Letter, Legal
     /// </summary>
@@ -212,6 +218,11 @@ public class TypographyBase : ITypography
     /// <see cref="MarginUnit"/> = <see cref="PageWidth"/> - <see cref="TypeAreaWidth"/> / (<see cref="SetMargins"/>.left + <see cref="SetMargins"/>.right)
     /// </summary>
     public double MarginUnit { get; private set; }
+    
+    /// <summary>
+    /// Current margins in cm
+    /// </summary>
+    public TypoThickness Margins { get; set; }
 
     /// <summary>
     /// Left margin in cm

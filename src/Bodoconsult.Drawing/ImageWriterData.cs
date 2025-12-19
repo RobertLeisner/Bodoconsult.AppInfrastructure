@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using System.ComponentModel;
 using System.Drawing;
 
 namespace Bodoconsult.Drawing;

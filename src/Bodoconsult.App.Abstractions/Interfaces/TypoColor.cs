@@ -36,9 +36,6 @@
  * SOFTWARE.
  */
 
-using System.Drawing;
-using System.Text;
-
 namespace Bodoconsult.App.Abstractions.Interfaces;
 
 /// <summary>

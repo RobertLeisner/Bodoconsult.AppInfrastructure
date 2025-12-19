@@ -37,27 +37,27 @@ public class DemoStyle : ITypoParagraphStyle
     /// <summary>
     /// Text alignment legt, center, justify or right
     /// </summary>
-    public TypoTextAlignment TextAlignment { get; set; }
+    public TypoTextAlignment TextAlignment { get; set; } = TypoTextAlignment.Left;
 
     /// <summary>
     /// Margins
     /// </summary>
-    public TypoThickness Margins { get; set; }
+    public TypoThickness Margins { get; set; } = new(0,0, 0, 0);
 
     /// <summary>
     /// Border brush
     /// </summary>
-    public TypoBrush BorderBrush { get; set; }
+    public TypoBrush BorderBrush { get; set; } = new TypoSolidColorBrush(TypoColors.Black);
 
     /// <summary>
     /// Current borderline width setting
     /// </summary>
-    public TypoThickness BorderThickness { get; set; }
+    public TypoThickness BorderThickness { get; set; } = new(0, 0, 0, 0);
 
     /// <summary>
     /// Paddings. Padding settings are applied only if a border is set
     /// </summary>
-    public TypoThickness Paddings { get; set; }
+    public TypoThickness Paddings { get; set; } = new(0, 0, 0, 0);
 
     /// <summary>
     /// Indent of the first line in pt. Negative number is indicating a hanging indent
