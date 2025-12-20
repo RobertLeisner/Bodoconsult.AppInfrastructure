@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using System.Windows;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Wpf.AppStarter.ViewModels;
-using System.Windows;
 using WpfApp1.Views;
 
 namespace WpfApp1.ViewModels;

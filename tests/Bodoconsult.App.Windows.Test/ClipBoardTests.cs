@@ -1,8 +1,8 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using System.Runtime.Versioning;
 using Bodoconsult.Core.Windows.System;
 using NUnit.Framework;
-using System.Runtime.Versioning;
 
 namespace Bodoconsult.App.Windows.Test;
 

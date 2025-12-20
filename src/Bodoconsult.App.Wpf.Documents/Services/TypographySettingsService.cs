@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using System.Windows;
+using System.Windows.Media;
 using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Abstractions.Typography;
 using Bodoconsult.App.Wpf.Helpers;
 using PropertyChanged;
-using System.Windows;
-using System.Windows.Media;
 using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Bodoconsult.App.Wpf.Documents.Services;
@@ -396,15 +396,13 @@ public class TypographySettingsService: BasePageSettingsService
         {
             Typography.SetMargins();
 
-            PageSize = new Size(MeasurementHelper.GetDiuFromCm(Typography.PageWidth),
-                MeasurementHelper.GetDiuFromCm(Typography.PageHeight));
+            PageSize = new Size(MeasurementHelper.GetDiuFromCm(Typography.PaperFormat.Size.Width),
+                MeasurementHelper.GetDiuFromCm(Typography.PaperFormat.Size.Height));
 
-            Margins = new Thickness(MeasurementHelper.GetDiuFromCm(Typography.MarginLeft),
-                MeasurementHelper.GetDiuFromCm(Typography.MarginTop - Typography.PageHeaderHeight -
-                                               Typography.PageHeaderMargin),
-                MeasurementHelper.GetDiuFromCm(Typography.MarginRight),
-                MeasurementHelper.GetDiuFromCm(Typography.MarginBottom - Typography.PageFooterHeight -
-                                               Typography.PageFooterMargin));
+            Margins = new Thickness(MeasurementHelper.GetDiuFromCm(Typography.Margins.Left),
+                MeasurementHelper.GetDiuFromCm(Typography.Margins.Top - Typography.PageHeaderHeight - Typography.PageHeaderMargin),
+                MeasurementHelper.GetDiuFromCm(Typography.Margins.Right),
+                MeasurementHelper.GetDiuFromCm(Typography.Margins.Bottom - Typography.PageFooterHeight - Typography.PageFooterMargin));
 
             RegularFontSize = MeasurementHelper.GetDiuFromPoint(Typography.FontSize);
             SmallFontSize = MeasurementHelper.GetDiuFromPoint(Typography.SmallFontSize);

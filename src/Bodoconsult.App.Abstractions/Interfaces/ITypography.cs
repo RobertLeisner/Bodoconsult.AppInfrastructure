@@ -4,30 +4,76 @@
 namespace Bodoconsult.App.Abstractions.Interfaces;
 
 /// <summary>
-/// Interface for typographic data
+/// Interface for typographic data. Coordinates system origin is in the left top corner. X axis going to right. Y axis going down.
 /// </summary>
 public interface ITypography
 {
+    /// <summary>
+    /// Paper format
+    /// </summary>
+    TypoPaperFormat PaperFormat { get; set; }
 
     /// <summary>
-    /// Papersize
+    /// Width of the column divider in cm (Spaltenabstand in cm)
     /// </summary>
-    TypoPaperSize PaperSize { get; set; }
+    double ColumnDividerWidth { get; set; }
 
     /// <summary>
-    /// Name of the paper format, i.e. A4, Letter, Legal
+    /// Column width in cm
     /// </summary>
-    string PaperFormatName { get; set; }
+    double ColumnWidth { get; set; }
 
     /// <summary>
-    /// Page width in cm
+    /// Sets the factor for the calculation of the left margin. See <see cref="SetMargins"/> for details
     /// </summary>
-    double PageWidth { get; set; }
+    double MarginLeftFactor { get; set; }
 
     /// <summary>
-    /// Page height in cm
+    /// Sets the factor for the calculation of the right margin. See <see cref="SetMargins"/> for details
     /// </summary>
-    double PageHeight { get; set; }
+    double MarginRightFactor { get; set; }
+
+    /// <summary>
+    /// Sets the factor for the calculation of the top margin. See <see cref="SetMargins"/> for details
+    /// </summary>
+    double MarginTopFactor { get; set; }
+
+    /// <summary>
+    /// Sets the factor for the calculation of the bottom margin. See <see cref="SetMargins"/> for details
+    /// </summary>
+    double MarginBottomFactor { get; set; }
+
+    /// <summary>
+    /// Number of columns to use for the layout in the type area
+    /// </summary>
+    int ColumnCount { get; set; }
+
+    /// <summary>
+    /// Unit used for margin calculations in cm (Teil in cm)
+    /// 
+    /// <see cref="MarginUnit"/> = PaperSize.Size.Width - TypeAreaRect.Size.Width / (<see cref="SetMargins"/>.left + <see cref="SetMargins"/>.right)
+    /// </summary>
+    double MarginUnit { get; }
+
+    /// <summary>
+    /// Current margins in cm
+    /// </summary>
+    public TypoThickness Margins { get; set; }
+
+    /// <summary>
+    /// Type area rect dimensions in cm (Abmessungen des Satzspiegels in cm)
+    /// </summary>
+    public TypoRect TypeAreaRect { get; }
+
+    /// <summary>
+    /// Header area rect dimensions in cm
+    /// </summary>
+    public TypoRect HeaderAreaRect { get; }
+
+    /// <summary>
+    /// Footer area rect dimensions in cm
+    /// </summary>
+    public TypoRect FooterAreaRect { get; }
 
     /// <summary>
     /// Default font name
@@ -105,71 +151,6 @@ public interface ITypography
     double LineHeight { get; set; }
 
     /// <summary>
-    /// Width of the column divider in cm (Spaltenabstand in cm)
-    /// </summary>
-    double ColumnDividerWidth { get; set; }
-
-    /// <summary>
-    /// Column width in cm
-    /// </summary>
-    double ColumnWidth { get; set; }
-
-    /// <summary>
-    /// Sets the factor for the calculation of the left margin. See <see cref="SetMargins"/> for details
-    /// </summary>
-    double MarginLeftFactor { get; set; }
-
-    /// <summary>
-    /// Sets the factor for the calculation of the right margin. See <see cref="SetMargins"/> for details
-    /// </summary>
-    double MarginRightFactor { get; set; }
-
-    /// <summary>
-    /// Sets the factor for the calculation of the top margin. See <see cref="SetMargins"/> for details
-    /// </summary>
-    double MarginTopFactor { get; set; }
-
-    /// <summary>
-    /// Sets the factor for the calculation of the bottom margin. See <see cref="SetMargins"/> for details
-    /// </summary>
-    double MarginBottomFactor { get; set; }
-
-    /// <summary>
-    /// Number of columns to use for the layout in the type area
-    /// </summary>
-    int ColumnCount { get; set; }
-
-    /// <summary>
-    /// Unit used for margins in cm (Teil in cm)
-    /// </summary>
-    double MarginUnit { get; }
-
-    /// <summary>
-    /// Current margins in cm
-    /// </summary>
-    public TypoThickness Margins { get; set; }
-
-    /// <summary>
-    /// Left margin in cm
-    /// </summary>
-    double MarginLeft { get; }
-
-    /// <summary>
-    /// Right margin in cm
-    /// </summary>
-    double MarginRight { get; }
-
-    /// <summary>
-    /// Top margin in cm
-    /// </summary>
-    double MarginTop { get; }
-
-    /// <summary>
-    /// Bottom margin in cm
-    /// </summary>
-    double MarginBottom { get; }
-
-    /// <summary>
     /// Height of the page header in cm
     /// </summary>
     double PageHeaderHeight { get; set; }
@@ -193,16 +174,6 @@ public interface ITypography
     /// Dots per inch (for converting to pixels). Default: 96dpi
     /// </summary>
     double DotsPerInch { get; set; }
-
-    /// <summary>
-    /// Width of the type area in cm (Breite des Satzspiegels in cm)
-    /// </summary>
-    double TypeAreaWidth { get; }
-
-    /// <summary>
-    /// Height of the type area in cm (Höhe des Satzspiegels in cm)
-    /// </summary>
-    double TypeAreaHeight { get; set; }
 
     /// <summary>
     /// Coordinates of the vertical lines of the typo grid
@@ -270,14 +241,14 @@ public interface ITypography
     void CalculateVerticalLines();
 
     /// <summary>
-    /// Calculate margins and store it. Margins are calculate as follows:
+    /// Set ratios used to calculate margins. Margins are calculate as follows:
     /// 
-    /// <see cref="MarginUnit"/> = <see cref="PageWidth"/> - <see cref="TypeAreaWidth"/> / (<see cref="MarginLeftFactor"/> + <see cref="MarginRightFactor"/>)
+    /// <see cref="MarginUnit"/> = PaperSize.Size.Width - TypeAreaRect.Size.Width / (<see cref="MarginLeftFactor"/> + <see cref="MarginRightFactor"/>)
     /// 
-    /// <see cref="MarginLeft"/> = <see cref="MarginLeftFactor"/> * <see cref="MarginUnit"/>
-    /// <see cref="MarginRight"/> = <see cref="MarginRightFactor"/> * <see cref="MarginUnit"/>
-    /// <see cref="MarginTop"/> = <see cref="MarginTopFactor"/> * <see cref="MarginUnit"/>
-    /// <see cref="MarginBottom"/> = <see cref="MarginBottomFactor"/>* <see cref="MarginUnit"/>
+    /// Margins.Left  = <see cref="MarginLeftFactor"/> * <see cref="MarginUnit"/>
+    /// Margins.Right  = <see cref="MarginRightFactor"/> * <see cref="MarginUnit"/>
+    /// Margins.Top  = <see cref="MarginTopFactor"/> * <see cref="MarginUnit"/>
+    /// Margins.Bottom  = <see cref="MarginBottomFactor"/>* <see cref="MarginUnit"/>
     /// 
     /// </summary>
     void SetMargins();

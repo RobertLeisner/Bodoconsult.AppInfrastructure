@@ -1,10 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 using System.IO;
-// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
-
 using Bodoconsult.App.Wpf.Documents.Services;
 using PropertyChanged;
+// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 namespace Bodoconsult.App.Wpf.Documents.Reports;
 

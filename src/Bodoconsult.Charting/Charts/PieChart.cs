@@ -34,7 +34,7 @@ public class PieChart<T> : BaseChart<T> where T : PieChartItemData
         {
             var data = (PieChartItemData)ChartData.DataSource[index];
 
-            var slice = new PieSlice()
+            var slice = new PieSlice
             {
                 Value = Convert.ToDouble(data.YValue), 
                 Label = data.XValue + "\r\n"+ $"{data.YValue/total*100:0.0}%", 

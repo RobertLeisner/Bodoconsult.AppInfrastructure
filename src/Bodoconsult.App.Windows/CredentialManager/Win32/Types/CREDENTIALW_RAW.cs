@@ -4,6 +4,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace Bodoconsult.App.Windows.CredentialManager.Win32.Types;
 
@@ -14,7 +15,7 @@ internal readonly struct CredentialwRaw
     public readonly CredentialType Type;
     public readonly IntPtr TargetName;
     public readonly IntPtr Comment;
-    public readonly global::System.Runtime.InteropServices.ComTypes.FILETIME LastWritten;
+    public readonly FILETIME LastWritten;
     public readonly int BlobSize;
     public readonly IntPtr Blob;
     public readonly CredentialPersist Persist;

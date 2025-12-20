@@ -81,7 +81,7 @@ public class PdfCreatorTests
         pdf.AddParagraph(TestDataHelper.MassText, "Normal");
 
 
-        pdf.AddDefinitionList(DataHelper.GetDefinitionListAsDataTable(), "DefinitionListTerm", "DefinitionListItem");
+        pdf.AddDefinitionList(DataHelper.GetDefinitionListAsDataTable());
 
         pdf.AddParagraph(TestDataHelper.MassText, "Normal");
         pdf.AddTable(DataHelper.GetSmallDataTable(), "Tabellenüberschrift", "NoHeading1", "some additional info",

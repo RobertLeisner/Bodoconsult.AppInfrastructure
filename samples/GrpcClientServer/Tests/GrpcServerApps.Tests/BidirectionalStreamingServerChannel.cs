@@ -5,6 +5,7 @@ using Bodoconsult.App.BusinessTransactions.RequestData;
 using Bodoconsult.App.GrpcBackgroundService;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Grpc.Net.Client;
 using GrpcServerApp.Grpc.App;
@@ -129,7 +130,7 @@ public class BidirectionalStreamingServerChannel
 
         var noti = new ClientNotificationMessage
         {
-            Dto = Google.Protobuf.WellKnownTypes.Any.Pack(startRequest)
+            Dto = Any.Pack(startRequest)
         };
 
         _asyncDuplexStreamingCall.RequestStream.WriteAsync(noti).GetAwaiter().GetResult();

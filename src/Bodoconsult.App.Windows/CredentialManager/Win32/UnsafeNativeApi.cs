@@ -17,14 +17,14 @@ internal static unsafe class UnsafeNativeApi
     [DllImport ("Advapi32.dll", SetLastError = true)]
     public static extern bool CredReadW (
         [MarshalAs (UnmanagedType.LPWStr)] string targetName,
-        Types.CredentialType type,
+        CredentialType type,
         int flags, // use 0 only
         out CredentialSafeHandle credential);
 
     [DllImport ("Advapi32.dll")]
     public static extern bool CredDeleteW (
         [MarshalAs (UnmanagedType.LPWStr)] string targetName,
-        Types.CredentialType type,
+        CredentialType type,
         int flags // use 0 only
     );
 

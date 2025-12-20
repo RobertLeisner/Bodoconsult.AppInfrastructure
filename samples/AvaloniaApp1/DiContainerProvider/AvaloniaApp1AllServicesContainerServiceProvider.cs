@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using System.IO;
 using AvaloniaApp1.AppData;
 using AvaloniaApp1.Factories;
 using AvaloniaApp1.ViewModels;
@@ -7,13 +8,12 @@ using Bodoconsult.App;
 using Bodoconsult.App.Abstractions.Delegates;
 using Bodoconsult.App.Abstractions.DependencyInjection;
 using Bodoconsult.App.Abstractions.Interfaces;
+using Bodoconsult.App.Avalonia.Interfaces;
 using Bodoconsult.App.Benchmarking;
 using Bodoconsult.App.Factories;
 using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.Logging;
 using Microsoft.Extensions.Logging;
-using System.IO;
-using Bodoconsult.App.Avalonia.Interfaces;
 
 namespace AvaloniaApp1.DiContainerProvider;
 

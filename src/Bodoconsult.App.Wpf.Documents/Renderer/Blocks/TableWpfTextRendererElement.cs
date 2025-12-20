@@ -1,13 +1,14 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 
-using Bodoconsult.App.Wpf.Documents.Helpers;
-using Bodoconsult.Text.Documents;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 using Bodoconsult.App.Abstractions.Helpers;
+using Bodoconsult.App.Wpf.Documents.Helpers;
+using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Helpers;
+using Paragraph = System.Windows.Documents.Paragraph;
 using SolidColorBrush = System.Windows.Media.SolidColorBrush;
 using Table = Bodoconsult.Text.Documents.Table;
 using Thickness = System.Windows.Thickness;
@@ -44,7 +45,7 @@ public class TableWpfTextRendererElement : WpfTextRendererElementBase
         {
             var table1 = new System.Windows.Documents.Table
             {
-                Margin = new Thickness(0, MeasurementHelper.GetDiuFromPoint(tableStyle.Margins.Top), 0, MeasurementHelper.GetDiuFromPoint(tableStyle.Margins.Bottom)),
+                Margin = new Thickness(0, MeasurementHelper.GetDiuFromCm(tableStyle.Margins.Top), 0, MeasurementHelper.GetDiuFromCm(tableStyle.Margins.Bottom)),
                 Padding = WpfDocumentRendererHelper.NoMarginThickness,
                 CellSpacing = 0
             };
@@ -98,7 +99,7 @@ public class TableWpfTextRendererElement : WpfTextRendererElementBase
         {
             var alignment = DocumentRendererHelper.GetAlignment(tableColumn.DataType);
 
-            var p = new System.Windows.Documents.Paragraph(new Run(tableColumn.Name));
+            var p = new Paragraph(new Run(tableColumn.Name));
             var style = (Style)renderer.StyleSet[$"TableHeader{alignment}Style"];
             p.Style = style;
 
@@ -121,7 +122,7 @@ public class TableWpfTextRendererElement : WpfTextRendererElementBase
         {
             var alignment = DocumentRendererHelper.GetAlignment(dataCell.Column.DataType);
 
-            var p = new System.Windows.Documents.Paragraph();
+            var p = new Paragraph();
             var style = (Style)renderer.StyleSet[$"Cell{alignment}Style"];
             p.Style = style;
 

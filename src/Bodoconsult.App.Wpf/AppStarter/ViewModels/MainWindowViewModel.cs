@@ -1,10 +1,5 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using Bodoconsult.App.Abstractions.Interfaces;
-using Bodoconsult.App.Helpers;
-using Bodoconsult.App.Logging;
-using Bodoconsult.App.Wpf.AppStarter.Views;
-using Bodoconsult.App.Wpf.Interfaces;
 using System.Diagnostics;
 using System.Diagnostics.Tracing;
 using System.Reflection;
@@ -13,6 +8,12 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
+using Bodoconsult.App.Abstractions.Interfaces;
+using Bodoconsult.App.Helpers;
+using Bodoconsult.App.Logging;
+using Bodoconsult.App.Wpf.AppStarter.Views;
+using Bodoconsult.App.Wpf.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -27,7 +28,7 @@ public class MainWindowViewModel : ObservableRecipient, IMainWindowViewModel
     private bool _showInTaskbar;
     private WindowState _windowState;
 
-    private System.Windows.Threading.DispatcherTimer _dispatcherTimer;
+    private DispatcherTimer _dispatcherTimer;
 
     private const int MaxNumberOfLogEntries = 100;
 
@@ -546,7 +547,7 @@ public class MainWindowViewModel : ObservableRecipient, IMainWindowViewModel
     /// </summary>
     public void StartEventListener()
     {
-        _dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+        _dispatcherTimer = new DispatcherTimer();
         _dispatcherTimer.Tick += dispatcherTimer_Tick;
         _dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
         _dispatcherTimer.Start();

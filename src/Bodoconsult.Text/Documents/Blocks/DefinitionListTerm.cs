@@ -72,12 +72,12 @@ public class DefinitionListTerm : ParagraphBase
 
         if (!AllowedBlocks.Contains(type))
         {
-            throw new ArgumentException($"Type {type.Name} not allowed to add for the current element of type {this.GetType().Name}");
+            throw new ArgumentException($"Type {type.Name} not allowed to add for the current element of type {GetType().Name}");
         }
 
         if (block.IsSingleton && Blocks.Exists(x => x.GetType() == type))
         {
-            throw new ArgumentException($"Type {type.Name} not allowed to add for the current element of type {this.GetType().Name} if there is already an existing one (singleton)");
+            throw new ArgumentException($"Type {type.Name} not allowed to add for the current element of type {GetType().Name} if there is already an existing one (singleton)");
         }
 
         Blocks.Add(block);

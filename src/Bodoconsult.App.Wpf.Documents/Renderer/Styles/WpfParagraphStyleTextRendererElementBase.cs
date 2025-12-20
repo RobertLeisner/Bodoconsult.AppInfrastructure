@@ -5,6 +5,7 @@ using Bodoconsult.App.Wpf.Documents.Helpers;
 using Bodoconsult.App.Wpf.Documents.Interfaces;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Interfaces;
+using Paragraph = System.Windows.Documents.Paragraph;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Styles;
 
@@ -58,7 +59,7 @@ public class WpfParagraphStyleTextRendererElementBase : IWpfTextRendererElement
 
         renderer.Dispatcher.Invoke(() =>
         {
-            var style = new Style(typeof(System.Windows.Documents.Paragraph));
+            var style = new Style(typeof(Paragraph));
 
             WpfDocumentRendererHelper.RenderParagraphStyle(Style, style);
             renderer.StyleSet.Add(styleName, style);

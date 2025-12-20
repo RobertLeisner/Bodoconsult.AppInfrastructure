@@ -1,8 +1,10 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Grpc.Net.Client;
 using System.Diagnostics;
 using Bodoconsult.App.GrpcBackgroundService;
+using Google.Protobuf.WellKnownTypes;
+using Grpc.Net.Client;
+using GrpcServerApp;
 
 namespace GrpcServerApps.Tests;
 
@@ -20,7 +22,7 @@ public class GrpcServerUnaryRequestsTests
         {
             try
             {
-                GrpcServerApp.Program.Main(args);
+                Program.Main(args);
             }
             catch (Exception e)
             {
@@ -54,7 +56,7 @@ public class GrpcServerUnaryRequestsTests
 
         try
         {
-            GrpcServerApp.Program.Shutdown();
+            Program.Shutdown();
         }
         catch (Exception e)
         {
@@ -81,7 +83,7 @@ public class GrpcServerUnaryRequestsTests
         var request = new BusinessTransactionRequest
         {
             TransactionId = 1,
-            RequestData = Google.Protobuf.WellKnownTypes.Any.Pack(requestData),
+            RequestData = Any.Pack(requestData),
             TransactionUid = Guid.NewGuid().ToString()
         };
 
@@ -108,7 +110,7 @@ public class GrpcServerUnaryRequestsTests
         var request = new BusinessTransactionRequest
         {
             TransactionId = 2,
-            RequestData = Google.Protobuf.WellKnownTypes.Any.Pack(requestData),
+            RequestData = Any.Pack(requestData),
             TransactionUid = Guid.NewGuid().ToString()
         };
 

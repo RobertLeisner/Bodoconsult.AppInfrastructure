@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System.Reflection;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Bodoconsult.I18N.LocalesProviders;
-using System.Reflection;
 
 namespace Bodoconsult.App.Avalonia.I18N;
 

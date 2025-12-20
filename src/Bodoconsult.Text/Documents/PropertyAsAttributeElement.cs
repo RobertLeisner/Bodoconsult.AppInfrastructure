@@ -1,5 +1,5 @@
-﻿using Bodoconsult.Text.Interfaces;
-using System;
+﻿using System;
+using Bodoconsult.Text.Interfaces;
 
 namespace Bodoconsult.Text.Documents;
 

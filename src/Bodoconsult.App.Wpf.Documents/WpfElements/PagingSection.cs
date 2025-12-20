@@ -1,13 +1,14 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using Bodoconsult.Text.Documents;
+using Section = System.Windows.Documents.Section;
 
 namespace Bodoconsult.App.Wpf.Documents.WpfElements
 {
     /// <summary>
     /// A class derived from <see cref="System.Windows.Documents.Section"/> to allowed more complex paging features in a paginator
     /// </summary>
-    public class PagingSection: System.Windows.Documents.Section
+    public class PagingSection: Section
     {
         /// <summary>
         /// Do not include the current section in the numbering for TOC, TOE and TOF

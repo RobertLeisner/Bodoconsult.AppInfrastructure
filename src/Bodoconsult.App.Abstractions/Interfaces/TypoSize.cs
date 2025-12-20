@@ -1,9 +1,14 @@
+// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
+
+using System.Diagnostics;
+
 namespace Bodoconsult.App.Abstractions.Interfaces;
 
 /// <summary>
-/// Defines a size of an element with width and height
+/// Defines a size of an element on the paper with width and height
 /// </summary>
-public class TypoSize
+[DebuggerDisplay("Width = {Width} Height = {Height}")]
+public struct TypoSize
 {
     /// <summary>
     /// Default ctor

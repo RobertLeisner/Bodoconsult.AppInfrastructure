@@ -1,11 +1,12 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.App.Wpf.Documents.Helpers;
-using Bodoconsult.Text.Documents;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
-
+using Bodoconsult.App.Wpf.Documents.Helpers;
+using Bodoconsult.Text.Documents;
+using Paragraph = System.Windows.Documents.Paragraph;
+using Table = System.Windows.Documents.Table;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
 
@@ -34,7 +35,7 @@ public class DefinitionListWpfTextRendererElement : WpfTextRendererElementBase
         // Create the Table...
         renderer.Dispatcher.Invoke(() =>
         {
-            var table1 = new System.Windows.Documents.Table
+            var table1 = new Table
             {
                 Margin = WpfDocumentRendererHelper.NoMarginThickness,
                 Padding = WpfDocumentRendererHelper.NoMarginThickness,
@@ -76,7 +77,7 @@ public class DefinitionListWpfTextRendererElement : WpfTextRendererElementBase
 
                 var dt = (DefinitionListTerm)item;
 
-                var p = new System.Windows.Documents.Paragraph();
+                var p = new Paragraph();
                 var style = (Style)renderer.StyleSet["DefinitionListTermStyle"];
                 p.Style = style;
 
@@ -90,7 +91,7 @@ public class DefinitionListWpfTextRendererElement : WpfTextRendererElementBase
                 row.Cells.Add(cell);
 
                 // Column 2
-                cell = new TableCell()
+                cell = new TableCell
                 {
                     Padding = WpfDocumentRendererHelper.NoMarginThickness
                 };

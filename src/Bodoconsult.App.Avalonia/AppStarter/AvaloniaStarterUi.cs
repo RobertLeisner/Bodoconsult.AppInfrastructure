@@ -2,16 +2,16 @@
 // Licence MIT
 
 using System.Diagnostics;
+using System.Diagnostics.Tracing;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.AppStarter;
 using Bodoconsult.App.Avalonia.AppStarter.ViewModels;
+using Bodoconsult.App.Avalonia.Helpers;
 using Bodoconsult.App.Avalonia.Interfaces;
 using Bodoconsult.App.Logging;
-using System.Diagnostics.Tracing;
-using Bodoconsult.App.Avalonia.Helpers;
 
 // ReSharper disable LocalizableElement
 

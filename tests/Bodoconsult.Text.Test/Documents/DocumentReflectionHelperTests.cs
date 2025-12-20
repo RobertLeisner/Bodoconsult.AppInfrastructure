@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System.Diagnostics;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Helpers;
 using NUnit.Framework;
-using System.Diagnostics;
 
 namespace Bodoconsult.Text.Test.Documents;
 

@@ -1,12 +1,5 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using Bodoconsult.App.Abstractions.Interfaces;
-using Bodoconsult.App.Wpf.Documents.General;
-using Bodoconsult.App.Wpf.Documents.Paginators;
-using Bodoconsult.App.Wpf.Documents.WpfElements;
-using Bodoconsult.App.Wpf.Helpers;
-using Bodoconsult.Text.Documents;
-using PropertyChanged;
 using System.IO;
 using System.IO.Packaging;
 using System.Runtime.Versioning;
@@ -19,6 +12,14 @@ using System.Windows.Threading;
 using System.Windows.Xps.Packaging;
 using System.Windows.Xps.Serialization;
 using System.Xaml;
+using Bodoconsult.App.Abstractions.Interfaces;
+using Bodoconsult.App.Wpf.Documents.General;
+using Bodoconsult.App.Wpf.Documents.Paginators;
+using Bodoconsult.App.Wpf.Documents.WpfElements;
+using Bodoconsult.App.Wpf.Helpers;
+using Bodoconsult.Text.Documents;
+using PdfSharp.Xps;
+using PropertyChanged;
 using Figure = System.Windows.Documents.Figure;
 using Image = System.Windows.Controls.Image;
 using List = System.Windows.Documents.List;
@@ -1787,7 +1788,7 @@ public class FlowDocumentService
             }
 
             var pdfXpsDoc = PdfSharp.Xps.XpsModel.XpsDocument.Open(lMemoryStream);
-            PdfSharp.Xps.XpsConverter.Convert(pdfXpsDoc, path, 0);
+            XpsConverter.Convert(pdfXpsDoc, path, 0);
         });
     }
 

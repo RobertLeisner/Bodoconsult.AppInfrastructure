@@ -2,6 +2,7 @@
 
 using Bodoconsult.App.Wpf.Documents.Helpers;
 using Bodoconsult.Text.Documents;
+using Paragraph = System.Windows.Documents.Paragraph;
 using TextElement = System.Windows.Documents.TextElement;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Inlines;
@@ -32,7 +33,7 @@ public class LineBreakWpfTextRendererElement : InlineWpfTextRendererElementBase
     public override void RenderToElement(WpfTextDocumentRenderer renderer, TextElement element, List<Inline> childInlines)
     {
 
-        if (element is System.Windows.Documents.Paragraph paragraph)
+        if (element is Paragraph paragraph)
         {
             if (_span.ChildInlines.Count == 0)
             {

@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.App.Abstractions.Interfaces;
 using System.Diagnostics.Tracing;
 using System.Reflection;
 using System.Windows;
@@ -8,6 +7,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace Bodoconsult.App.Wpf.Interfaces;
 

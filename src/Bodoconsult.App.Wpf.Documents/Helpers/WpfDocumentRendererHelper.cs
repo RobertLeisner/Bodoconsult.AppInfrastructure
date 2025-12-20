@@ -1,5 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System.Windows;
+using System.Windows.Documents;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Wpf.Documents.Delegates;
 using Bodoconsult.App.Wpf.Documents.Renderer;
@@ -8,14 +12,14 @@ using Bodoconsult.App.Wpf.Documents.Renderer.Inlines;
 using Bodoconsult.App.Wpf.Documents.WpfElements;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Helpers;
-using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Block = Bodoconsult.Text.Documents.Block;
+using Figure = System.Windows.Documents.Figure;
+using Image = System.Windows.Controls.Image;
 using Inline = Bodoconsult.Text.Documents.Inline;
 using ListItem = System.Windows.Documents.ListItem;
 using Paragraph = System.Windows.Documents.Paragraph;
+using Span = System.Windows.Documents.Span;
+using TextElement = System.Windows.Documents.TextElement;
 using Thickness = System.Windows.Thickness;
 
 namespace Bodoconsult.App.Wpf.Documents.Helpers;
@@ -61,27 +65,27 @@ public static class WpfDocumentRendererHelper
         
         wpfStyle.Setters.Add(new Setter
         {
-            Property = System.Windows.Documents.TextElement.FontSizeProperty,
+            Property = TextElement.FontSizeProperty,
             Value = MeasurementHelper.GetDiuFromPoint(docStyle.FontSize)
         });
         wpfStyle.Setters.Add(new Setter
         {
-            Property = System.Windows.Documents.TextElement.FontFamilyProperty,
+            Property = TextElement.FontFamilyProperty,
             Value = new FontFamily(docStyle.FontName)
         });
 
         wpfStyle.Setters.Add(new Setter
         {
-            Property = System.Windows.Documents.TextElement.FontWeightProperty,
+            Property = TextElement.FontWeightProperty,
             Value = docStyle.Bold ? FontWeights.Bold : FontWeights.Normal
         });
         wpfStyle.Setters.Add(new Setter
         {
             Property = System.Windows.Documents.Block.MarginProperty,
-            Value = new Thickness(MeasurementHelper.GetDiuFromPoint(docStyle.Margins.Left),
-                MeasurementHelper.GetDiuFromPoint(docStyle.Margins.Top),
-                MeasurementHelper.GetDiuFromPoint(docStyle.Margins.Right),
-                MeasurementHelper.GetDiuFromPoint(docStyle.Margins.Bottom))
+            Value = new Thickness(MeasurementHelper.GetDiuFromCm(docStyle.Margins.Left),
+                MeasurementHelper.GetDiuFromCm(docStyle.Margins.Top),
+                MeasurementHelper.GetDiuFromCm(docStyle.Margins.Right),
+                MeasurementHelper.GetDiuFromCm(docStyle.Margins.Bottom))
         });
     }
 
@@ -142,7 +146,7 @@ public static class WpfDocumentRendererHelper
             renderer.WpfDocument.Blocks.Add(section);
             renderer.CurrentSection = section;
 
-            var span = new System.Windows.Documents.Span(new Run(headingText));
+            var span = new Span(new Run(headingText));
             var p = new Paragraph(span);
 
             var style = (Style)renderer.StyleSet[styleName];
@@ -172,7 +176,7 @@ public static class WpfDocumentRendererHelper
         renderer.Dispatcher.Invoke(() =>
         {
 
-            var wpfImage = new System.Windows.Controls.Image
+            var wpfImage = new Image
             {
                 Margin = NoMarginThickness
             };
@@ -185,7 +189,7 @@ public static class WpfDocumentRendererHelper
             wpfImage.Width = MeasurementHelper.GetDiuFromTwips(width);
             wpfImage.Height = MeasurementHelper.GetDiuFromTwips(height);
 
-            var figure = new System.Windows.Documents.Figure
+            var figure = new Figure
             {
                 Margin = NoMarginThickness
             };

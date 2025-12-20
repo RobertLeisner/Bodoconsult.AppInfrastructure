@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System.Collections.Generic;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Test.Helpers;
-using System.Collections.Generic;
 
 namespace Bodoconsult.Text.Test.TestData;
 

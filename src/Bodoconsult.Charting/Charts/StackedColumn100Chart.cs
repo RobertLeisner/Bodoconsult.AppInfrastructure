@@ -1,11 +1,12 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using Bodoconsult.App.Abstractions.Interfaces;
-using Bodoconsult.Charting.Extensions;
-using ScottPlot;
 using System.Diagnostics;
 using System.Globalization;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.Charting.Base.Interfaces;
+using Bodoconsult.Charting.Extensions;
+using ScottPlot;
+using ScottPlot.TickGenerators;
 
 namespace Bodoconsult.Charting;
 
@@ -89,7 +90,7 @@ public class StackedColumn100Chart<T> : BaseChart<T> where T : IChartItemData
         }
 
         // create a custom tick generator using your custom label formatter
-        ScottPlot.TickGenerators.NumericAutomatic myTickGenerator = new()
+        NumericAutomatic myTickGenerator = new()
         {
             LabelFormatter = CustomFormatter,
             //MaxTickCount = 10

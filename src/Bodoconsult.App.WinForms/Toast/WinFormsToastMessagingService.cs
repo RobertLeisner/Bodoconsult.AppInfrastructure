@@ -3,7 +3,6 @@
 using Bodoconsult.App.Abstractions.Interfaces;
 using Microsoft.Toolkit.Uwp.Notifications;
 
-
 namespace Bodoconsult.App.WinForms.Toast
 {
     /// <summary>

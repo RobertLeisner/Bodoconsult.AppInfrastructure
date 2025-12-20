@@ -73,6 +73,20 @@ internal class MeasurementHelperTests
     }
 
     [Test]
+    public void GetCmFromPt_1pt_ReturnsCm()
+    {
+        // Arrange 
+        const int input = 1;
+
+        // Act  
+        var result = MeasurementHelper.GetCmFromPt(input);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(0.0352775));
+    }
+
+
+    [Test]
     public void GetPtFromMm_1mm_ReturnsPt()
     {
         // Arrange 

@@ -1,5 +1,8 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using System.Text;
 using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Extensions;
 using Bodoconsult.Text.Documents;
@@ -8,9 +11,6 @@ using Bodoconsult.Text.Renderer.Html;
 using Bodoconsult.Text.Renderer.PlainText;
 using Bodoconsult.Text.Renderer.Rtf.Blocks;
 using Bodoconsult.Text.Renderer.Rtf.Inlines;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Bodoconsult.Text.Helpers;
 
@@ -479,7 +479,7 @@ public static class DocumentRendererHelper
 
         childs.AddRange(image.ChildInlines);
 
-        DocumentRendererHelper.RenderInlineChildsToPlainText(renderer, sb, childs, tag: string.Empty, isBlock: true);
+        RenderInlineChildsToPlainText(renderer, sb, childs, tag: string.Empty, isBlock: true);
         renderer.Content.Append($"![{sb}]({image.Uri} \"{sb}\"){Environment.NewLine}{Environment.NewLine}");
     }
 }

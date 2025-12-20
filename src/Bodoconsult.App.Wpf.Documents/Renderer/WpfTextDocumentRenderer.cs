@@ -1,14 +1,5 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.App.Abstractions.Helpers;
-using Bodoconsult.App.Helpers;
-using Bodoconsult.App.Wpf.Documents.Interfaces;
-using Bodoconsult.App.Wpf.Documents.Paginators;
-using Bodoconsult.App.Wpf.Documents.Services;
-using Bodoconsult.Pdf.Helpers;
-using Bodoconsult.Text.Documents;
-using Bodoconsult.Text.Interfaces;
-using Bodoconsult.Text.Renderer;
 using System.IO;
 using System.IO.Packaging;
 using System.Windows;
@@ -18,7 +9,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using System.Windows.Xps.Packaging;
 using System.Windows.Xps.Serialization;
+using Bodoconsult.App.Abstractions.Helpers;
+using Bodoconsult.App.Helpers;
+using Bodoconsult.App.Wpf.Documents.Interfaces;
+using Bodoconsult.App.Wpf.Documents.Paginators;
+using Bodoconsult.App.Wpf.Documents.Services;
+using Bodoconsult.Pdf.Helpers;
+using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Helpers;
+using Bodoconsult.Text.Interfaces;
+using Bodoconsult.Text.Renderer;
+using PdfSharp.Xps;
+using Section = System.Windows.Documents.Section;
+using Thickness = System.Windows.Thickness;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer;
 
@@ -54,7 +57,7 @@ public class WpfTextDocumentRenderer : BaseDocumentRenderer
         // Load page settings
         var style = (PageStyleBase)Styleset.FindStyle("DocumentStyle");
         PageSettings.PageSize = new Size(MeasurementHelper.GetDiuFromCm(style.PageWidth), MeasurementHelper.GetDiuFromCm(style.PageHeight));
-        PageSettings.Margins = new System.Windows.Thickness(
+        PageSettings.Margins = new Thickness(
             MeasurementHelper.GetDiuFromCm(style.MarginLeft),
             MeasurementHelper.GetDiuFromCm(style.MarginTop),
             MeasurementHelper.GetDiuFromCm(style.MarginRight),
@@ -115,7 +118,7 @@ public class WpfTextDocumentRenderer : BaseDocumentRenderer
     /// <summary>
     /// Current document section for adding content
     /// </summary>
-    public System.Windows.Documents.Section CurrentSection { get; set; }
+    public Section CurrentSection { get; set; }
 
     /// <summary>
     /// Current styleset
@@ -195,7 +198,7 @@ public class WpfTextDocumentRenderer : BaseDocumentRenderer
             }
 
             var pdfXpsDoc = PdfSharp.Xps.XpsModel.XpsDocument.Open(lMemoryStream);
-            PdfSharp.Xps.XpsConverter.Convert(pdfXpsDoc, path, 0);
+            XpsConverter.Convert(pdfXpsDoc, path, 0);
         });
     }
 

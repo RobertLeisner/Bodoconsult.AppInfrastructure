@@ -76,7 +76,7 @@ public class PerformanceLogger : IPerformanceLogger
         var providers = new List<EventPipeProvider>
         {
             // Runtime Metrics
-            new("System.Runtime", EventLevel.Verbose, (long)0,
+            new("System.Runtime", EventLevel.Verbose, 0,
                 new Dictionary<string, string> { { "EventCounterIntervalSec", "1" } }),
             //new("Microsoft-Windows-DotNETRuntime",
             //    EventLevel.Informational, (long)ClrTraceEventParser.Keywords.GC)
@@ -205,7 +205,7 @@ public class PerformanceLogger : IPerformanceLogger
         catch (EndOfStreamException ex)
         {
             // If the app we're monitoring exits abruptly, this may throw in which case we just swallow the exception and exit gracefully.
-            Debug.WriteLine($"[ERROR] {ex.ToString()}");
+            Debug.WriteLine($"[ERROR] {ex}");
         }
         // We may time out if the process ended before we sent StopTracing command. We can just exit in that case.
         catch (TimeoutException)

@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System.Runtime.InteropServices.ComTypes;
+
 namespace Bodoconsult.App.Extensions;
 
 /// <summary>
@@ -12,7 +14,7 @@ public static class FiletimeExtensions
     /// </summary>
     /// <param name="time"></param>
     /// <returns></returns>
-    public static DateTime ToDateTime(this System.Runtime.InteropServices.ComTypes.FILETIME time)
+    public static DateTime ToDateTime(this FILETIME time)
     {
         var high = (ulong)time.dwHighDateTime;
         var low = (uint)time.dwLowDateTime;

@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.App.BusinessTransactions.RequestData;
 using Bodoconsult.App.BusinessTransactions;
+using Bodoconsult.App.BusinessTransactions.RequestData;
 using Bodoconsult.App.Interfaces;
 using Bodoconsult.App.Test.Helpers;
-using Bodoconsult.App.Test.TestData;
 using Bodoconsult.App.Test.SampleBusinessLogic;
+using Bodoconsult.App.Test.TestData;
 
 namespace Bodoconsult.App.Test.BusinessTransactions;
 

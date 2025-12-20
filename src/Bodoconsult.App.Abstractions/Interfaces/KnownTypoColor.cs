@@ -3,10 +3,10 @@
 namespace Bodoconsult.App.Abstractions.Interfaces;
 
 /// <summary>
-/// Colors take from namespace System.Windows.Media.KnownColor
+/// Colors taken from namespace System.Windows.Media.KnownColor
 /// Source: System.Windows.Media by Microsoft
 /// </summary>
-internal enum KnownColor : uint
+internal enum KnownTypoColor : uint
 {
     UnknownColor = 1,
     Transparent = 16777215, // 0x00FFFFFF

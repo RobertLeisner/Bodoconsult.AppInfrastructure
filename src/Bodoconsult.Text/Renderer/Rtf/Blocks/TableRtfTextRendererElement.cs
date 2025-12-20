@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.Text.Documents;
-using Bodoconsult.Text.Helpers;
-using Bodoconsult.Text.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Bodoconsult.App.Abstractions.Helpers;
+using Bodoconsult.Text.Documents;
+using Bodoconsult.Text.Helpers;
+using Bodoconsult.Text.Interfaces;
 
 namespace Bodoconsult.Text.Renderer.Rtf.Blocks;
 
@@ -62,7 +62,7 @@ public class TableRtfTextRendererElement : ITextRendererElement
         DocumentRendererHelper.RenderRowsToRtf(renderer, _table.Rows);
 
         style = (ParagraphStyleBase)renderer.Styleset.FindStyle("TableLegendStyle");
-        renderer.Content.Append($@"\pard\plain\q{renderer.Styleset.GetIndexOfStyle("TableLegendStyle")}{RtfHelper.GetFormatSettings(style, renderer.Styleset)}\sb{MeasurementHelper.GetTwipsFromPt(tableStyle.Margins.Bottom)}{{");
+        renderer.Content.Append($@"\pard\plain\q{renderer.Styleset.GetIndexOfStyle("TableLegendStyle")}{RtfHelper.GetFormatSettings(style, renderer.Styleset)}\sb{MeasurementHelper.GetTwipsFromCm(tableStyle.Margins.Bottom)}{{");
         var childs = new List<Inline>();
 
         if (!string.IsNullOrEmpty(_table.CurrentPrefix))

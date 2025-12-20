@@ -22,13 +22,17 @@ public class I18NEmbeddedResourceProvider: BaseResourceProvider
     private readonly string _resourceFolder;
 
 
-
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="assembly">Assembly to load the locales from</param>
+    /// <param name="resourceFolder">Folder relative to app path the locales are stored in. Locales file must be named Culture.XX.xaml with XX being the language identifier</param>
     public I18NEmbeddedResourceProvider(Assembly assembly, string resourceFolder)
     {
         _assembly = assembly;
         _resourceFolder = resourceFolder;
 
-        if (!_resourceFolder.EndsWith("."))
+        if (!_resourceFolder.EndsWith('.'))
         {
             _resourceFolder += ".";
         }

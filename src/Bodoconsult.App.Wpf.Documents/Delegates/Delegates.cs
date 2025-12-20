@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using System.Windows;
-using Bodoconsult.Text.Documents;
 using System.Windows.Media;
+using Bodoconsult.Text.Documents;
 
 namespace Bodoconsult.App.Wpf.Documents.Delegates;
 

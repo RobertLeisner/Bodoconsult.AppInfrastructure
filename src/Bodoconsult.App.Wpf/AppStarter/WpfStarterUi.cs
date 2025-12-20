@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 // Licence MIT
 
+using System.Diagnostics.Tracing;
+using System.Windows;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.AppStarter;
 using Bodoconsult.App.Logging;
-using Bodoconsult.App.Wpf.Interfaces;
-using System.Diagnostics.Tracing;
-using System.Windows;
 using Bodoconsult.App.Wpf.AppStarter.ViewModels;
+using Bodoconsult.App.Wpf.Interfaces;
 
 // ReSharper disable LocalizableElement
 

@@ -1,14 +1,17 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System.Windows.Documents;
 using Bodoconsult.App.Wpf.Documents.Helpers;
-using Bodoconsult.Text.Documents;
+using Inline = Bodoconsult.Text.Documents.Inline;
+using Paragraph = System.Windows.Documents.Paragraph;
+using Span = Bodoconsult.Text.Documents.Span;
 using TextElement = System.Windows.Documents.TextElement;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Inlines;
 
 
 /// <summary>
-/// Render a <see cref="Span"/> element
+/// Render a <see cref="Text.Documents.Span"/> element
 /// </summary>
 public class SpanWpfTextRendererElement : InlineWpfTextRendererElementBase
 {
@@ -34,11 +37,11 @@ public class SpanWpfTextRendererElement : InlineWpfTextRendererElementBase
         List<Inline> childInlines)
     {
 
-        if (element is System.Windows.Documents.Paragraph paragraph)
+        if (element is Paragraph paragraph)
         {
             if (_span.ChildInlines.Count == 0)
             {
-                var span = new System.Windows.Documents.Span(new System.Windows.Documents.Run(_span.Content));
+                var span = new System.Windows.Documents.Span(new Run(_span.Content));
                 paragraph.Inlines.Add(span);
 
                 return;

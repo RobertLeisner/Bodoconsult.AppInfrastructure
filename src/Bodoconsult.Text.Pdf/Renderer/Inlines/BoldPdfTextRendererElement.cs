@@ -3,6 +3,7 @@
 using System.Text;
 using Bodoconsult.Text.Documents;
 using MigraDoc.DocumentObjectModel;
+using Paragraph = MigraDoc.DocumentObjectModel.Paragraph;
 
 namespace Bodoconsult.Text.Pdf.Renderer.Inlines;
 
@@ -28,7 +29,7 @@ public class BoldPdfTextRendererElement : InlinePdfTextRendererElementBase
     /// </summary>
     /// <param name="renderer">Current renderer</param>
     /// <param name="paragraph">Paragraph to render the inline into</param>
-    public override void RenderIt(PdfTextDocumentRenderer renderer, MigraDoc.DocumentObjectModel.Paragraph paragraph)
+    public override void RenderIt(PdfTextDocumentRenderer renderer, Paragraph paragraph)
     {
         paragraph.AddFormattedText(_span.Content, TextFormat.Bold);
     }

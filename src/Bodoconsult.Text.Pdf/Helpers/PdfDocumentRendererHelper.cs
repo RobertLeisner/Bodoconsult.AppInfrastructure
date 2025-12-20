@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.Text.Documents;
-using Bodoconsult.Text.Pdf.Renderer;
-using Bodoconsult.Text.Pdf.Renderer.Inlines;
-using MigraDoc.DocumentObjectModel;
 using System.Collections.Generic;
 using System.Text;
 using Bodoconsult.App.Abstractions.Interfaces;
+using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Extensions;
+using Bodoconsult.Text.Pdf.Renderer;
+using Bodoconsult.Text.Pdf.Renderer.Inlines;
+using MigraDoc.DocumentObjectModel;
 using Color = MigraDoc.DocumentObjectModel.Color;
 
 namespace Bodoconsult.Text.Pdf.Helpers;

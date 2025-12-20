@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System.Windows;
 using Bodoconsult.App.Wpf.Documents.Helpers;
 using Bodoconsult.Text.Documents;
-using System.Windows;
-
+using Paragraph = System.Windows.Documents.Paragraph;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
 
@@ -32,7 +32,7 @@ public abstract class ParagraphWpfTextRendererElementBase : WpfTextRendererEleme
     /// <summary>
     /// Current paragraph to render in
     /// </summary>
-    public System.Windows.Documents.Paragraph Paragraph { get; set; }
+    public Paragraph Paragraph { get; set; }
 
     /// <summary>
     /// Render the element
@@ -42,7 +42,7 @@ public abstract class ParagraphWpfTextRendererElementBase : WpfTextRendererEleme
     {
         renderer.Dispatcher.Invoke(() =>
         {
-            Paragraph = new System.Windows.Documents.Paragraph();
+            Paragraph = new Paragraph();
             var style = (Style)renderer.StyleSet[_paragraphBase.StyleName];
             Paragraph.Style = style;
 

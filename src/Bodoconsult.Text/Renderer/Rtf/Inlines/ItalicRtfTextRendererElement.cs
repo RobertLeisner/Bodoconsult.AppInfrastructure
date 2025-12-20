@@ -59,9 +59,9 @@ public class ItalicRtfTextRendererElement : InlineRtfTextRendererElementBase
         }
         else
         {
-            sb.Append($"\\i{{");
+            sb.Append("\\i{");
             DocumentRendererHelper.RenderInlineChildsToRtf(renderer, sb, _span.ChildInlines);
-            sb.Append($"}}\\i");
+            sb.Append("}\\i");
         }
     }
 }

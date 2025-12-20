@@ -19,13 +19,14 @@
 #endregion
 
 using Bodoconsult.App.Abstractions.Interfaces;
+using Microsoft.Extensions.Hosting;
 
 namespace Bodoconsult.App.GrpcBackgroundService.AppStarter;
 
 /// <summary>
 /// <see cref="IAppStarter"/> implementation for a background service using GRPC
 /// </summary>
-public class GrpcBackgroundServiceAppStarter : Microsoft.Extensions.Hosting.BackgroundService, IAppStarter
+public class GrpcBackgroundServiceAppStarter : BackgroundService, IAppStarter
 {
     private readonly IAppLoggerProxy _logger;
 

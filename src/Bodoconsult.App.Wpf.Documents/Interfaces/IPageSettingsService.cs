@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.Text.Documents;
 using System.Globalization;
 using System.Windows;
 using Bodoconsult.App.Wpf.Documents.Delegates;
+using Bodoconsult.Text.Documents;
 
 namespace Bodoconsult.App.Wpf.Documents.Interfaces;
 

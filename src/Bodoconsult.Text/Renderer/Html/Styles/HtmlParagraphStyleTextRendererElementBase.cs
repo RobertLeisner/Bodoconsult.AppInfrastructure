@@ -1,9 +1,10 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using System.Collections.Generic;
+using System.Text;
+using Bodoconsult.App.Extensions;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Extensions;
-using System.Text;
 using Bodoconsult.Text.Interfaces;
 
 namespace Bodoconsult.Text.Renderer.Html.Styles;
@@ -57,21 +58,21 @@ public class HtmlParagraphStyleTextRendererElementBase: ITextRendererElement
 
         if (Style.Bold)
         {
-            sb.AppendLine($"     font-weight: bold;");
+            sb.AppendLine("     font-weight: bold;");
         }
 
         if (Style.Italic)
         {
-            sb.AppendLine($"     font-style: italic;");
+            sb.AppendLine("     font-style: italic;");
         }
-
-        sb.AppendLine($"     margin: {Style.Margins.Top.ToString("0")}pt {Style.Margins.Right.ToString("0")}pt {Style.Margins.Bottom.ToString("0")}pt {Style.Margins.Left.ToString("0")}pt;");
+        
+        sb.AppendLine($"     margin: {Style.Margins.Top.ToString("0.00")}cm {Style.Margins.Right.ToString("0.00")}cm {Style.Margins.Bottom.ToString("0.00")}cm {Style.Margins.Left.ToString("0.00")}cm;");
         sb.AppendLine($"     padding: {Style.Paddings.Top.ToString("0")}pt {Style.Paddings.Right.ToString("0")}pt {Style.Paddings.Bottom.ToString("0")}pt {Style.Paddings.Left.ToString("0")}pt;");
-        sb.AppendLine($"     border-width: {Style.BorderThickness.Top.ToString("0")}pt {Style.BorderThickness.Right.ToString("0")}pt {Style.BorderThickness.Bottom.ToString("0")}pt {Style.BorderThickness.Left.ToString("0")}pt;");
+        sb.AppendLine($"     border-width: {Style.BorderThickness.Top.FromCmToPoint().ToString("0")}pt {Style.BorderThickness.Right.FromCmToPoint().ToString("0")}pt {Style.BorderThickness.Bottom.FromCmToPoint().ToString("0")}pt {Style.BorderThickness.Left.FromCmToPoint().ToString("0")}pt;");
         
         var color = (Color)Style.BorderBrush?.Color;
         sb.AppendLine($"     border-color: {color?.ToHtml() ?? "#000000"};");
-        sb.AppendLine($"     border-style: solid;");
+        sb.AppendLine("     border-style: solid;");
         sb.AppendLine($"     text-align: {Style.TextAlignment.ToString().ToLowerInvariant()};");
 
         foreach (var css in AdditionalCss)

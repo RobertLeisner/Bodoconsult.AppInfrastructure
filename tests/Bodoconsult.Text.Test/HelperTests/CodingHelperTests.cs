@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.App.Abstractions.Helpers;
-using Bodoconsult.App.Extensions;
-using Bodoconsult.Text.Documents;
-using NUnit.Framework;
 using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using Bodoconsult.App.Abstractions.Helpers;
+using Bodoconsult.App.Extensions;
+using Bodoconsult.Text.Documents;
+using NUnit.Framework;
 
 namespace Bodoconsult.Text.Test.HelperTests;
 

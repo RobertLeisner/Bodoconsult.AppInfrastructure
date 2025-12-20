@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.App.Wpf.Models;
-using Bodoconsult.I18N.LocalesProviders;
 using System.IO;
 using System.Reflection;
+using Bodoconsult.App.Wpf.Models;
+using Bodoconsult.I18N.LocalesProviders;
 
 namespace Bodoconsult.App.Wpf.I18N
 {

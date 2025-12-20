@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 using System.Globalization;
+using Bodoconsult.App.Abstractions.Helpers;
 
 namespace Bodoconsult.App.Extensions;
 
@@ -18,5 +19,15 @@ public static class DoubleExtensions
     public static string AsSqlString(this double value, string formatString = "0")
     {
         return value.ToString(formatString, CultureInfo.InvariantCulture);
+    }
+
+    /// <summary>
+    /// Convert cm to pt
+    /// </summary>
+    /// <param name="cm">cm</param>
+    /// <returns>Point pt</returns>
+    public static int FromCmToPoint(this double cm)
+    {
+        return (int)Math.Round(MeasurementHelper.GetPtFromCm(cm),0);
     }
 }

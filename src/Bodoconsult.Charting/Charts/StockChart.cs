@@ -2,6 +2,7 @@
 
 using Bodoconsult.Charting.Base.Interfaces;
 using ScottPlot;
+using ScottPlot.TickGenerators;
 
 namespace Bodoconsult.Charting;
 
@@ -75,7 +76,7 @@ public class StockChart<T> : BaseChart<T> where T: IChartItemData
         Chart.Axes.Bottom.Max = maxX;
 
         // create a custom tick generator using your custom label formatter
-        var myTickGenerator = new ScottPlot.TickGenerators.NumericFixedInterval()
+        var myTickGenerator = new NumericFixedInterval
         {
             LabelFormatter = CustomFormatter
         };

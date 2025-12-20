@@ -7,7 +7,6 @@ using Bodoconsult.App.Wpf.Documents.Renderer.Styles;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Interfaces;
 
-
 namespace Bodoconsult.App.Wpf.Documents.Renderer;
 
 /// <summary>

@@ -43,7 +43,7 @@ public class XlsxBuilder
     public XlsxBuilder()
     {
 
-        _decimalSeparator = System.Threading.Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+        _decimalSeparator = Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator;
         NumberFormatDouble = "#,##0.00";
         NumberFormatInteger = "#,##0";
         NumberFormatDate = "dd.MM.yyyy";

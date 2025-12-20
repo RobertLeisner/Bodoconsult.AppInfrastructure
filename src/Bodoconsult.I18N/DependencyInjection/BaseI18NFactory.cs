@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System;
 using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace Bodoconsult.I18N.DependencyInjection;
@@ -29,6 +30,6 @@ public class BaseI18NFactory : II18NFactory
     /// <returns>An II18N instance</returns>
     public virtual II18N CreateInstance()
     {
-        throw new System.NotSupportedException("Overload this method to configure your I18N instance");
+        throw new NotSupportedException("Overload this method to configure your I18N instance");
     }
 }

@@ -44,12 +44,12 @@ public class TypographyBaseTests
         t.SetMargins();
 
         // Assert
-        Assert.That(t.TypeAreaWidth - 175 < Tolerance);
+        Assert.That(t.TypeAreaRect.Size.Width - 175 < Tolerance);
         Assert.That(Math.Abs(t.MarginUnit - 0.875) < Tolerance);
-        Assert.That(Math.Abs(t.MarginLeft - 1.75) < Tolerance);
-        Assert.That(Math.Abs(t.MarginRight - 1.75) < Tolerance);
-        Assert.That(Math.Abs(t.MarginTop - 0.875) < Tolerance);
-        Assert.That(Math.Abs(t.MarginBottom - 1.75) < Tolerance);
+        Assert.That(Math.Abs(t.Margins.Left - 1.75) < Tolerance);
+        Assert.That(Math.Abs(t.Margins.Right - 1.75) < Tolerance);
+        Assert.That(Math.Abs(t.Margins.Top - 0.875) < Tolerance);
+        Assert.That(Math.Abs(t.Margins.Bottom - 1.75) < Tolerance);
 
 
         //var erg = t.GetPixelHeight(4);
@@ -213,10 +213,10 @@ public class TypographyBaseTests
         // Assert
         const double expectedValue = 1.75;
 
-        Assert.That(Math.Abs(typo.MarginLeft - expectedValue) < CompareToZeroValue);
-        Assert.That(Math.Abs(typo.MarginRight - expectedValue) < CompareToZeroValue);
-        Assert.That(Math.Abs(typo.MarginTop - expectedValue) < CompareToZeroValue);
-        Assert.That(Math.Abs(typo.MarginBottom -expectedValue) < CompareToZeroValue);
+        Assert.That(Math.Abs(typo.Margins.Left - expectedValue) < CompareToZeroValue);
+        Assert.That(Math.Abs(typo.Margins.Right - expectedValue) < CompareToZeroValue);
+        Assert.That(Math.Abs(typo.Margins.Top - expectedValue) < CompareToZeroValue);
+        Assert.That(Math.Abs(typo.Margins.Bottom -expectedValue) < CompareToZeroValue);
         Assert.That(Math.Abs(typo.ColumnWidth - 2.5) < CompareToZeroValue);
 
         Assert.That(Math.Abs(typo.VerticalLines[0] - expectedValue) < CompareToZeroValue);

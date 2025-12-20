@@ -8,6 +8,7 @@ using Bodoconsult.App.Logging;
 using Bodoconsult.App.WinForms.AppStarter.Forms;
 using Bodoconsult.App.WinForms.AppStarter.Forms.ViewModel;
 using Bodoconsult.App.WinForms.Interfaces;
+
 // ReSharper disable LocalizableElement
 
 namespace Bodoconsult.App.WinForms.AppStarter;

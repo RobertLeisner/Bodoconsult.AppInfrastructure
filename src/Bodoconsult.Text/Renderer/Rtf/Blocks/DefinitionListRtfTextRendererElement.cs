@@ -37,7 +37,7 @@ public class DefinitionListRtfTextRendererElement : RtfTextRendererElementBase
         DocumentRendererHelper.RenderBlockChildsToRtf(renderer, Block.ChildBlocks);
 
         // bottom margin
-        renderer.Content.AppendLine($@"\pard\plain\sb{MeasurementHelper.GetTwipsFromPt(listStyle.Margins.Bottom)}\fs6\par");
+        renderer.Content.AppendLine($@"\pard\plain\sb{MeasurementHelper.GetTwipsFromCm(listStyle.Margins.Bottom)}\fs6\par");
 
     }
 }

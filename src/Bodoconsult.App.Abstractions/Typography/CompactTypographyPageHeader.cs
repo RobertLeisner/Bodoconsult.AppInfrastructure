@@ -30,10 +30,6 @@ public class CompactTypographyPageHeader : TypographyBase
 
     private void BaseConstructor(string primaryFontname, string secondaryFontName, string thirdFontName)
     {
-        // Default page DIN A4 
-        PageHeight = 29.4;
-        PageWidth = 21.0;
-
         FontName = primaryFontname;
         FontSize = 10;
         SmallFontSize = FontSize - 2;

@@ -1,7 +1,14 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using System.Diagnostics;
+using System.Diagnostics.Tracing;
+using System.Reflection;
+using System.Text;
+using System.Windows.Input;
 using Avalonia.Controls;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using Avalonia.Threading;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Avalonia.AppStarter.Views;
 using Bodoconsult.App.Avalonia.Interfaces;
@@ -9,13 +16,6 @@ using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Logging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Diagnostics;
-using System.Diagnostics.Tracing;
-using System.Reflection;
-using System.Text;
-using System.Windows.Input;
-using Avalonia.Media.Imaging;
-using Avalonia.Threading;
 
 namespace Bodoconsult.App.Avalonia.AppStarter.ViewModels;
 

@@ -4,6 +4,9 @@ using Bodoconsult.App.Abstractions.Extensions;
 using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Abstractions.Interfaces;
 using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.CustomProperties;
+using DocumentFormat.OpenXml.ExtendedProperties;
+using DocumentFormat.OpenXml.Office.CustomUI;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using A = DocumentFormat.OpenXml.Drawing;
@@ -11,8 +14,10 @@ using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using Paragraph = DocumentFormat.OpenXml.Wordprocessing.Paragraph;
 using ParagraphProperties = DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties;
 using PIC = DocumentFormat.OpenXml.Drawing.Pictures;
+using Properties = DocumentFormat.OpenXml.ExtendedProperties.Properties;
 using Run = DocumentFormat.OpenXml.Wordprocessing.Run;
 using Style = DocumentFormat.OpenXml.Wordprocessing.Style;
+using Tabs = DocumentFormat.OpenXml.Wordprocessing.Tabs;
 using Text = DocumentFormat.OpenXml.Wordprocessing.Text;
 
 
@@ -34,6 +39,11 @@ public class DocxBuilder : IDisposable
     /// Main part of the document
     /// </summary>
     public MainDocumentPart MainDocumentPart { get; private set; }
+
+    /// <summary>
+    /// Current document settings part
+    /// </summary>
+    public DocumentSettingsPart Settings { get; private set; }
 
     /// <summary>
     /// Style definition part
@@ -125,8 +135,8 @@ public class DocxBuilder : IDisposable
         Body = Docx.MainDocumentPart!.Document!.Body!;
 
         // Set to latest OpenXML version
-        var objDocumentSettingPart = MainDocumentPart.AddNewPart<DocumentSettingsPart>();
-        objDocumentSettingPart.Settings = new Settings();
+        Settings = MainDocumentPart.AddNewPart<DocumentSettingsPart>();
+        Settings.Settings = new Settings();
         var objCompatibility = new Compatibility();
         var objCompatibilitySetting = new CompatibilitySetting
         {
@@ -135,11 +145,20 @@ public class DocxBuilder : IDisposable
             Val = "15"
         };
         objCompatibility.Append(objCompatibilitySetting);
-        objDocumentSettingPart.Settings.Append(objCompatibility);
+        Settings.Settings.Append(objCompatibility);
+
+        //// Create object to update fields on open
+        //var updateFields = new UpdateFieldsOnOpen
+        //{
+        //    Val = new OnOffValue(true)
+        //};
+        //Settings.Settings.Append(updateFields);
 
         // Add style part
         StyleDefinitionsPart = Docx.MainDocumentPart.StyleDefinitionsPart ?? AddStylesPartToPackage();
         Styles = StyleDefinitionsPart?.Styles;
+
+
     }
 
     // Add a StylesDefinitionsPart to the document.  Returns a reference to it.
@@ -187,6 +206,161 @@ public class DocxBuilder : IDisposable
         var pageMargin = new PageMargin { Top = (int)top, Right = right, Bottom = (int)bottom, Left = left };
         CurrentSection.Append(pageMargin);
     }
+
+    /// <summary>
+    /// Add common metadata like author, company and title
+    /// </summary>
+    /// <param name="author">Author of the document</param>
+    /// <param name="company">Company</param>
+    /// <param name="title">Document title</param>
+
+    public void AddMetadata(string author, string company, string title)
+    {
+
+        var bProps = Docx.PackageProperties;
+
+        bProps.Title = title;
+
+        bProps.Creator = author;
+
+
+        // ToDo: make ext props working and add title
+
+        var epPart = Docx.ExtendedFilePropertiesPart ?? Docx.AddExtendedFilePropertiesPart();
+
+        if (epPart.Properties == null)
+        {
+            epPart.Properties = new Properties();
+        }
+
+        var props = epPart.Properties;
+
+        if (!string.IsNullOrEmpty(company))
+        {
+            props.Company = new Company(company);
+        }
+    }
+
+    /// <summary>
+    /// Add a header to the current section
+    /// </summary>
+    /// <param name="headerText">Header text. May contain @Page being replaced by page number field</param>
+    /// <param name="position">Position of the page number (if @Page is used) in cm relative to typearea</param>
+    public void AddHeaderToCurrentSection(string headerText, int position)
+    {
+
+        var headerPart = MainDocumentPart.AddNewPart<HeaderPart>();
+
+        var headerPartId = MainDocumentPart.GetIdOfPart(headerPart);
+
+        const string styleId = "Header";
+
+        var posTwips = MeasurementHelper.GetTwipsFromCm(position);
+
+        var para = CreateHeaderFooterParagraph(headerText, styleId, posTwips);
+
+        headerPart.Header = new Header(para);
+
+        CurrentSection.PrependChild(new HeaderReference
+        {
+            Id = headerPartId
+        });
+    }
+
+    private static Paragraph CreateHeaderFooterParagraph(string text, string styleId, int position)
+    {
+        var pPr = new ParagraphProperties(new ParagraphStyleId { Val =  styleId});
+
+        var para = new Paragraph(pPr);
+
+        var runs = GetRuns(text, position, pPr);
+
+        foreach (var run in runs)
+        {
+            para.Append(run);
+        }
+
+        return para;
+    }
+
+    /// <summary>
+    /// Add a footer to the current section
+    /// </summary>
+    /// <param name="footerText">Footer text. May contain @Page being replaced by page number field</param>
+    /// <param name="position">Position of the page number (if @Page is used) in cm relative to typearea</param>
+    public void AddFooterToCurrentSection(string footerText, int position)
+    {
+
+        var footerPart = MainDocumentPart.AddNewPart<FooterPart>();
+
+        var footerPartId = MainDocumentPart.GetIdOfPart(footerPart);
+
+        const string styleId = "Footer";
+
+        var posTwips = MeasurementHelper.GetTwipsFromCm(position);
+
+        var para = CreateHeaderFooterParagraph(footerText, styleId, posTwips);
+
+        footerPart.Footer = new Footer(para);
+
+        CurrentSection.PrependChild(new FooterReference
+        {
+            Id = footerPartId
+        });
+    }
+
+    private static List<Run> GetRuns(string text, int position, ParagraphProperties pPr)
+    {
+        var result = new List<Run>();
+
+        var parts = new List<string>();
+
+        var i = text.IndexOf("@Page", StringComparison.InvariantCultureIgnoreCase);
+
+        if (i < 0)
+        {
+            parts.Add(text);
+        }
+        else
+        {
+            // Add a tab for the page number
+            pPr.Tabs = new Tabs();
+            var tabStop = new TabStop
+            {
+                Val = TabStopValues.Right,
+                Position = position
+            };
+            pPr.Tabs.Append(tabStop);
+
+            // Split the text in runs
+            var before = text[..i];
+            var after = text[(i + 5)..];
+
+            parts.Add(before);
+            parts.Add("@Page");
+            parts.Add(after);
+        }
+
+        foreach (var part in parts)
+        {
+            if (part == "@Page")
+            {
+                result.Add(new Run(new FieldChar { FieldCharType = FieldCharValues.Begin }));
+                result.Add(new Run(new FieldCode { Space = SpaceProcessingModeValues.Preserve, Text = " PAGE  \\* Arabic  \\* MERGEFORMAT " }));
+                result.Add(new Run(new FieldChar { FieldCharType = FieldCharValues.Separate }));
+                result.Add(new Run(new RunProperties(new NoProof()), new Text("1")));
+                result.Add(new Run(new FieldChar { FieldCharType = FieldCharValues.End }));
+            }
+            else
+            {
+                var run = new Run();
+                run.Append(new Text(part) { Space = SpaceProcessingModeValues.Preserve });
+                result.Add(run);
+            }
+        }
+        return result;
+    }
+
 
     /// <summary>
     /// Create a new style with the specified styleid and stylename
@@ -267,7 +441,7 @@ public class DocxBuilder : IDisposable
         var spacing = new SpacingBetweenLines { Before = new StringValue(top.ToString()), After = new StringValue(bottom.ToString()), BeforeAutoSpacing = OnOffValue.FromBoolean(false), AfterAutoSpacing = OnOffValue.FromBoolean(false) };
         pPr.Append(spacing);
 
-        var indentation = new Indentation { Left = new StringValue(left.ToString()), Right = new StringValue(right.ToString()) , FirstLine = new StringValue(leftFirstLine.ToString()) };
+        var indentation = new Indentation { Left = new StringValue(left.ToString()), Right = new StringValue(right.ToString()), FirstLine = new StringValue(leftFirstLine.ToString()) };
         pPr.Append(indentation);
     }
 
@@ -662,7 +836,8 @@ public class DocxBuilder : IDisposable
     /// Add a section
     /// </summary>
     /// <param name="isLastSection">Is the new section the last section. Default: true</param>
-    public SectionProperties AddSection(bool isLastSection = true)
+    /// <param name="restartPageNumbering">Restart page numbering</param>
+    public SectionProperties AddSection(bool isLastSection = true, bool restartPageNumbering = false)
     {
 
         if (CurrentSection != null)
@@ -683,6 +858,12 @@ public class DocxBuilder : IDisposable
 
 
         var section = new SectionProperties();
+
+        if (restartPageNumbering)
+        {
+            var pnt = new PageNumberType { Start = 1 };
+            section.Append(pnt);
+        }
 
         var sectionBreakType = new SectionType { Val = SectionMarkValues.NextPage };
         section.Append(sectionBreakType);

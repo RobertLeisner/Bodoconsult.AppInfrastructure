@@ -6,6 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Bodoconsult.Text.Test.Helpers;
 
@@ -88,7 +89,7 @@ public class JsonHelper
 
 
 
-        jsonSerializer.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+        jsonSerializer.Converters.Add(new StringEnumConverter());
         using (var jsonWriter = new JsonTextWriter(sw))
         {
             jsonWriter.Formatting = Formatting.Indented;

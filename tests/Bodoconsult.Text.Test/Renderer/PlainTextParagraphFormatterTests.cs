@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System.Diagnostics;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Renderer.PlainText;
 using Bodoconsult.Text.Test.Helpers;
 using NUnit.Framework;
-using System.Diagnostics;
 
 namespace Bodoconsult.Text.Test.Renderer;
 
@@ -93,7 +93,7 @@ internal class PlainTextParagraphFormatterTests
     public void FormatText_ListItemLongString_MultipleLinesLeftAlignment()
     {
         // Arrange 
-        var paragraphStyle = new ListItemStyle()
+        var paragraphStyle = new ListItemStyle
         {
             Margins =
             {

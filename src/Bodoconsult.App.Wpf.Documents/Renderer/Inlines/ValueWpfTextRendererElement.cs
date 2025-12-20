@@ -1,8 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.Text.Documents;
 using System.Windows.Documents;
+using Bodoconsult.Text.Documents;
 using Inline = Bodoconsult.Text.Documents.Inline;
+using Paragraph = System.Windows.Documents.Paragraph;
 using Span = System.Windows.Documents.Span;
 using TextElement = System.Windows.Documents.TextElement;
 
@@ -35,7 +36,7 @@ public class ValueWpfTextRendererElement : InlineWpfTextRendererElementBase
         List<Inline> childInlines)
     {
 
-        if (element is System.Windows.Documents.Paragraph paragraph)
+        if (element is Paragraph paragraph)
         {
             var span = new Span(new Run(_value.Content));
             paragraph.Inlines.Add(span);

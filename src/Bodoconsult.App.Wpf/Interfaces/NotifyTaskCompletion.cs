@@ -12,6 +12,10 @@ namespace Bodoconsult.App.Wpf.Interfaces;
 /// <typeparam name="TResult"></typeparam>
 public sealed class NotifyTaskCompletion<TResult> : INotifyPropertyChanged
 {
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    /// <param name="task">Task</param>
     public NotifyTaskCompletion(Task<TResult> task)
     {
         Task = task;
@@ -28,10 +32,13 @@ public sealed class NotifyTaskCompletion<TResult> : INotifyPropertyChanged
         }
         catch
         {
+            // Do nothing
         }
         var propertyChanged = PropertyChanged;
         if (propertyChanged == null)
+        {
             return;
+        }
         propertyChanged(this, new PropertyChangedEventArgs("Status"));
         propertyChanged(this, new PropertyChangedEventArgs("IsCompleted"));
         propertyChanged(this, new PropertyChangedEventArgs("IsNotCompleted"));
@@ -52,44 +59,66 @@ public sealed class NotifyTaskCompletion<TResult> : INotifyPropertyChanged
             propertyChanged(this, new PropertyChangedEventArgs("Result"));
         }
     }
-    public Task<TResult> Task { get; private set; }
-    public TResult Result
-    {
-        get
-        {
-            return (Task.Status == TaskStatus.RanToCompletion) ?
-                Task.Result : default(TResult);
-        }
-    }
-    public TaskStatus Status { get { return Task.Status; } }
-    public bool IsCompleted { get { return Task.IsCompleted; } }
-    public bool IsNotCompleted { get { return !Task.IsCompleted; } }
-    public bool IsSuccessfullyCompleted
-    {
-        get
-        {
-            return Task.Status ==
-                   TaskStatus.RanToCompletion;
-        }
-    }
-    public bool IsCanceled { get { return Task.IsCanceled; } }
-    public bool IsFaulted { get { return Task.IsFaulted; } }
-    public AggregateException Exception { get { return Task.Exception; } }
-    public Exception InnerException
-    {
-        get
-        {
-            return (Exception == null) ?
-                null : Exception.InnerException;
-        }
-    }
-    public string ErrorMessage
-    {
-        get
-        {
-            return (InnerException == null) ?
-                null : InnerException.Message;
-        }
-    }
+
+    /// <summary>
+    /// Current task
+    /// </summary>
+    public Task<TResult> Task { get; }
+
+    /// <summary>
+    /// Current result
+    /// </summary>
+    public TResult Result =>
+        Task.Status == TaskStatus.RanToCompletion ?
+            Task.Result : default(TResult);
+
+    /// <summary>
+    /// Current task status
+    /// </summary>
+    public TaskStatus Status => Task.Status;
+
+    /// <summary>
+    /// Is the task completed?
+    /// </summary>
+    public bool IsCompleted => Task.IsCompleted;
+
+    /// <summary>
+    /// Is the task not completed?
+    /// </summary>
+    public bool IsNotCompleted => !Task.IsCompleted;
+
+    /// <summary>
+    /// Is the task successfully completed?
+    /// </summary>
+    public bool IsSuccessfullyCompleted =>
+        Task.Status ==
+        TaskStatus.RanToCompletion;
+
+    /// <summary>
+    /// Is the task cancelled
+    /// </summary>
+    public bool IsCanceled => Task.IsCanceled;
+
+    /// <summary>
+    /// Is the task faulted
+    /// </summary>
+    public bool IsFaulted => Task.IsFaulted;
+
+    /// <summary>
+    /// The exception the task threw
+    /// </summary>
+    public AggregateException Exception => Task.Exception;
+
+    /// <summary>
+    /// Inner exception if available
+    /// </summary>
+    public Exception InnerException => Exception?.InnerException;
+
+    /// <summary>
+    /// Error message if available
+    /// </summary>
+    public string ErrorMessage => InnerException?.Message;
+
+    /// <summary>Occurs when a property value changes.</summary>
     public event PropertyChangedEventHandler PropertyChanged;
 }

@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using System.Windows;
 using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Wpf.Documents.Services;
-using System.Windows;
 
 namespace Bodoconsult.App.Wpf.Documents.Helpers;
 

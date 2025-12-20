@@ -1,15 +1,15 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.Text.Documents;
-using Bodoconsult.Text.Interfaces;
-using Bodoconsult.Text.Renderer.PlainText;
-using Bodoconsult.Text.Test.TestData;
-using NUnit.Framework;
 using System.IO;
 using Bodoconsult.App.Helpers;
+using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Helpers;
+using Bodoconsult.Text.Interfaces;
 using Bodoconsult.Text.Renderer.Html;
+using Bodoconsult.Text.Renderer.PlainText;
 using Bodoconsult.Text.Renderer.Rtf;
+using Bodoconsult.Text.Test.TestData;
+using NUnit.Framework;
 
 namespace Bodoconsult.Text.Test.Documents;
 

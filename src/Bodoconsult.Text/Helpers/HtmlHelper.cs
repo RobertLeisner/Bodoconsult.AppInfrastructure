@@ -3,6 +3,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Net;
 
 namespace Bodoconsult.Text.Helpers;
 
@@ -71,7 +72,7 @@ public class HtmlHelper
     public static string GetContentAsHtml(string content)
     {
         return string.IsNullOrEmpty(content)
-            ? "&nbsp;": ParseHtml(System.Net.WebUtility.HtmlEncode(content.Replace("<para>", "??pa??")
+            ? "&nbsp;": ParseHtml(WebUtility.HtmlEncode(content.Replace("<para>", "??pa??")
                     .Replace("</para>", "??pe??")).Replace("\r\n", "<br />")
                 .Replace("\t", "&nbsp;&nbsp;&nbsp;").Replace("??br??", "<br />"));
     }

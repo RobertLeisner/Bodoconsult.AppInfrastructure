@@ -1,11 +1,13 @@
-﻿namespace Bodoconsult.App.WinForms.Reporting
+﻿using System.ComponentModel;
+
+namespace Bodoconsult.App.WinForms.Reporting
 {
     sealed partial class PrintPreviewForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -173,16 +175,16 @@
 
         #endregion
 
-        private System.Windows.Forms.PrintDialog printDialog1;
-        private System.Windows.Forms.PrintPreviewControl printPreviewControl1;
-        private System.Windows.Forms.Button buttonPrint;
-        private System.Windows.Forms.Button buttonExit;
-        private System.Windows.Forms.TextBox textBoxCurrentZoom;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxPage;
-        private System.Windows.Forms.Button buttonNextPage;
-        private System.Windows.Forms.Button buttonPrevPage;
-        private System.Windows.Forms.CheckBox Duplex;
+        private PrintDialog printDialog1;
+        private PrintPreviewControl printPreviewControl1;
+        private Button buttonPrint;
+        private Button buttonExit;
+        private TextBox textBoxCurrentZoom;
+        private Label label1;
+        private Label label2;
+        private TextBox textBoxPage;
+        private Button buttonNextPage;
+        private Button buttonPrevPage;
+        private CheckBox Duplex;
     }
 }

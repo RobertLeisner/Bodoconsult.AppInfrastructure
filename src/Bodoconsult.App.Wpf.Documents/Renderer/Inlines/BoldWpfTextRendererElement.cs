@@ -1,13 +1,16 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System.Windows.Documents;
 using Bodoconsult.App.Wpf.Documents.Helpers;
-using Bodoconsult.Text.Documents;
+using Bold = Bodoconsult.Text.Documents.Bold;
+using Inline = Bodoconsult.Text.Documents.Inline;
+using Paragraph = System.Windows.Documents.Paragraph;
 using TextElement = System.Windows.Documents.TextElement;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Inlines;
 
 /// <summary>
-/// Render a <see cref="Bold"/> element
+/// Render a <see cref="Text.Documents.Bold"/> element
 /// </summary>
 public class BoldWpfTextRendererElement : InlineWpfTextRendererElementBase
 {
@@ -33,11 +36,11 @@ public class BoldWpfTextRendererElement : InlineWpfTextRendererElementBase
     public override void RenderToElement(WpfTextDocumentRenderer renderer, TextElement element, List<Inline> childInlines)
     {
 
-        if (element is System.Windows.Documents.Paragraph paragraph)
+        if (element is Paragraph paragraph)
         {
             if (_span.ChildInlines.Count == 0)
             {
-                var bold = new System.Windows.Documents.Bold(new System.Windows.Documents.Run(_span.Content));
+                var bold = new System.Windows.Documents.Bold(new Run(_span.Content));
                 paragraph.Inlines.Add(bold);
 
                 return;

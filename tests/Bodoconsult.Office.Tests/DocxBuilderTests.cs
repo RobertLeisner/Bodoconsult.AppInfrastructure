@@ -8,6 +8,8 @@
 
 // https://github.com/devel0/netcore-docx/blob/master/src/docx/Styles.cs
 
+using System.Collections.Generic;
+using System.IO;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.Office.Tests.Helpers;
@@ -15,8 +17,6 @@ using Bodoconsult.Office.Tests.Models;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Wordprocessing;
 using NUnit.Framework;
-using System.Collections.Generic;
-using System.IO;
 
 namespace Bodoconsult.Office.Tests;
 
@@ -260,10 +260,151 @@ internal class DocxBuilderTests
         // Assert
         Assert.That(File.Exists(path));
 
-        Assert.That(docx, Is.Not.Null);
-        Assert.That(docx.Docx, Is.Not.Null);
-        Assert.That(docx.MainDocumentPart, Is.Not.Null);
-        Assert.That(docx.Body, Is.Not.Null);
+        docx.Dispose();
+
+        FileSystemHelper.RunInDebugMode(path);
+    }
+
+
+    [Test]
+    public void AddFooterToCurrentSection_MultipleSectionsWithPageNumbering_DocxCreated()
+    {
+        // Arrange 
+        var path = Path.Combine(FileHelper.TempPath, "test.docx");
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+
+        var docx = new DocxBuilder();
+        docx.CreateDocument(path);
+        docx.AddSection(false);
+        docx.SetBasicPageProperties(21, 29.4, 5, 2, 2, 2);
+        docx.AddHeaderToCurrentSection("Header section 1");
+        docx.AddFooterToCurrentSection("Footer section 1\t@Page");
+
+        docx.AddParagraph("Section1", "Normal");
+
+        // Act  
+        var section = docx.AddSection(true, true);
+        docx.SetBasicPageProperties(21, 29.4, 8, 2, 2, 2);
+        docx.AddHeaderToCurrentSection("Header section 2");
+        docx.AddFooterToCurrentSection("Footer section 2\t@Page");
+
+        var runs = new List<OpenXmlElement>
+        {
+            DocxBuilder.CreateRun("Das ist "),
+            DocxBuilder.CreateRunBold("ein "),
+            DocxBuilder.CreateRunItalic("Test für einen Hyperlink "),
+            DocxBuilder.CreateHyperlink("http://www.bodoconsult.de", "Bodoconsult", docx.MainDocumentPart),
+            DocxBuilder.CreateRun(" im Text!"),
+            DocxBuilder.CreateLineBreak(),
+            DocxBuilder.CreateRun("Das ist 1 ..."),
+            DocxBuilder.CreatePageBreak(),
+            DocxBuilder.CreateRun("Das ist 2 ..."),
+        };
+
+        docx.AddParagraph(runs, "Normal");
+
+        // Assert
+        Assert.That(File.Exists(path));
+
+        docx.Dispose();
+
+        FileSystemHelper.RunInDebugMode(path);
+    }
+
+    [Test]
+    public void AddHeaderToCurrentSection_MultipleSections_DocxCreated()
+    {
+        // Arrange 
+        var path = Path.Combine(FileHelper.TempPath, "test.docx");
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+
+        var docx = new DocxBuilder();
+        docx.CreateDocument(path);
+        docx.AddSection(false);
+        docx.AddHeaderToCurrentSection("Inhaltsverzeichnis");
+        docx.SetBasicPageProperties(21, 29.4, 5, 2, 2, 2);
+
+        docx.AddParagraph("Section1", "Normal");
+
+        // Act  
+        var section = docx.AddSection();
+        docx.AddHeaderToCurrentSection("Hauptteil");
+
+        docx.SetBasicPageProperties(21, 29.4, 8, 2, 2, 2);
+
+        var runs = new List<OpenXmlElement>
+        {
+            DocxBuilder.CreateRun("Das ist "),
+            DocxBuilder.CreateRunBold("ein "),
+            DocxBuilder.CreateRunItalic("Test für einen Hyperlink "),
+            DocxBuilder.CreateHyperlink("http://www.bodoconsult.de", "Bodoconsult", docx.MainDocumentPart),
+            DocxBuilder.CreateRun(" im Text!"),
+            DocxBuilder.CreateLineBreak(),
+            DocxBuilder.CreateRun("Das ist 1 ..."),
+            DocxBuilder.CreatePageBreak(),
+            DocxBuilder.CreateRun("Das ist 2 ..."),
+        };
+
+        docx.AddParagraph(runs, "Normal");
+
+        // Assert
+        Assert.That(File.Exists(path));
+
+        docx.Dispose();
+
+        FileSystemHelper.RunInDebugMode(path);
+    }
+
+    [Test]
+    public void AddFooterToCurrentSection_MultipleSections_DocxCreated()
+    {
+        // Arrange 
+        var path = Path.Combine(FileHelper.TempPath, "test.docx");
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+
+        var docx = new DocxBuilder();
+        docx.CreateDocument(path);
+        docx.AddSection(false);
+        docx.AddFooterToCurrentSection("Inhaltsverzeichnis");
+        docx.SetBasicPageProperties(21, 29.4, 5, 2, 2, 2);
+
+        docx.AddParagraph("Section1", "Normal");
+
+        // Act  
+        var section = docx.AddSection();
+        docx.AddFooterToCurrentSection("Hauptteil");
+
+        docx.SetBasicPageProperties(21, 29.4, 8, 2, 2, 2);
+
+        var runs = new List<OpenXmlElement>
+        {
+            DocxBuilder.CreateRun("Das ist "),
+            DocxBuilder.CreateRunBold("ein "),
+            DocxBuilder.CreateRunItalic("Test für einen Hyperlink "),
+            DocxBuilder.CreateHyperlink("http://www.bodoconsult.de", "Bodoconsult", docx.MainDocumentPart),
+            DocxBuilder.CreateRun(" im Text!"),
+            DocxBuilder.CreateLineBreak(),
+            DocxBuilder.CreateRun("Das ist 1 ..."),
+            DocxBuilder.CreatePageBreak(),
+            DocxBuilder.CreateRun("Das ist 2 ..."),
+        };
+
+        docx.AddParagraph(runs, "Normal");
+
+        // Assert
+        Assert.That(File.Exists(path));
 
         docx.Dispose();
 
@@ -336,7 +477,7 @@ internal class DocxBuilderTests
 
         // Heading 1
         var styleRunPropertiesH1 = new StyleRunProperties();
-        var color1 = new Color() { Val = "2F5496" };
+        var color1 = new Color { Val = "2F5496" };
         // Specify a 16 point size. 16x2 because it’s half-point size
         var fontSize1 = new FontSize
         {
@@ -450,7 +591,7 @@ internal class DocxBuilderTests
 
         // Heading 1
         var styleRunPropertiesH1 = new StyleRunProperties();
-        var color1 = new Color() { Val = "2F5496" };
+        var color1 = new Color { Val = "2F5496" };
         // Specify a 16 point size. 16x2 because it’s half-point size
         var fontSize1 = new FontSize
         {
@@ -498,7 +639,7 @@ internal class DocxBuilderTests
 
         // Heading 1
         var styleRunPropertiesH1 = new StyleRunProperties();
-        var color1 = new Color() { Val = "2F5496" };
+        var color1 = new Color { Val = "2F5496" };
         // Specify a 16 point size. 16x2 because it’s half-point size
         var fontSize1 = new FontSize
         {
@@ -521,6 +662,51 @@ internal class DocxBuilderTests
         // Assert
         docx.AddParagraph("Blubb", "Normal");
 
+        Assert.That(File.Exists(path));
+
+        Assert.That(docx, Is.Not.Null);
+        Assert.That(docx.Docx, Is.Not.Null);
+        Assert.That(docx.MainDocumentPart, Is.Not.Null);
+        Assert.That(docx.Body, Is.Not.Null);
+
+        docx.Dispose();
+
+        FileSystemHelper.RunInDebugMode(path);
+    }
+
+    [Test]
+    public void AddMetadata_ValidSetupFilePath_DocxCreated()
+    {
+        // Arrange 
+        var path = Path.Combine(FileHelper.TempPath, "test.docx");
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+
+        // Heading 1
+        var styleRunPropertiesH1 = new StyleRunProperties();
+        var color1 = new Color { Val = "2F5496" };
+        // Specify a 16 point size. 16x2 because it’s half-point size
+        var fontSize1 = new FontSize
+        {
+            Val = new StringValue("32")
+        };
+        styleRunPropertiesH1.Append(color1);
+        styleRunPropertiesH1.Append(fontSize1);
+
+        var docx = new DocxBuilder();
+        docx.CreateDocument(path);
+        docx.AddSection();
+        docx.SetBasicPageProperties(21, 29.4, 5, 2, 2, 2);
+        docx.AddNewStyle("heading1", "heading 1", styleRunPropertiesH1, 2);
+        docx.AddParagraph("Heading 1", "heading1");
+
+        // Act  
+        docx.AddMetadata("RL", "BCG", "Blubb TitlePage");
+
+        // Assert
         Assert.That(File.Exists(path));
 
         Assert.That(docx, Is.Not.Null);

@@ -26,6 +26,7 @@ using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
 using Google.Protobuf;
 using Google.Protobuf.Reflection;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 
 namespace Bodoconsult.App.GrpcBackgroundService.BusinessTransactions;
@@ -428,7 +429,7 @@ public class BaseGrpcBusinessTransactionRequestMappingService : IGrpcBusinessTra
 
         var request = new BusinessTransactionRequest
         {
-            RequestData = Google.Protobuf.WellKnownTypes.Any.Pack(grpcRequest)
+            RequestData = Any.Pack(grpcRequest)
         };
 
         var result = MapToBusinessTransactionRequestData(request, context);

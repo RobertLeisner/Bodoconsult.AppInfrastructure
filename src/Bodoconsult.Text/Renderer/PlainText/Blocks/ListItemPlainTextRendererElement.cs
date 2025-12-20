@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 using System;
-using Bodoconsult.Text.Documents;
-using Bodoconsult.Text.Helpers;
 using System.Text;
 using Bodoconsult.App.Extensions;
+using Bodoconsult.Text.Documents;
+using Bodoconsult.Text.Helpers;
 using Bodoconsult.Text.Interfaces;
 
 namespace Bodoconsult.Text.Renderer.PlainText;
@@ -83,7 +83,7 @@ public class ListItemPlainTextRendererElement : ParagraphBasePlainTextRendererEl
 
         var sb = new StringBuilder();
 
-        DocumentRendererHelper.RenderInlineChildsToPlainText(renderer, sb, Paragraph.ChildInlines, string.Empty, false);
+        DocumentRendererHelper.RenderInlineChildsToPlainText(renderer, sb, Paragraph.ChildInlines, string.Empty);
 
         // Now let the formatter work
         var style = (ParagraphStyleBase)renderer.Styleset.FindStyle($"{Paragraph.GetType().Name}Style");

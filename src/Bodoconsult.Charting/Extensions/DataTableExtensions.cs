@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen. All rights reserved.
 
-using Bodoconsult.Charting.Base.Interfaces;
 using System.Data;
+using Bodoconsult.Charting.Base.Interfaces;
 using Bodoconsult.Charting.Util;
 
 namespace Bodoconsult.Charting.Extensions;

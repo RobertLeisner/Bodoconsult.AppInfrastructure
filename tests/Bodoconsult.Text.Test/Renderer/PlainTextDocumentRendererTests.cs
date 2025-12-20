@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System.Diagnostics;
+using System.IO;
+using Bodoconsult.App.Helpers;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Renderer.PlainText;
 using Bodoconsult.Text.Test.Helpers;
 using NUnit.Framework;
-using System.Diagnostics;
-using System.IO;
-using Bodoconsult.App.Helpers;
 
 namespace Bodoconsult.Text.Test.Renderer;
 

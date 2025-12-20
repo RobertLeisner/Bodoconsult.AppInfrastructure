@@ -1,13 +1,16 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System.Windows.Documents;
 using Bodoconsult.App.Wpf.Documents.Helpers;
-using Bodoconsult.Text.Documents;
+using Hyperlink = Bodoconsult.Text.Documents.Hyperlink;
+using Inline = Bodoconsult.Text.Documents.Inline;
+using Paragraph = System.Windows.Documents.Paragraph;
 using TextElement = System.Windows.Documents.TextElement;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Inlines;
 
 /// <summary>
-/// Render a <see cref="Hyperlink"/> element
+/// Render a <see cref="Text.Documents.Hyperlink"/> element
 /// </summary>
 public class HyperlinkWpfTextRendererElement : InlineWpfTextRendererElementBase
 {
@@ -33,11 +36,11 @@ public class HyperlinkWpfTextRendererElement : InlineWpfTextRendererElementBase
     public override void RenderToElement(WpfTextDocumentRenderer renderer, TextElement element, List<Inline> childInlines)
     {
 
-        if (element is System.Windows.Documents.Paragraph paragraph)
+        if (element is Paragraph paragraph)
         {
             if (_span.ChildInlines.Count == 0)
             {
-                var hyperlink = new System.Windows.Documents.Hyperlink(new System.Windows.Documents.Run(_span.Content))
+                var hyperlink = new System.Windows.Documents.Hyperlink(new Run(_span.Content))
                     {
                         NavigateUri = new Uri(_span.Uri)
                     };

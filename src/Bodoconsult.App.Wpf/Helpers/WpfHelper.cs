@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using Bodoconsult.App.Wpf.Models;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -12,6 +11,7 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Bodoconsult.App.Abstractions.Interfaces;
+using Bodoconsult.App.Wpf.Models;
 
 namespace Bodoconsult.App.Wpf.Helpers;
 
@@ -309,7 +309,7 @@ public static class WpfHelper
     {
         var stream = new MemoryStream();
 
-        System.Windows.Application.Current.Dispatcher.Invoke(() =>
+        Application.Current.Dispatcher.Invoke(() =>
         {
 
             BitmapEncoder encoder;
@@ -371,7 +371,7 @@ public static class WpfHelper
     {
         var stream = new MemoryStream();
 
-        System.Windows.Application.Current.Dispatcher.Invoke(() =>
+        Application.Current.Dispatcher.Invoke(() =>
         {
             BitmapEncoder encoder;
 
@@ -579,11 +579,9 @@ public static class WpfHelper
         {
             return parent;
         }
-        else
-        {
-            //use recursion to proceed with next level
-            return TryFindParent<T>(parentObject);
-        }
+
+        //use recursion to proceed with next level
+        return TryFindParent<T>(parentObject);
     }
 
     /// <summary>

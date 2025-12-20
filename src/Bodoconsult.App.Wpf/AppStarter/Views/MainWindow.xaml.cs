@@ -12,6 +12,9 @@ namespace Bodoconsult.App.Wpf.AppStarter.Views;
 /// </summary>
 public partial class MainWindow : Window
 {
+    /// <summary>
+    /// Current view model instance
+    /// </summary>
     public  IMainWindowViewModel MainWindowViewModel { get; private set; }
 
     /// <summary>

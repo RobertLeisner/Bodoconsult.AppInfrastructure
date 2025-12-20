@@ -49,9 +49,9 @@ public static class GrpcTestHelper
             "127.0.0.1",
             null,
             null,
-            (metadata) => TaskUtils.CompletedTask,
+            metadata => TaskUtils.CompletedTask,
             () => new WriteOptions(),
-            (writeOptions) => { });
+            writeOptions => { });
     }
 
 }

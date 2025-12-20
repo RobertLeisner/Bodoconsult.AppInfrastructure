@@ -32,7 +32,7 @@ public class SolidColorBrush : Brush
     /// <param name="color"></param>
     public SolidColorBrush(string color)
     {
-        Color = Bodoconsult.Text.Documents.Color.FromHtml(color);
+        Color = Documents.Color.FromHtml(color);
     }
 
     /// <summary>

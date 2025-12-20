@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.Text.Extensions;
-using Bodoconsult.Text.Helpers;
-using Bodoconsult.Text.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using Bodoconsult.Text.Extensions;
+using Bodoconsult.Text.Helpers;
+using Bodoconsult.Text.Interfaces;
 
 namespace Bodoconsult.Text.Documents;
 

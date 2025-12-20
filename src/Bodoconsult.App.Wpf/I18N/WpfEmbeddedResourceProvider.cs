@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.App.Wpf.Models;
-using Bodoconsult.I18N.ResourceProviders;
 using System.Collections;
 using System.Reflection;
 using System.Resources;
+using Bodoconsult.App.Wpf.Models;
+using Bodoconsult.I18N.ResourceProviders;
 
 namespace Bodoconsult.App.Wpf.I18N;
 

@@ -23,6 +23,7 @@ using Bodoconsult.App.BusinessTransactions.Replies;
 using Bodoconsult.App.GrpcBackgroundService.Interfaces;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Interfaces;
+using Google.Protobuf.WellKnownTypes;
 
 namespace Bodoconsult.App.GrpcBackgroundService.BusinessTransactions;
 
@@ -138,7 +139,7 @@ public class BaseGrpcBusinessTransactionReplyMappingService : IGrpcBusinessTrans
             ir.ObjectNames.Add(uid.ToString());
         }
 
-        reply.ReplyData = Google.Protobuf.WellKnownTypes.Any.Pack(ir);
+        reply.ReplyData = Any.Pack(ir);
 
     }
 
@@ -159,7 +160,7 @@ public class BaseGrpcBusinessTransactionReplyMappingService : IGrpcBusinessTrans
             Value = sr.Date?.ToFileTimeUtc() ?? 0
         };
 
-        reply.ReplyData = Google.Protobuf.WellKnownTypes.Any.Pack(ir);
+        reply.ReplyData = Any.Pack(ir);
     }
 
     /// <summary>
@@ -179,7 +180,7 @@ public class BaseGrpcBusinessTransactionReplyMappingService : IGrpcBusinessTrans
             Value = sr.Value
         };
 
-        reply.ReplyData = Google.Protobuf.WellKnownTypes.Any.Pack(ir);
+        reply.ReplyData = Any.Pack(ir);
     }
 
     /// <summary>
@@ -199,7 +200,7 @@ public class BaseGrpcBusinessTransactionReplyMappingService : IGrpcBusinessTrans
             Value = sr.Value
         };
 
-        reply.ReplyData = Google.Protobuf.WellKnownTypes.Any.Pack(ir);
+        reply.ReplyData = Any.Pack(ir);
     }
 
     /// <summary>
@@ -219,7 +220,7 @@ public class BaseGrpcBusinessTransactionReplyMappingService : IGrpcBusinessTrans
             Message = lr.Content ?? string.Empty
         };
 
-        reply.ReplyData = Google.Protobuf.WellKnownTypes.Any.Pack(ir);
+        reply.ReplyData = Any.Pack(ir);
     }
 
     /// <summary>
@@ -243,7 +244,7 @@ public class BaseGrpcBusinessTransactionReplyMappingService : IGrpcBusinessTrans
             ir.ObjectNames.Add(s ?? string.Empty);
         }
 
-        reply.ReplyData = Google.Protobuf.WellKnownTypes.Any.Pack(ir);
+        reply.ReplyData = Any.Pack(ir);
     }
 
     /// <summary>
@@ -263,7 +264,7 @@ public class BaseGrpcBusinessTransactionReplyMappingService : IGrpcBusinessTrans
             ObjectUid = s.ObjectUid.ToString()
         };
 
-        reply.ReplyData = Google.Protobuf.WellKnownTypes.Any.Pack(ir);
+        reply.ReplyData = Any.Pack(ir);
     }
 
     /// <summary>
@@ -284,7 +285,7 @@ public class BaseGrpcBusinessTransactionReplyMappingService : IGrpcBusinessTrans
             ObjectId = s.ObjectId
         };
 
-        reply.ReplyData = Google.Protobuf.WellKnownTypes.Any.Pack(ir);
+        reply.ReplyData = Any.Pack(ir);
     }
 
 }

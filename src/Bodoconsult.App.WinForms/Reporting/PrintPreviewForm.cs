@@ -1,8 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 using System.ComponentModel;
-using Bodoconsult.App.Abstractions.Delegates;
+using System.Drawing.Printing;
 using System.Globalization;
+using Bodoconsult.App.Abstractions.Delegates;
 
 // ReSharper disable LocalizableElement
 
@@ -17,7 +18,7 @@ public sealed partial class PrintPreviewForm : Form
     /// <summary>
     /// Current document
     /// </summary>
-    public System.Drawing.Printing.PrintDocument Document;
+    public PrintDocument Document;
 
     /// <summary>
     /// The number of pages in the preview
@@ -58,7 +59,7 @@ public sealed partial class PrintPreviewForm : Form
     /// <param name="documentName"></param>
     /// <param name="numberOfPages"></param>
     /// <param name="screen"></param>
-    public void LoadDocument(string name, System.Drawing.Printing.PrintDocument document, string documentName,
+    public void LoadDocument(string name, PrintDocument document, string documentName,
         int numberOfPages, Screen screen)
     {
         Document = document ?? throw new ArgumentNullException(nameof(document));

@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 
-using Bodoconsult.Charting.Extensions;
-using ScottPlot;
 using System.Globalization;
 using Bodoconsult.Charting.Base.Interfaces;
+using Bodoconsult.Charting.Extensions;
+using ScottPlot;
 
 namespace Bodoconsult.Charting;
 

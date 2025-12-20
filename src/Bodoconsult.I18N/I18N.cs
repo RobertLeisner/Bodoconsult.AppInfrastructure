@@ -356,7 +356,7 @@ public class I18N : II18N
             {
                 if (_translations.Any(x => x.Key == localTranslation.Key))
                 {
-                    Log($"Provider {localesProvider.ToString()}: key already exists: {localTranslation.Key}");
+                    Log($"Provider {localesProvider}: key already exists: {localTranslation.Key}");
                     continue;
                 }
 

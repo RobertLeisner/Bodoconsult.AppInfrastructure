@@ -163,9 +163,6 @@ public class PdfTextFormatter : ITextFormatter, IDisposable
                 case TextItemType.Table:
                     GetTable((TableTextItem)ti);
                     break;
-                default:
-
-                    break;
             }
 
 

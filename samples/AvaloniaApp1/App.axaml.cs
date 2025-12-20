@@ -1,21 +1,22 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Avalonia;
-using Avalonia.Markup.Xaml;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using AvaloniaApp1.AppData;
 using Bodoconsult.App.Avalonia.Interfaces;
 using Bodoconsult.App.Extensions;
 using Bodoconsult.App.Helpers;
+
 // ReSharper disable LocalizableElement
 
 namespace AvaloniaApp1;
 
-public partial class App : Application
+public class App : Application
 {
     public IMainWindowViewModel MainWindowViewModel { get; set; }
 

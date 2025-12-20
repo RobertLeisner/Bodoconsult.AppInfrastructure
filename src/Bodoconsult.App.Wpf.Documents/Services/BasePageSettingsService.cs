@@ -1,11 +1,12 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.App.Wpf.Documents.Interfaces;
-using Bodoconsult.Text.Documents;
-using PropertyChanged;
 using System.Globalization;
 using System.Windows;
 using Bodoconsult.App.Wpf.Documents.Delegates;
+using Bodoconsult.App.Wpf.Documents.Interfaces;
+using Bodoconsult.Text.Documents;
+using PropertyChanged;
+using Thickness = System.Windows.Thickness;
 
 namespace Bodoconsult.App.Wpf.Documents.Services;
 
@@ -45,7 +46,7 @@ public abstract class BasePageSettingsService : IPageSettingsService
     /// <summary>
     /// Page margins in DIUs
     /// </summary>
-    public System.Windows.Thickness Margins { get; set; }
+    public Thickness Margins { get; set; }
 
     /// <summary>
     /// Space reserved for the header in DIUs

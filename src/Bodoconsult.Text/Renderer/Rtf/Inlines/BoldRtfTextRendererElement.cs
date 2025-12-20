@@ -61,9 +61,9 @@ public class BoldRtfTextRendererElement : InlineRtfTextRendererElementBase
         }
         else
         {
-            sb.Append($"\\b{{");
+            sb.Append("\\b{");
             DocumentRendererHelper.RenderInlineChildsToRtf(renderer, sb, _span.ChildInlines);
-            sb.Append($"}}\\b0");
+            sb.Append("}\\b0");
 
             if (_span.Parent is Block)
             {

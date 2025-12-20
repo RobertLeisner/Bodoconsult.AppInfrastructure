@@ -1,9 +1,10 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.App.Helpers;
 using System.Text;
+using System.Text.Json;
 using Bodoconsult.App.Abstractions.Delegates;
 using Bodoconsult.App.Abstractions.Interfaces;
+using Bodoconsult.App.Helpers;
 
 namespace Bodoconsult.App.DataProtection;
 
@@ -85,7 +86,7 @@ public class DataProtectionManager : IDataProtectionManager
             File.Delete(FilePath);
         }
 
-        var json = System.Text.Json.JsonSerializer.Serialize(_values);
+        var json = JsonSerializer.Serialize(_values);
 
         var data = FileProtectionService.Protect(Encoding.UTF8.GetBytes(json)) ;
 
@@ -106,7 +107,7 @@ public class DataProtectionManager : IDataProtectionManager
 
         var json = FileProtectionService.Unprotect(data);
 
-        var result = System.Text.Json.JsonSerializer.Deserialize<List<KeyValuePair<string, string>>>(json);
+        var result = JsonSerializer.Deserialize<List<KeyValuePair<string, string>>>(json);
 
         ClearAll();
         _values.AddRange(result);

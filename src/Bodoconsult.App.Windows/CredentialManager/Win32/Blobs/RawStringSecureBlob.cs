@@ -16,7 +16,7 @@ internal class RawStringSecureBlob : SecureBlob
     }
 
     /// <inheritdoc />
-    public override unsafe int Size => Win32Utility.GetUniStringLengthWithoutTerminator (handle);
+    public override int Size => Win32Utility.GetUniStringLengthWithoutTerminator (handle);
 
     /// <inheritdoc />
     protected override bool ReleaseHandle()

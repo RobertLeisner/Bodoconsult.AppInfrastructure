@@ -1,10 +1,11 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System.Diagnostics;
 using Bodoconsult.App.BusinessTransactions.RequestData;
 using Bodoconsult.App.GrpcBackgroundService;
 using Bodoconsult.App.Helpers;
-using System.Diagnostics;
 using Bodoconsult.App.Interfaces;
+using Google.Protobuf.WellKnownTypes;
 
 namespace GrpcServerApps.Tests;
 
@@ -64,7 +65,7 @@ public class BusinessTransactionRunner
         var btRequest = new BusinessTransactionRequest
         {
             TransactionId = TransactionId,
-            TransactionUid = TransactionUid.ToString()
+            TransactionUid = TransactionUid
         };
 
 
@@ -74,7 +75,7 @@ public class BusinessTransactionRunner
             if (RequestData is EmptyBusinessTransactionRequestData)
             {
                 var requestData = new EmptyRequest();
-                btRequest.RequestData = Google.Protobuf.WellKnownTypes.Any.Pack(requestData);
+                btRequest.RequestData = Any.Pack(requestData);
             }
 
             if (RequestData is ObjectIdBusinessTransactionRequestData idRequest)
@@ -83,13 +84,13 @@ public class BusinessTransactionRunner
                 {
                     ObjectId = idRequest.ObjectId
                 };
-                btRequest.RequestData = Google.Protobuf.WellKnownTypes.Any.Pack(requestData);
+                btRequest.RequestData = Any.Pack(requestData);
             }
         }
 
         var noti = new ClientNotificationMessage
         {
-            Dto = Google.Protobuf.WellKnownTypes.Any.Pack(btRequest)
+            Dto = Any.Pack(btRequest)
         };
 
         // Timeout settings
@@ -125,7 +126,7 @@ public class BusinessTransactionRunner
             Reply = new BusinessTransactionReply
             {
                 TransactionId = TransactionId,
-                TransactionUid = TransactionUid.ToString(),
+                TransactionUid = TransactionUid,
                 ErrorCode = -99,
                 LogMessage = "Business transaction ran into timeout"
             };

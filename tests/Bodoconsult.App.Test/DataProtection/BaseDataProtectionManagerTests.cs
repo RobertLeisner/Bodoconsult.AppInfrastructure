@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.App.DataProtection;
-using Bodoconsult.App.Helpers;
 using System.Diagnostics;
 using Bodoconsult.App.Abstractions.Interfaces;
+using Bodoconsult.App.DataProtection;
+using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Test.App;
 
 namespace Bodoconsult.App.Test.DataProtection;

@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.Tracing;
 using System.Text;
+using System.Text.Json;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Microsoft.Extensions.Logging.EventSource;
 
@@ -114,9 +115,6 @@ public class AppEventListener : EventListener, IAppEventListener
                     Messages.Enqueue(msg);
                 }
                 break;
-            default:
-
-                break;
         }
 
         //Debug.Print($"ES: {eventData.EventSource.Name}:{eventData.EventName}: {msg}");
@@ -147,7 +145,7 @@ public class AppEventListener : EventListener, IAppEventListener
                 continue;
             }
 
-            var v = o is string ? o.ToString() : System.Text.Json.JsonSerializer.Serialize(o);
+            var v = o is string ? o.ToString() : JsonSerializer.Serialize(o);
 
 
             if (string.IsNullOrEmpty(v))

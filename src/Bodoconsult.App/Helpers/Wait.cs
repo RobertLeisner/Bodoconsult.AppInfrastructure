@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using System.ComponentModel;
+
 namespace Bodoconsult.App.Helpers;
 
 /// <summary>
@@ -44,7 +46,7 @@ public static class Wait
         {
             if (timeoutMilliseconds <= 0)
             {
-                throw new System.ComponentModel.InvalidEnumArgumentException("The timeout must be a positive value");
+                throw new InvalidEnumArgumentException("The timeout must be a positive value");
             }
 
             using var cts = new CancellationTokenSource(timeoutMilliseconds);

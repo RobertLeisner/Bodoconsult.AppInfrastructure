@@ -1,13 +1,16 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System.Windows.Documents;
 using Bodoconsult.App.Wpf.Documents.Helpers;
-using Bodoconsult.Text.Documents;
+using Inline = Bodoconsult.Text.Documents.Inline;
+using Italic = Bodoconsult.Text.Documents.Italic;
+using Paragraph = System.Windows.Documents.Paragraph;
 using TextElement = System.Windows.Documents.TextElement;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Inlines;
 
 /// <summary>
-/// Render a <see cref="Italic"/> element
+/// Render a <see cref="Text.Documents.Italic"/> element
 /// </summary>
 public class ItalicWpfTextRendererElement : InlineWpfTextRendererElementBase
 {
@@ -32,11 +35,11 @@ public class ItalicWpfTextRendererElement : InlineWpfTextRendererElementBase
     public override void RenderToElement(WpfTextDocumentRenderer renderer, TextElement element, List<Inline> childInlines)
     {
 
-        if (element is System.Windows.Documents.Paragraph paragraph)
+        if (element is Paragraph paragraph)
         {
             if (_span.ChildInlines.Count == 0)
             {
-                var italic = new System.Windows.Documents.Italic(new System.Windows.Documents.Run(_span.Content));
+                var italic = new System.Windows.Documents.Italic(new Run(_span.Content));
                 paragraph.Inlines.Add(italic);
 
                 return;

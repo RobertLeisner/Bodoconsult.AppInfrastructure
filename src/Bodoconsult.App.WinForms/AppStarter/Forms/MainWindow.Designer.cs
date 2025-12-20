@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 
+using System.ComponentModel;
+
 namespace Bodoconsult.App.WinForms.AppStarter.Forms
 {
     sealed partial class MainWindow
@@ -8,7 +10,7 @@ namespace Bodoconsult.App.WinForms.AppStarter.Forms
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -167,13 +169,13 @@ namespace Bodoconsult.App.WinForms.AppStarter.Forms
 
         #endregion
 
-        private System.Windows.Forms.Label MsgServerIsListeningOnPort;
-        private System.Windows.Forms.Label MsgHowToShutdownServer;
-        private System.Windows.Forms.RichTextBox LogWindow;
-        private System.Windows.Forms.Label AppTitle;
-        private System.Windows.Forms.Label MsgServerProcessId;
-        private System.Windows.Forms.PictureBox Logo;
-        private System.Windows.Forms.Label AppHeader;
-        private System.Windows.Forms.Label AppLine;
+        private Label MsgServerIsListeningOnPort;
+        private Label MsgHowToShutdownServer;
+        private RichTextBox LogWindow;
+        private Label AppTitle;
+        private Label MsgServerProcessId;
+        private PictureBox Logo;
+        private Label AppHeader;
+        private Label AppLine;
     }
 }

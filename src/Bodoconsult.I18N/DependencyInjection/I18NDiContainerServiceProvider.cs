@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Abstractions.DependencyInjection;
+using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace Bodoconsult.I18N.DependencyInjection;
 
@@ -27,7 +27,7 @@ public class I18NDiContainerServiceProvider : IDiContainerServiceProvider
     /// <param name="diContainer">Current DI container</param>
     public void AddServices(DiContainer diContainer)
     {
-        var i18N = (II18N)_i18NFactory.CreateInstance();
+        var i18N = _i18NFactory.CreateInstance();
         diContainer.AddSingleton(i18N);
     }
 

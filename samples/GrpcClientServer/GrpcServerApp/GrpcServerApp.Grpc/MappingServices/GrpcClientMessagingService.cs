@@ -3,6 +3,7 @@
 using Bodoconsult.App.Abstractions.Delegates;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.GrpcBackgroundService;
+using Google.Protobuf.WellKnownTypes;
 using GrpcServerApp.BusinessLogic.Notifications;
 
 namespace GrpcServerApp.Grpc.MappingServices;
@@ -57,7 +58,7 @@ public class GrpcClientMessagingService: IClientMessagingService
 
         var message = new ClientNotificationMessage
         {
-            Dto = Google.Protobuf.WellKnownTypes.Any.Pack(data)
+            Dto = Any.Pack(data)
         };
 
         return message;

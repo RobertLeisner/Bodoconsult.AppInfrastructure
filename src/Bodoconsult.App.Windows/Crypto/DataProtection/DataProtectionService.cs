@@ -11,7 +11,6 @@ namespace Bodoconsult.App.Windows.Crypto.DataProtection;
 /// </summary>
 public class DataProtectionService
 {
-
     /// <summary>
     /// Current protection scope
     /// </summary>
@@ -21,7 +20,6 @@ public class DataProtectionService
     /// Byte array containing entropy data to be used for encryption.
     /// </summary>
     public byte[] EntropyBytes { get; set; } = [0, 1, 2, 3, 4, 1, 2, 3, 4, 9];
-
 
     /// <summary>
     /// Encrypt the data using the current scope. The result can be decrypted only by the same scope
@@ -50,13 +48,9 @@ public class DataProtectionService
 
     public byte[] ProtectString(string secret)
     {
-
         var bytes = Encoding.Unicode.GetBytes(secret);
-
         var result = Protect(bytes);
-
         return result;
-
     }
 
     /// <summary>
@@ -89,8 +83,4 @@ public class DataProtectionService
         var result = Unprotect(data);
         return Encoding.Unicode.GetString(result);
     }
-
-
-
-
 }

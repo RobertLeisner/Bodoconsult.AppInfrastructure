@@ -43,7 +43,7 @@ internal class BaseGrpcBusinessTransactionRequestMappingServiceTests
         _context = GrpcTestHelper.CreateTestContext(userId);
     }
 
-    [NUnit.Framework.Test]
+    [Test]
     public void MapGrpc_EmptyRequest_ReturnsTransactionRequest()
     {
         // Arrange 

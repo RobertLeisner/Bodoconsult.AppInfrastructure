@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using System.IO;
 using Bodoconsult.App.Abstractions.Interfaces;
+using Bodoconsult.App.Abstractions.Typography;
 using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Wpf.Documents.General;
 using Bodoconsult.App.Wpf.Documents.Helpers;
@@ -10,9 +12,6 @@ using Bodoconsult.App.Wpf.Documents.Test.Helpers;
 using Bodoconsult.App.Wpf.Helpers;
 using Bodoconsult.App.Wpf.I18N;
 using NUnit.Framework;
-using System.IO;
-using System.Windows;
-using Bodoconsult.App.Abstractions.Typography;
 
 // ReSharper disable InconsistentNaming
 
@@ -292,7 +291,7 @@ namespace Bodoconsult.App.Wpf.Documents.Test
 
             // Add a numbered List
             r.AddHeader("Add a numbered list", 1);
-            r.AddNumberedList(FlowDocHelper.GetListData(), TextMarkerStyle.Disc);
+            r.AddNumberedList(FlowDocHelper.GetListData());
 
             // Add a  table
             r.AddHeader("Add a table", 1);
@@ -358,7 +357,7 @@ namespace Bodoconsult.App.Wpf.Documents.Test
 
             r.AddHeader("", 1);
             r.AddParagraph(FlowDocHelper.MassText);
-            r.AddNumberedList(FlowDocHelper.GetListData(), TextMarkerStyle.Disc);
+            r.AddNumberedList(FlowDocHelper.GetListData());
 
 
             r.AddHeader("Alignment table cells", 1);

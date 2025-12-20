@@ -3,7 +3,6 @@
 using Bodoconsult.App.Wpf.Documents.Helpers;
 using Bodoconsult.Text.Documents;
 
-
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
 
 /// <summary>

@@ -135,20 +135,20 @@ public static class TestDataHelper
         paragraph = new Paragraph("Paragraph with LineBreak and Bold and BoldItalic: ");
 
         //   Add a simple span
-        var span = new Span(TestDataHelper.MassText);
+        var span = new Span(MassText);
         paragraph.AddInline(span);
 
         //   Add a line break
         paragraph.AddInline(new LineBreak());
 
         //   Add bold text
-        var bold = new Bold(TestDataHelper.MassText);
+        var bold = new Bold(MassText);
         paragraph.AddInline(bold);
 
         section.AddBlock(paragraph);
 
         // Add a bold and italic text paragraph
-        var bold2 = new Bold(TestDataHelper.MassText);
+        var bold2 = new Bold(MassText);
 
         var italic = new Italic();
         italic.AddInline(bold2);
@@ -453,20 +453,20 @@ public static class TestDataHelper
         paragraph = new Paragraph("Paragraph with LineBreak and Bold and BoldItalic: ");
 
         //   Add a simple span
-        var span = new Span(TestDataHelper.MassText);
+        var span = new Span(MassText);
         paragraph.AddInline(span);
 
         //   Add a line break
         paragraph.AddInline(new LineBreak());
 
         //   Add bold text
-        var bold = new Bold(TestDataHelper.MassText);
+        var bold = new Bold(MassText);
         paragraph.AddInline(bold);
 
         section.AddBlock(paragraph);
 
         // Add a bold and italic text paragraph
-        var bold2 = new Bold(TestDataHelper.MassText);
+        var bold2 = new Bold(MassText);
 
         var italic = new Italic();
         italic.AddInline(bold2);

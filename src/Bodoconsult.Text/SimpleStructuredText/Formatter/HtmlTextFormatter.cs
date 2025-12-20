@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Xml;
 using Bodoconsult.Text.Enums;
@@ -205,7 +206,7 @@ public class HtmlTextFormatter : ITextFormatter
         }
 
         return string.IsNullOrEmpty(Template) ? GetBody(TextItems) :
-            Template.Replace("{0}", GetBody(TextItems)).Replace("{1}", System.Net.WebUtility.HtmlEncode(title)).Replace("{2}", System.Net.WebUtility.HtmlEncode(dateString));
+            Template.Replace("{0}", GetBody(TextItems)).Replace("{1}", WebUtility.HtmlEncode(title)).Replace("{2}", WebUtility.HtmlEncode(dateString));
     }
 
 
@@ -315,12 +316,12 @@ public class HtmlTextFormatter : ITextFormatter
         // Add a title
         if (!string.IsNullOrEmpty(Title))
         {
-            erg.AppendFormat("<p class=\"{1}\">{0}</p>", System.Net.WebUtility.HtmlEncode(Title), CssTitle);
+            erg.AppendFormat("<p class=\"{1}\">{0}</p>", WebUtility.HtmlEncode(Title), CssTitle);
         }
 
         if (!string.IsNullOrEmpty(DateString))
         {
-            erg.AppendFormat("<p>{0}</p>", System.Net.WebUtility.HtmlEncode(DateString));
+            erg.AppendFormat("<p>{0}</p>", WebUtility.HtmlEncode(DateString));
         }
 
         // Add rest of text
@@ -620,13 +621,13 @@ public class HtmlTextFormatter : ITextFormatter
                 doc.Save(writer);
             }
 
-            var html = System.Net.WebUtility.HtmlEncode(sb.ToString()).Replace("\r\n", "<br />").Replace("\t", "&nbsp;&nbsp;&nbsp;").Replace("{", "{{").Replace("}", "}}");
+            var html = WebUtility.HtmlEncode(sb.ToString()).Replace("\r\n", "<br />").Replace("\t", "&nbsp;&nbsp;&nbsp;").Replace("{", "{{").Replace("}", "}}");
 
             return html;
         }
         catch
         {
-            return System.Net.WebUtility.HtmlEncode(xml);
+            return WebUtility.HtmlEncode(xml);
         }
     }
 }

@@ -107,8 +107,8 @@ public class WindowsCredentialManager : ICredentialManager
             blob = credentialW.Blob;
             credentialW.BlobSize = blob?.Size ?? 0;
 
-            Debug.Assert(credentialW.Type != default, "credentialW.Type != default");
-            Debug.Assert(credentialW.TargetName != null, "credentialW.TargetName != null");
+            Debug.Assert(credentialW.Type != default);
+            Debug.Assert(credentialW.TargetName != null);
 
             if (!UnsafeNativeApi.CredWriteW(ref credentialW, 0))
             {

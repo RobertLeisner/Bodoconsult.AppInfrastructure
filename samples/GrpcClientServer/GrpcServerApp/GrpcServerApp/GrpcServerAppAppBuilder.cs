@@ -17,6 +17,7 @@
 // limitations under the License.
 
 #endregion
+
 using System.Net;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.GrpcBackgroundService;

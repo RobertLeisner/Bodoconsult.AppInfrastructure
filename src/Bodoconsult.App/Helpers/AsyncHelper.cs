@@ -23,8 +23,8 @@ public static class AsyncHelper
     public static TResult RunSync<TResult>(Func<Task<TResult>> func)
     {
         return MyTaskFactory
-            .StartNew<Task<TResult>>(func)
-            .Unwrap<TResult>()
+            .StartNew(func)
+            .Unwrap()
             .GetAwaiter()
             .GetResult();
     }
@@ -36,7 +36,7 @@ public static class AsyncHelper
     public static void RunSync(Func<Task> func)
     {
         MyTaskFactory
-            .StartNew<Task>(func)
+            .StartNew(func)
             .Unwrap()
             .GetAwaiter()
             .GetResult();

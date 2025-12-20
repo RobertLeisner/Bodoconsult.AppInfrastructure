@@ -2,11 +2,11 @@
 
 // See https://aka.ms/new-console-template for more information
 
-using ConsoleWpfApp1.App;
 using System.Diagnostics;
 using Bodoconsult.App.Abstractions.Interfaces;
-using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Extensions;
+using Bodoconsult.App.Helpers;
+using ConsoleWpfApp1.App;
 
 namespace ConsoleWpfApp1;
 

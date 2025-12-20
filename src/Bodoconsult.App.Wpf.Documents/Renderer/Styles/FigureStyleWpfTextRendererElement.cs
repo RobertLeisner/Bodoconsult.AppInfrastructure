@@ -1,7 +1,11 @@
-﻿using Bodoconsult.App.Abstractions.Helpers;
-using Bodoconsult.Text.Documents;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
+using Bodoconsult.App.Abstractions.Helpers;
+using Bodoconsult.Text.Documents;
+using Block = System.Windows.Documents.Block;
+using Paragraph = System.Windows.Documents.Paragraph;
+using TextElement = System.Windows.Documents.TextElement;
+using Thickness = System.Windows.Thickness;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Styles;
 
@@ -47,31 +51,31 @@ public class FigureStyleWpfTextRendererElement : WpfParagraphStyleTextRendererEl
 
     private void ImageStyle(WpfTextDocumentRenderer renderer, string styleName)
     {
-        var style = new Style(typeof(System.Windows.Documents.Paragraph));
+        var style = new Style(typeof(Paragraph));
 
         //WpfDocumentRendererHelper.RenderParagraphStyle(Style, style);
 
         style.Setters.Add(new Setter
         {
-            Property = System.Windows.Documents.TextElement.FontSizeProperty,
+            Property = TextElement.FontSizeProperty,
             Value = MeasurementHelper.GetDiuFromPoint(Style.FontSize)
         });
         style.Setters.Add(new Setter
         {
-            Property = System.Windows.Documents.TextElement.FontFamilyProperty,
+            Property = TextElement.FontFamilyProperty,
             Value = new FontFamily(Style.FontName)
         });
 
         style.Setters.Add(new Setter
         {
-            Property = System.Windows.Documents.TextElement.FontWeightProperty,
+            Property = TextElement.FontWeightProperty,
             Value = Style.Bold ? FontWeights.Bold : FontWeights.Normal
         });
 
         style.Setters.Add(new Setter
         {
-            Property = System.Windows.Documents.Block.MarginProperty,
-            Value = new System.Windows.Thickness(MeasurementHelper.GetDiuFromPoint(Style.Margins.Left),
+            Property = Block.MarginProperty,
+            Value = new Thickness(MeasurementHelper.GetDiuFromPoint(Style.Margins.Left),
                 MeasurementHelper.GetDiuFromPoint(Style.Margins.Top),
                 MeasurementHelper.GetDiuFromPoint(Style.Margins.Right),
                 0)
@@ -79,8 +83,8 @@ public class FigureStyleWpfTextRendererElement : WpfParagraphStyleTextRendererEl
 
         style.Setters.Add(new Setter
         {
-            Property = System.Windows.Documents.Block.TextAlignmentProperty,
-            Value = System.Windows.TextAlignment.Center
+            Property = Block.TextAlignmentProperty,
+            Value = TextAlignment.Center
         });
 
         renderer.StyleSet.Add(styleName, style);
@@ -88,40 +92,40 @@ public class FigureStyleWpfTextRendererElement : WpfParagraphStyleTextRendererEl
 
     private void CaptionStyle(WpfTextDocumentRenderer renderer, string styleName)
     {
-        var style = new Style(typeof(System.Windows.Documents.Paragraph));
+        var style = new Style(typeof(Paragraph));
 
         //WpfDocumentRendererHelper.RenderParagraphStyle(Style, style);
 
         style.Setters.Add(new Setter
         {
-            Property = System.Windows.Documents.TextElement.FontSizeProperty,
+            Property = TextElement.FontSizeProperty,
             Value = MeasurementHelper.GetDiuFromPoint(Style.FontSize)
         });
         style.Setters.Add(new Setter
         {
-            Property = System.Windows.Documents.TextElement.FontFamilyProperty,
+            Property = TextElement.FontFamilyProperty,
             Value = new FontFamily(Style.FontName)
         });
 
         style.Setters.Add(new Setter
         {
-            Property = System.Windows.Documents.TextElement.FontWeightProperty,
+            Property = TextElement.FontWeightProperty,
             Value = Style.Bold ? FontWeights.Bold : FontWeights.Normal
         });
 
         style.Setters.Add(new Setter
         {
-            Property = System.Windows.Documents.Block.MarginProperty,
-            Value = new System.Windows.Thickness(MeasurementHelper.GetDiuFromPoint(Style.Margins.Left),
+            Property = Block.MarginProperty,
+            Value = new Thickness(MeasurementHelper.GetDiuFromCm(Style.Margins.Left),
                 0,
-                MeasurementHelper.GetDiuFromPoint(Style.Margins.Right),
-                MeasurementHelper.GetDiuFromPoint(Style.Margins.Bottom))
+                MeasurementHelper.GetDiuFromCm(Style.Margins.Right),
+                MeasurementHelper.GetDiuFromCm(Style.Margins.Bottom))
         });
 
         style.Setters.Add(new Setter
         {
-            Property = System.Windows.Documents.Block.TextAlignmentProperty,
-            Value = System.Windows.TextAlignment.Center
+            Property = Block.TextAlignmentProperty,
+            Value = TextAlignment.Center
         });
 
         renderer.StyleSet.Add(styleName, style);

@@ -15,8 +15,8 @@
    PERFORMANCE OF THIS SOFTWARE.
  */
 
-using Bodoconsult.App.Abstractions.Interfaces;
 using System.Windows.Forms;
+using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace Bodoconsult.App.Wpf.AppStarter;
 

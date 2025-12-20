@@ -422,7 +422,7 @@ public class LdmlCalculator
 
         foreach (var equation in Equations)
         {
-            var toe = new Toe()
+            var toe = new Toe
             {
                 TagName = equation.TagName
             };
@@ -450,7 +450,7 @@ public class LdmlCalculator
 
         foreach (var figure in Figures)
         {
-            var tof = new Tof()
+            var tof = new Tof
             {
                 TagName = figure.TagName
             };

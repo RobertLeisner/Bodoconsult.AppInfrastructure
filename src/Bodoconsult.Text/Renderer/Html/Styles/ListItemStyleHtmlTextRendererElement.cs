@@ -1,7 +1,7 @@
-﻿using Bodoconsult.Text.Documents;
+﻿using System.Text;
+using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Extensions;
 using Bodoconsult.Text.Interfaces;
-using System.Text;
 
 namespace Bodoconsult.Text.Renderer.Html.Styles;
 

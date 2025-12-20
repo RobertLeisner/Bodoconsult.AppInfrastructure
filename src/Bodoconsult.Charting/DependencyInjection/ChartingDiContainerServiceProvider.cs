@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen. All rights reserved.
 
-using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Abstractions.DependencyInjection;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.Charting.Factories;
 using Bodoconsult.Drawing.SkiaSharp.Interfaces;
 using Bodoconsult.Drawing.SkiaSharp.Services;

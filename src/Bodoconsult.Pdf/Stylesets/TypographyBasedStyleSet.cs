@@ -31,14 +31,14 @@ public class TypographyBasedStyleSet : DefaultStyleSet
     {
         var ps = new PageSetup
         {
-            Orientation = _typography.PageWidth<_typography.PageHeight ?  Orientation.Portrait: Orientation.Landscape,
-            PageFormat = GetPageFormat(_typography.PaperFormatName),
-            PageWidth = Unit.FromCentimeter(_typography.PageWidth),
-            PageHeight = Unit.FromCentimeter(_typography.PageHeight),
-            LeftMargin = Unit.FromCentimeter(_typography.MarginLeft),
-            TopMargin = Unit.FromCentimeter(_typography.MarginTop),
-            RightMargin = Unit.FromCentimeter(_typography.MarginRight),
-            BottomMargin = Unit.FromCentimeter(_typography.MarginBottom)
+            Orientation = _typography.PaperFormat.Size.Width <_typography.PaperFormat.Size.Height ?  Orientation.Portrait: Orientation.Landscape,
+            PageFormat = GetPageFormat(_typography.PaperFormat.PaperFormatName),
+            PageWidth = Unit.FromCentimeter(_typography.PaperFormat.Size.Width),
+            PageHeight = Unit.FromCentimeter(_typography.PaperFormat.Size.Height),
+            LeftMargin = Unit.FromCentimeter(_typography.Margins.Left),
+            TopMargin = Unit.FromCentimeter(_typography.Margins.Top),
+            RightMargin = Unit.FromCentimeter(_typography.Margins.Right),
+            BottomMargin = Unit.FromCentimeter(_typography.Margins.Bottom)
         };
         TypeAreaWidth = ps.PageWidth - ps.LeftMargin - ps.RightMargin;
         return ps;

@@ -1,6 +1,7 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 using System.Diagnostics;
+using Bodoconsult.Text.Helpers;
 using NUnit.Framework;
 
 namespace Bodoconsult.Text.Test.SimpleStructuredText;
@@ -17,7 +18,7 @@ public class HtmlHelperTests
     {
         var text = "<p>aafa [safasf] adasdas asdAS [Microsoft](http://microsoft.de) asfa asfas [safasf]  f Asfsaf [Microsoft2](http://microsoft2.de) blablb bala  [safasf]";
 
-        var result = Text.Helpers.HtmlHelper.ParseHtml(text);
+        var result = HtmlHelper.ParseHtml(text);
 
         Assert.That(!string.IsNullOrEmpty(result));
         Assert.That(result.Contains("<a href=\""));
@@ -30,7 +31,7 @@ public class HtmlHelperTests
     {
         var text = "<p>ssda [safasf] adasdas \t asdAS [Microsoft](http://microsoft.de) asfa ??br??asfas f  [safasf]  Asfsaf [Microsoft2](http://microsoft2.de) blablb bala  [safasf]";
 
-        var result = Text.Helpers.HtmlHelper.GetContentAsHtml(text);
+        var result = HtmlHelper.GetContentAsHtml(text);
 
         Assert.That(!string.IsNullOrEmpty(result));
         Assert.That(result.Contains("<a href=\""));

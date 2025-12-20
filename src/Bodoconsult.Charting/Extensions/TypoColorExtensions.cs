@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen. All rights reserved.
 
 using Bodoconsult.App.Abstractions.Interfaces;
+using ScottPlot;
 using SkiaSharp;
 
 namespace Bodoconsult.Charting.Extensions;
@@ -15,9 +16,9 @@ public static class TypoColorExtensions
     /// </summary>
     /// <param name="typoColor">Typo color instance</param>
     /// <returns>ScottPlot color instance</returns>
-    public static ScottPlot.Color ToScottPlotColor(this TypoColor typoColor)
+    public static Color ToScottPlotColor(this TypoColor typoColor)
     {
-        return new ScottPlot.Color(typoColor.R, typoColor.G, typoColor.B, typoColor.A);
+        return new Color(typoColor.R, typoColor.G, typoColor.B, typoColor.A);
     }
 
     /// <summary>

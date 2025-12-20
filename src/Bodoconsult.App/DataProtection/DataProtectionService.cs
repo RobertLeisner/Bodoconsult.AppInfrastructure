@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using Microsoft.AspNetCore.DataProtection;
 using Bodoconsult.App.Abstractions.Interfaces;
+using Microsoft.AspNetCore.DataProtection;
 
 // https://duendesoftware.com/blog/20250313-data-protection-aspnetcore-duende-identityserver
 

@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using System.Text;
 using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Extensions;
 using Bodoconsult.Text.Documents;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Bodoconsult.Text.Renderer.PlainText;
 
@@ -292,7 +292,7 @@ public class PlainTextParagraphFormatter
 
         var numberOfBlanks = line.SpaceCount();
 
-        var blanksPerUnit = (int)Math.Ceiling((double)missinglength / (double)numberOfBlanks);
+        var blanksPerUnit = (int)Math.Ceiling(missinglength / (double)numberOfBlanks);
 
         var pos = length - 1;
         for (var i = bytes.Length - 1; i >= 0; i--)

@@ -100,7 +100,7 @@ public sealed class List : ParagraphBase
 
         if (!AllowedBlocks.Contains(type))
         {
-            throw new ArgumentException($"Type {type.Name} not allowed to add for the current element of type {this.GetType().Name}");
+            throw new ArgumentException($"Type {type.Name} not allowed to add for the current element of type {GetType().Name}");
         }
 
         Blocks.Add(block);

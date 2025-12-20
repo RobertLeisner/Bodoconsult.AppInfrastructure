@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.App.Wpf.Documents.General;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
+using Bodoconsult.App.Wpf.Documents.General;
 
 namespace Bodoconsult.App.Wpf.Documents.Services;
 

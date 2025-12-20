@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 using Bodoconsult.App.Abstractions.Interfaces;
+using Bodoconsult.Charting.Base.Interfaces;
 using Bodoconsult.Charting.Extensions;
 using ScottPlot;
-using Bodoconsult.Charting.Base.Interfaces;
 
 //using GradientStyle = System.Web.UI.DataVisualization.Charting.GradientStyle;
 

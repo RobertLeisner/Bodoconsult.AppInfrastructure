@@ -4,6 +4,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace Bodoconsult.App.Windows.CredentialManager.Win32.Types;
 
@@ -14,7 +15,7 @@ internal struct Credentialw
     public CredentialType Type;
     [MarshalAs (UnmanagedType.LPWStr)] public string TargetName;
     [MarshalAs (UnmanagedType.LPWStr)] public string Comment;
-    public global::System.Runtime.InteropServices.ComTypes.FILETIME LastWritten;
+    public FILETIME LastWritten;
     public int BlobSize;
     public SecureBlob Blob;
     public CredentialPersist Persist;

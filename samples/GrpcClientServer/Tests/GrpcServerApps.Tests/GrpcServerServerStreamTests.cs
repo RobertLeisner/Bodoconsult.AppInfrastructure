@@ -2,6 +2,7 @@
 
 using System.Diagnostics;
 using Grpc.Net.Client;
+using GrpcServerApp;
 
 namespace GrpcServerApps.Tests;
 
@@ -20,7 +21,7 @@ public class GrpcServerServerStreamingTests
         {
             try
             {
-                GrpcServerApp.Program.Main(args);
+                Program.Main(args);
             }
             catch (Exception e)
             {
@@ -54,7 +55,7 @@ public class GrpcServerServerStreamingTests
 
         try
         {
-            GrpcServerApp.Program.Shutdown();
+            Program.Shutdown();
         }
         catch (Exception e)
         {

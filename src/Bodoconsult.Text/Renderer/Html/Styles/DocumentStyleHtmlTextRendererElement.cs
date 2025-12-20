@@ -1,6 +1,6 @@
-﻿using Bodoconsult.Text.Documents;
+﻿using System.Text;
+using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Interfaces;
-using System.Text;
 
 namespace Bodoconsult.Text.Renderer.Html.Styles;
 
@@ -36,7 +36,7 @@ public class DocumentStyleHtmlTextRendererElement : HtmlPageStyleTextRendererEle
 
         sb.AppendLine("body");
         sb.AppendLine("{");
-        sb.AppendLine($"     width: 650px;");
+        sb.AppendLine("     width: 650px;");
         sb.AppendLine("}");
         renderer.Content.Append(sb);
     }

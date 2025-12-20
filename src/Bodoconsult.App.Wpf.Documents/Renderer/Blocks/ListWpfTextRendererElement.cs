@@ -1,9 +1,11 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using Bodoconsult.App.Wpf.Documents.Helpers;
-using Bodoconsult.Text.Documents;
 using System.Windows;
 using Bodoconsult.App.Abstractions.Helpers;
+using Bodoconsult.App.Wpf.Documents.Helpers;
+using Bodoconsult.Text.Documents;
+using ListItem = System.Windows.Documents.ListItem;
+using Paragraph = System.Windows.Documents.Paragraph;
 using Thickness = System.Windows.Thickness;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
@@ -82,12 +84,12 @@ public class ListWpfTextRendererElement : WpfTextRendererElementBase
 
             foreach (var item in _list.ChildBlocks)
             {
-                var listItem = new System.Windows.Documents.ListItem
+                var listItem = new ListItem
                 {
                     Margin = WpfDocumentRendererHelper.NoMarginThickness
                 };
 
-                var p = new System.Windows.Documents.Paragraph
+                var p = new Paragraph
                 {
                     Margin = new Thickness(0,
                         MeasurementHelper.GetDiuFromPoint(itemStyle.Margins.Top),

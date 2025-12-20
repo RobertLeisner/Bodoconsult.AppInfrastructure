@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Interfaces;
@@ -44,7 +45,7 @@ public class PdfParagraphStyleTextRendererElementBase : IPdfTextRendererElement
     /// <param name="renderer">Current renderer</param>
     public virtual void RenderIt(ITextDocumentRenderer renderer)
     {
-        throw new System.NotSupportedException();
+        throw new NotSupportedException();
     }
 
     /// <summary>

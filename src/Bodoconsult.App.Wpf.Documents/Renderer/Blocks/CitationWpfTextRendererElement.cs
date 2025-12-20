@@ -1,11 +1,12 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using System.Windows;
+using System.Windows.Documents;
 using Bodoconsult.App.Wpf.Documents.Helpers;
 using Bodoconsult.App.Wpf.Documents.Renderer.Styles;
 using Bodoconsult.Text.Documents;
-using System.Windows;
-using System.Windows.Documents;
 using Inline = Bodoconsult.Text.Documents.Inline;
+using Paragraph = System.Windows.Documents.Paragraph;
 using Span = Bodoconsult.Text.Documents.Span;
 
 namespace Bodoconsult.App.Wpf.Documents.Renderer.Blocks;
@@ -36,7 +37,7 @@ public class CitationWpfTextRendererElement : ParagraphWpfTextRendererElementBas
         {
 
             // Citation
-            Paragraph = new System.Windows.Documents.Paragraph();
+            Paragraph = new Paragraph();
             var style = (Style)renderer.StyleSet[_citation.StyleName];
             Paragraph.Style = style;
 
@@ -54,7 +55,7 @@ public class CitationWpfTextRendererElement : ParagraphWpfTextRendererElementBas
             WpfDocumentRendererHelper.RenderBlockInlinesToWpf(renderer, childs, Paragraph);
 
             // Citation source
-            var paragraph = new System.Windows.Documents.Paragraph(new Run(_citation.Source));
+            var paragraph = new Paragraph(new Run(_citation.Source));
             style = (Style)renderer.StyleSet[CitationSourceStyleWpfTextRendererElement.CitationSourceStyleName];
             paragraph.Style = style;
 

@@ -9,6 +9,7 @@ using Bodoconsult.App.Helpers;
 using Bodoconsult.App.Logging;
 using Bodoconsult.App.Wpf.AppStarter.ViewModels;
 using WpfConsoleApp1.AppData;
+
 // ReSharper disable LocalizableElement
 
 namespace WpfConsoleApp1;

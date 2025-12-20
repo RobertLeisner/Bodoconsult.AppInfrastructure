@@ -22,7 +22,7 @@ internal class GrpcTestContext<TStartup> : IDisposable where TStartup : class
         var log = $"{_stopwatch.Elapsed.TotalSeconds:N3}s {category} - {logLevel}: {message}";
         if (exception != null)
         {
-            log += Environment.NewLine + exception.ToString();
+            log += Environment.NewLine + exception;
         }
         //_outputHelper.WriteLine(log);
     }

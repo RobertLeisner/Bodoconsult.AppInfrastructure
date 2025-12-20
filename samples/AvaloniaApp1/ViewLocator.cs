@@ -1,10 +1,10 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System;
+using System.Diagnostics.CodeAnalysis;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using AvaloniaApp1.ViewModels;
-using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace AvaloniaApp1;
 

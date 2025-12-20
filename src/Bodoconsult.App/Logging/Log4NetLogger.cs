@@ -35,13 +35,14 @@ using log4net.Filter;
 using log4net.Layout;
 using log4net.Repository.Hierarchy;
 using Microsoft.Extensions.Logging;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Bodoconsult.App.Logging;
 
 /// <summary>
 /// <see cref="Microsoft.Extensions.Logging.ILogger"/> implementation for Log4Net
 /// </summary>
-public class Log4NetLogger : Microsoft.Extensions.Logging.ILogger
+public class Log4NetLogger : ILogger
 {
     ////private readonly string _name;
     ////private readonly XmlElement _xmlElement;

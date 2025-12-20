@@ -42,7 +42,7 @@ public class GrpcClient : IClient, IDisposable
         }
         else
         {
-            Debug.Print($"Server: wrong message type");
+            Debug.Print("Server: wrong message type");
         }
     }
 

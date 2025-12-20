@@ -4,12 +4,13 @@
 
 using System;
 using System.ComponentModel;
+using Bodoconsult.App.Windows.CredentialManager.Win32;
 using Bodoconsult.App.Windows.CredentialManager.Win32.SafeHandles;
 using Bodoconsult.App.Windows.CredentialManager.Win32.Types;
 
 namespace Bodoconsult.App.Windows.CredentialManager;
 
-using static Win32.UnsafeNativeApi;
+using static UnsafeNativeApi;
 
 /// <summary>
 /// Prompt for asking user for credentials

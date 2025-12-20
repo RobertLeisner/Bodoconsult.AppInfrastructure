@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen. All rights reserved.
 
-using Bodoconsult.Drawing.SkiaSharp.Interfaces;
-using SkiaSharp;
 using System;
 using System.Diagnostics;
 using System.IO;
+using Bodoconsult.Drawing.SkiaSharp.Interfaces;
+using SkiaSharp;
 
 namespace Bodoconsult.Drawing.SkiaSharp.Services;
 

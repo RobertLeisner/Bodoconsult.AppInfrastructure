@@ -17,6 +17,7 @@
 // limitations under the License.
 
 #endregion
+
 using System.Diagnostics;
 using Bodoconsult.App;
 using Bodoconsult.App.Abstractions.Delegates;

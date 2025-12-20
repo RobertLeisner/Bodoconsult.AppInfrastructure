@@ -43,7 +43,7 @@ public class CellPdfTextRendererElement : PdfTextRendererElementBase
         {
             return "CellRightStyle";
         }
-        if (cell.Column.DataType == typeof(System.Int128))
+        if (cell.Column.DataType == typeof(Int128))
         {
             return "CellRightStyle";
         }

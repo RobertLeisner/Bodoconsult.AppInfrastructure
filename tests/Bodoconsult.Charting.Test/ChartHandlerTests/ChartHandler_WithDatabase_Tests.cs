@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 
+using System.IO;
 using Bodoconsult.Charting.Base.Interfaces;
 using Bodoconsult.Charting.Test.Helpers;
 using Bodoconsult.Charting.Util;
 using Bodoconsult.Drawing.SkiaSharp.Factories;
 using NUnit.Framework;
-using System.IO;
 
 // ReSharper disable InconsistentNaming
 

@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.Text.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 using Bodoconsult.App.Extensions;
+using Bodoconsult.Text.Helpers;
 using Bodoconsult.Text.Interfaces;
 
 namespace Bodoconsult.Text.Documents;

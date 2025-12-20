@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using MigraDoc.DocumentObjectModel;
 using System.Text;
+using MigraDoc.DocumentObjectModel;
+using Hyperlink = Bodoconsult.Text.Documents.Hyperlink;
+using Paragraph = MigraDoc.DocumentObjectModel.Paragraph;
 
 namespace Bodoconsult.Text.Pdf.Renderer.Inlines;
 
@@ -10,13 +12,13 @@ namespace Bodoconsult.Text.Pdf.Renderer.Inlines;
 /// </summary>
 public class HyperlinkPdfTextRendererElement : InlinePdfTextRendererElementBase
 {
-    private readonly Documents.Hyperlink _span;
+    private readonly Hyperlink _span;
 
     /// <summary>
     /// Default ctor
     /// </summary>
     /// <param name="span">Hyperlink</param>
-    public HyperlinkPdfTextRendererElement(Documents.Hyperlink span)
+    public HyperlinkPdfTextRendererElement(Hyperlink span)
     {
         _span = span;
     }
@@ -26,7 +28,7 @@ public class HyperlinkPdfTextRendererElement : InlinePdfTextRendererElementBase
     /// </summary>
     /// <param name="renderer">Current renderer</param>
     /// <param name="paragraph">Paragraph to render the inline into</param>
-    public override void RenderIt(PdfTextDocumentRenderer renderer, MigraDoc.DocumentObjectModel.Paragraph paragraph)
+    public override void RenderIt(PdfTextDocumentRenderer renderer, Paragraph paragraph)
     {
         var h = paragraph.AddHyperlink(_span.Uri, HyperlinkType.Web);
         h.AddFormattedText(_span.Content);

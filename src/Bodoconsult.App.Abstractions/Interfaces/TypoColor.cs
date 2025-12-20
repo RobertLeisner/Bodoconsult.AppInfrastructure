@@ -36,11 +36,14 @@
  * SOFTWARE.
  */
 
+using System.Diagnostics;
+
 namespace Bodoconsult.App.Abstractions.Interfaces;
 
 /// <summary>
 /// Color defined in ARGB mode
 /// </summary>
+[DebuggerDisplay("R = {R} G = {G} B = {B} A = {A} ({Html, nq})")]
 public class TypoColor
 {
     /// <summary>
@@ -84,24 +87,29 @@ public class TypoColor
     }
 
     /// <summary>
-    /// A
+    /// Alpha
     /// </summary>
     public byte A { get; set; } = byte.MaxValue;
 
     /// <summary>
-    /// 
+    /// Red
     /// </summary>
     public byte R { get; set; }
 
     /// <summary>
-    /// G
+    /// Green
     /// </summary>
     public byte G { get; set; }
 
     /// <summary>
-    /// B
+    /// Blue
     /// </summary>
     public byte B { get; set; }
+
+    /// <summary>
+    /// Used for displaying basic color info in debugger
+    /// </summary>
+    public string Html => $"#{R:X2}{G:X2}{B:X2}";
 
     ///<summary>
     /// Color - sRgb legacy interface, assumes Rgb values are sRgb
@@ -167,34 +175,4 @@ public class TypoColor
     /// <param name="blue">Blue</param>
     /// <returns>ARGB color</returns>
     public static TypoColor FromArgb(byte red, byte green, byte blue) => FromArgb(byte.MaxValue, red, green, blue);
-}
-
-/// <summary>
-/// A brush using a solid color
-/// </summary>
-public class TypoSolidColorBrush : TypoBrush
-{
-    /// <summary>
-    /// Default ctor
-    /// </summary>
-    public TypoSolidColorBrush()
-    { }
-
-    /// <summary>
-    /// Ctor to load a Color
-    /// </summary>
-    /// <param name="color"></param>
-    public TypoSolidColorBrush(TypoColor color)
-    {
-        Color = color;
-    }
-
-    /// <summary>
-    /// Ctor with a HTML color index
-    /// </summary>
-    /// <param name="color"></param>
-    public TypoSolidColorBrush(string color)
-    {
-        Color = TypoColor.FromHtml(color);
-    }
 }

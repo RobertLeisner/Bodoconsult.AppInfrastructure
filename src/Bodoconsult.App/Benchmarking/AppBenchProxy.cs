@@ -6,7 +6,6 @@ using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Helpers;
 using Microsoft.Extensions.Logging;
 
-
 namespace Bodoconsult.App.Benchmarking;
 
 /// <summary>
@@ -34,7 +33,7 @@ public class AppBenchProxy : IAppBenchProxy
     public AppBenchProxy(ILoggerFactory logger, ILogDataFactory logDataFactory)
     {
         LoggerFactory = logger;
-        _logger = logger.CreateLogger($"Default");
+        _logger = logger.CreateLogger("Default");
 
         BaseCtor();
 

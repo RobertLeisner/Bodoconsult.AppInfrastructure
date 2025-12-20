@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using System.Text;
+using Bodoconsult.App.Extensions;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Extensions;
 using Bodoconsult.Text.Interfaces;
@@ -36,8 +37,8 @@ public class ListStyleWpfTextRendererElement : WpfParagraphStyleTextRendererElem
         sb.AppendLine("{");
         sb.AppendLine($"     font-family: \"{Style.FontName}\";");
         sb.AppendLine($"     font-size: {Style.FontSize}pt;");
-        sb.AppendLine($"     margin: {Style.Margins.Top}pt {Style.Margins.Right}pt {Style.Margins.Bottom}pt {Style.Margins.Left}pt;");
-        sb.AppendLine($"     border-width: {Style.BorderThickness.Top}pt {Style.BorderThickness.Right}pt {Style.BorderThickness.Bottom}pt {Style.BorderThickness.Left}pt;");
+        sb.AppendLine($"     margin: {Style.Margins.Top}cm {Style.Margins.Right}cm {Style.Margins.Bottom}cm {Style.Margins.Left}cm;");
+        sb.AppendLine($"     border-width: {Style.BorderThickness.Top.FromCmToPoint()}pt {Style.BorderThickness.Right.FromCmToPoint()}pt {Style.BorderThickness.Bottom.FromCmToPoint()}pt {Style.BorderThickness.Left.FromCmToPoint()}pt;");
 
         var color = (Color)Style.BorderBrush?.Color;
         sb.AppendLine($"     border-color: {color?.ToHtml() ?? "#000000"};");

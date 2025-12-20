@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using Bodoconsult.App.Abstractions.Interfaces;
-using Bodoconsult.Text.Interfaces;
 using System;
 using System.Text;
+using Bodoconsult.App.Abstractions.Interfaces;
+using Bodoconsult.Text.Interfaces;
 
 namespace Bodoconsult.Text.Documents;
 

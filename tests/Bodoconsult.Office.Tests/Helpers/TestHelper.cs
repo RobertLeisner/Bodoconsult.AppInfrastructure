@@ -60,7 +60,7 @@ public static class TestHelper
 
     public static DataTable GetDataTable(string fileName)
     {
-        var path = Path.Combine(TestHelper.TestDataPath, fileName);
+        var path = Path.Combine(TestDataPath, fileName);
 
         return JsonXmlHelper.GetDataTableFromXml(path);
     }

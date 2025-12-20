@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System.Text;
 using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.Text.Documents;
-using System.Text;
 
 namespace Bodoconsult.Text.Helpers;
 
@@ -31,20 +31,20 @@ public static class RtfHelper
         }
         sb.Append($"\\f{index}");
 
-        // Font size
+        // Font size in half points
         sb.Append($"\\fs{style.FontSize * 2}");
 
         // left margin
-        sb.Append($"\\li{MeasurementHelper.GetTwipsFromPt(style.Margins.Left)}");
+        sb.Append($"\\li{MeasurementHelper.GetTwipsFromCm(style.Margins.Left)}");
 
         // right margin
-        sb.Append($"\\ri{MeasurementHelper.GetTwipsFromPt(style.Margins.Right)}");
+        sb.Append($"\\ri{MeasurementHelper.GetTwipsFromCm(style.Margins.Right)}");
 
         // top margin
-        sb.Append($"\\sb{MeasurementHelper.GetTwipsFromPt(style.Margins.Top)}");
+        sb.Append($"\\sb{MeasurementHelper.GetTwipsFromCm(style.Margins.Top)}");
 
         // bottom margin
-        sb.Append($"\\sa{MeasurementHelper.GetTwipsFromPt(style.Margins.Bottom)}");
+        sb.Append($"\\sa{MeasurementHelper.GetTwipsFromCm(style.Margins.Bottom)}");
 
         // bordor top
         if (style.BorderBrush != null && !isTable)

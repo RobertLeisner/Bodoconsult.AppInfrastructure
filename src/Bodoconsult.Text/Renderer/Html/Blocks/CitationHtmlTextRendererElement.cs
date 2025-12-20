@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using System;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Interfaces;
-using System;
 
 namespace Bodoconsult.Text.Renderer.Html;
 
