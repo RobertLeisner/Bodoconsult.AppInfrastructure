@@ -40,10 +40,8 @@ public abstract class SectionBaseDocxTextRendererElement : DocxTextRendererEleme
 
         var isLastSection = index == sections.Count - 1;
 
-        if (section.IsRestartPageNumberingRequired)
-        {
-            renderer.DocxDocument.AddSection(isLastSection, section.IsRestartPageNumberingRequired);
-        }
+
+        renderer.DocxDocument.AddSection(isLastSection, section.IsRestartPageNumberingRequired);
 
         //if (!string.IsNullOrEmpty(renderer.Document.DocumentMetaData.HeaderText))
         //{
