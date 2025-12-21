@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Bodoconsult.Text.Documents;
-using Bodoconsult.Text.Pdf.Helpers;
+using Bodoconsult.Text.Helpers;
 using Paragraph = MigraDoc.DocumentObjectModel.Paragraph;
 
 namespace Bodoconsult.Text.Pdf.Renderer.Blocks;

@@ -54,9 +54,7 @@ This repository contains the following Nuget packages:
 
 >   [**Bodoconsult.Pdf**: simplified generation of PDF files](doc/Bodoconsult.Pdf/README.md)
 
->   [**Bodoconsult.Text**: generating structured text documents like reports with IDocumentBuilder and export them to HTML, RTF](doc/Bodoconsult.Text/README.md)
-
->   [**Bodoconsult.Text.Pdf**: generating structured text documents like reports with IDocumentBuilder and export them to PDF and XPS](doc/Bodoconsult.Text.Pdf/README.md)
+>   [**Bodoconsult.Text**: generating structured text documents like reports with IDocumentBuilder and export them to HTML, RTF, DOCX, XPS and PDF](doc/Bodoconsult.Text/README.md)
 
 >   [**Bodoconsult.Test**: generate a structured documentation of unit test results i.e. for auditors](doc/Bodoconsult.Test/README.md)
 
@@ -75,6 +73,10 @@ This repository contains the following Nuget packages:
 >   [**Bodoconsult.Charting.Base**: Base definitions for charting](doc/Bodoconsult.Charting.Base/README.md)
 
 >   [**Bodoconsult.Charting**: Charting based on ScottPlot and SkiaSharp](doc/Bodoconsult.Charting/README.md)
+
+The following Nuget packages are deprecated starting with 1.0.8
+
+>   **Bodoconsult.Text.Pdf**: this package was integrated into Bodoconsult.Text
 
 # Features missing currently
 

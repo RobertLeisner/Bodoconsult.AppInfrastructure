@@ -81,7 +81,6 @@
 		<ProjectReference Include="..\Bodoconsult.App.Abstractions\Bodoconsult.App.Abstractions.csproj" />
 		<ProjectReference Include="..\Bodoconsult.App.Wpf\Bodoconsult.App.Wpf.csproj" />
 		<ProjectReference Include="..\Bodoconsult.App\Bodoconsult.App.csproj" />
-		<ProjectReference Include="..\Bodoconsult.Text.Pdf\Bodoconsult.Text.Pdf.csproj" />
 		<ProjectReference Include="..\Bodoconsult.Text\Bodoconsult.Text.csproj" />
 	</ItemGroup>
 	<ItemGroup>

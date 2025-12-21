@@ -4,7 +4,6 @@ using System;
 using System.Text;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Interfaces;
-using Bodoconsult.Text.Pdf.Interfaces;
 using Paragraph = MigraDoc.DocumentObjectModel.Paragraph;
 
 namespace Bodoconsult.Text.Pdf.Renderer.Inlines;

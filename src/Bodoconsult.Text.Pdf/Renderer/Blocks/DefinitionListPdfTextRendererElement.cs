@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Bodoconsult.Pdf.PdfSharp;
 using Bodoconsult.Text.Documents;
-using Bodoconsult.Text.Pdf.Helpers;
+using Bodoconsult.Text.Helpers;
 
 namespace Bodoconsult.Text.Pdf.Renderer.Blocks;
 

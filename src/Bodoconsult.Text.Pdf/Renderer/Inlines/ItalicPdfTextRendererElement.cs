@@ -2,7 +2,7 @@
 
 using System.Text;
 using Bodoconsult.Text.Documents;
-using Bodoconsult.Text.Pdf.Helpers;
+using Bodoconsult.Text.Helpers;
 using MigraDoc.DocumentObjectModel;
 using Paragraph = MigraDoc.DocumentObjectModel.Paragraph;
 

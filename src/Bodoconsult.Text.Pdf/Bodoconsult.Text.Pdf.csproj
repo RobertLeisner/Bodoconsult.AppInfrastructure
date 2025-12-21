@@ -37,6 +37,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="Helpers\" />
+		<Folder Include="Interfaces\" />
 		<Folder Include="Properties\" />
 	</ItemGroup>
 

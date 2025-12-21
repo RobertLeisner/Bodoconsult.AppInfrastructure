@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Bodoconsult.Pdf\Bodoconsult.Pdf.csproj" />
-    <ProjectReference Include="..\..\src\Bodoconsult.Text.Pdf\Bodoconsult.Text.Pdf.csproj" />
     <ProjectReference Include="..\..\src\Bodoconsult.Text\Bodoconsult.Text.csproj" />
     <ProjectReference Include="..\Bodoconsult.Text.Test\Bodoconsult.Text.Test.csproj" />
   </ItemGroup>

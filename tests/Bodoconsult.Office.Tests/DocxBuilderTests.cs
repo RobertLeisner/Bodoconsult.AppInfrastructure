@@ -281,16 +281,16 @@ internal class DocxBuilderTests
         docx.CreateDocument(path);
         docx.AddSection(false);
         docx.SetBasicPageProperties(21, 29.4, 5, 2, 2, 2);
-        docx.AddHeaderToCurrentSection("Header section 1");
-        docx.AddFooterToCurrentSection("Footer section 1\t@Page");
+        docx.AddHeaderToCurrentSection("Header section 1", 10);
+        docx.AddFooterToCurrentSection("Footer section 1\t@Page", 10);
 
         docx.AddParagraph("Section1", "Normal");
 
         // Act  
         var section = docx.AddSection(true, true);
         docx.SetBasicPageProperties(21, 29.4, 8, 2, 2, 2);
-        docx.AddHeaderToCurrentSection("Header section 2");
-        docx.AddFooterToCurrentSection("Footer section 2\t@Page");
+        docx.AddHeaderToCurrentSection("Header section 2", 10);
+        docx.AddFooterToCurrentSection("Footer section 2\t@Page", 10);
 
         var runs = new List<OpenXmlElement>
         {
@@ -329,14 +329,14 @@ internal class DocxBuilderTests
         var docx = new DocxBuilder();
         docx.CreateDocument(path);
         docx.AddSection(false);
-        docx.AddHeaderToCurrentSection("Inhaltsverzeichnis");
+        docx.AddHeaderToCurrentSection("Inhaltsverzeichnis", 10);
         docx.SetBasicPageProperties(21, 29.4, 5, 2, 2, 2);
 
         docx.AddParagraph("Section1", "Normal");
 
         // Act  
         var section = docx.AddSection();
-        docx.AddHeaderToCurrentSection("Hauptteil");
+        docx.AddHeaderToCurrentSection("Hauptteil", 10);
 
         docx.SetBasicPageProperties(21, 29.4, 8, 2, 2, 2);
 
@@ -377,14 +377,14 @@ internal class DocxBuilderTests
         var docx = new DocxBuilder();
         docx.CreateDocument(path);
         docx.AddSection(false);
-        docx.AddFooterToCurrentSection("Inhaltsverzeichnis");
+        docx.AddFooterToCurrentSection("Inhaltsverzeichnis", 10);
         docx.SetBasicPageProperties(21, 29.4, 5, 2, 2, 2);
 
         docx.AddParagraph("Section1", "Normal");
 
         // Act  
         var section = docx.AddSection();
-        docx.AddFooterToCurrentSection("Hauptteil");
+        docx.AddFooterToCurrentSection("Hauptteil", 10);
 
         docx.SetBasicPageProperties(21, 29.4, 8, 2, 2, 2);
 

@@ -5,7 +5,6 @@ using System.Text;
 using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Helpers;
-using Bodoconsult.Text.Pdf.Helpers;
 
 namespace Bodoconsult.Text.Pdf.Renderer.Blocks;
 

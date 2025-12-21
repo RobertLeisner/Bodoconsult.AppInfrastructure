@@ -4,7 +4,6 @@ using Bodoconsult.Pdf.PdfSharp;
 using Bodoconsult.Pdf.Stylesets;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Interfaces;
-using Bodoconsult.Text.Pdf.Interfaces;
 using Bodoconsult.Text.Renderer;
 using PdfSharp.Fonts;
 using Color = MigraDoc.DocumentObjectModel.Color;

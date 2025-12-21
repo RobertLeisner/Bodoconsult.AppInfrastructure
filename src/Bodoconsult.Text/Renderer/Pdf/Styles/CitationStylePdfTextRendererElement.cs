@@ -1,0 +1,20 @@
+﻿using Bodoconsult.Text.Documents;
+
+namespace Bodoconsult.Text.Renderer.Pdf.Styles;
+
+/// <summary>
+/// PDF rendering element for <see cref="CitationStyle"/> instances
+/// </summary>
+public class CitationStylePdfTextRendererElement : PdfParagraphStyleTextRendererElementBase
+{
+    private readonly CitationStyle _citationStyle;
+
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    public CitationStylePdfTextRendererElement(CitationStyle citationStyle) : base(citationStyle)
+    {
+        _citationStyle = citationStyle;
+        ClassName = "CitationStyle";
+    }
+}

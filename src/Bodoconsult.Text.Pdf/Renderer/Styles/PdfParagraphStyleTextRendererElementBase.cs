@@ -3,9 +3,8 @@
 using System;
 using System.Collections.Generic;
 using Bodoconsult.Text.Documents;
+using Bodoconsult.Text.Helpers;
 using Bodoconsult.Text.Interfaces;
-using Bodoconsult.Text.Pdf.Helpers;
-using Bodoconsult.Text.Pdf.Interfaces;
 
 namespace Bodoconsult.Text.Pdf.Renderer.Styles;
 
