@@ -10,17 +10,17 @@ public interface ITypoParagraphStyle
     /// <summary>
     /// Font name
     /// </summary>
-    public string FontName { get; set; }
+    public string FontName { get; }
 
     /// <summary>
     /// Font size in pt
     /// </summary>
-    public int FontSize { get; set; }
+    public int FontSize { get; }
 
     /// <summary>
     /// Font color
     /// </summary>
-    public TypoColor FontColor { get; set; }
+    public TypoColor TypoFontColor { get; }
 
     /// <summary>
     /// Bold
@@ -35,45 +35,45 @@ public interface ITypoParagraphStyle
     /// <summary>
     /// Text alignment legt, center, justify or right
     /// </summary>
-    public TypoTextAlignment TextAlignment { get; set; }
+    public TypoTextAlignment TextAlignment { get; }
 
     /// <summary>
     /// Margins
     /// </summary>
-    public TypoThickness Margins { get; set; }
+    public TypoThickness TypoMargins { get; }
 
     /// <summary>
     /// Border brush
     /// </summary>
-    public TypoBrush BorderBrush { get; set; }
+    public TypoBrush TypoBorderBrush { get; }
 
     /// <summary>
     /// Current borderline width setting
     /// </summary>
-    public TypoThickness BorderThickness { get; set; }
+    public TypoThickness TypoBorderThickness { get; }
 
     /// <summary>
     /// Paddings. Padding settings are applied only if a border is set
     /// </summary>
-    public TypoThickness Paddings { get; set; }
+    public TypoThickness TypoPaddings { get; }
 
     /// <summary>
     /// Indent of the first line in pt. Negative number is indicating a hanging indent
     /// </summary>
-    public double FirstLineIndent { get; set; }
+    public double FirstLineIndent { get; }
 
     /// <summary>
     /// Add a page break before the heading. Default: false
     /// </summary>
-    public bool PageBreakBefore { get; set; }
+    public bool PageBreakBefore { get; }
 
     /// <summary>
     /// Add a page break before the heading. Default: false
     /// </summary>
-    public bool KeepWithNextParagraph { get; set; }
+    public bool KeepWithNextParagraph { get; }
 
     /// <summary>
     /// Keep the paragraph together on one side. Default: false
     /// </summary>
-    public bool KeepTogether { get; set; }
+    public bool KeepTogether { get; }
 }

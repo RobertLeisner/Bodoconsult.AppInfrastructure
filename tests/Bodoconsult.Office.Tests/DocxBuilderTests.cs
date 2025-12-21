@@ -526,25 +526,25 @@ internal class DocxBuilderTests
         // Heading 1
         var style = new DemoStyle
         {
-            FontColor = TypoColors.Cyan,
+            TypoFontColor = TypoColors.Cyan,
             FontName = "Arial Black",
             FontSize = 20,
             Bold = true,
             Italic = true,
-            Margins =
+            TypoMargins =
             {
                 Bottom = 2.5,
                 Left = 1.5
             },
             TextAlignment = TypoTextAlignment.Center,
-            BorderThickness =
+            TypoBorderThickness =
             {
                 Bottom = 0.1,
                 Left = 0.1,
                 Right = 0.1,
                 Top = 0.1,
             },
-            Paddings =
+            TypoPaddings =
             {
                 Bottom = 0.1,
                 Left = 0.1,

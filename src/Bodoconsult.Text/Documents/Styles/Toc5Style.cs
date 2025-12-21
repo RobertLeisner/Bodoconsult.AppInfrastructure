@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using Bodoconsult.App.Abstractions.Helpers;
+
 namespace Bodoconsult.Text.Documents;
 
 /// <summary>
@@ -14,7 +16,7 @@ public class Toc5Style : ParagraphStyleBase
     {
         TagToUse = "Toc5Style";
         Name = TagToUse;
-        Margins.Left = 4 * Styleset.DefaultFontSize;
+        Margins.Left = MeasurementHelper.GetCmFromPt(4 * Styleset.DefaultFontSize);
         FontSize = Styleset.DefaultFontSize;
     }
 }

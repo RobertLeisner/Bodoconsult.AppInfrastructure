@@ -1,10 +1,13 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using System;
-using System.Text;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Interfaces;
-using Paragraph = MigraDoc.DocumentObjectModel.Paragraph;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Wordprocessing;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Paragraph = Bodoconsult.Text.Documents.Paragraph;
 
 namespace Bodoconsult.Text.Renderer.Docx.Inlines;
 
@@ -39,16 +42,16 @@ public class InlineDocxTextRendererElementBase : IDocxTextRendererElement
     /// <param name="paragraph">Paragraph to render the inline into</param>
     public virtual void RenderIt(DocxTextDocumentRenderer renderer, Paragraph paragraph)
     {
-        throw new NotSupportedException("Override method RenderToString() in derived subclasses");
+        // Not supported
     }
 
     /// <summary>
-    /// Render the inline to a string
+    /// Render the inline to a run
     /// </summary>
     /// <param name="renderer">Current renderer</param>
-    /// <param name="sb">String</param>
+    /// <param name="runs">Current list of runs</param>
     /// <exception cref="NotSupportedException"></exception>
-    public virtual void RenderToString(DocxTextDocumentRenderer renderer, StringBuilder sb)
+    public virtual void RenderToString(DocxTextDocumentRenderer renderer, List<OpenXmlElement> runs)
     {
         throw new NotSupportedException("Override method RenderToString() in derived subclasses");
     }

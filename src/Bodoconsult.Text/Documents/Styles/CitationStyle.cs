@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 
+using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace Bodoconsult.Text.Documents;
@@ -18,7 +19,7 @@ public class CitationStyle : ParagraphStyleBase
         TagToUse = "CitationStyle";
         Name = TagToUse;
         TextAlignment = TypoTextAlignment.Center;
-        Margins.Top = 3 * Styleset.DefaultPaddingWidth;
+        Margins.Top = MeasurementHelper.GetCmFromPt(0.5 * Styleset.DefaultFontSize);
         Margins.Bottom = 0;
         Margins.Left = Styleset.DefaultMarginLeft;
         Margins.Right = Styleset.DefaultMarginRight;

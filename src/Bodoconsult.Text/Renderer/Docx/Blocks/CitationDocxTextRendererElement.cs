@@ -19,15 +19,5 @@ public class CitationDocxTextRendererElement : ParagraphDocxTextRendererElementB
         _citation = citation;
         ClassName = citation.StyleName;
     }
-
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(DocxTextDocumentRenderer renderer)
-    {
-        //base.RenderIt(renderer);
-        //Documents.Paragraph = renderer.DocxDocument.AddCitation(Content.ToString(), _citation.Source);
-    }
 }
 

@@ -19,15 +19,5 @@ public class Toc1DocxTextRendererElement : ParagraphDocxTextRendererElementBase
         _toc1 = toc1;
         ClassName = toc1.StyleName;
     }
-
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(DocxTextDocumentRenderer renderer)
-    {
-        //base.RenderIt(renderer);
-        //Documents.Paragraph = renderer.DocxDocument.AddToc1Entry(Content.ToString(), Documents.Block.TagName);
-    }
 }
 

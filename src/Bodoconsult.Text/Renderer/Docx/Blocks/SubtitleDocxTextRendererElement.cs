@@ -19,14 +19,4 @@ public class SubtitleDocxTextRendererElement : ParagraphDocxTextRendererElementB
         _subtitle = subtitle;
         ClassName = subtitle.StyleName;
     }
-
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(DocxTextDocumentRenderer renderer)
-    {
-        //base.RenderIt(renderer);
-        //Documents.Paragraph = renderer.DocxDocument.AddSubtitle(Content.ToString());
-    }
 }

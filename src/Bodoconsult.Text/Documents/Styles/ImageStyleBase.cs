@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace Bodoconsult.Text.Documents;
@@ -15,8 +16,8 @@ public abstract class ImageStyleBase : ParagraphStyleBase
     protected ImageStyleBase()
     {
         TextAlignment = TypoTextAlignment.Center;
-        Margins.Top = 0.5 * Styleset.DefaultFontSize;
-        Margins.Bottom = 0.5 * Styleset.DefaultFontSize;
+        Margins.Top = MeasurementHelper.GetCmFromPt(0.5 * Styleset.DefaultFontSize);
+        Margins.Bottom = MeasurementHelper.GetCmFromPt(0.5 * Styleset.DefaultFontSize);
         Italic = true;
     }
 
@@ -29,8 +30,4 @@ public abstract class ImageStyleBase : ParagraphStyleBase
     /// Image height in cm or double.NaN for image height is calculated from <see cref="Width"/> keeping the relations between height and width
     /// </summary>
     public double Height { get; set; } = double.NaN;
-
-
-
-
 }

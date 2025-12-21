@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Abstractions.Helpers;
+
 namespace Bodoconsult.Text.Documents;
 
 /// <summary>
@@ -15,8 +17,8 @@ public class Heading2Style : ParagraphStyleBase
         TagToUse = "Heading2Style";
         Name = TagToUse;
         BorderBrush = new SolidColorBrush(Styleset.DefaultColor);
-        BorderThickness.Bottom = Styleset.DefaultBorderWidth;
-        Margins.Top = 1 * Styleset.DefaultFontSize;
+        BorderThickness.Bottom = 0.5 * Styleset.DefaultBorderWidth;
+        Margins.Top = MeasurementHelper.GetCmFromPt(1 * Styleset.DefaultFontSize);
         Paddings.Top = Styleset.DefaultPaddingWidth;
         Paddings.Bottom = Styleset.DefaultPaddingWidth;
         FontSize = Styleset.DefaultFontSize + 4;

@@ -19,16 +19,4 @@ public class ParagraphCenterDocxTextRendererElement : ParagraphDocxTextRendererE
         _paragraphCenter = paragraphCenter;
         ClassName = paragraphCenter.StyleName;
     }
-
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(DocxTextDocumentRenderer renderer)
-    {
-        //base.RenderIt(renderer);
-        //Documents.Paragraph = renderer.DocxDocument.AddParagraphCenter(Content.ToString());
-    }
-
-
 }

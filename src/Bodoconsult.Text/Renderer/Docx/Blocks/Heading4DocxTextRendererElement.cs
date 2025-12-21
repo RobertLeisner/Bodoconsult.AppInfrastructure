@@ -20,13 +20,4 @@ public class Heading4DocxTextRendererElement : HeadingBaseDocxTextRendererElemen
         ClassName = heading4.StyleName;
     }
 
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(DocxTextDocumentRenderer renderer)
-    {
-        //base.RenderIt(renderer);
-        //Documents.Paragraph = renderer.DocxDocument.AddHeading4(Content.ToString(), _heading4.TagName);
-    }
 }

@@ -125,7 +125,7 @@ public static class MeasurementHelper
     /// <returns>cm</returns>
     public static double GetCmFromPt(double pt)
     {
-        return pt * CentimeterPerPoint;
+        return Math.Round(pt * CentimeterPerPoint, 2);
     }
 
     /// <summary>

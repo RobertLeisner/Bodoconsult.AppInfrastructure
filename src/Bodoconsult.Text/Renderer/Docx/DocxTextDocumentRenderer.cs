@@ -41,7 +41,12 @@ public class DocxTextDocumentRenderer : BaseDocumentRenderer
     /// <summary>
     /// The current PDF document
     /// </summary>
-    public DocxBuilder DocxDocument { get; } 
+    public DocxBuilder DocxDocument { get; }
+
+    /// <summary>
+    /// User interface priority
+    /// </summary>
+    public int UiPriority { get; set; }
 
     /// <summary>
     /// Current text renderer element factory

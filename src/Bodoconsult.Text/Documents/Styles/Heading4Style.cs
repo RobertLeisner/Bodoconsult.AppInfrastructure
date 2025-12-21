@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using Bodoconsult.App.Abstractions.Helpers;
+
 namespace Bodoconsult.Text.Documents;
 
 /// <summary>
@@ -15,7 +17,7 @@ public class Heading4Style : ParagraphStyleBase
         TagToUse = "Heading4Style";
         Name = TagToUse;
         Bold = true;
-        Margins.Top = Styleset.DefaultFontSize;
+        Margins.Top = MeasurementHelper.GetCmFromPt(Styleset.DefaultFontSize);
         Paddings.Top = Styleset.DefaultPaddingWidth;
         Paddings.Bottom = Styleset.DefaultPaddingWidth;
         KeepWithNextParagraph = true;

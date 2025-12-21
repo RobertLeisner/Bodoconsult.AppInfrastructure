@@ -2,13 +2,17 @@
 
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Helpers;
+using Bodoconsult.Text.Interfaces;
+using System;
+using System.Linq;
+using System.Text;
 
 namespace Bodoconsult.Text.Renderer.Docx.Blocks;
 
 /// <summary>
 /// Docx rendering element for <see cref="ToeSection"/> instances
 /// </summary>
-public class ToeSectionDocxTextRendererElement : DocxTextRendererElementBase
+public class ToeSectionDocxTextRendererElement : SectionBaseDocxTextRendererElement
 {
     private readonly ToeSection _toeSection;
 
@@ -27,22 +31,8 @@ public class ToeSectionDocxTextRendererElement : DocxTextRendererElementBase
     /// <param name="renderer">Current renderer</param>
     public override void RenderIt(DocxTextDocumentRenderer renderer)
     {
-        if (_toeSection.ChildBlocks.Count == 0)
-        {
-            return;
-        }
-
-        //if (!string.IsNullOrEmpty(renderer.Document.DocumentMetaData.HeaderText))
-        //{
-        //    renderer.DocxDocument.SetHeader(renderer.Document.DocumentMetaData.HeaderText);
-        //}
-        //if (!string.IsNullOrEmpty(renderer.Document.DocumentMetaData.FooterText))
-        //{
-        //    renderer.DocxDocument.SetFooter(renderer.Document.DocumentMetaData.FooterText);
-        //}
-
-        //renderer.DocxDocument.CreateToeSection();
-
-        //DocxDocumentRendererHelper.RenderBlockChildsToDocx(renderer, Documents.Block.ChildBlocks);
+        RenderItInternal(renderer, _toeSection, "ToeHeading", renderer.Document.DocumentMetaData.ToeHeading);
     }
+
+
 }

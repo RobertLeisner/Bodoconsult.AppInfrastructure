@@ -19,14 +19,4 @@ public class WarningDocxTextRendererElement : ParagraphDocxTextRendererElementBa
         _warning = warning;
         ClassName = warning.StyleName;
     }
-
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(DocxTextDocumentRenderer renderer)
-    {
-        //base.RenderIt(renderer);
-        //Documents.Paragraph = renderer.DocxDocument.AddWarning(Content.ToString());
-    }
 }

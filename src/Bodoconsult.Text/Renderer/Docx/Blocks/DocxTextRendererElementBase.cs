@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using System;
+using System.Diagnostics;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Helpers;
 using Bodoconsult.Text.Interfaces;
@@ -15,7 +16,7 @@ namespace Bodoconsult.Text.Renderer.Docx.Blocks;
     /// <summary>
     /// Current block to renderer
     /// </summary>
-    public Block Block { get; private set; }
+    public Block Block { get; }
 
     /// <summary>
     /// CSS class name
@@ -42,7 +43,8 @@ namespace Bodoconsult.Text.Renderer.Docx.Blocks;
     /// <param name="renderer">Current renderer</param>
     public virtual void RenderIt(DocxTextDocumentRenderer renderer)
     {
-        //DocxDocumentRendererHelper.RenderBlockChildsToDocx(renderer, Block.ChildBlocks);
+        Debug.Print(Block.GetType().Name);
+        DocxDocumentRendererHelper.RenderBlockChildsToDocx(renderer, Block.ChildBlocks);
     }
 
     /// <summary>

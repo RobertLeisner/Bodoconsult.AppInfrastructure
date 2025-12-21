@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace Bodoconsult.Text.Documents;
@@ -17,7 +18,7 @@ public class SectionTitleStyle : ParagraphStyleBase
         TagToUse = "SectionTitleStyle";
         Name = TagToUse;
         TextAlignment = TypoTextAlignment.Center;
-        Margins.Top = Styleset.DefaultFontSize * 4;
+        Margins.Top = MeasurementHelper.GetCmFromPt(Styleset.DefaultFontSize * 4);
         FontSize = Styleset.DefaultFontSize + 4;
         Bold = true;
     }

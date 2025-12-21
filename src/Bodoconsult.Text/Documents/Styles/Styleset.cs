@@ -30,19 +30,19 @@ public class Styleset : Block
     public static Color DefaultColor = TypoColors.Black.ToLdmlColor();
 
     /// <summary>
-    /// Default border width in pt
+    /// Default border width in cm
     /// </summary>
-    public const int DefaultBorderWidth = 1;
+    public const double DefaultBorderWidth = TypoThickness.LineWidth1Pt;
+
+    /// <summary>
+    /// Default padding width in cm
+    /// </summary>
+    public const double DefaultPaddingWidth = 0.070555;
 
     /// <summary>
     /// Default padding width in pt
     /// </summary>
-    public const int DefaultPaddingWidth = 6;
-
-    /// <summary>
-    /// Default padding width in pt
-    /// </summary>
-    public const int DefaultTablePaddingWidth = 2;
+    public const double DefaultTablePaddingWidth = 0.070555;
 
     /// <summary>
     /// Default font size in pt
@@ -50,14 +50,15 @@ public class Styleset : Block
     public const int DefaultFontSize = 12;
 
     /// <summary>
-    /// Default margin left. Default 1cm = 28.3pt
+    /// Default margin left. Default 2cm 
     /// </summary>
-    public static double DefaultMarginLeft { get; set; } = 28.3;
+    public static double DefaultMarginLeft { get; set; } = 2;
 
     /// <summary>
-    /// Default margin right. Default 1cm = 28.3pt
+    /// Default margin right. Default 2cm
     /// </summary>
-    public static double DefaultMarginRight { get; set; } = 28.3;
+    public static double DefaultMarginRight { get; set; } = 2;
+
 
     private List<string> _keys;
 

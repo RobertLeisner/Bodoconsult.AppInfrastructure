@@ -22,7 +22,7 @@ public class DemoStyle : ITypoParagraphStyle
     /// <summary>
     /// Font color
     /// </summary>
-    public TypoColor FontColor { get; set; }
+    public TypoColor TypoFontColor { get; set; }
 
     /// <summary>
     /// Bold
@@ -42,22 +42,22 @@ public class DemoStyle : ITypoParagraphStyle
     /// <summary>
     /// Margins
     /// </summary>
-    public TypoThickness Margins { get; set; } = new(0,0, 0, 0);
+    public TypoThickness TypoMargins { get; set; } = new(0,0, 0, 0);
 
     /// <summary>
     /// Border brush
     /// </summary>
-    public TypoBrush BorderBrush { get; set; } = new TypoSolidColorBrush(TypoColors.Black);
+    public TypoBrush TypoBorderBrush { get; set; } = new TypoSolidColorBrush(TypoColors.Black);
 
     /// <summary>
     /// Current borderline width setting
     /// </summary>
-    public TypoThickness BorderThickness { get; set; } = new(0, 0, 0, 0);
+    public TypoThickness TypoBorderThickness { get; set; } = new(0, 0, 0, 0);
 
     /// <summary>
     /// Paddings. Padding settings are applied only if a border is set
     /// </summary>
-    public TypoThickness Paddings { get; set; } = new(0, 0, 0, 0);
+    public TypoThickness TypoPaddings { get; set; } = new(0, 0, 0, 0);
 
     /// <summary>
     /// Indent of the first line in pt. Negative number is indicating a hanging indent

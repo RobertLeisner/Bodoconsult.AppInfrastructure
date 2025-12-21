@@ -19,14 +19,4 @@ public class SectionTitleDocxTextRendererElement : ParagraphDocxTextRendererElem
         _sectionTitle = sectionTitle;
         ClassName = sectionTitle.StyleName;
     }
-
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(DocxTextDocumentRenderer renderer)
-    {
-        //base.RenderIt(renderer);
-        //Documents.Paragraph = renderer.DocxDocument.AddSectionTitle(Content.ToString());
-    }
 }

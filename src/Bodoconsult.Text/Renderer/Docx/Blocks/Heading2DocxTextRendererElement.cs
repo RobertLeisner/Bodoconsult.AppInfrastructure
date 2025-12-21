@@ -19,14 +19,4 @@ public class Heading2DocxTextRendererElement : HeadingBaseDocxTextRendererElemen
         _heading2 = heading2;
         ClassName = heading2.StyleName;
     }
-
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(DocxTextDocumentRenderer renderer)
-    {
-        //base.RenderIt(renderer);
-        //Documents.Paragraph = renderer.DocxDocument.AddHeading2(Content.ToString(), _heading2.TagName);
-    }
 }

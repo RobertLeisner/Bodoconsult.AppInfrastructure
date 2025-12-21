@@ -1,5 +1,6 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using System.Diagnostics;
 using Bodoconsult.App.Abstractions.Extensions;
 using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Abstractions.Interfaces;
@@ -269,7 +270,7 @@ public class DocxBuilder : IDisposable
 
     private static Paragraph CreateHeaderFooterParagraph(string text, string styleId, int position)
     {
-        var pPr = new ParagraphProperties(new ParagraphStyleId { Val =  styleId});
+        var pPr = new ParagraphProperties(new ParagraphStyleId { Val = styleId });
 
         var para = new Paragraph(pPr);
 
@@ -399,6 +400,10 @@ public class DocxBuilder : IDisposable
     /// <returns>OpenXML Style</returns>
     public Style AddNewStyle(string styleid, string stylename, ITypoParagraphStyle typoStyle, int uiPriority)
     {
+        Debug.Print($"{styleid}: Bold {typoStyle.Bold}");
+        Debug.Print($"{styleid}: L{typoStyle.TypoMargins.Left} T{typoStyle.TypoMargins.Top} R{typoStyle.TypoMargins.Right} B{typoStyle.TypoMargins.Bottom}");
+        Debug.Print($"{styleid}: L{typoStyle.TypoPaddings.Left} T{typoStyle.TypoPaddings.Top} R{typoStyle.TypoPaddings.Right} B{typoStyle.TypoPaddings.Bottom}");
+        Debug.Print($"{styleid}: L{typoStyle.TypoBorderThickness.Left} T{typoStyle.TypoBorderThickness.Top} R{typoStyle.TypoBorderThickness.Right} B{typoStyle.TypoBorderThickness.Bottom}");
 
         StyleRunProperties styleRunProperties = new();
 
@@ -432,10 +437,10 @@ public class DocxBuilder : IDisposable
     /// <param name="pPr">Paragraph properties</param>
     private static void CreateMargins(ITypoParagraphStyle typoStyle, ParagraphProperties pPr)
     {
-        var left = MeasurementHelper.GetTwipsFromCm(typoStyle.Margins.Left);
-        var top = MeasurementHelper.GetTwipsFromCm(typoStyle.Margins.Top);
-        var right = MeasurementHelper.GetTwipsFromCm(typoStyle.Margins.Right);
-        var bottom = MeasurementHelper.GetTwipsFromCm(typoStyle.Margins.Bottom);
+        var left = MeasurementHelper.GetTwipsFromCm(typoStyle.TypoMargins.Left);
+        var top = MeasurementHelper.GetTwipsFromCm(typoStyle.TypoMargins.Top);
+        var right = MeasurementHelper.GetTwipsFromCm(typoStyle.TypoMargins.Right);
+        var bottom = MeasurementHelper.GetTwipsFromCm(typoStyle.TypoMargins.Bottom);
         var leftFirstLine = MeasurementHelper.GetTwipsFromCm(typoStyle.FirstLineIndent);
 
         var spacing = new SpacingBetweenLines { Before = new StringValue(top.ToString()), After = new StringValue(bottom.ToString()), BeforeAutoSpacing = OnOffValue.FromBoolean(false), AfterAutoSpacing = OnOffValue.FromBoolean(false) };
@@ -453,34 +458,26 @@ public class DocxBuilder : IDisposable
     private static void CreateAdvancedParagraphSettings(ITypoParagraphStyle typoStyle, ParagraphProperties pPr)
     {
         // Keep the paragraph on one page if possible
-        if (typoStyle.KeepTogether)
+        var keepLines = new KeepLines
         {
-            var keepLines = new KeepLines
-            {
-                Val = OnOffValue.FromBoolean(true)
-            };
-            pPr.Append(keepLines);
-        }
+            Val = OnOffValue.FromBoolean(typoStyle.KeepTogether)
+        };
+        pPr.Append(keepLines);
 
         // Keep the paragraph with next on one page if possible
-        if (typoStyle.KeepWithNextParagraph)
+        var keepNext = new KeepNext
         {
-            var keepNext = new KeepNext
-            {
-                Val = OnOffValue.FromBoolean(true)
-            };
-            pPr.Append(keepNext);
-        }
+            Val = OnOffValue.FromBoolean(typoStyle.KeepWithNextParagraph)
+        };
+        pPr.Append(keepNext);
 
         // page break before
-        if (typoStyle.PageBreakBefore)
+        var pageBreakBefore = new PageBreakBefore
         {
-            var pageBreakBefore = new PageBreakBefore
-            {
-                Val = OnOffValue.FromBoolean(true)
-            };
-            pPr.Append(pageBreakBefore);
-        }
+            Val = OnOffValue.FromBoolean(typoStyle.PageBreakBefore)
+        };
+        pPr.Append(pageBreakBefore);
+
     }
 
     /// <summary>
@@ -490,60 +487,65 @@ public class DocxBuilder : IDisposable
     /// <param name="pPr">Paragraph properties</param>
     private static void CreateBorders(ITypoParagraphStyle typoStyle, ParagraphProperties pPr)
     {
+        if (typoStyle.TypoBorderBrush == null)
+        {
+            return;
+        }
+
         // Borders
         var tblBorders = new ParagraphBorders();
         pPr.Append(tblBorders);
-        var borderColor = typoStyle.BorderBrush.Color.ToHtml();
+        var borderColor = (typoStyle.TypoBorderBrush?.Color ?? TypoColors.Black).ToHtml();
         const uint size = 9 * 10; // 9 per mm
 
         // Top border
-        if (typoStyle.BorderThickness.Top > 0)
+        if (typoStyle.TypoBorderThickness.Top > 0)
         {
             var topBorder = new TopBorder
             {
                 Val = new EnumValue<BorderValues>(BorderValues.Thick),
                 Color = borderColor,
-                Size = (uint)(typoStyle.BorderThickness.Top * size),
-                Space = (uint)MeasurementHelper.GetEmuFromCm(typoStyle.Paddings.Top)
+                Size = MeasurementHelper.GetDxaFromCm(typoStyle.TypoBorderThickness.Top),
+                Space = MeasurementHelper.GetDxaFromCm(typoStyle.TypoPaddings.Top)
             };
             tblBorders.AppendChild(topBorder);
         }
 
-        // Bottom
-        if (typoStyle.BorderThickness.Bottom > 0)
+        // Bottom border
+        if (typoStyle.TypoBorderThickness.Bottom > 0)
         {
             var bottomBorder = new BottomBorder
             {
                 Val = new EnumValue<BorderValues>(BorderValues.Thick),
                 Color = borderColor,
-                Size = (uint)(typoStyle.BorderThickness.Bottom * size),
-                Space = (uint)MeasurementHelper.GetEmuFromCm(typoStyle.Paddings.Bottom)
+                Size = MeasurementHelper.GetDxaFromCm(typoStyle.TypoBorderThickness.Bottom),
+                Space = MeasurementHelper.GetDxaFromCm(typoStyle.TypoPaddings.Bottom)
             };
             tblBorders.AppendChild(bottomBorder);
         }
 
         // Right border
-        if (typoStyle.BorderThickness.Right > 0)
+        if (typoStyle.TypoBorderThickness.Right > 0)
         {
             var rightBorder = new RightBorder
             {
                 Val = new EnumValue<BorderValues>(BorderValues.Thick),
                 Color = borderColor,
-                Size = (uint)(typoStyle.BorderThickness.Right * size),
-                Space = (uint)MeasurementHelper.GetEmuFromCm(typoStyle.Paddings.Right)
+                Size = MeasurementHelper.GetDxaFromCm(typoStyle.TypoBorderThickness.Right),
+                Space = MeasurementHelper.GetDxaFromCm(typoStyle.TypoPaddings.Right)
             };
             tblBorders.AppendChild(rightBorder);
         }
 
         // Left border
-        if (typoStyle.BorderThickness.Left > 0)
+        if (typoStyle.TypoBorderThickness.Left > 0)
         {
             var leftBorder = new LeftBorder
             {
                 Val = new EnumValue<BorderValues>(BorderValues.Thick),
                 Color = borderColor,
-                Size = (uint)(typoStyle.BorderThickness.Left * size),
-                Space = (uint)MeasurementHelper.GetEmuFromCm(typoStyle.Paddings.Left)
+                Size = MeasurementHelper.GetDxaFromCm(typoStyle.TypoBorderThickness.Left),
+                Space = MeasurementHelper.GetDxaFromCm(typoStyle.TypoPaddings.Left)
             };
             tblBorders.AppendChild(leftBorder);
         }
@@ -557,7 +559,8 @@ public class DocxBuilder : IDisposable
     private static void CreateFontSettings(ITypoParagraphStyle typoStyle, StyleRunProperties styleRunProperties)
     {
         // Font color
-        var color1 = new Color { Val = typoStyle.FontColor.ToHtml() };
+        var fontColor = typoStyle.TypoFontColor ?? TypoColors.Black;
+        var color1 = new Color { Val = fontColor.ToHtml() };
         styleRunProperties.Append(color1);
 
         // Font size
@@ -574,16 +577,10 @@ public class DocxBuilder : IDisposable
         styleRunProperties.Append(font);
 
         // Bold
-        if (typoStyle.Bold)
-        {
-            styleRunProperties.Append(new Bold());
-        }
+        styleRunProperties.Append(new Bold { Val = OnOffValue.FromBoolean(typoStyle.Bold) });
 
         // Italic
-        if (typoStyle.Italic)
-        {
-            styleRunProperties.Append(new Italic());
-        }
+        styleRunProperties.Append(new Italic { Val = OnOffValue.FromBoolean(typoStyle.Italic) });
     }
 
     /// <summary>
@@ -658,13 +655,14 @@ public class DocxBuilder : IDisposable
     }
 
     /// <summary>
-    /// Add a paragraph
+    /// Add a paragraphic
     /// </summary>
     /// <param name="text">Text for the paragraph</param>
-    /// <param name="styleName">Name of the style for the paragraph</param>
+    /// <param name="styleName">Name of the style fosr the paragraph</param>
     public Paragraph AddParagraph(string text, string styleName)
     {
         var run = CreateRun(text);
+
         var list = new List<OpenXmlElement> { run };
         return AddParagraph(list, styleName);
     }
@@ -958,6 +956,13 @@ public class DocxBuilder : IDisposable
     public static Run CreateRun(string text)
     {
         var run = new Run();
+        //var rp = new RunProperties
+        //{
+        //    Bold = new Bold { Val = OnOffValue.FromBoolean(false) },
+        //    Italic = new Italic { Val = OnOffValue.FromBoolean(false) }
+        //};
+        //// Always add properties first
+        //run.Append(rp);
         run.AppendChild(new Text(text) { Space = SpaceProcessingModeValues.Preserve });
         return run;
     }
@@ -972,7 +977,7 @@ public class DocxBuilder : IDisposable
         var run = new Run();
         var rp = new RunProperties
         {
-            Bold = new Bold()
+            Bold = new Bold { Val = OnOffValue.FromBoolean(true) }
         };
         // Always add properties first
         run.Append(rp);
@@ -990,7 +995,7 @@ public class DocxBuilder : IDisposable
         var run = new Run();
         var rp = new RunProperties
         {
-            Italic = new Italic()
+            Italic = new Italic { Val = OnOffValue.FromBoolean(true) }
         };
         // Always add properties first
         run.Append(rp);
@@ -1007,6 +1012,13 @@ public class DocxBuilder : IDisposable
     public static Run CreateRun(string text, bool useSpaceProcessingModePreserve)
     {
         var run = new Run();
+        var rp = new RunProperties
+        {
+            Italic = new Italic { Val = OnOffValue.FromBoolean(false) },
+            Bold = new Bold { Val = OnOffValue.FromBoolean(false) }
+        };
+        // Always add properties first
+        run.Append(rp);
         run.AppendChild(useSpaceProcessingModePreserve
             ? new Text(text) { Space = SpaceProcessingModeValues.Preserve }
             : new Text(text));
@@ -1021,6 +1033,14 @@ public class DocxBuilder : IDisposable
     public static Run CreateRun(IList<OpenXmlElement> runs)
     {
         var run = new Run();
+        var rp = new RunProperties
+        {
+            Italic = new Italic { Val = OnOffValue.FromBoolean(false) },
+            Bold = new Bold { Val = OnOffValue.FromBoolean(false) }
+        };
+        // Always add properties first
+        run.Append(rp);
+
         foreach (var subRun in runs)
         {
             run.AppendChild(subRun);
@@ -1038,7 +1058,7 @@ public class DocxBuilder : IDisposable
         var run = new Run();
         var rp = new RunProperties
         {
-            Bold = new Bold()
+            Bold = new Bold { Val = OnOffValue.FromBoolean(true) }
         };
         // Always add properties first
         run.Append(rp);
@@ -1061,7 +1081,7 @@ public class DocxBuilder : IDisposable
         var run = new Run();
         var rp = new RunProperties
         {
-            Italic = new Italic()
+            Italic = new Italic { Val = OnOffValue.FromBoolean(true) }
         };
         // Always add properties first
         run.Append(rp);

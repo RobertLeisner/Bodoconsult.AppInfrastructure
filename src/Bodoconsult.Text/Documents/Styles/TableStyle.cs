@@ -25,5 +25,5 @@ public class TableStyle : StyleBase
     /// <summary>
     /// Border spacing in pt
     /// </summary>
-    public int BorderSpacing { get; set; } = Styleset.DefaultTablePaddingWidth;
+    public int BorderSpacing { get; set; } = (int)Styleset.DefaultTablePaddingWidth;
 }

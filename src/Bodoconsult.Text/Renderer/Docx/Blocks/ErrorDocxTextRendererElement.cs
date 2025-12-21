@@ -19,14 +19,4 @@ public class ErrorDocxTextRendererElement : ParagraphDocxTextRendererElementBase
         _error = error;
         ClassName = error.StyleName;
     }
-
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(DocxTextDocumentRenderer renderer)
-    {
-        //base.RenderIt(renderer);
-        //Documents.Paragraph = renderer.DocxDocument.AddError(Content.ToString());
-    }
 }

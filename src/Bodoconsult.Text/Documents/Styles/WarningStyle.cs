@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.Text.Extensions;
 
@@ -18,16 +19,16 @@ public class WarningStyle : ParagraphStyleBase
         TagToUse = "WarningStyle";
         Name = TagToUse;
         BorderBrush = new SolidColorBrush(TypoColors.Yellow.ToLdmlColor());
-        BorderThickness.Bottom = Styleset.DefaultBorderWidth;
-        BorderThickness.Left = Styleset.DefaultBorderWidth;
-        BorderThickness.Right = Styleset.DefaultBorderWidth;
-        BorderThickness.Top = Styleset.DefaultBorderWidth;
+        BorderThickness.Bottom = 0.5 * Styleset.DefaultBorderWidth;
+        BorderThickness.Left = 0.5 * Styleset.DefaultBorderWidth;
+        BorderThickness.Right = 0.5 * Styleset.DefaultBorderWidth;
+        BorderThickness.Top = 0.5 * Styleset.DefaultBorderWidth;
         Paddings.Left = Styleset.DefaultPaddingWidth;
         Paddings.Right = Styleset.DefaultPaddingWidth;
         Paddings.Top = Styleset.DefaultPaddingWidth;
         Paddings.Bottom = Styleset.DefaultPaddingWidth;
-        Margins.Top = 3 * Styleset.DefaultPaddingWidth;
-        Margins.Bottom = 3 * Styleset.DefaultPaddingWidth;
+        Margins.Top = MeasurementHelper.GetCmFromPt(0.5 * Styleset.DefaultFontSize);
+        Margins.Bottom = MeasurementHelper.GetCmFromPt(0.5 * Styleset.DefaultFontSize);
         KeepTogether = true;
     }
 }

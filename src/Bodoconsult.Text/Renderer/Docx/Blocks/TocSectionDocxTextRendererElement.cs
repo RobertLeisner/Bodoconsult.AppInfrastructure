@@ -2,13 +2,14 @@
 
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Helpers;
+using System.Linq;
 
 namespace Bodoconsult.Text.Renderer.Docx.Blocks;
 
 /// <summary>
 /// Docx rendering element for <see cref="TocSection"/> instances
 /// </summary>
-public class TocSectionDocxTextRendererElement : DocxTextRendererElementBase
+public class TocSectionDocxTextRendererElement : SectionBaseDocxTextRendererElement
 {
     private readonly TocSection _tocSection;
 
@@ -27,21 +28,6 @@ public class TocSectionDocxTextRendererElement : DocxTextRendererElementBase
     /// <param name="renderer">Current renderer</param>
     public override void RenderIt(DocxTextDocumentRenderer renderer)
     {
-        if (_tocSection.ChildBlocks.Count == 0)
-        {
-            return;
-        }
-
-        //if (!string.IsNullOrEmpty(renderer.Document.DocumentMetaData.HeaderText))
-        //{
-        //    renderer.DocxDocument.SetHeader(renderer.Document.DocumentMetaData.HeaderText);
-        //}
-        //if (!string.IsNullOrEmpty(renderer.Document.DocumentMetaData.FooterText))
-        //{
-        //    renderer.DocxDocument.SetFooter(renderer.Document.DocumentMetaData.FooterText);
-        //}
-        //renderer.DocxDocument.CreateTocSection();
-
-        //DocxDocumentRendererHelper.RenderBlockChildsToDocx(renderer, Documents.Block.ChildBlocks);
+        RenderItInternal(renderer, _tocSection, "TocHeading", renderer.Document.DocumentMetaData.TocHeading);
     }
 }

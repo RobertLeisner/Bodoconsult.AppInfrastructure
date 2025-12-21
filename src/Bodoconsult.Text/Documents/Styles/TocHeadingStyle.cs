@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Abstractions.Helpers;
+
 namespace Bodoconsult.Text.Documents;
 
 /// <summary>
@@ -15,10 +17,10 @@ public class TocHeadingStyle : ParagraphStyleBase
         TagToUse = "TocHeadingStyle";
         Name = TagToUse;
         BorderBrush = new SolidColorBrush(Styleset.DefaultColor);
-        BorderThickness.Bottom = 2 * Styleset.DefaultBorderWidth;
-        BorderThickness.Top = 2 * Styleset.DefaultBorderWidth;
-        Margins.Top = 4 * Styleset.DefaultFontSize;
-        Margins.Bottom = 1 * Styleset.DefaultFontSize;
+        BorderThickness.Bottom = 1 * Styleset.DefaultBorderWidth;
+        BorderThickness.Top = 1 * Styleset.DefaultBorderWidth;
+        Margins.Top = MeasurementHelper.GetCmFromPt(4 * Styleset.DefaultFontSize);
+        Margins.Bottom = MeasurementHelper.GetCmFromPt(1 * Styleset.DefaultFontSize);
         Paddings.Top = Styleset.DefaultPaddingWidth;
         Paddings.Bottom = Styleset.DefaultPaddingWidth;
         Bold = true;

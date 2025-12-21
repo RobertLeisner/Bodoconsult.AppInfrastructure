@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace Bodoconsult.Text.Documents;
@@ -7,7 +8,7 @@ namespace Bodoconsult.Text.Documents;
 /// <summary>
 /// A style for a normal left aligned paragraph
 /// </summary>
-public class ParagraphStyleBase : StyleBase
+public class ParagraphStyleBase : StyleBase, ITypoParagraphStyle
 {
     /// <summary>
     /// Font name
@@ -23,6 +24,11 @@ public class ParagraphStyleBase : StyleBase
     /// Font color
     /// </summary>
     public Color FontColor { get; set; } = Styleset.DefaultColor;
+
+    /// <summary>
+    /// Font color
+    /// </summary>
+    public TypoColor TypoFontColor => FontColor;
 
     /// <summary>
     /// Bold
@@ -42,7 +48,12 @@ public class ParagraphStyleBase : StyleBase
     /// <summary>
     /// Margins
     /// </summary>
-    public Thickness Margins { get; set; } = new(0, Styleset.DefaultFontSize * 0.5, 0, 0);
+    public Thickness Margins { get; set; } = new(0, MeasurementHelper.GetCmFromPt(Styleset.DefaultFontSize * 0.5), 0, 0);
+
+    /// <summary>
+    /// Margins
+    /// </summary>
+    public TypoThickness TypoMargins => Margins;
 
     /// <summary>
     /// Border brush
@@ -50,14 +61,30 @@ public class ParagraphStyleBase : StyleBase
     public Brush BorderBrush { get; set; }
 
     /// <summary>
+    /// Border brush
+    /// </summary>
+    public TypoBrush TypoBorderBrush => BorderBrush;
+
+    /// <summary>
     /// Current borderline width setting
     /// </summary>
     public Thickness BorderThickness { get; set; } = new(0, 0, 0, 0);
 
     /// <summary>
+    /// Current borderline width setting
+    /// </summary>
+    public TypoThickness TypoBorderThickness => BorderThickness;
+
+    /// <summary>
     /// Paddings. Padding settings are applied only if a border is set
     /// </summary>
     public Thickness Paddings { get; set; } = new(0, 0, 0, 0);
+
+    /// <summary>
+    /// Paddings. Padding settings are applied only if a border is set
+    /// </summary>
+    [DoNotSerialize]
+    public TypoThickness TypoPaddings => Paddings;
 
     /// <summary>
     /// Indent of the first line in pt. Negative number is indicating a hanging indent

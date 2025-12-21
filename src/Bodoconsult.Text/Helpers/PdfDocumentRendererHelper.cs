@@ -74,7 +74,6 @@ public static class PdfDocumentRendererHelper
         pdfStyle.ParagraphFormat.KeepTogether = style.KeepTogether;
         pdfStyle.ParagraphFormat.KeepWithNext = style.KeepWithNextParagraph;
 
-
         // ToDo: Border
         var black = TypoColors.Black.ToLdmlColor();
 

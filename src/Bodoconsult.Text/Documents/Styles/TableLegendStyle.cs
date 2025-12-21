@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace Bodoconsult.Text.Documents;
@@ -16,7 +17,7 @@ public class TableLegendStyle : ParagraphStyleBase
     {
         TagToUse = "TableLegendStyle";
         Name = TagToUse;
-        Margins = new Thickness(0, Styleset.DefaultFontSize * 0.25, 0, Styleset.DefaultFontSize);
+        Margins = new Thickness(0, MeasurementHelper.GetCmFromPt(Styleset.DefaultFontSize * 0.25), 0, MeasurementHelper.GetCmFromPt(Styleset.DefaultFontSize));
         TextAlignment = TypoTextAlignment.Center;
         Italic = true;
     }

@@ -1,7 +1,12 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using System.Text;
+using Bodoconsult.Office;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Wordprocessing;
 using MigraDoc.DocumentObjectModel;
+using System;
+using System.Collections.Generic;
+using System.Text;
 using Hyperlink = Bodoconsult.Text.Documents.Hyperlink;
 using Paragraph = MigraDoc.DocumentObjectModel.Paragraph;
 
@@ -24,24 +29,31 @@ public class HyperlinkDocxTextRendererElement : InlineDocxTextRendererElementBas
     }
 
     /// <summary>
-    /// Render the inline element to string
+    /// Render the inline to a run
     /// </summary>
     /// <param name="renderer">Current renderer</param>
-    /// <param name="paragraph">Paragraph to render the inline into</param>
-    public override void RenderIt(DocxTextDocumentRenderer renderer, Paragraph paragraph)
+    /// <param name="runs">Current list of runs</param>
+    /// <exception cref="NotSupportedException"></exception>
+    public override void RenderToString(DocxTextDocumentRenderer renderer, List<OpenXmlElement> runs)
     {
-        var h = paragraph.AddHyperlink(_span.Uri, HyperlinkType.Web);
-        h.AddFormattedText(_span.Content);
-    }
+        // No childs
+        if (_span.ChildInlines.Count == 0)
+        {
+            var run = DocxBuilder.CreateHyperlink(_span.Uri, _span.Content, renderer.DocxDocument.MainDocumentPart);
+            runs.Add(run);
+        }
+        else // Childs
+        {
+            List<OpenXmlElement> runs2 = new();
 
+            foreach (var inline in _span.ChildInlines)
+            {
+                var item = (InlineDocxTextRendererElementBase)renderer.PdfTextRendererElementFactory.CreateInstanceDocx(inline);
+                item.RenderToString(renderer, runs2);
+            }
 
-    /// <summary>
-    /// Render the inline to a string
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    /// <param name="sb">String</param>
-    public override void RenderToString(DocxTextDocumentRenderer renderer, StringBuilder sb)
-    {
-        sb.Append($"[{renderer.CheckContent(_span.Content)}]({_span.Uri})");
+            var run = DocxBuilder.CreateHyperlink(_span.Uri, runs2, renderer.DocxDocument.MainDocumentPart); ;
+            runs.Add(run);
+        }
     }
 }

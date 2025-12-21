@@ -2,8 +2,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Bodoconsult.Text.Documents;
-using Bodoconsult.Text.Helpers;
 using Bodoconsult.Text.Interfaces;
 
 namespace Bodoconsult.Text.Renderer.Docx.Styles;
@@ -17,7 +17,7 @@ public class DocxParagraphStyleTextRendererElementBase : IDocxTextRendererElemen
     /// <summary>
     /// Current block to renderer
     /// </summary>
-    public ParagraphStyleBase Style { get; private set; }
+    public ParagraphStyleBase Style { get; }
 
     /// <summary>
     /// CSS class name
@@ -53,6 +53,7 @@ public class DocxParagraphStyleTextRendererElementBase : IDocxTextRendererElemen
     /// <param name="renderer">Current renderer</param>
     public void RenderIt(DocxTextDocumentRenderer renderer)
     {
+        Debug.Print(Style.Name);
 
         var styleName = Style.Name.Replace("Style", string.Empty);
 
@@ -61,8 +62,7 @@ public class DocxParagraphStyleTextRendererElementBase : IDocxTextRendererElemen
             styleName = "Normal";
         }
 
-        //var DocxStyle = renderer.DocxDocument.GetStyle(styleName);
-
-        //DocxDocumentRendererHelper.RenderParagraphStyle(Style, DocxStyle);
+        renderer.DocxDocument.AddNewStyle(styleName, styleName, Style, renderer.UiPriority);
+        renderer.UiPriority++;
     }
 }

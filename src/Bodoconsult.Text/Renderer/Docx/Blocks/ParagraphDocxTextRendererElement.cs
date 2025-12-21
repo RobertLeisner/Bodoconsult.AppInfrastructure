@@ -19,14 +19,4 @@ public class ParagraphDocxTextRendererElement : ParagraphDocxTextRendererElement
         _paragraph = paragraph;
         ClassName = paragraph.StyleName;
     }
-
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(DocxTextDocumentRenderer renderer)
-    {
-        //base.RenderIt(renderer);
-        //Documents.Paragraph = renderer.DocxDocument.AddParagraphLeft(Content.ToString());
-    }
 }

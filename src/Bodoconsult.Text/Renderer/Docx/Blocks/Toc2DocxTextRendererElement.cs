@@ -19,14 +19,4 @@ public class Toc2DocxTextRendererElement : ParagraphDocxTextRendererElementBase
         _toc2 = toc2;
         ClassName = toc2.StyleName;
     }
-
-    /// <summary>
-    /// Render the element
-    /// </summary>
-    /// <param name="renderer">Current renderer</param>
-    public override void RenderIt(DocxTextDocumentRenderer renderer)
-    {
-        //base.RenderIt(renderer);
-        //Documents.Paragraph = renderer.DocxDocument.AddToc2Entry(Content.ToString(), Documents.Block.TagName);
-    }
 }
