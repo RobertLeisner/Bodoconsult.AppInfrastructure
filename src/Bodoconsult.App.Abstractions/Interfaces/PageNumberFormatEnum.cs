@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-namespace Bodoconsult.Text.Documents;
+namespace Bodoconsult.App.Abstractions.Interfaces;
 
 /// <summary>
 /// Enum for page number formats

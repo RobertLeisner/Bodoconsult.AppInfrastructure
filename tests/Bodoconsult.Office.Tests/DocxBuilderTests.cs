@@ -282,7 +282,7 @@ internal class DocxBuilderTests
         docx.AddSection(false);
         docx.SetBasicPageProperties(21, 29.4, 5, 2, 2, 2);
         docx.AddHeaderToCurrentSection("Header section 1", 10);
-        docx.AddFooterToCurrentSection("Footer section 1\t@Page", 10);
+        docx.AddFooterToCurrentSection($"Footer section 1\t{ITypography.PageFieldIndicator}", 10);
 
         docx.AddParagraph("Section1", "Normal");
 

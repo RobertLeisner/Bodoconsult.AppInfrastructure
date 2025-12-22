@@ -2,6 +2,7 @@
 
 using System.Globalization;
 using System.Windows;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Wpf.Documents.Delegates;
 using Bodoconsult.App.Wpf.Documents.Interfaces;
 using Bodoconsult.Text.Documents;

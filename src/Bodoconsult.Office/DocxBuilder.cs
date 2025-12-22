@@ -5,9 +5,7 @@ using Bodoconsult.App.Abstractions.Extensions;
 using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Abstractions.Interfaces;
 using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.CustomProperties;
 using DocumentFormat.OpenXml.ExtendedProperties;
-using DocumentFormat.OpenXml.Office.CustomUI;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using A = DocumentFormat.OpenXml.Drawing;
@@ -245,9 +243,10 @@ public class DocxBuilder : IDisposable
     /// <summary>
     /// Add a header to the current section
     /// </summary>
-    /// <param name="headerText">Header text. May contain @Page being replaced by page number field</param>
-    /// <param name="position">Position of the page number (if @Page is used) in cm relative to typearea</param>
-    public void AddHeaderToCurrentSection(string headerText, int position)
+    /// <param name="headerText">Header text. May contain &lt;&lt;Page&gt;&gt; being replaced by page number field</param>
+    /// <param name="position">Position of the page number (if &lt;&lt;Page&gt;&gt; is used) in cm relative to typearea</param>
+    /// <param name="pageNumberFormat">Page number format</param>
+    public void AddHeaderToCurrentSection(string headerText, double position, PageNumberFormatEnum pageNumberFormat = PageNumberFormatEnum.Decimal)
     {
 
         var headerPart = MainDocumentPart.AddNewPart<HeaderPart>();
@@ -258,7 +257,7 @@ public class DocxBuilder : IDisposable
 
         var posTwips = MeasurementHelper.GetTwipsFromCm(position);
 
-        var para = CreateHeaderFooterParagraph(headerText, styleId, posTwips);
+        var para = CreateHeaderFooterParagraph(headerText, styleId, posTwips, pageNumberFormat);
 
         headerPart.Header = new Header(para);
 
@@ -268,13 +267,13 @@ public class DocxBuilder : IDisposable
         });
     }
 
-    private static Paragraph CreateHeaderFooterParagraph(string text, string styleId, int position)
+    private static Paragraph CreateHeaderFooterParagraph(string text, string styleId, int position, PageNumberFormatEnum pageNumberFormat)
     {
         var pPr = new ParagraphProperties(new ParagraphStyleId { Val = styleId });
 
         var para = new Paragraph(pPr);
 
-        var runs = GetRuns(text, position, pPr);
+        var runs = GetRuns(text, position, pPr, pageNumberFormat);
 
         foreach (var run in runs)
         {
@@ -287,9 +286,10 @@ public class DocxBuilder : IDisposable
     /// <summary>
     /// Add a footer to the current section
     /// </summary>
-    /// <param name="footerText">Footer text. May contain @Page being replaced by page number field</param>
-    /// <param name="position">Position of the page number (if @Page is used) in cm relative to typearea</param>
-    public void AddFooterToCurrentSection(string footerText, int position)
+    /// <param name="footerText">Footer text. May contain &lt;&lt;Page&gt;&gt; being replaced by page number field</param>
+    /// <param name="position">Position of the page number (if &lt;&lt;Page&gt;&gt; is used) in cm relative to typearea</param>
+    /// <param name="pageNumberFormat">Page number format</param>
+    public void AddFooterToCurrentSection(string footerText, double position, PageNumberFormatEnum pageNumberFormat = PageNumberFormatEnum.Decimal)
     {
 
         var footerPart = MainDocumentPart.AddNewPart<FooterPart>();
@@ -300,7 +300,7 @@ public class DocxBuilder : IDisposable
 
         var posTwips = MeasurementHelper.GetTwipsFromCm(position);
 
-        var para = CreateHeaderFooterParagraph(footerText, styleId, posTwips);
+        var para = CreateHeaderFooterParagraph(footerText, styleId, posTwips, pageNumberFormat);
 
         footerPart.Footer = new Footer(para);
 
@@ -310,13 +310,15 @@ public class DocxBuilder : IDisposable
         });
     }
 
-    private static List<Run> GetRuns(string text, int position, ParagraphProperties pPr)
+    private static List<Run> GetRuns(string text, int position, ParagraphProperties pPr, PageNumberFormatEnum pageNumberFormat)
     {
         var result = new List<Run>();
 
         var parts = new List<string>();
 
-        var i = text.IndexOf("@Page", StringComparison.InvariantCultureIgnoreCase);
+        var pNf = string.Empty;
+
+        var i = text.IndexOf(ITypography.PageFieldIndicator, StringComparison.InvariantCultureIgnoreCase);
 
         if (i < 0)
         {
@@ -335,19 +337,39 @@ public class DocxBuilder : IDisposable
 
             // Split the text in runs
             var before = text[..i];
-            var after = text[(i + 5)..];
+            var after = text[(i + ITypography.PageFieldIndicator.Length)..];
 
             parts.Add(before);
-            parts.Add("@Page");
+            parts.Add(ITypography.PageFieldIndicator);
             parts.Add(after);
+
+            switch (pageNumberFormat)
+            {
+                case PageNumberFormatEnum.UpperRoman:
+                    pNf = "ROMAN";
+                    break;
+                case PageNumberFormatEnum.LowerRoman:
+                    pNf = "roman";
+                    break;
+                case PageNumberFormatEnum.UpperLatin:
+                    pNf = "ALPHABETIC";
+                    break;
+                case PageNumberFormatEnum.LowerLatin:
+                    pNf = "alphabetic";
+                    break;
+                case PageNumberFormatEnum.Decimal:
+                default:
+                    pNf = "Arabic";
+                    break;
+            }
         }
 
         foreach (var part in parts)
         {
-            if (part == "@Page")
+            if (part == ITypography.PageFieldIndicator)
             {
                 result.Add(new Run(new FieldChar { FieldCharType = FieldCharValues.Begin }));
-                result.Add(new Run(new FieldCode { Space = SpaceProcessingModeValues.Preserve, Text = " PAGE  \\* Arabic  \\* MERGEFORMAT " }));
+                result.Add(new Run(new FieldCode { Space = SpaceProcessingModeValues.Preserve, Text = $" PAGE  \\* {pNf}  \\* MERGEFORMAT " }));
                 result.Add(new Run(new FieldChar { FieldCharType = FieldCharValues.Separate }));
                 result.Add(new Run(new RunProperties(new NoProof()), new Text("1")));
                 result.Add(new Run(new FieldChar { FieldCharType = FieldCharValues.End }));
@@ -442,8 +464,17 @@ public class DocxBuilder : IDisposable
         var right = MeasurementHelper.GetTwipsFromCm(typoStyle.TypoMargins.Right);
         var bottom = MeasurementHelper.GetTwipsFromCm(typoStyle.TypoMargins.Bottom);
         var leftFirstLine = MeasurementHelper.GetTwipsFromCm(typoStyle.FirstLineIndent);
+        var line = MeasurementHelper.GetTwipsFromCm(typoStyle.LineHeight);
 
-        var spacing = new SpacingBetweenLines { Before = new StringValue(top.ToString()), After = new StringValue(bottom.ToString()), BeforeAutoSpacing = OnOffValue.FromBoolean(false), AfterAutoSpacing = OnOffValue.FromBoolean(false) };
+        var spacing = new SpacingBetweenLines
+        {
+            Before = new StringValue(top.ToString()), 
+            After = new StringValue(bottom.ToString()), 
+            BeforeAutoSpacing = OnOffValue.FromBoolean(false), 
+            AfterAutoSpacing = OnOffValue.FromBoolean(false),
+            LineRule = new EnumValue<LineSpacingRuleValues>(LineSpacingRuleValues.Exact),
+            Line = new StringValue(line.ToString())
+        };
         pPr.Append(spacing);
 
         var indentation = new Indentation { Left = new StringValue(left.ToString()), Right = new StringValue(right.ToString()), FirstLine = new StringValue(leftFirstLine.ToString()) };

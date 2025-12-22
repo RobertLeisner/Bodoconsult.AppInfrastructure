@@ -3,10 +3,8 @@
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Interfaces;
 using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Wordprocessing;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Paragraph = Bodoconsult.Text.Documents.Paragraph;
 
 namespace Bodoconsult.Text.Renderer.Docx.Inlines;

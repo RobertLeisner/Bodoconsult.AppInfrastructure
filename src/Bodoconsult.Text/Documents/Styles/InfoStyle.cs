@@ -25,8 +25,8 @@ public class InfoStyle : ParagraphStyleBase
         Paddings.Right = Styleset.DefaultPaddingWidth;
         Paddings.Top = Styleset.DefaultPaddingWidth;
         Paddings.Bottom = Styleset.DefaultPaddingWidth;
-        Margins.Top = MeasurementHelper.GetCmFromPt(0.5 * Styleset.DefaultFontSize);
-        Margins.Bottom = MeasurementHelper.GetCmFromPt(0.5 * Styleset.DefaultFontSize);
+        Margins.Top = MeasurementHelper.GetCmFromPt(1 * Styleset.DefaultFontSize);
+        Margins.Bottom = MeasurementHelper.GetCmFromPt(1 * Styleset.DefaultFontSize);
         KeepTogether = true;
     }
 }

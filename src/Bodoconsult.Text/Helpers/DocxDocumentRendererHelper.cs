@@ -4,9 +4,6 @@ using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Renderer.Docx;
 using Bodoconsult.Text.Renderer.Docx.Inlines;
 using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Drawing.Wordprocessing;
-using DocumentFormat.OpenXml.Wordprocessing;
-using System;
 using System.Collections.Generic;
 
 namespace Bodoconsult.Text.Helpers;

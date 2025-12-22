@@ -2,13 +2,9 @@
 
 using Bodoconsult.Office;
 using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Wordprocessing;
-using MigraDoc.DocumentObjectModel;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Hyperlink = Bodoconsult.Text.Documents.Hyperlink;
-using Paragraph = MigraDoc.DocumentObjectModel.Paragraph;
 
 namespace Bodoconsult.Text.Renderer.Docx.Inlines;
 

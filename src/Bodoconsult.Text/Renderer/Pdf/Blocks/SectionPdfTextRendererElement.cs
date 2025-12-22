@@ -8,7 +8,7 @@ namespace Bodoconsult.Text.Renderer.Pdf.Blocks;
 /// <summary>
 /// PDF rendering element for <see cref="Section"/> instances
 /// </summary>
-public class SectionPdfTextRendererElement : PdfTextRendererElementBase
+public class SectionPdfTextRendererElement : SectionBasePdfTextRendererElement
 {
     private readonly Section _section;
 
@@ -37,8 +37,6 @@ public class SectionPdfTextRendererElement : PdfTextRendererElementBase
     /// <param name="renderer">Current renderer</param>
     public override void RenderIt(PdfTextDocumentRenderer renderer)
     {
-        
-        
         if (!string.IsNullOrEmpty(renderer.Document.DocumentMetaData.HeaderText))
         {
             renderer.PdfDocument.SetHeader(renderer.Document.DocumentMetaData.HeaderText);

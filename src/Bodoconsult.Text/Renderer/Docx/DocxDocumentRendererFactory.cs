@@ -2,7 +2,6 @@
 
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Interfaces;
-using PdfSharp.Fonts;
 
 namespace Bodoconsult.Text.Renderer.Docx;
 

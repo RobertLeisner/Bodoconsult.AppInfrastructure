@@ -105,4 +105,9 @@ public class ParagraphStyleBase : StyleBase, ITypoParagraphStyle
     /// Keep the paragraph together on one side. Default: false
     /// </summary>
     public bool KeepTogether { get; set; } = false;
+
+    /// <summary>
+    /// Line height in cm. Default: 120% of Styleset.DefaultFontSize
+    /// </summary>
+    public double LineHeight { get; set; } = MeasurementHelper.GetCmFromPt(Styleset.DefaultFontSize * 1.20);
 }

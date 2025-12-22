@@ -1,11 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using Bodoconsult.Text.Documents;
-using Bodoconsult.Text.Helpers;
-using Bodoconsult.Text.Interfaces;
-using System;
-using System.Linq;
-using System.Text;
 
 namespace Bodoconsult.Text.Renderer.Docx.Blocks;
 

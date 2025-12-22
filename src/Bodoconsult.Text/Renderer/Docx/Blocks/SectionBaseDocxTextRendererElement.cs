@@ -1,4 +1,6 @@
-﻿using Bodoconsult.Text.Documents;
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
+
+using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Helpers;
 using System.Linq;
 
@@ -42,15 +44,18 @@ public abstract class SectionBaseDocxTextRendererElement : DocxTextRendererEleme
 
 
         renderer.DocxDocument.AddSection(isLastSection, section.IsRestartPageNumberingRequired);
+        var style = (PageStyleBase )renderer.Document.Styleset.FindStyle("DocumentStyle");
 
-        //if (!string.IsNullOrEmpty(renderer.Document.DocumentMetaData.HeaderText))
-        //{
-        //    renderer.DocxDocument.SetHeader(renderer.Document.DocumentMetaData.HeaderText);
-        //}
-        //if (!string.IsNullOrEmpty(renderer.Document.DocumentMetaData.FooterText))
-        //{
-        //    renderer.DocxDocument.SetFooter(renderer.Document.DocumentMetaData.FooterText);
-        //}
+        var tabPosition = style.TypeAreaWidth;
+
+        if (!string.IsNullOrEmpty(renderer.Document.DocumentMetaData.HeaderText))
+        {
+            renderer.DocxDocument.AddHeaderToCurrentSection(renderer.Document.DocumentMetaData.HeaderText, tabPosition, section.PageNumberFormat);
+        }
+        if (!string.IsNullOrEmpty(renderer.Document.DocumentMetaData.FooterText))
+        {
+            renderer.DocxDocument.AddFooterToCurrentSection(renderer.Document.DocumentMetaData.FooterText, tabPosition, section.PageNumberFormat);
+        }
 
         if (!string.IsNullOrEmpty(caption))
         {

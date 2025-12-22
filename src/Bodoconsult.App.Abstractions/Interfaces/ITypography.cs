@@ -9,6 +9,12 @@ namespace Bodoconsult.App.Abstractions.Interfaces;
 public interface ITypography
 {
     /// <summary>
+    /// Indicator where to place the page number (or the field for it) in a footer text or header text
+    /// </summary>
+    public const string PageFieldIndicator = "<<page>>";
+
+
+    /// <summary>
     /// Paper format
     /// </summary>
     TypoPaperFormat PaperFormat { get; set; }

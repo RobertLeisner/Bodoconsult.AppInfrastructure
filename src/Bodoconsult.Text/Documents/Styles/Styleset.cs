@@ -14,15 +14,18 @@ namespace Bodoconsult.Text.Documents;
 /// </summary>
 public class Styleset : Block
 {
-    /// <summary>
-    ///  Default font name
-    /// </summary>
-    public const string DefaultFontName = "Calibri";
+
+    #region Default values
 
     /// <summary>
     ///  Default font name
     /// </summary>
-    public const string DefaultFontNameMonoSpaced = "Courier New";
+    public static string DefaultFontName = "Calibri";
+
+    /// <summary>
+    ///  Default font name
+    /// </summary>
+    public static string DefaultFontNameMonoSpaced = "Courier New";
 
     /// <summary>
     /// Default color for borders and fonts
@@ -32,22 +35,22 @@ public class Styleset : Block
     /// <summary>
     /// Default border width in cm
     /// </summary>
-    public const double DefaultBorderWidth = TypoThickness.LineWidth1Pt;
+    public static double DefaultBorderWidth = TypoThickness.LineWidth1Pt;
 
     /// <summary>
     /// Default padding width in cm
     /// </summary>
-    public const double DefaultPaddingWidth = 0.070555;
+    public static double DefaultPaddingWidth = 0.070555;
 
     /// <summary>
     /// Default padding width in pt
     /// </summary>
-    public const double DefaultTablePaddingWidth = 0.070555;
+    public static double DefaultTablePaddingWidth = 0.070555;
 
     /// <summary>
     /// Default font size in pt
     /// </summary>
-    public const int DefaultFontSize = 12;
+    public static int DefaultFontSize = 12;
 
     /// <summary>
     /// Default margin left. Default 2cm 
@@ -59,6 +62,7 @@ public class Styleset : Block
     /// </summary>
     public static double DefaultMarginRight { get; set; } = 2;
 
+    #endregion
 
     private List<string> _keys;
 

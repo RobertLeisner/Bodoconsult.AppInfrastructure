@@ -5,6 +5,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Bodoconsult.App.Abstractions.Helpers;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Wpf.Documents.Delegates;
 using Bodoconsult.App.Wpf.Documents.Renderer;
 using Bodoconsult.App.Wpf.Documents.Renderer.Blocks;

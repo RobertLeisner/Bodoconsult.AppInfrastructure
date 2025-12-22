@@ -10,70 +10,75 @@ public interface ITypoParagraphStyle
     /// <summary>
     /// Font name
     /// </summary>
-    public string FontName { get; }
+    string FontName { get; }
 
     /// <summary>
     /// Font size in pt
     /// </summary>
-    public int FontSize { get; }
+    int FontSize { get; }
 
     /// <summary>
     /// Font color
     /// </summary>
-    public TypoColor TypoFontColor { get; }
+    TypoColor TypoFontColor { get; }
 
     /// <summary>
     /// Bold
     /// </summary>
-    public bool Bold { get; set; }
+    bool Bold { get; set; }
 
     /// <summary>
     /// Italic
     /// </summary>
-    public bool Italic { get; set; }
+    bool Italic { get; set; }
 
     /// <summary>
     /// Text alignment legt, center, justify or right
     /// </summary>
-    public TypoTextAlignment TextAlignment { get; }
+    TypoTextAlignment TextAlignment { get; }
 
     /// <summary>
     /// Margins
     /// </summary>
-    public TypoThickness TypoMargins { get; }
+    TypoThickness TypoMargins { get; }
 
     /// <summary>
     /// Border brush
     /// </summary>
-    public TypoBrush TypoBorderBrush { get; }
+    TypoBrush TypoBorderBrush { get; }
 
     /// <summary>
     /// Current borderline width setting
     /// </summary>
-    public TypoThickness TypoBorderThickness { get; }
+    TypoThickness TypoBorderThickness { get; }
 
     /// <summary>
     /// Paddings. Padding settings are applied only if a border is set
     /// </summary>
-    public TypoThickness TypoPaddings { get; }
+    TypoThickness TypoPaddings { get; }
 
     /// <summary>
     /// Indent of the first line in pt. Negative number is indicating a hanging indent
     /// </summary>
-    public double FirstLineIndent { get; }
+    double FirstLineIndent { get; }
 
     /// <summary>
     /// Add a page break before the heading. Default: false
     /// </summary>
-    public bool PageBreakBefore { get; }
+    bool PageBreakBefore { get; }
 
     /// <summary>
     /// Add a page break before the heading. Default: false
     /// </summary>
-    public bool KeepWithNextParagraph { get; }
+    bool KeepWithNextParagraph { get; }
 
     /// <summary>
     /// Keep the paragraph together on one side. Default: false
     /// </summary>
-    public bool KeepTogether { get; }
+    bool KeepTogether { get; }
+
+    /// <summary>
+    /// Line height in cm
+    /// </summary>
+    double LineHeight { get; set; }
 }

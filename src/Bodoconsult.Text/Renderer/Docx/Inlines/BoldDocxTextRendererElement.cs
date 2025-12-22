@@ -2,10 +2,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Bodoconsult.Office;
 using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Wordprocessing;
 using Bold = Bodoconsult.Text.Documents.Bold;
 
 namespace Bodoconsult.Text.Renderer.Docx.Inlines;

@@ -2,13 +2,9 @@
 
 using Bodoconsult.Office;
 using Bodoconsult.Text.Documents;
-using Bodoconsult.Text.Helpers;
 using DocumentFormat.OpenXml;
-using MigraDoc.DocumentObjectModel;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Paragraph = MigraDoc.DocumentObjectModel.Paragraph;
 
 namespace Bodoconsult.Text.Renderer.Docx.Inlines;
 

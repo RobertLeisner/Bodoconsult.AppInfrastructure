@@ -5,8 +5,6 @@ using Bodoconsult.Text.Documents;
 using DocumentFormat.OpenXml;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Paragraph = MigraDoc.DocumentObjectModel.Paragraph;
 
 namespace Bodoconsult.Text.Renderer.Docx.Inlines;
 

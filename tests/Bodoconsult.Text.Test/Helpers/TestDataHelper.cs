@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Extensions;
 using Bodoconsult.Text.Helpers;
@@ -38,7 +39,7 @@ public static class TestDataHelper
             IsFiguresTableRequired = true,
             IsEquationsTableRequired = true,
             IsTablesTableRequired = true,
-            FooterText = "Bodoconsult GmbH\t<<page>>",
+            FooterText = $"Bodoconsult GmbH\t{ITypography.PageFieldIndicator}",
             HeaderText = "HeaderText",
             LogoPath = TestHelper.TestLogoImage,
             LogoWidth = 2,
