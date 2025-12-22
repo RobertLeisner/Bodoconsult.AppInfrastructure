@@ -107,7 +107,12 @@ public class ParagraphStyleBase : StyleBase, ITypoParagraphStyle
     public bool KeepTogether { get; set; } = false;
 
     /// <summary>
-    /// Line height in cm. Default: 120% of Styleset.DefaultFontSize
+    /// Line height in cm. Default: 116% of Styleset.DefaultFontSize
     /// </summary>
-    public double LineHeight { get; set; } = MeasurementHelper.GetCmFromPt(Styleset.DefaultFontSize * 1.20);
+    public double LineHeight { get; set; } = MeasurementHelper.GetCmFromPt(Styleset.DefaultFontSize * 1.16);
+
+    /// <summary>
+    /// Current line spacing rule
+    /// </summary>
+    public LineSpacingRuleEnum LineSpacingRule { get; set; } = LineSpacingRuleEnum.Auto;
 }

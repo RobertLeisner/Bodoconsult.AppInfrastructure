@@ -366,9 +366,9 @@ public static class DocumentRendererHelper
             $@"\pard\plain\q{renderer.Styleset.GetIndexOfStyle(image.StyleName)}{RtfHelper.GetFormatSettings(style, renderer.Styleset)}");
 
         // Get max height and with for images in twips
-        StylesetHelper.GetMaxWidthAndHeight(renderer.Styleset, out var maxWidth, out var maxHeight);
+        StylesetHelper.GetMaxWidthAndHeightInTwips(renderer.Styleset, out var maxWidth, out var maxHeight);
 
-        StylesetHelper.GetWidthAndHeight(MeasurementHelper.GetTwipsFromPx(image.OriginalWidth),
+        StylesetHelper.GetWidthAndHeightInTwips(MeasurementHelper.GetTwipsFromPx(image.OriginalWidth),
             MeasurementHelper.GetTwipsFromPx(image.OriginalHeight), maxWidth, maxHeight, out var width, out var height);
 
         // Add the image
@@ -451,9 +451,9 @@ public static class DocumentRendererHelper
         RenderInlineChildsToHtml(renderer, sb, childs);
 
         // Get max height and with for images in twips
-        StylesetHelper.GetMaxWidthAndHeight(renderer.Styleset, out var maxWidth, out var maxHeight);
+        StylesetHelper.GetMaxWidthAndHeightInTwips(renderer.Styleset, out var maxWidth, out var maxHeight);
 
-        StylesetHelper.GetWidthAndHeight(MeasurementHelper.GetTwipsFromPx(image.OriginalWidth),
+        StylesetHelper.GetWidthAndHeightInTwips(MeasurementHelper.GetTwipsFromPx(image.OriginalWidth),
             MeasurementHelper.GetTwipsFromPx(image.OriginalHeight), maxWidth, maxHeight, out var width, out var height);
 
         renderer.Content.Append(

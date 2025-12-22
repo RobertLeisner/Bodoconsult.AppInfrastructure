@@ -31,9 +31,9 @@ public class EquationPdfTextRendererElement : PdfTextRendererElementBase
     public override void RenderIt(PdfTextDocumentRenderer renderer)
     {
         // Get max height and with for images in twips
-        StylesetHelper.GetMaxWidthAndHeight(renderer.Styleset, out var maxWidth, out var maxHeight);
+        StylesetHelper.GetMaxWidthAndHeightInTwips(renderer.Styleset, out var maxWidth, out var maxHeight);
 
-        StylesetHelper.GetWidthAndHeight(MeasurementHelper.GetTwipsFromPx(_equation.OriginalWidth),
+        StylesetHelper.GetWidthAndHeightInTwips(MeasurementHelper.GetTwipsFromPx(_equation.OriginalWidth),
             MeasurementHelper.GetTwipsFromPx(_equation.OriginalHeight), maxWidth, maxHeight, out var width, out var height);
 
         var childs = new List<Inline>();

@@ -1,10 +1,11 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using System.Collections.Generic;
-using System.Text;
 using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Helpers;
+using DocumentFormat.OpenXml;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Bodoconsult.Text.Renderer.Docx.Blocks;
 
@@ -30,11 +31,13 @@ public class FigureDocxTextRendererElement : DocxTextRendererElementBase
     /// <param name="renderer">Current renderer</param>
     public override void RenderIt(DocxTextDocumentRenderer renderer)
     {
-        // Get max height and with for images in twips
-        StylesetHelper.GetMaxWidthAndHeight(renderer.Styleset, out var maxWidth, out var maxHeight);
+        // Get max height and with for images in cm
+        StylesetHelper.GetMaxWidthAndHeightInCm(renderer.Styleset, out var maxWidth, out var maxHeight);
 
-        StylesetHelper.GetWidthAndHeight(MeasurementHelper.GetTwipsFromPx(_figure.OriginalWidth),
-            MeasurementHelper.GetTwipsFromPx(_figure.OriginalHeight), maxWidth, maxHeight, out var width, out var height);
+        StylesetHelper.GetWidthAndHeightInCm(MeasurementHelper.GetCmFromPx(_figure.OriginalWidth),
+            MeasurementHelper.GetCmFromPx(_figure.OriginalHeight), maxWidth, maxHeight, out var width, out var height);
+
+        renderer.DocxDocument.AddImage(_figure.Uri, "Image", MeasurementHelper.GetPxFromCm(width), MeasurementHelper.GetPxFromCm(height));
 
         var childs = new List<Inline>();
 
@@ -44,10 +47,10 @@ public class FigureDocxTextRendererElement : DocxTextRendererElementBase
         }
         childs.AddRange(_figure.ChildInlines);
 
-        var sb = new StringBuilder();
-        //DocxDocumentRendererHelper.RenderBlockInlinesToStringForDocx(renderer, childs, sb);
+        var sb = new List<OpenXmlElement>();
+        DocxDocumentRendererHelper.RenderBlockInlinesToRunsForDocx(renderer, childs, sb);
 
-        //renderer.DocxDocument.AddFigure(_figure.Uri, sb.ToString(), _figure.TagName, MeasurementHelper.GetCmFromTwips(width), MeasurementHelper.GetCmFromTwips(height));
+        renderer.DocxDocument.AddParagraph(sb, "Figure");
 
     }
 }

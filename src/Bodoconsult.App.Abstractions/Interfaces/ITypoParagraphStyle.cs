@@ -81,4 +81,9 @@ public interface ITypoParagraphStyle
     /// Line height in cm
     /// </summary>
     double LineHeight { get; set; }
+
+    /// <summary>
+    /// Current line spacing rule
+    /// </summary>
+    LineSpacingRuleEnum LineSpacingRule { get; set; }
 }

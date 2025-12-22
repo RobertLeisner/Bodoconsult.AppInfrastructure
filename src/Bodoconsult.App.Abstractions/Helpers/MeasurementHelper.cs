@@ -244,4 +244,26 @@ public static class MeasurementHelper
     {
         return (uint)(72F * 20F * cm);
     }
+
+    /// <summary>
+    /// Get cm from pixels px
+    /// </summary>
+    /// <param name="px">Pixels px</param>
+    /// <returns>cm</returns>
+    public static double GetCmFromPx(double px)
+    {
+        var result = px / 2.54f * TwipsPerInchTypographicPoint;
+        return Math.Round(result / 15f, 2);
+    }
+
+    /// <summary>
+    /// Get pixels px from cm
+    /// </summary>
+    /// <param name="cm">cm</param>
+    /// <returns>px</returns>
+    public static int GetPxFromCm(double cm)
+    {
+        var result = cm / 2.54f * TwipsPerInchTypographicPoint / 15f;
+        return (int)result;
+    }
 }

@@ -31,9 +31,9 @@ public class FigurePdfTextRendererElement : PdfTextRendererElementBase
     public override void RenderIt(PdfTextDocumentRenderer renderer)
     {
         // Get max height and with for images in twips
-        StylesetHelper.GetMaxWidthAndHeight(renderer.Styleset, out var maxWidth, out var maxHeight);
+        StylesetHelper.GetMaxWidthAndHeightInTwips(renderer.Styleset, out var maxWidth, out var maxHeight);
 
-        StylesetHelper.GetWidthAndHeight(MeasurementHelper.GetTwipsFromPx(_figure.OriginalWidth),
+        StylesetHelper.GetWidthAndHeightInTwips(MeasurementHelper.GetTwipsFromPx(_figure.OriginalWidth),
             MeasurementHelper.GetTwipsFromPx(_figure.OriginalHeight), maxWidth, maxHeight, out var width, out var height);
 
         var childs = new List<Inline>();

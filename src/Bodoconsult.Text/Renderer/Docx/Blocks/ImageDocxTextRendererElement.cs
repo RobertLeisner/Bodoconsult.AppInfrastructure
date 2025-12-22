@@ -28,13 +28,13 @@ public class ImageDocxTextRendererElement : DocxTextRendererElementBase
     /// <param name="renderer">Current renderer</param>
     public override void RenderIt(DocxTextDocumentRenderer renderer)
     {     
-        // Get max height and with for images in twips
-        StylesetHelper.GetMaxWidthAndHeight(renderer.Styleset, out var maxWidth, out var maxHeight);
+        // Get max height and with for images in cm
+        StylesetHelper.GetMaxWidthAndHeightInCm(renderer.Styleset, out var maxWidth, out var maxHeight);
 
-        StylesetHelper.GetWidthAndHeight(MeasurementHelper.GetTwipsFromPx(_image.OriginalWidth),
-            MeasurementHelper.GetTwipsFromPx(_image.OriginalHeight), maxWidth, maxHeight, out var width, out var height);
+        StylesetHelper.GetWidthAndHeightInCm(MeasurementHelper.GetCmFromPx(_image.OriginalWidth),
+            MeasurementHelper.GetCmFromPx(_image.OriginalHeight), maxWidth, maxHeight, out var width, out var height);
 
-        //renderer.DocxDocument.AddImage(_image.Uri, MeasurementHelper.GetCmFromTwips(width), MeasurementHelper.GetCmFromTwips(height));
+        renderer.DocxDocument.AddImage(_image.Uri, "Image", MeasurementHelper.GetPxFromCm(width), MeasurementHelper.GetPxFromCm(height));
 
     }
 }

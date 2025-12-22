@@ -1,6 +1,11 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using System.Collections.Generic;
+using System.Text;
+using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.Text.Documents;
+using Bodoconsult.Text.Helpers;
+using DocumentFormat.OpenXml;
 
 namespace Bodoconsult.Text.Renderer.Docx.Blocks;
 
@@ -26,24 +31,25 @@ public class EquationDocxTextRendererElement : DocxTextRendererElementBase
     /// <param name="renderer">Current renderer</param>
     public override void RenderIt(DocxTextDocumentRenderer renderer)
     {
-        //// Get max height and with for images in twips
-        //StylesetHelper.GetMaxWidthAndHeight(renderer.Styleset, out var maxWidth, out var maxHeight);
+        // Get max height and with for images in cm
+        StylesetHelper.GetMaxWidthAndHeightInCm(renderer.Styleset, out var maxWidth, out var maxHeight);
 
-        //StylesetHelper.GetWidthAndHeight(MeasurementHelper.GetTwipsFromPx(_equation.OriginalWidth),
-        //    MeasurementHelper.GetTwipsFromPx(_equation.OriginalHeight), maxWidth, maxHeight, out var width, out var height);
+        StylesetHelper.GetWidthAndHeightInCm(MeasurementHelper.GetCmFromPx(_equation.OriginalWidth),
+            MeasurementHelper.GetCmFromPx(_equation.OriginalHeight), maxWidth, maxHeight, out var width, out var height);
 
-        //var childs = new List<Inline>();
+        renderer.DocxDocument.AddImage(_equation.Uri, "Image", MeasurementHelper.GetPxFromCm(width), MeasurementHelper.GetPxFromCm(height));
 
-        //if (!string.IsNullOrEmpty(_equation.CurrentPrefix))
-        //{
-        //    childs.Add(new Span(_equation.CurrentPrefix));
-        //}
-        //childs.AddRange(_equation.ChildInlines);
+        var childs = new List<Inline>();
 
-        //var sb = new StringBuilder();
-        //DocxDocumentRendererHelper.RenderBlockInlinesToStringForDocx(renderer, childs, sb);
+        if (!string.IsNullOrEmpty(_equation.CurrentPrefix))
+        {
+            childs.Add(new Span(_equation.CurrentPrefix));
+        }
+        childs.AddRange(_equation.ChildInlines);
 
-        //renderer.DocxDocument.AddFigure(_equation.Uri, sb.ToString(), _equation.TagName, MeasurementHelper.GetCmFromTwips(width), MeasurementHelper.GetCmFromTwips(height));
+        var sb = new List<OpenXmlElement>();
+        DocxDocumentRendererHelper.RenderBlockInlinesToRunsForDocx(renderer, childs, sb);
 
+        renderer.DocxDocument.AddParagraph(sb, "Equation");
     }
 }

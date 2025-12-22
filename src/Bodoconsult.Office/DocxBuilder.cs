@@ -422,6 +422,7 @@ public class DocxBuilder : IDisposable
     /// <returns>OpenXML Style</returns>
     public Style AddNewStyle(string styleid, string stylename, ITypoParagraphStyle typoStyle, int uiPriority)
     {
+        Debug.Print($"{styleid}: Alignment {typoStyle.TextAlignment}");
         Debug.Print($"{styleid}: Bold {typoStyle.Bold}");
         Debug.Print($"{styleid}: L{typoStyle.TypoMargins.Left} T{typoStyle.TypoMargins.Top} R{typoStyle.TypoMargins.Right} B{typoStyle.TypoMargins.Bottom}");
         Debug.Print($"{styleid}: L{typoStyle.TypoPaddings.Left} T{typoStyle.TypoPaddings.Top} R{typoStyle.TypoPaddings.Right} B{typoStyle.TypoPaddings.Bottom}");
@@ -429,8 +430,11 @@ public class DocxBuilder : IDisposable
 
         StyleRunProperties styleRunProperties = new();
 
+        // Create a new paragraph style and specify some of the properties.
+        var style = CreateStyle(Styles, styleid, stylename, uiPriority, styleRunProperties);
+
         var pPr = new ParagraphProperties();
-        styleRunProperties.Append(pPr);
+        style.Append(pPr);
 
         // Margins and indentation
         CreateMargins(typoStyle, pPr);
@@ -445,10 +449,8 @@ public class DocxBuilder : IDisposable
         CreateFontSettings(typoStyle, styleRunProperties);
 
         // Justification
-        CreateJustification(typoStyle, styleRunProperties);
+        CreateJustification(typoStyle, pPr);
 
-        // Create a new paragraph style and specify some of the properties.
-        var style = CreateStyle(Styles, styleid, stylename, uiPriority, styleRunProperties);
         return style;
     }
 
@@ -466,13 +468,29 @@ public class DocxBuilder : IDisposable
         var leftFirstLine = MeasurementHelper.GetTwipsFromCm(typoStyle.FirstLineIndent);
         var line = MeasurementHelper.GetTwipsFromCm(typoStyle.LineHeight);
 
+        LineSpacingRuleValues lsrv;
+
+        switch (typoStyle.LineSpacingRule)
+        {
+            case LineSpacingRuleEnum.Exact:
+                lsrv = LineSpacingRuleValues.Auto;
+                break;
+            case LineSpacingRuleEnum.AtLeast:
+                lsrv = LineSpacingRuleValues.AtLeast;
+                break;
+            case LineSpacingRuleEnum.Auto:
+            default:
+                lsrv = LineSpacingRuleValues.Auto;
+                break;
+        }
+
         var spacing = new SpacingBetweenLines
         {
             Before = new StringValue(top.ToString()), 
             After = new StringValue(bottom.ToString()), 
             BeforeAutoSpacing = OnOffValue.FromBoolean(false), 
             AfterAutoSpacing = OnOffValue.FromBoolean(false),
-            LineRule = new EnumValue<LineSpacingRuleValues>(LineSpacingRuleValues.Exact),
+            LineRule = new EnumValue<LineSpacingRuleValues>(lsrv),
             Line = new StringValue(line.ToString())
         };
         pPr.Append(spacing);
@@ -618,8 +636,8 @@ public class DocxBuilder : IDisposable
     /// Create justification
     /// </summary>
     /// <param name="typoStyle">Type style</param>
-    /// <param name="styleRunProperties">Style run properties to set</param>
-    private static void CreateJustification(ITypoParagraphStyle typoStyle, StyleRunProperties styleRunProperties)
+    /// <param name="paragraphProperties">Style run properties to set</param>
+    private static void CreateJustification(ITypoParagraphStyle typoStyle, ParagraphProperties paragraphProperties)
     {
         var justification = new Justification();
 
@@ -640,7 +658,7 @@ public class DocxBuilder : IDisposable
                 break;
         }
 
-        styleRunProperties.Append(justification);
+        paragraphProperties.Append(justification);
     }
 
     /// <summary>
@@ -727,76 +745,94 @@ public class DocxBuilder : IDisposable
 
         var para = CreateBaseParagraph(styleName);
 
+        //para.ParagraphProperties?.AddChild(new Justification { Val = JustificationValues.Center });
+
         var xTwips = MeasurementHelper.GetEmuFromPx(width);
         var yTwips = MeasurementHelper.GetEmuFromPx(height);
 
+        //var xTwips = 990000L;
+        //var yTwips = 792000L;
+
         var fi = new FileInfo(path);
 
-        var ip = AddImagePart(path);
+        var ext = fi.Extension.ToLowerInvariant();
+
+        var ip = AddImagePart(path, ext);
         var relationshipId = MainDocumentPart.GetIdOfPart(ip);
 
-        var element =
-         new Drawing(
-             new DW.Inline(
-                 new DW.Extent { Cx = xTwips, Cy = yTwips },
-                 new DW.EffectExtent
-                 {
-                     LeftEdge = 0L,
-                     TopEdge = 0L,
-                     RightEdge = 0L,
-                     BottomEdge = 0L
-                 },
-                 new DW.DocProperties
-                 {
-                     Id = (uint)_imageCounter,
-                     Name = $"Image {_imageCounter}"
-                 },
-                 new DW.NonVisualGraphicFrameDrawingProperties(
-                     new A.GraphicFrameLocks { NoChangeAspect = true }),
-                 new A.Graphic(
-                     new A.GraphicData(
-                         new PIC.Picture(
-                             new PIC.NonVisualPictureProperties(
-                                 new PIC.NonVisualDrawingProperties
-                                 {
-                                     Id = (UInt32Value)0U,
-                                     Name = fi.Name
-                                 },
-                                 new PIC.NonVisualPictureDrawingProperties()),
-                             new PIC.BlipFill(
-                                 new A.Blip(
-                                     new A.BlipExtensionList(
-                                         new A.BlipExtension
-                                         {
-                                             Uri =
+        var inline = new DW.Inline(
+            new DW.Extent { Cx = xTwips, Cy = yTwips },
+            new DW.EffectExtent
+            {
+                LeftEdge = 0L,
+                TopEdge = 0L,
+                RightEdge = 0L,
+                BottomEdge = 0L
+            },
+            new DW.WrapTopBottom(),
+            new DW.HorizontalPosition(new DW.HorizontalAlignment("center"))
+            {
+                RelativeFrom = DW.HorizontalRelativePositionValues.Margin
+            },
+            new DW.VerticalPosition(new DW.PositionOffset("0"))
+            {
+                RelativeFrom = DW.VerticalRelativePositionValues.Paragraph
+            },
+            new DW.DocProperties
+            {
+                Id = (uint)_imageCounter,
+                Name = $"Image {_imageCounter}"
+            },
+            new DW.NonVisualGraphicFrameDrawingProperties(new A.GraphicFrameLocks { NoChangeAspect = true }),
+            new A.Graphic(
+                new A.GraphicData(
+                        new PIC.Picture(
+                            new PIC.NonVisualPictureProperties(
+                                new PIC.NonVisualDrawingProperties
+                                {
+                                    Id = (UInt32Value)0U,
+                                    Name = fi.Name
+                                },
+                                new PIC.NonVisualPictureDrawingProperties()),
+                            new PIC.BlipFill(
+                                new A.Blip(
+                                    new A.BlipExtensionList(
+                                        new A.BlipExtension
+                                        {
+                                            Uri =
                                                 "{28A0092B-C50C-407E-A947-70E740481C1C}"
-                                         })
-                                 )
-                                 {
-                                     Embed = relationshipId,
-                                     CompressionState =
-                                     A.BlipCompressionValues.Print
-                                 },
-                                 new A.Stretch(
-                                     new A.FillRectangle())),
-                             new PIC.ShapeProperties(
-                                 new A.Transform2D(
-                                     new A.Offset { X = 0L, Y = 0L },
-                                     new A.Extents { Cx = xTwips, Cy = yTwips }),
-                                 new A.PresetGeometry(
-                                     new A.AdjustValueList()
-                                 )
-                                 { Preset = A.ShapeTypeValues.Rectangle }))
-                     )
-                     { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
-             )
-             {
-                 DistanceFromTop = (UInt32Value)0U,
-                 DistanceFromBottom = (UInt32Value)0U,
-                 DistanceFromLeft = (UInt32Value)0U,
-                 DistanceFromRight = (UInt32Value)0U,
-                 //EditId = "50D07946"
-             });
+                                        })
+                                )
+                                {
+                                    Embed = relationshipId,
+                                    CompressionState =
+                                        A.BlipCompressionValues.Print
+                                },
+                                new A.Stretch(
+                                    new A.FillRectangle())),
+                            new PIC.ShapeProperties(
+                                new A.Transform2D(
+                                    new A.Offset { X = 0L, Y = 0L },
+                                    new A.Extents { Cx = xTwips, Cy = yTwips }),
+                                new A.PresetGeometry(
+                                        new A.AdjustValueList()
+                                    )
+                                    { Preset = A.ShapeTypeValues.Rectangle }))
+                    )
+                    { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
+        )
+        {
+            DistanceFromTop = (UInt32Value)0U,
+            DistanceFromBottom = (UInt32Value)0U,
+            DistanceFromLeft = (UInt32Value)0U,
+            DistanceFromRight = (UInt32Value)0U
+
+            //EditId = "50D07946"
+        };
+
+        
+
+        var element = new Drawing(inline);
 
         var rImg = new Run(element);
         para.Append(rImg);
@@ -826,12 +862,8 @@ public class DocxBuilder : IDisposable
         return para;
     }
 
-    private ImagePart AddImagePart(string path)
+    private ImagePart AddImagePart(string path, string ext)
     {
-        var fi = new FileInfo(path);
-
-        var ext = fi.Extension.ToLowerInvariant();
-
         PartTypeInfo imageType;
 
         switch (ext)
@@ -1043,13 +1075,13 @@ public class DocxBuilder : IDisposable
     public static Run CreateRun(string text, bool useSpaceProcessingModePreserve)
     {
         var run = new Run();
-        var rp = new RunProperties
-        {
-            Italic = new Italic { Val = OnOffValue.FromBoolean(false) },
-            Bold = new Bold { Val = OnOffValue.FromBoolean(false) }
-        };
-        // Always add properties first
-        run.Append(rp);
+        //var rp = new RunProperties
+        //{
+        //    Italic = new Italic { Val = OnOffValue.FromBoolean(false) },
+        //    Bold = new Bold { Val = OnOffValue.FromBoolean(false) }
+        //};
+        //// Always add properties first
+        //run.Append(rp);
         run.AppendChild(useSpaceProcessingModePreserve
             ? new Text(text) { Space = SpaceProcessingModeValues.Preserve }
             : new Text(text));
@@ -1064,14 +1096,6 @@ public class DocxBuilder : IDisposable
     public static Run CreateRun(IList<OpenXmlElement> runs)
     {
         var run = new Run();
-        var rp = new RunProperties
-        {
-            Italic = new Italic { Val = OnOffValue.FromBoolean(false) },
-            Bold = new Bold { Val = OnOffValue.FromBoolean(false) }
-        };
-        // Always add properties first
-        run.Append(rp);
-
         foreach (var subRun in runs)
         {
             run.AppendChild(subRun);

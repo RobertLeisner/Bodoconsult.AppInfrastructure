@@ -471,9 +471,23 @@ public static class StylesetHelper
     /// Get the maximum width and height of images from document
     /// </summary>
     /// <param name="styleset">Current styleset</param>
+    /// <param name="maxWidth">Maximum width in cm</param>
+    /// <param name="maxHeight">Maximum height in cm</param>
+    public static void GetMaxWidthAndHeightInCm(Styleset styleset, out double maxWidth, out double maxHeight)
+    {
+        var style = (DocumentStyle)styleset.FindStyle(nameof(DocumentStyle));
+
+        maxWidth = style.MaxImageWidth;
+        maxHeight = style.MaxImageHeight;
+    }
+
+    /// <summary>
+    /// Get the maximum width and height of images from document
+    /// </summary>
+    /// <param name="styleset">Current styleset</param>
     /// <param name="maxWidth">Maximum width in twips</param>
     /// <param name="maxHeight">Maximum height in twips</param>
-    public static void GetMaxWidthAndHeight(Styleset styleset, out int maxWidth, out int maxHeight)
+    public static void GetMaxWidthAndHeightInTwips(Styleset styleset, out int maxWidth, out int maxHeight)
     {
         var style = (DocumentStyle)styleset.FindStyle(nameof(DocumentStyle));
 
@@ -490,7 +504,7 @@ public static class StylesetHelper
     /// <param name="maxHeight">Maximum height in twips</param>
     /// <param name="width">Current width in twips</param>
     /// <param name="height">Current height in twips</param>
-    public static void GetWidthAndHeight(int originalWidth, int originalHeight, int maxWidth,
+    public static void GetWidthAndHeightInTwips(int originalWidth, int originalHeight, int maxWidth,
         int maxHeight, out int width, out int height)
     {
         if (originalHeight > originalWidth) // Portrait
@@ -516,6 +530,44 @@ public static class StylesetHelper
             }
             width = maxWidth;
             height = (int)(originalHeight / (double)originalWidth * maxWidth);
+        }
+    }
+
+    /// <summary>
+    /// Get the current width and height of an image
+    /// </summary>
+    /// <param name="originalWidth">Original width in cm</param>
+    /// <param name="originalHeight">Original width in cm</param>
+    /// <param name="maxWidth">Maximum width in cm</param>
+    /// <param name="maxHeight">Maximum height in cm</param>
+    /// <param name="width">Current width in cm</param>
+    /// <param name="height">Current height in cm</param>
+    public static void GetWidthAndHeightInCm(double originalWidth, double originalHeight, double maxWidth,
+        double maxHeight, out double width, out double height)
+    {
+        if (originalHeight > originalWidth) // Portrait
+        {
+            width = originalWidth > maxWidth ? maxWidth : originalWidth;
+            height = (int)(originalHeight / originalWidth * width);
+
+            if (originalHeight <= maxHeight)
+            {
+                return;
+            }
+            height = maxHeight;
+            width = (int)(originalWidth / originalHeight * maxHeight);
+        }
+        else // Landscape
+        {
+            height = originalHeight > maxHeight ? maxHeight : originalHeight;
+            width = (int)(originalWidth / originalHeight * height);
+
+            if (originalWidth <= maxWidth)
+            {
+                return;
+            }
+            width = maxWidth;
+            height = (int)(originalHeight / originalWidth * maxWidth);
         }
     }
 }
