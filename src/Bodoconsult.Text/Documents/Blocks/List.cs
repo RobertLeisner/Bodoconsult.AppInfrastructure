@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using Bodoconsult.App.Abstractions.Interfaces;
 
 namespace Bodoconsult.Text.Documents;
 

@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.Text.Extensions;
 using Bodoconsult.Text.Helpers;
 using Bodoconsult.Text.Interfaces;

@@ -2,6 +2,7 @@
 
 using System;
 using System.Text;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Extensions;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Helpers;

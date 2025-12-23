@@ -2,6 +2,7 @@
 
 using System.Windows;
 using Bodoconsult.App.Abstractions.Helpers;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Wpf.Documents.Helpers;
 using Bodoconsult.Text.Documents;
 using ListItem = System.Windows.Documents.ListItem;

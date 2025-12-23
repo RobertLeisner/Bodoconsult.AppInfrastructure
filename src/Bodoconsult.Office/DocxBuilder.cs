@@ -6,6 +6,7 @@ using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Abstractions.Interfaces;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.ExtendedProperties;
+using DocumentFormat.OpenXml.Office2016.Drawing.Command;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using A = DocumentFormat.OpenXml.Drawing;
@@ -48,6 +49,11 @@ public class DocxBuilder : IDisposable
     /// Style definition part
     /// </summary>
     public StyleDefinitionsPart StyleDefinitionsPart { get; private set; }
+
+    /// <summary>
+    /// Current numbering definition part
+    /// </summary>
+    public NumberingDefinitionsPart NumberingDefinitionsPart { get; private set; }
 
     /// <summary>
     /// Current styles in the document
@@ -157,8 +163,113 @@ public class DocxBuilder : IDisposable
         StyleDefinitionsPart = Docx.MainDocumentPart.StyleDefinitionsPart ?? AddStylesPartToPackage();
         Styles = StyleDefinitionsPart?.Styles;
 
+        NumberingDefinitionsPart = MainDocumentPart.NumberingDefinitionsPart ?? MainDocumentPart.AddNewPart<NumberingDefinitionsPart>("NumberingDefinitionsPart001");
 
+        // ReSharper disable once ConstantNullCoalescingCondition
+        NumberingDefinitionsPart.Numbering ??= new Numbering();
+
+        AddBulletedNumbering(NumberFormatValues.Bullet, "•");
+        AddBulletedNumbering(NumberFormatValues.Bullet, "-");
+
+        AddBulletedNumbering(NumberFormatValues.Decimal, null);
+        AddBulletedNumbering(NumberFormatValues.LowerRoman, null);
+        AddBulletedNumbering(NumberFormatValues.UpperRoman, null);
+        AddBulletedNumbering(NumberFormatValues.LowerLetter, null);
+        AddBulletedNumbering(NumberFormatValues.UpperLetter, null);
+
+        //Numbering element =
+        //    new Numbering(
+        //        new AbstractNum(
+        //                new Level(
+        //                        new NumberingFormat() { Val = NumberFormatValues.Bullet },
+        //                        new LevelText() { Val = "•" }
+        //                    )
+        //                    { LevelIndex = 0 }
+        //            )
+        //            { AbstractNumberId = 1 },
+        //        new NumberingInstance(
+        //                new AbstractNumId() { Val = 1 }
+        //            )
+        //            { NumberID = 1 });
+        //element.Save(numberingPart);
+
+        //element =
+        //    new Numbering(
+        //        new AbstractNum(
+        //                new Level(
+        //                        new NumberingFormat() { Val = NumberFormatValues.Bullet },
+        //                        new LevelText() { Val = "-" }
+        //                    )
+        //                { LevelIndex = 0 }
+        //            )
+        //        { AbstractNumberId = 2 },
+        //        new NumberingInstance(
+        //                new AbstractNumId() { Val = 2 }
+        //            )
+        //        { NumberID = 2 });
+        //element.Save(numberingPart);
     }
+
+    private void AddBulletedNumbering(NumberFormatValues numberFormat, string bullet)
+    {
+        // https://stackoverflow.com/questions/1940911/openxml-2-sdk-word-document-create-bulleted-list-programmatically
+
+        // https://stackoverflow.com/questions/59093861/how-do-you-create-multi-level-ordered-lists-with-open-xml-in-asp-net
+
+        // Insert an AbstractNum into the numbering part numbering list. The order seems to matter or it will not pass the 
+        // Open XML SDK Productity Tools validation test.  AbstractNum comes first and then NumberingInstance and we want to
+        // insert this AFTER the last AbstractNum and BEFORE the first NumberingInstance or we will get a validation error.
+        var abstractNumberId = NumberingDefinitionsPart.Numbering.Elements<AbstractNum>().Count() + 1;
+
+        Level abstractLevel;
+
+        if (string.IsNullOrEmpty(bullet))
+        {
+            abstractLevel = new Level(new NumberingFormat { Val = numberFormat }, new LevelText { Val = "%1." })
+            {
+                LevelIndex = 0,
+                StartNumberingValue = new StartNumberingValue { Val = 1 },
+            };
+        }
+        else
+        {
+            abstractLevel = new Level(new NumberingFormat { Val = numberFormat }, new LevelText { Val = bullet })
+            {
+                LevelIndex = 0
+            };
+        }
+
+        var abstractNum1 = new AbstractNum(abstractLevel) { AbstractNumberId = abstractNumberId };
+
+        if (abstractNumberId == 1)
+        {
+            NumberingDefinitionsPart.Numbering.Append(abstractNum1);
+        }
+        else
+        {
+            var lastAbstractNum = NumberingDefinitionsPart.Numbering.Elements<AbstractNum>().Last();
+            NumberingDefinitionsPart.Numbering.InsertAfter(abstractNum1, lastAbstractNum);
+        }
+
+        // Insert an NumberingInstance into the numbering part numbering list.  The order seems to matter or it will not pass the 
+        // Open XML SDK Productity Tools validation test.  AbstractNum comes first and then NumberingInstance and we want to
+        // insert this AFTER the last NumberingInstance and AFTER all the AbstractNum entries or we will get a validation error.
+        var numberId = NumberingDefinitionsPart.Numbering.Elements<NumberingInstance>().Count() + 1;
+        var numberingInstance1 = new NumberingInstance { NumberID = numberId };
+        var abstractNumId1 = new AbstractNumId { Val = abstractNumberId };
+        numberingInstance1.Append(abstractNumId1);
+
+        if (numberId == 1)
+        {
+            NumberingDefinitionsPart.Numbering.Append(numberingInstance1);
+        }
+        else
+        {
+            var lastNumberingInstance = NumberingDefinitionsPart.Numbering.Elements<NumberingInstance>().Last();
+            NumberingDefinitionsPart.Numbering.InsertAfter(numberingInstance1, lastNumberingInstance);
+        }
+    }
+
 
     // Add a StylesDefinitionsPart to the document.  Returns a reference to it.
     private StyleDefinitionsPart AddStylesPartToPackage()
@@ -227,10 +338,8 @@ public class DocxBuilder : IDisposable
 
         var epPart = Docx.ExtendedFilePropertiesPart ?? Docx.AddExtendedFilePropertiesPart();
 
-        if (epPart.Properties == null)
-        {
-            epPart.Properties = new Properties();
-        }
+        // ReSharper disable once ConstantNullCoalescingCondition
+        epPart.Properties ??= new Properties();
 
         var props = epPart.Properties;
 
@@ -486,9 +595,9 @@ public class DocxBuilder : IDisposable
 
         var spacing = new SpacingBetweenLines
         {
-            Before = new StringValue(top.ToString()), 
-            After = new StringValue(bottom.ToString()), 
-            BeforeAutoSpacing = OnOffValue.FromBoolean(false), 
+            Before = new StringValue(top.ToString()),
+            After = new StringValue(bottom.ToString()),
+            BeforeAutoSpacing = OnOffValue.FromBoolean(false),
             AfterAutoSpacing = OnOffValue.FromBoolean(false),
             LineRule = new EnumValue<LineSpacingRuleValues>(lsrv),
             Line = new StringValue(line.ToString())
@@ -817,9 +926,9 @@ public class DocxBuilder : IDisposable
                                 new A.PresetGeometry(
                                         new A.AdjustValueList()
                                     )
-                                    { Preset = A.ShapeTypeValues.Rectangle }))
+                                { Preset = A.ShapeTypeValues.Rectangle }))
                     )
-                    { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
+                { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
         )
         {
             DistanceFromTop = (UInt32Value)0U,
@@ -830,7 +939,7 @@ public class DocxBuilder : IDisposable
             //EditId = "50D07946"
         };
 
-        
+
 
         var element = new Drawing(inline);
 
@@ -1174,5 +1283,77 @@ public class DocxBuilder : IDisposable
     public static Run CreateColumnBreak()
     {
         return new Run(new Break { Type = BreakValues.Column });
+    }
+
+    public void AddList(List<List<OpenXmlElement>> listItems, string styleId, ListStyleTypeEnum listStyleType)
+    {
+        // Paragraph properties
+        var sblUl = new SpacingBetweenLines { After = "0" }; // Get rid of space between bullets
+        var iUl = new Indentation { Left = "360", Hanging = "360" }; // correct indentation
+
+        var numberingId = 1;
+
+        switch (listStyleType)
+        {
+            case ListStyleTypeEnum.Circle:
+                numberingId = 1;
+                break;
+            case ListStyleTypeEnum.Square:
+                numberingId = 1;
+                break;
+            case ListStyleTypeEnum.Decimal:
+                numberingId = 3;
+                break;
+            case ListStyleTypeEnum.DecimalLeadingZero:
+                break;
+            case ListStyleTypeEnum.UpperRoman:
+                numberingId = 5;
+                break;
+            case ListStyleTypeEnum.LowerRoman:
+                numberingId = 4;
+                break;
+            case ListStyleTypeEnum.UpperLatin:
+                numberingId = 7;
+                break;
+            case ListStyleTypeEnum.LowerLatin:
+                numberingId = 6;
+                break;
+            case ListStyleTypeEnum.Customized:
+                break;
+            case ListStyleTypeEnum.Disc:
+            default:
+                numberingId = 1;
+                break;
+        }
+
+        var npl = new NumberingProperties(
+            new NumberingLevelReference { Val = 0 },
+            new NumberingId { Val = numberingId }
+        );
+
+        var pp = new ParagraphProperties(npl, sblUl, iUl)
+        {
+            ParagraphStyleId = new ParagraphStyleId { Val = styleId }
+        };
+
+        foreach (var item in listItems)
+        {
+            CreateListItem(item, pp.OuterXml);
+        }
+    }
+
+    private void CreateListItem(List<OpenXmlElement> items, string paragraphPropertiesXml)
+    {
+        var p1 = new Paragraph
+        {
+            ParagraphProperties = new ParagraphProperties(paragraphPropertiesXml)
+        };
+
+        foreach (var item in items)
+        {
+            p1.Append(item);
+        }
+
+        Body.Append(p1);
     }
 }
