@@ -63,4 +63,13 @@ public class CellDocxTextRendererElement : DocxTextRendererElementBase
         // ToDo: Other alignments
         return "CellLeftStyle";
     }
+
+    /// <summary>
+    /// Render the element
+    /// </summary>
+    /// <param name="renderer">Current renderer</param>
+    public override void RenderIt(DocxTextDocumentRenderer renderer)
+    {
+        // Do nothing
+    }
 }

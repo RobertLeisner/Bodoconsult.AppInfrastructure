@@ -7,7 +7,7 @@ using Bodoconsult.Text.Renderer.PlainText;
 using Bodoconsult.Text.Test.Helpers;
 using NUnit.Framework;
 
-namespace Bodoconsult.Text.Test.Renderer;
+namespace Bodoconsult.Text.Test.SimpleStructuredText;
 
 [TestFixture]
 internal class PlainTextParagraphFormatterTests

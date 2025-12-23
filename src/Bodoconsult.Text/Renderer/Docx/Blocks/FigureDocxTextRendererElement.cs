@@ -5,7 +5,6 @@ using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Helpers;
 using DocumentFormat.OpenXml;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Bodoconsult.Text.Renderer.Docx.Blocks;
 

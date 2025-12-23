@@ -772,4 +772,80 @@ internal class DocxBuilderTests
 
         FileSystemHelper.RunInDebugMode(path);
     }
+
+    [Test]
+    public void AddTable_ValidSetupFilePath_DocxCreated()
+    {
+        // Arrange 
+        var path = Path.Combine(FileHelper.TempPath, "test.docx");
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+
+        // Heading 1
+        var styleRunPropertiesH1 = new StyleRunProperties();
+        var color1 = new Color { Val = "2F5496" };
+        // Specify a 16 point size. 16x2 because it’s half-point size
+        var fontSize1 = new FontSize
+        {
+            Val = new StringValue("32")
+        };
+        styleRunPropertiesH1.Append(color1);
+        styleRunPropertiesH1.Append(fontSize1);
+
+        var docx = new DocxBuilder();
+        docx.CreateDocument(path);
+        docx.AddSection();
+        docx.SetBasicPageProperties(21, 29.4, 5, 2, 2, 2);
+        docx.AddNewStyle("heading1", "heading 1", styleRunPropertiesH1, 2);
+        docx.AddParagraph("Heading 1", "heading1");
+
+        // Act  
+        var rows = new List<DocxTableRow>();
+
+        var row = new DocxTableRow();
+
+        var cell = new DocxTableCell();
+        cell.Items.Add([DocxBuilder.CreateRun("A text")]);
+        cell.StyleId = "Normal";
+        row.Cells.Add(cell);
+
+        cell = new DocxTableCell();
+        cell.Items.Add([DocxBuilder.CreateRun("B text")]);
+        cell.StyleId = "Normal";
+        row.Cells.Add(cell);
+
+        rows.Add(row);
+
+        row = new DocxTableRow();
+
+        cell = new DocxTableCell();
+        cell.Items.Add([ DocxBuilder.CreateRun("C text")]);
+        cell.StyleId = "Normal";
+        row.Cells.Add(cell);
+
+        cell = new DocxTableCell();
+        cell.Items.Add([DocxBuilder.CreateRun("D text")]);
+        cell.StyleId = "Normal";
+        row.Cells.Add(cell);
+
+        rows.Add(row);
+
+        ITypoTableStyle style = new DemoTableStyle();
+        docx.AddTable(rows, style);
+
+        // Assert
+        Assert.That(File.Exists(path));
+
+        Assert.That(docx, Is.Not.Null);
+        Assert.That(docx.Docx, Is.Not.Null);
+        Assert.That(docx.MainDocumentPart, Is.Not.Null);
+        Assert.That(docx.Body, Is.Not.Null);
+
+        docx.Dispose();
+
+        FileSystemHelper.RunInDebugMode(path);
+    }
 }

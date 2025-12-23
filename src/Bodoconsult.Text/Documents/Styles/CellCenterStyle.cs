@@ -17,8 +17,9 @@ public class CellCenterStyle : ParagraphStyleBase
         TagToUse = "CellCenterStyle";
         Name = TagToUse;
         TextAlignment = TypoTextAlignment.Center;
-        BorderBrush = new SolidColorBrush(Styleset.DefaultColor);
-        BorderThickness = new Thickness(1.0, 1.0, 1.0, 1.0);
+        //BorderBrush = new SolidColorBrush(Styleset.DefaultColor);
+        //BorderThickness = new Thickness(1.0, 1.0, 1.0, 1.0);
         Paddings = new Thickness(Styleset.DefaultTablePaddingWidth);
+        LineSpacingRule = LineSpacingRuleEnum.Auto;
     }
 }

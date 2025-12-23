@@ -1,11 +1,14 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
+using Bodoconsult.App.Abstractions.Helpers;
+using Bodoconsult.App.Abstractions.Interfaces;
+
 namespace Bodoconsult.Text.Documents;
 
 /// <summary>
 /// Style for <see cref="Table"/> instances
 /// </summary>
-public class TableStyle : StyleBase
+public class TableStyle : StyleBase, ITypoTableStyle
 {
     /// <summary>
     /// Default ctor
@@ -20,10 +23,45 @@ public class TableStyle : StyleBase
     /// <summary>
     /// Margins. Margin left and right are ignored. Table is always centered
     /// </summary>
-    public Thickness Margins { get; set; } = new(0, Styleset.DefaultFontSize, 0, 0);
+    public Thickness Margins { get; set; } = new(0, MeasurementHelper.GetCmFromPt(Styleset.DefaultFontSize), 0, 0);
+
+    /// <summary>
+    /// Margins
+    /// </summary>
+    public TypoThickness TypoMargins => Margins;
 
     /// <summary>
     /// Border spacing in pt
     /// </summary>
     public int BorderSpacing { get; set; } = (int)Styleset.DefaultTablePaddingWidth;
+
+    /// <summary>
+    /// Border brush
+    /// </summary>
+    public Brush BorderBrush { get; set; } = new SolidColorBrush("#000000");
+
+    /// <summary>
+    /// Border brush
+    /// </summary>
+    public TypoBrush TypoBorderBrush => BorderBrush;
+
+    /// <summary>
+    /// Current borderline width setting
+    /// </summary>
+    public Thickness BorderThickness { get; set; } = new(0.5 * TypoThickness.LineWidth1Pt, 0.5 * TypoThickness.LineWidth1Pt, 0.5 * TypoThickness.LineWidth1Pt, 0.5 * TypoThickness.LineWidth1Pt);
+
+    /// <summary>
+    /// Current borderline width setting
+    /// </summary>
+    public TypoThickness TypoBorderThickness => BorderThickness;
+
+    /// <summary>
+    /// Inside the table horizontal border width in cm
+    /// </summary>
+    public double InsideHorizontalBorderWidth { get; set; } = 0.5 * TypoThickness.LineWidth1Pt;
+
+    /// <summary>
+    /// Inside the table vertical border width in cm
+    /// </summary>
+    public double InsideVerticalBorderWidth { get; set; } = 0.5 * TypoThickness.LineWidth1Pt;
 }

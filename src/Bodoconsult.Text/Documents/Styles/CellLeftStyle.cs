@@ -17,8 +17,9 @@ public class CellLeftStyle : ParagraphStyleBase
         TagToUse = "CellLeftStyle";
         Name = TagToUse;
         TextAlignment = TypoTextAlignment.Left;
-        BorderBrush = new SolidColorBrush(Styleset.DefaultColor);
-        BorderThickness = new Thickness(1.0, 1.0, 1.0, 1.0);
+        //BorderBrush = new SolidColorBrush(Styleset.DefaultColor);
+        //BorderThickness = new Thickness(1.0, 1.0, 1.0, 1.0);
         Paddings = new Thickness(Styleset.DefaultTablePaddingWidth);
+        LineSpacingRule = LineSpacingRuleEnum.Auto;
     }
 }

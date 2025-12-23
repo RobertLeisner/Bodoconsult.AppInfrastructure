@@ -15,5 +15,6 @@ public class ListItemStyle : ParagraphStyleBase
         TagToUse = "ListItemStyle";
         Name = TagToUse;
         Margins.Left = Styleset.DefaultMarginLeft;
+        FirstLineIndent = -Margins.Left;
     }
 }

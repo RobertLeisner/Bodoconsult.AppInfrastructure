@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using Bodoconsult.App.Abstractions.Interfaces;
-using Bodoconsult.Text.Documents;
 using Section = System.Windows.Documents.Section;
 
 namespace Bodoconsult.App.Wpf.Documents.WpfElements

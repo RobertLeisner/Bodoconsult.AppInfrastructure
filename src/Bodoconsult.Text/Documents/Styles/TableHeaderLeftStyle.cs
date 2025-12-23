@@ -17,9 +17,10 @@ public class TableHeaderLeftStyle : ParagraphStyleBase
         TagToUse = "TableHeaderLeftStyle";
         Name = TagToUse;
         Bold = true;
-        BorderBrush = new SolidColorBrush(Styleset.DefaultColor);
-        BorderThickness = new Thickness(1.0, 1.0, 1.0, 1.0);
+        //BorderBrush = new SolidColorBrush(Styleset.DefaultColor);
+        //BorderThickness = new Thickness(1.0, 1.0, 1.0, 1.0);
         Paddings = new Thickness(Styleset.DefaultTablePaddingWidth);
         TextAlignment = TypoTextAlignment.Left;
+        LineSpacingRule = LineSpacingRuleEnum.Auto;
     }
 }

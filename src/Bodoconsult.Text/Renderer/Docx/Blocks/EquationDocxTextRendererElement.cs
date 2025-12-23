@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
 using System.Collections.Generic;
-using System.Text;
 using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Helpers;

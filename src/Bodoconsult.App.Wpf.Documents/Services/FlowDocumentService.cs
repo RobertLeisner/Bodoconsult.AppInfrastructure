@@ -17,7 +17,6 @@ using Bodoconsult.App.Wpf.Documents.General;
 using Bodoconsult.App.Wpf.Documents.Paginators;
 using Bodoconsult.App.Wpf.Documents.WpfElements;
 using Bodoconsult.App.Wpf.Helpers;
-using Bodoconsult.Text.Documents;
 using PdfSharp.Xps;
 using PropertyChanged;
 using Figure = System.Windows.Documents.Figure;

@@ -3,7 +3,6 @@
 using System.Windows;
 using System.Windows.Media;
 using Bodoconsult.App.Abstractions.Interfaces;
-using Bodoconsult.Text.Documents;
 
 namespace Bodoconsult.App.Wpf.Documents.Delegates;
 

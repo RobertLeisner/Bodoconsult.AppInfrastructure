@@ -20,13 +20,12 @@ public class ListItemDocxTextRendererElement : DocxTextRendererElementBase
         ClassName = listItem.StyleName;
     }
 
-    ///// <summary>
-    ///// Render the element
-    ///// </summary>
-    ///// <param name="renderer">Current renderer</param>
-    //public override void RenderIt(DocxTextDocumentRenderer renderer)
-    //{
-    //    Paragraph = renderer.DocxDocument.AddInfo(string.Empty);
-    //    base.RenderIt(renderer);
-    //}
+    /// <summary>
+    /// Render the element
+    /// </summary>
+    /// <param name="renderer">Current renderer</param>
+    public override void RenderIt(DocxTextDocumentRenderer renderer)
+    {
+        // Do nothing
+    }
 }

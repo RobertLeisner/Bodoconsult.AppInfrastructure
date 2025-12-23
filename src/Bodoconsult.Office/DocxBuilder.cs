@@ -1,14 +1,13 @@
 // Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using System.Diagnostics;
 using Bodoconsult.App.Abstractions.Extensions;
 using Bodoconsult.App.Abstractions.Helpers;
 using Bodoconsult.App.Abstractions.Interfaces;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.ExtendedProperties;
-using DocumentFormat.OpenXml.Office2016.Drawing.Command;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
+using System.Diagnostics;
 using A = DocumentFormat.OpenXml.Drawing;
 using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using Paragraph = DocumentFormat.OpenXml.Wordprocessing.Paragraph;
@@ -1285,6 +1284,12 @@ public class DocxBuilder : IDisposable
         return new Run(new Break { Type = BreakValues.Column });
     }
 
+    /// <summary>
+    /// Add a list of paragraphs
+    /// </summary>
+    /// <param name="listItems">List of paragraph items</param>
+    /// <param name="styleId">Style ID to use for the paragraphs</param>
+    /// <param name="listStyleType">List style type</param>
     public void AddList(List<List<OpenXmlElement>> listItems, string styleId, ListStyleTypeEnum listStyleType)
     {
         // Paragraph properties
@@ -1355,5 +1360,114 @@ public class DocxBuilder : IDisposable
         }
 
         Body.Append(p1);
+    }
+
+
+    public void AddTable(List<DocxTableRow> rows, ITypoTableStyle typoTableStyle)
+    {
+
+        var table = new Table();
+
+        // Create a TableProperties object and specify its border information.
+        var borderSizeLeft = (uint)MeasurementHelper.GetTwipsFromCm( typoTableStyle.TypoBorderThickness.Left);
+        var borderSizeRight = (uint)MeasurementHelper.GetTwipsFromCm(typoTableStyle.TypoBorderThickness.Right);
+        var borderSizeTop = (uint)MeasurementHelper.GetTwipsFromCm(typoTableStyle.TypoBorderThickness.Top);
+        var borderSizeBottom = (uint)MeasurementHelper.GetTwipsFromCm(typoTableStyle.TypoBorderThickness.Bottom);
+        var borderSizeHorizontal = (uint)MeasurementHelper.GetTwipsFromCm(typoTableStyle.InsideHorizontalBorderWidth);
+        var borderSizeVertical = (uint)MeasurementHelper.GetTwipsFromCm(typoTableStyle.InsideVerticalBorderWidth);
+
+        var borderValue = BorderValues.Single;
+
+        var tblProp = new TableProperties(
+            new TableJustification { Val = TableRowAlignmentValues.Center },
+            new TableLayout { Type = TableLayoutValues.Autofit },
+            new TableBorders(
+                new TopBorder
+                {
+                    Val = borderValue,
+                    Size = borderSizeTop
+                },
+                new BottomBorder
+                {
+                    Val = borderValue,
+                    Size = borderSizeBottom
+                },
+                new LeftBorder
+                {
+                    Val = borderValue,
+                    Size = borderSizeLeft
+                },
+                new RightBorder
+                {
+                    Val = borderValue,
+                    Size = borderSizeRight
+                },
+                new InsideHorizontalBorder
+                {
+                    Val = borderValue,
+                    Size = borderSizeHorizontal
+                },
+                new InsideVerticalBorder
+                {
+                    Val = borderValue,
+                    Size = borderSizeVertical
+                }
+            )
+        );
+
+        // Append the TableProperties object to the empty table.
+        table.AppendChild(tblProp);
+
+
+        foreach (var row in rows)
+        {
+            var tr = new DocumentFormat.OpenXml.Wordprocessing.TableRow();
+
+            AddCells(tr, row.Cells);
+
+            table.Append(tr);
+        }
+
+        Body.Append(table);
+    }
+
+    private static void AddCells(DocumentFormat.OpenXml.Wordprocessing.TableRow row, List<DocxTableCell> cells)
+    {
+
+        foreach (var cell in cells)
+        {
+            var tc = new DocumentFormat.OpenXml.Wordprocessing.TableCell();
+
+            foreach (var runs in cell.Items)
+            {
+                var para = new Paragraph();
+
+                // If the paragraph has no ParagraphProperties object, create one.
+                if (!para.Elements<ParagraphProperties>().Any())
+                {
+                    para.PrependChild(new ParagraphProperties());
+                }
+
+                // Get a reference to the ParagraphProperties object.
+                para.ParagraphProperties ??= new ParagraphProperties();
+                var pPr = para.ParagraphProperties;
+
+                // If a ParagraphStyleId object doesn't exist, create one.
+                pPr.ParagraphStyleId ??= new ParagraphStyleId();
+
+                // Set the style of the paragraph.
+                pPr.ParagraphStyleId.Val = cell.StyleId;
+
+                foreach (var run in runs)
+                {
+                    para.AppendChild(run);
+                }
+
+                tc.Append(para);
+            }
+
+            row.Append(tc);
+        }
+
     }
 }

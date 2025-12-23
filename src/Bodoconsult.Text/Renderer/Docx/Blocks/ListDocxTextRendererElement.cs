@@ -1,8 +1,9 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
-using System;
-using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.Text.Documents;
+using Bodoconsult.Text.Helpers;
+using DocumentFormat.OpenXml;
+using System.Collections.Generic;
 
 namespace Bodoconsult.Text.Renderer.Docx.Blocks;
 
@@ -20,42 +21,27 @@ public class ListDocxTextRendererElement : DocxTextRendererElementBase
     {
         _list = list;
         ClassName = list.StyleName;
+    }
 
-        switch (list.ListStyleType)
+    /// <summary>
+    /// Render the element
+    /// </summary>
+    /// <param name="renderer">Current renderer</param>
+    public override void RenderIt(DocxTextDocumentRenderer renderer)
+    {
+
+        List<List<OpenXmlElement>> items = [];
+
+        foreach (var listItem in _list.ChildBlocks)
         {
-            case ListStyleTypeEnum.Disc:
-                LocalCss = "list-style-type: disc";
-                break;
-            case ListStyleTypeEnum.Circle:
-                LocalCss = "list-style-type: circle";
-                break;
-            case ListStyleTypeEnum.Square:
-                LocalCss = "list-style-type: square";
-                break;
-            case ListStyleTypeEnum.Customized:
-                LocalCss = $"list-style-type: '{_list.ListStyleTypeChar}'";
-                break;
-            case ListStyleTypeEnum.Decimal:
-                LocalCss = "list-style-type: decimal";
-                break;
-            case ListStyleTypeEnum.DecimalLeadingZero:
-                LocalCss = "list-style-type: decimal-leading-zero";
-                break;
-            case ListStyleTypeEnum.UpperRoman:
-                LocalCss = "list-style-type: upper-roman";
-                break;
-            case ListStyleTypeEnum.LowerRoman:
-                LocalCss = "list-style-type: lower-roman";
-                break;
-            case ListStyleTypeEnum.UpperLatin:
-                LocalCss = "list-style-type: upper-latin";
-                break;
-            case ListStyleTypeEnum.LowerLatin:
-                LocalCss = "list-style-type: lower-latin";
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+
+            var runs = new List<OpenXmlElement>();
+
+            DocxDocumentRendererHelper.RenderBlockInlinesToRunsForDocx(renderer, listItem.ChildInlines, runs);
+
+            items.Add(runs);
         }
 
+        renderer.DocxDocument.AddList(items, "ListItem", _list.ListStyleType);
     }
 }

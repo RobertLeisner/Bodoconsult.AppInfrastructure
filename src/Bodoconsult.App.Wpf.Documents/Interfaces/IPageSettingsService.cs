@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Windows;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Wpf.Documents.Delegates;
-using Bodoconsult.Text.Documents;
 
 namespace Bodoconsult.App.Wpf.Documents.Interfaces;
 

@@ -8,7 +8,6 @@ using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Wpf.Documents.Helpers;
 using Bodoconsult.App.Wpf.Documents.Interfaces;
 using Bodoconsult.App.Wpf.Helpers;
-using Bodoconsult.Text.Documents;
 using Thickness = System.Windows.Thickness;
 
 namespace Bodoconsult.App.Wpf.Documents.Paginators;

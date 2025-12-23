@@ -13,7 +13,6 @@ using System.Windows.Xps.Serialization;
 using Bodoconsult.App.Abstractions.Interfaces;
 using Bodoconsult.App.Wpf.Documents.Paginators;
 using Bodoconsult.App.Wpf.Documents.Services;
-using Bodoconsult.Text.Documents;
 using Thickness = System.Windows.Thickness;
 
 namespace Bodoconsult.App.Wpf.Documents.Utilities;
