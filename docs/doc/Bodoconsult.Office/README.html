@@ -178,6 +178,186 @@ public void Export_ValidDataTable_FileCreated()
     Assert.That(File.Exists(path));
 }
 </code></pre>
+<h1 id="use-docxbuilder-class">Use DocxBuilder class</h1>
+<p>Use the DocxBuilder class to create DOCX word processing files.</p>
+<p>Here a sample showing the most important features of DocxBuilder class:</p>
+<pre><code class="lang-csharp">[Test]
+public void RealWorld_MultipleSectionsWithPageNumbering_DocxCreated()
+{
+    // Arrange 
+    var path = Path.Combine(FileHelper.TempPath, &quot;test.docx&quot;);
+
+    if (File.Exists(path))
+    {
+        File.Delete(path);
+    }
+
+    var imagePath = Path.Combine(TestHelper.TestDataPath, &quot;image.png&quot;);
+
+    List&lt;OpenXmlElement&gt; runs;
+
+    // Heading1 style
+    var style = new DemoStyle
+    {
+        TypoFontColor = TypoColors.Cyan,
+        FontName = &quot;Arial Black&quot;,
+        FontSize = 20,
+        Bold = true,
+        Italic = true,
+        TypoMargins =
+        {
+            Bottom = 2.5,
+            Left = 1.5
+        },
+        TextAlignment = TypoTextAlignment.Center,
+        TypoBorderThickness =
+        {
+            Bottom = 0.07,
+            Left = 0.07,
+            Right = 0.07,
+            Top = 0.07,
+        },
+        TypoPaddings =
+        {
+            Bottom = 0.1,
+            Left = 0.1,
+            Right = 0.1,
+            Top = 0.1,
+        }
+    };
+
+    // Basics
+    var docx = new DocxBuilder();
+    docx.CreateDocument(path);
+
+    // Create styles
+    docx.AddNewStyle(&quot;heading1&quot;, &quot;heading 1&quot;, style, 2);
+
+    // First section
+    docx.AddSection(false);
+    docx.SetBasicPageProperties(21, 29.4, 5, 2, 2, 2);
+    docx.AddHeaderToCurrentSection(&quot;Header section 1&quot;, 10);
+    docx.AddFooterToCurrentSection($&quot;Footer section 1\t{ITypography.PageFieldIndicator}&quot;, 10);
+
+    docx.AddParagraph(&quot;Heading section 1&quot;, &quot;heading1&quot;);
+    docx.AddParagraph(TestHelper.MassText, &quot;Normal&quot;);
+
+    // Add an image
+    docx.AddImage(imagePath, &quot;Normal&quot;, 600, 400);
+
+    // Add a definition list
+    var dlRows = new List&lt;DocxDefinitionListRow&gt;();
+
+    for (var j = 0; j &lt; 5; j++)
+    {
+        var dlRow = new DocxDefinitionListRow
+        {
+            TermStyleId = &quot;Normal&quot;,
+            ItemsStyleId = &quot;Normal&quot;
+        };
+
+        // Term
+        dlRow.Term.Add(DocxBuilder.CreateRun($&quot;Test term {j}&quot;));
+
+        // Items
+        for (var i = 0; i &lt; 5; i++)
+        {
+            runs = [DocxBuilder.CreateRun($&quot;Term item {j}-{i}&quot;)];
+
+            dlRow.Items.Add(runs);
+        }
+
+        dlRows.Add(dlRow);
+    }
+
+    docx.AddDefinitionList(dlRows, 3, 9);
+
+    docx.AddParagraph(TestHelper.MassText, &quot;Normal&quot;);
+
+    // New section
+    docx.AddSection(true, true);
+    docx.SetBasicPageProperties(21, 29.4, 8, 2, 2, 2);
+    docx.AddHeaderToCurrentSection(&quot;Header section 2&quot;, 10);
+    docx.AddFooterToCurrentSection($&quot;Footer section 2\t{ITypography.PageFieldIndicator}&quot;, 10);
+
+    // Heading and text
+    docx.AddParagraph(&quot;Heading section 1&quot;, &quot;heading1&quot;);
+    docx.AddParagraph(TestHelper.MassText, &quot;Normal&quot;);
+
+    // Add multiple runs to a paragraph
+    runs =
+    [
+        DocxBuilder.CreateRun(&quot;Das ist &quot;),
+        DocxBuilder.CreateRunBold(&quot;ein &quot;),
+        DocxBuilder.CreateRunItalic(&quot;Test für einen Hyperlink &quot;),
+        DocxBuilder.CreateHyperlink(&quot;http://www.bodoconsult.de&quot;, &quot;Bodoconsult&quot;, docx.MainDocumentPart),
+        DocxBuilder.CreateRun(&quot; im Text!&quot;),
+        DocxBuilder.CreateLineBreak(),
+        DocxBuilder.CreateRun(&quot;Das ist 1 ...&quot;),
+        DocxBuilder.CreatePageBreak(),
+        DocxBuilder.CreateRun(&quot;Das ist 2 ...&quot;)
+    ];
+
+    docx.AddParagraph(runs, &quot;Normal&quot;);
+
+    docx.AddParagraph(TestHelper.MassText, &quot;Normal&quot;);
+
+    // Add a list
+    var listItems = new List&lt;List&lt;OpenXmlElement&gt;&gt;();
+
+    for (var i = 0; i &lt; 10; i++)
+    {
+        runs = [DocxBuilder.CreateRun($&quot;Test item {i}&quot;)];
+        listItems.Add(runs);
+    }
+
+    docx.AddList(listItems, &quot;Normal&quot;, ListStyleTypeEnum.Circle);
+
+    docx.AddParagraph(TestHelper.MassText, &quot;Normal&quot;);
+
+
+    // Add a table
+    var rows = new List&lt;DocxTableRow&gt;();
+
+    var row = new DocxTableRow();
+
+    var cell = new DocxTableCell();
+    cell.Items.Add([DocxBuilder.CreateRun(&quot;A text&quot;)]);
+    cell.StyleId = &quot;Normal&quot;;
+    row.Cells.Add(cell);
+
+    cell = new DocxTableCell();
+    cell.Items.Add([DocxBuilder.CreateRun(&quot;B text&quot;)]);
+    cell.StyleId = &quot;Normal&quot;;
+    row.Cells.Add(cell);
+
+    rows.Add(row);
+
+    row = new DocxTableRow();
+
+    cell = new DocxTableCell();
+    cell.Items.Add([DocxBuilder.CreateRun(&quot;C text&quot;)]);
+    cell.StyleId = &quot;Normal&quot;;
+    row.Cells.Add(cell);
+
+    cell = new DocxTableCell();
+    cell.Items.Add([DocxBuilder.CreateRun(&quot;D text&quot;)]);
+    cell.StyleId = &quot;Normal&quot;;
+    row.Cells.Add(cell);
+
+    rows.Add(row);
+
+    ITypoTableStyle tableStyle = new DemoTableStyle();
+    docx.AddTable(rows, tableStyle);
+
+    // Assert
+    Assert.That(File.Exists(path));
+
+    docx.Dispose();
+
+    FileSystemHelper.RunInDebugMode(path);
+}
+</code></pre>
 <h1 id="about-us">About us</h1>
 <p>Bodoconsult (<a href="http://www.bodoconsult.de">http://www.bodoconsult.de</a>) is a Munich based software development company.</p>
 <p>Robert Leisner is senior software developer at Bodoconsult. See his profile on <a href="http://www.bodoconsult.de/Curriculum_vitae_Robert_Leisner.pdf">http://www.bodoconsult.de/Curriculum_vitae_Robert_Leisner.pdf</a>.</p>

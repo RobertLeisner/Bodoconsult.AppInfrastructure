@@ -109,6 +109,191 @@ public void Export_ValidDataTable_FileCreated()
 }
 ```
 
+# Use DocxBuilder class
+
+Use the DocxBuilder class to create DOCX word processing files. 
+
+Here a sample showing the most important features of DocxBuilder class:
+
+``` csharp
+[Test]
+public void RealWorld_MultipleSectionsWithPageNumbering_DocxCreated()
+{
+    // Arrange 
+    var path = Path.Combine(FileHelper.TempPath, "test.docx");
+
+    if (File.Exists(path))
+    {
+        File.Delete(path);
+    }
+
+    var imagePath = Path.Combine(TestHelper.TestDataPath, "image.png");
+
+    List<OpenXmlElement> runs;
+
+    // Heading1 style
+    var style = new DemoStyle
+    {
+        TypoFontColor = TypoColors.Cyan,
+        FontName = "Arial Black",
+        FontSize = 20,
+        Bold = true,
+        Italic = true,
+        TypoMargins =
+        {
+            Bottom = 2.5,
+            Left = 1.5
+        },
+        TextAlignment = TypoTextAlignment.Center,
+        TypoBorderThickness =
+        {
+            Bottom = 0.07,
+            Left = 0.07,
+            Right = 0.07,
+            Top = 0.07,
+        },
+        TypoPaddings =
+        {
+            Bottom = 0.1,
+            Left = 0.1,
+            Right = 0.1,
+            Top = 0.1,
+        }
+    };
+
+    // Basics
+    var docx = new DocxBuilder();
+    docx.CreateDocument(path);
+
+    // Create styles
+    docx.AddNewStyle("heading1", "heading 1", style, 2);
+
+    // First section
+    docx.AddSection(false);
+    docx.SetBasicPageProperties(21, 29.4, 5, 2, 2, 2);
+    docx.AddHeaderToCurrentSection("Header section 1", 10);
+    docx.AddFooterToCurrentSection($"Footer section 1\t{ITypography.PageFieldIndicator}", 10);
+
+    docx.AddParagraph("Heading section 1", "heading1");
+    docx.AddParagraph(TestHelper.MassText, "Normal");
+
+    // Add an image
+    docx.AddImage(imagePath, "Normal", 600, 400);
+
+    // Add a definition list
+    var dlRows = new List<DocxDefinitionListRow>();
+
+    for (var j = 0; j < 5; j++)
+    {
+        var dlRow = new DocxDefinitionListRow
+        {
+            TermStyleId = "Normal",
+            ItemsStyleId = "Normal"
+        };
+
+        // Term
+        dlRow.Term.Add(DocxBuilder.CreateRun($"Test term {j}"));
+
+        // Items
+        for (var i = 0; i < 5; i++)
+        {
+            runs = [DocxBuilder.CreateRun($"Term item {j}-{i}")];
+
+            dlRow.Items.Add(runs);
+        }
+
+        dlRows.Add(dlRow);
+    }
+
+    docx.AddDefinitionList(dlRows, 3, 9);
+
+    docx.AddParagraph(TestHelper.MassText, "Normal");
+
+    // New section
+    docx.AddSection(true, true);
+    docx.SetBasicPageProperties(21, 29.4, 8, 2, 2, 2);
+    docx.AddHeaderToCurrentSection("Header section 2", 10);
+    docx.AddFooterToCurrentSection($"Footer section 2\t{ITypography.PageFieldIndicator}", 10);
+
+    // Heading and text
+    docx.AddParagraph("Heading section 1", "heading1");
+    docx.AddParagraph(TestHelper.MassText, "Normal");
+
+    // Add multiple runs to a paragraph
+    runs =
+    [
+        DocxBuilder.CreateRun("Das ist "),
+        DocxBuilder.CreateRunBold("ein "),
+        DocxBuilder.CreateRunItalic("Test für einen Hyperlink "),
+        DocxBuilder.CreateHyperlink("http://www.bodoconsult.de", "Bodoconsult", docx.MainDocumentPart),
+        DocxBuilder.CreateRun(" im Text!"),
+        DocxBuilder.CreateLineBreak(),
+        DocxBuilder.CreateRun("Das ist 1 ..."),
+        DocxBuilder.CreatePageBreak(),
+        DocxBuilder.CreateRun("Das ist 2 ...")
+    ];
+
+    docx.AddParagraph(runs, "Normal");
+
+    docx.AddParagraph(TestHelper.MassText, "Normal");
+
+    // Add a list
+    var listItems = new List<List<OpenXmlElement>>();
+
+    for (var i = 0; i < 10; i++)
+    {
+        runs = [DocxBuilder.CreateRun($"Test item {i}")];
+        listItems.Add(runs);
+    }
+
+    docx.AddList(listItems, "Normal", ListStyleTypeEnum.Circle);
+
+    docx.AddParagraph(TestHelper.MassText, "Normal");
+
+
+    // Add a table
+    var rows = new List<DocxTableRow>();
+
+    var row = new DocxTableRow();
+
+    var cell = new DocxTableCell();
+    cell.Items.Add([DocxBuilder.CreateRun("A text")]);
+    cell.StyleId = "Normal";
+    row.Cells.Add(cell);
+
+    cell = new DocxTableCell();
+    cell.Items.Add([DocxBuilder.CreateRun("B text")]);
+    cell.StyleId = "Normal";
+    row.Cells.Add(cell);
+
+    rows.Add(row);
+
+    row = new DocxTableRow();
+
+    cell = new DocxTableCell();
+    cell.Items.Add([DocxBuilder.CreateRun("C text")]);
+    cell.StyleId = "Normal";
+    row.Cells.Add(cell);
+
+    cell = new DocxTableCell();
+    cell.Items.Add([DocxBuilder.CreateRun("D text")]);
+    cell.StyleId = "Normal";
+    row.Cells.Add(cell);
+
+    rows.Add(row);
+
+    ITypoTableStyle tableStyle = new DemoTableStyle();
+    docx.AddTable(rows, tableStyle);
+
+    // Assert
+    Assert.That(File.Exists(path));
+
+    docx.Dispose();
+
+    FileSystemHelper.RunInDebugMode(path);
+}
+```
+
 # About us
 
 Bodoconsult (<http://www.bodoconsult.de>) is a Munich based software development company.

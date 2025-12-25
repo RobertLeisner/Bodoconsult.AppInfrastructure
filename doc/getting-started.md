@@ -17,8 +17,6 @@ For getting started see the README.md files in the project documentation folders
 
 >   [**Bodoconsult.Text**](Bodoconsult.Text/README.md)
 
->   [**Bodoconsult.Text.Pdf**](Bodoconsult.Text.Pdf/README.md)
-
 >   [**Bodoconsult.Test**](Bodoconsult.Test/README.md)
 
 >   [**Bodoconsult.App.BackgroundService**](Bodoconsult.App.BackgroundService/README.md)

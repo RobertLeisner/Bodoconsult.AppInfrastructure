@@ -17,9 +17,6 @@
 - name: Bodoconsult.Pdf
   href: Bodoconsult.Pdf/toc.yml
   topicHref: Bodoconsult.Pdf/README.md
-- name: Bodoconsult.Text.Pdf
-  href: Bodoconsult.Text.Pdf/toc.yml
-  topicHref: Bodoconsult.Text.Pdf/README.md
 - name: Bodoconsult.App.Windows
   href: Bodoconsult.App.Windows/toc.yml
   topicHref: Bodoconsult.App.Windows/README.md

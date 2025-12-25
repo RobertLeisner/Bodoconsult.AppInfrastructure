@@ -88,7 +88,7 @@
 <h1 id="bodoconsulttext">Bodoconsult.Text</h1>
 
 <h1 id="what-does-the-library">What does the library</h1>
-<p>Bodoconsult.Text provides tools to generate structured text documents in a C# project and export it finally to a HTML, ASCII plain text file or a PDF file.</p>
+<p>Bodoconsult.Text provides tools to generate structured text documents like reports in a C# project and export it finally to a HTML, ASCII plain text file or a PDF file.</p>
 <p>We use Bodoconsult.Text for creating unit test logfiles intended for presentation to auditors. Another usage at Bodoconsult is creating an automated documentation for an app based on unit tests.</p>
 <p>Bodoconsult.Text provides the following main classes;</p>
 <blockquote>
@@ -100,136 +100,13 @@
 <h1 id="how-to-use-the-library">How to use the library</h1>
 <p>The source code contains NUnit test classes, the following source code is extracted from. The samples below show the most helpful use cases for the library.</p>
 <h1 id="documentbuilder-class">DocumentBuilder class</h1>
-<p>LDML is a markup language to define the content of structured text documents with paragraphs, headings, images, figures etc.. With the help of renderers the LDML markup can be translated into file formats like HTML, TXT and PDF.</p>
+<p>LDML is a markup language to define the content of structured text documents with paragraphs, headings, images, figures etc.. With the help of renderers the LDML markup can be translated into file formats like HTML, TXT, RTF, DOCX and PDF.</p>
 <p>Central class for using LDML in C# is the DocumentBuilder class.</p>
 <p>For more details see <a href="Documents.html">LDML based document creation</a>.</p>
 <h1 id="structuredtext-class">StructuredText class</h1>
-<h2 id="export-as-html-without-template-htmltextformatter-class">Export as HTML without template (HtmlTextFormatter class)</h2>
-<pre><code class="lang-csharp">var sr = new StructuredText();
-sr.AddHeader1(&quot;Überschrift 1 '&amp; &amp;&amp;&amp;' &quot;);
-sr.AddParagraph(MassText, &quot;CssTestFixture&quot;);
-sr.AddDefinitionListLine(&quot;Def1&quot;, &quot;Value1&quot;);
-sr.AddDefinitionListLine(&quot;Definition 2&quot;, &quot;Value1234&quot;);
-sr.AddDefinitionListLine(&quot;Defini 3&quot;, &quot;Value234556666&quot;);
-sr.AddParagraph(string.Empty);
-
-sr.AddParagraph(FormattedMasstext,
-    &quot;CssTestFixture&quot;);
-
-sr.AddCode(MassText, &quot;CssTestFixture&quot;);
-
-sr.AddParagraph(MassText);
-
-sr.AddListItem(&quot;Bahnhof&quot;);
-sr.AddListItem(&quot;HauptBahnhof&quot;);
-sr.AddListItem(&quot;SüdBahnhof&quot;);
-sr.AddHeader2(&quot;Überschrift 2&quot;);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-sr.AddHeader2(&quot;Überschrift 2&quot;);
-sr.AddParagraph(MassText);
-sr.AddHeader1(&quot;Überschrift 1&quot;);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-sr.AddHeader2(&quot;Überschrift 2&quot;);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-sr.AddHeader2(&quot;Überschrift 2&quot;);
-sr.AddParagraph(MassText);
-sr.AddHeader1(&quot;Überschrift 1&quot;);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-
-var f = new HtmlTextFormatter { StructuredText = sr };
-f.GetFormattedText();
-
-f.SaveAsFile(fileName);
-</code></pre>
-<h2 id="export-as-html-with-a-individual-template-htmltextformatter-class">Export as HTML with a individual template (HtmlTextFormatter class)</h2>
-<pre><code class="lang-csharp">var sr = new StructuredText();
-sr.AddHeader1(&quot;Überschrift 'Databanka'&quot;);
-sr.AddParagraph(MassText);
-sr.AddDefinitionListLine(&quot;Def1&quot;, &quot;Value1&quot;);
-sr.AddDefinitionListLine(&quot;Definition 2&quot;, &quot;Value1234&quot;);
-sr.AddDefinitionListLine(&quot;Defini 3&quot;, &quot;Value234556666&quot;);
-sr.AddParagraph(string.Empty);
-sr.AddParagraph(MassText);
-
-sr.AddListItem(&quot;Bahnhof&quot;);
-sr.AddListItem(&quot;HauptBahnhof&quot;);
-sr.AddListItem(&quot;SüdBahnhof&quot;);
-sr.AddHeader2(&quot;Überschrift 2&quot;);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-sr.AddHeader2(&quot;Überschrift 2&quot;);
-sr.AddParagraph(MassText);
-sr.AddHeader1(&quot;Überschrift 1&quot;);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-sr.AddHeader2(&quot;Überschrift 2&quot;);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-sr.AddHeader2(&quot;Überschrift 2&quot;);
-sr.AddParagraph(MassText);
-sr.AddHeader1(&quot;Überschrift 1&quot;);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-
-var f = new HtmlTextFormatter
-{
-    StructuredText = sr,
-    Template = &quot;&lt;&lt;&lt;Start&gt;&gt;&gt;{0}&lt;&lt;&lt;Ende&gt;&gt;&gt;&quot;,
-    AddTableOfContent = true
-};
-var result = f.GetFormattedText();
-
-f.SaveAsFile(fileName);
-</code></pre>
-<h2 id="export-as-plain-ascii-file-plaintextformatter-class">Export as plain ASCII file (PlainTextFormatter class)</h2>
-<pre><code class="lang-csharp">var sr = new StructuredText();
-sr.AddHeader1(&quot;Überschrift 1&quot;);
-sr.AddParagraph(MassText);
-sr.AddDefinitionListLine(&quot;Def1&quot;, &quot;Value1&quot;);
-sr.AddDefinitionListLine(&quot;Definition 2&quot;, &quot;Value1234&quot;);
-sr.AddDefinitionListLine(&quot;Defini 3&quot;, &quot;Value234556666&quot;);
-sr.AddParagraph(string.Empty);
-sr.AddParagraph(MassText);
-
-sr.AddListItem(&quot;Bahnhof&quot;);
-sr.AddListItem(&quot;HauptBahnhof&quot;);
-sr.AddListItem(&quot;SüdBahnhof&quot;);
-
-sr.AddHeader1(&quot;Überschrift 2&quot;);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-sr.AddHeader1(&quot;Überschrift 2&quot;);
-sr.AddParagraph(MassText);
-sr.AddHeader1(&quot;Überschrift 1&quot;);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-sr.AddHeader1(&quot;Überschrift 2&quot;);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-sr.AddHeader1(&quot;Überschrift 2&quot;);
-sr.AddParagraph(MassText);
-sr.AddHeader1(&quot;Überschrift 1&quot;);
-sr.AddParagraph(MassText);
-sr.AddParagraph(MassText);
-
-var f = new PlainTextFormatter { StructuredText = sr };
-var result = f.GetFormattedText();
-
-f.SaveAsFile(fileName);
-</code></pre>
+<p>Structured text is a simplified version of handling structured text documents compared to DocumentBuilder class. It is kept mainly for compatibilty reasons.</p>
+<p>Define your StructuredText instance as required and then let a ITextFormatter instance do its work and produce the requsted output like plain text, HTML or PDF.</p>
+<p>For more details see <a href="StructuredText.html">StructuredText class based document creation</a>.</p>
 <h1 id="about-us">About us</h1>
 <p>Bodoconsult (<a href="http://www.bodoconsult.de">http://www.bodoconsult.de</a>) is a Munich based software company.</p>
 <p>Robert Leisner is senior software developer at Bodoconsult. See his profile on <a href="http://www.bodoconsult.de/Curriculum_vitae_Robert_Leisner.pdf">http://www.bodoconsult.de/Curriculum_vitae_Robert_Leisner.pdf</a>.</p>
