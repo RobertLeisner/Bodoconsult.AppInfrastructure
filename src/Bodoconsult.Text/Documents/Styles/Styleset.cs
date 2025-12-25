@@ -33,17 +33,17 @@ public class Styleset : Block
     public static Color DefaultColor = TypoColors.Black.ToLdmlColor();
 
     /// <summary>
-    /// Default border width in cm
+    /// Default border width in cm. Default 1pt
     /// </summary>
     public static double DefaultBorderWidth = TypoThickness.LineWidth1Pt;
 
     /// <summary>
-    /// Default padding width in cm
+    /// Default padding width in cm. Default 2pt
     /// </summary>
     public static double DefaultPaddingWidth = 0.070555;
 
     /// <summary>
-    /// Default padding width in pt
+    /// Default padding width in cm. Default 3pt
     /// </summary>
     public static double DefaultTablePaddingWidth = 0.070555;
 

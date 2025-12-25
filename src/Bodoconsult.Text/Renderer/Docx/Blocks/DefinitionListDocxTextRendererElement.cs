@@ -1,6 +1,11 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
 
+using System.Collections.Generic;
+using System.Text;
+using Bodoconsult.Office;
 using Bodoconsult.Text.Documents;
+using Bodoconsult.Text.Helpers;
+using DocumentFormat.OpenXml;
 
 namespace Bodoconsult.Text.Renderer.Docx.Blocks;
 
@@ -26,30 +31,32 @@ public class DefinitionListDocxTextRendererElement : DocxTextRendererElementBase
     /// <param name="renderer">Current renderer</param>
     public override void RenderIt(DocxTextDocumentRenderer renderer)
     {
-        
-        //var dt = new List<DocxDefinitionListTerm>();
+        var ps = (PageStyleBase)renderer.Styleset.FindStyle("DocumentStyle");
 
-        //foreach (var childBlock in _item.ChildBlocks)
-        //{
-        //    var term = (DefinitionListTerm)childBlock;
+        var rows = new List<DocxDefinitionListRow>();
 
-        //    var termItem = new DocxDefinitionListTerm();
+        foreach (var childBlock in _item.ChildBlocks)
+        {
+            var term = (DefinitionListTerm)childBlock;
 
-        //    var sb = new StringBuilder();
+            var row = new DocxDefinitionListRow();
 
-        //    DocxDocumentRendererHelper.RenderBlockInlinesToStringForDocx(renderer, term.ChildInlines, sb);
-        //    termItem.Term = sb.ToString();
+            // Term
+            var sb = new List<OpenXmlElement>();
+            DocxDocumentRendererHelper.RenderBlockInlinesToRunsForDocx(renderer, term.ChildInlines, sb);
+            row.Term.AddRange(sb);
 
-        //    foreach(var listItems in term.ChildBlocks)
-        //    {
-        //        sb.Clear();
-        //        DocxDocumentRendererHelper.RenderBlockInlinesToStringForDocx(renderer, listItems.ChildInlines, sb);
-        //        termItem.Items.Add(sb.ToString());
-        //    }
 
-        //    dt.Add(termItem);
-        //}
+            foreach (var listItems in term.ChildBlocks)
+            {
+                sb = new List<OpenXmlElement>();
+                DocxDocumentRendererHelper.RenderBlockInlinesToRunsForDocx(renderer, listItems.ChildInlines, sb);
+                row.Items.Add(sb);
+            }
 
-        //renderer.DocxDocument.AddDefinitionList(dt);
+            rows.Add(row);
+        }
+
+        renderer.DocxDocument.AddDefinitionList(rows, 0.25 * ps.TypeAreaWidth, 0.75 * ps.TypeAreaWidth);
     }
 }

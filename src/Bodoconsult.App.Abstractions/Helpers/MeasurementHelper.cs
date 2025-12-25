@@ -95,7 +95,8 @@ public static class MeasurementHelper
     /// <returns>typographic points pt</returns>
     public static double GetPtFromCm(double cm)
     {
-        return Math.Round(cm / CentimeterPerPoint, 1);
+        var value = cm / CentimeterPerPoint;
+        return Math.Round(value, 1);
     }
 
     /// <summary>

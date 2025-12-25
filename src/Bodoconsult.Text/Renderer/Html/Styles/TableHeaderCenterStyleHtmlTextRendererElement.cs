@@ -7,7 +7,7 @@ namespace Bodoconsult.Text.Renderer.Html.Styles;
 /// <summary>
 /// HTML rendering element for <see cref="TableHeaderCenterStyle"/> instances
 /// </summary>
-public class TableHeaderCenterStyleHtmlTextRendererElement : HtmlParagraphStyleTextRendererElementBase
+public class TableHeaderCenterStyleHtmlTextRendererElement : CellStyleHtmlTextRendererElement
 {
     private readonly TableHeaderCenterStyle _tableHeaderStyle;
 

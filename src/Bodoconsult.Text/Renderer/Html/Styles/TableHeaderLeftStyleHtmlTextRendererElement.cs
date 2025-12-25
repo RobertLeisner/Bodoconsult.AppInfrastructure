@@ -1,11 +1,13 @@
-﻿using Bodoconsult.Text.Documents;
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
+
+using Bodoconsult.Text.Documents;
 
 namespace Bodoconsult.Text.Renderer.Html.Styles;
 
 /// <summary>
 /// HTML rendering element for <see cref="TableHeaderLeftStyle"/> instances
 /// </summary>
-public class TableHeaderLeftStyleHtmlTextRendererElement : HtmlParagraphStyleTextRendererElementBase
+public class TableHeaderLeftStyleHtmlTextRendererElement : CellStyleHtmlTextRendererElement
 {
     private readonly TableHeaderLeftStyle _tableHeaderStyle;
 

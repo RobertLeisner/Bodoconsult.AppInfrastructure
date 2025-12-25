@@ -19,4 +19,13 @@ public class DefinitionListTermDocxTextRendererElement : DocxTextRendererElement
         _item = item;
         ClassName = item.StyleName;
     }
+
+    /// <summary>
+    /// Render the element
+    /// </summary>
+    /// <param name="renderer">Current renderer</param>
+    public override void RenderIt(DocxTextDocumentRenderer renderer)
+    {
+        // Do nothing
+    }
 }

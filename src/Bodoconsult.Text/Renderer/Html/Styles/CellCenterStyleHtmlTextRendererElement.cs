@@ -1,13 +1,14 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using Bodoconsult.Text.Documents;
+using DocumentFormat.OpenXml.Vml.Spreadsheet;
 
 namespace Bodoconsult.Text.Renderer.Html.Styles;
 
 /// <summary>
 /// HTML rendering element for <see cref="CellCenterStyle"/> instances
 /// </summary>
-public class CellCenterStyleHtmlTextRendererElement : HtmlParagraphStyleTextRendererElementBase
+public class CellCenterStyleHtmlTextRendererElement : CellStyleHtmlTextRendererElement
 {
     private readonly CellCenterStyle _cellCenterStyle;
 

@@ -8,6 +8,8 @@ using DocumentFormat.OpenXml.ExtendedProperties;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using System.Diagnostics;
+using System.Globalization;
+using System.Transactions;
 using A = DocumentFormat.OpenXml.Drawing;
 using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using Paragraph = DocumentFormat.OpenXml.Wordprocessing.Paragraph;
@@ -1362,14 +1364,17 @@ public class DocxBuilder : IDisposable
         Body.Append(p1);
     }
 
-
+    /// <summary>
+    /// Add a table
+    /// </summary>
+    /// <param name="rows">List of rows</param>
+    /// <param name="typoTableStyle">Style to use for the table</param>
     public void AddTable(List<DocxTableRow> rows, ITypoTableStyle typoTableStyle)
     {
-
         var table = new Table();
 
         // Create a TableProperties object and specify its border information.
-        var borderSizeLeft = (uint)MeasurementHelper.GetTwipsFromCm( typoTableStyle.TypoBorderThickness.Left);
+        var borderSizeLeft = (uint)MeasurementHelper.GetTwipsFromCm(typoTableStyle.TypoBorderThickness.Left);
         var borderSizeRight = (uint)MeasurementHelper.GetTwipsFromCm(typoTableStyle.TypoBorderThickness.Right);
         var borderSizeTop = (uint)MeasurementHelper.GetTwipsFromCm(typoTableStyle.TypoBorderThickness.Top);
         var borderSizeBottom = (uint)MeasurementHelper.GetTwipsFromCm(typoTableStyle.TypoBorderThickness.Bottom);
@@ -1421,22 +1426,84 @@ public class DocxBuilder : IDisposable
 
         foreach (var row in rows)
         {
-            var tr = new DocumentFormat.OpenXml.Wordprocessing.TableRow();
+            var tr = new TableRow();
 
             AddCells(tr, row.Cells);
 
             table.Append(tr);
         }
 
+        var para = CreateEmptyParagraph(typoTableStyle.TypoMargins.Top);
+        Body.AppendChild(para);
+
         Body.Append(table);
     }
 
-    private static void AddCells(DocumentFormat.OpenXml.Wordprocessing.TableRow row, List<DocxTableCell> cells)
+    /// <summary>
+    /// Create an empty paragraph with a certain top margin
+    /// </summary>
+    /// <param name="topMargin">Top margin in cm</param>
+    /// <returns>Paragraph</returns>
+    public static Paragraph CreateEmptyParagraph(double topMargin)
+    {
+        var para = new Paragraph();
+
+        // If the paragraph has no ParagraphProperties object, create one.
+        if (!para.Elements<ParagraphProperties>().Any())
+        {
+            para.PrependChild(new ParagraphProperties());
+        }
+
+        // Get a reference to the ParagraphProperties object.
+        para.ParagraphProperties ??= new ParagraphProperties();
+        var pPr = para.ParagraphProperties;
+
+        var top = MeasurementHelper.GetTwipsFromCm(topMargin);
+
+        var spacing = new SpacingBetweenLines
+        {
+            Before = new StringValue(top.ToString()),
+        };
+        pPr.Append(spacing);
+
+
+        para.ParagraphProperties.ParagraphMarkRunProperties = new ParagraphMarkRunProperties();
+
+        var fontSize1 = new FontSize
+        {
+            Val = new StringValue("2")
+        };
+        para.ParagraphProperties.ParagraphMarkRunProperties.Append(fontSize1);
+
+        // string.Empty
+
+        var run = new Run();
+
+        var fontSize2 = new FontSize
+        {
+            Val = new StringValue("2")
+        };
+
+        var rp = new RunProperties
+        {
+            FontSize = fontSize2
+        };
+
+        // Always add properties first
+        run.Append(rp);
+        run.AppendChild(new Text(string.Empty) { Space = SpaceProcessingModeValues.Preserve });
+
+        para.Append(run);
+
+        return para;
+    }
+
+    private static void AddCells(TableRow row, List<DocxTableCell> cells)
     {
 
         foreach (var cell in cells)
         {
-            var tc = new DocumentFormat.OpenXml.Wordprocessing.TableCell();
+            var tc = new TableCell();
 
             foreach (var runs in cell.Items)
             {
@@ -1469,5 +1536,176 @@ public class DocxBuilder : IDisposable
             row.Append(tc);
         }
 
+    }
+
+    /// <summary>
+    /// Add adefinition list
+    /// </summary>
+    /// <param name="rows">Rows of the definition list</param>
+    /// <param name="termWidth">Width of the term column in cm</param>
+    /// <param name="itemsWidth">Width of the items column in cm</param>
+    public void AddDefinitionList(List<DocxDefinitionListRow> rows, double termWidth, double itemsWidth)
+    {
+        var table = new Table();
+
+        var leftColWidth = (double)MeasurementHelper.GetDxaFromCm(termWidth);
+        var rightColWidth = (double)MeasurementHelper.GetDxaFromCm(itemsWidth);
+        var total = leftColWidth + rightColWidth;
+
+        var borderValue = BorderValues.None;
+        const uint borderSize = 0u;
+
+        var tblProp = new TableProperties(
+            new TableWidth
+            {
+                Width = total.ToString("0"), 
+                Type = TableWidthUnitValues.Dxa
+            },
+            new TableJustification
+            {
+                Val = TableRowAlignmentValues.Left
+            },
+            new TableBorders(
+                new TopBorder
+                {
+                    Val = borderValue,
+                    Size = borderSize
+                },
+                new BottomBorder
+                {
+                    Val = borderValue,
+                    Size = borderSize
+                },
+                new LeftBorder
+                {
+                    Val = borderValue,
+                    Size = borderSize
+                },
+                new RightBorder
+                {
+                    Val = borderValue,
+                    Size = borderSize
+                },
+                new InsideHorizontalBorder
+                {
+                    Val = borderValue,
+                    Size = borderSize
+                },
+                new InsideVerticalBorder
+                {
+                    Val = borderValue,
+                    Size = borderSize
+                }
+            )
+        );
+
+        // Append the TableProperties object to the empty table.
+        table.AppendChild(tblProp);
+
+        // Append rows
+        foreach (var row in rows)
+        {
+            var tr = new TableRow();
+
+            // Left column
+            var leftCell = CreateLeftColumn(row, leftColWidth/total);
+            tr.Append(leftCell);
+
+            // Right column
+            var rightCell = CreateRightColumn(row, rightColWidth / total);
+            tr.Append(rightCell);
+
+            table.Append(tr);
+        }
+
+        Body.Append(table);
+
+    }
+
+    private static TableCell CreateLeftColumn(DocxDefinitionListRow row, double width)
+    {
+        //Debug.Print(width.ToString("P", CultureInfo.InvariantCulture));
+
+        var tc = new TableCell();
+        var tcp = new TableCellProperties
+        {
+            TableCellWidth = new TableCellWidth
+            {
+                Width = width.ToString("P", CultureInfo.InvariantCulture).Replace(" ", ""), 
+                Type = TableWidthUnitValues.Pct
+            }
+        };
+        tc.Append(tcp);
+
+        var para = new Paragraph();
+
+        // If the paragraph has no ParagraphProperties object, create one.
+        if (!para.Elements<ParagraphProperties>().Any())
+        {
+            para.PrependChild(new ParagraphProperties());
+        }
+
+        // Get a reference to the ParagraphProperties object.
+        para.ParagraphProperties ??= new ParagraphProperties();
+        var pPr = para.ParagraphProperties;
+
+        // If a ParagraphStyleId object doesn't exist, create one.
+        pPr.ParagraphStyleId ??= new ParagraphStyleId();
+
+        // Set the style of the paragraph.
+        pPr.ParagraphStyleId.Val = row.TermStyleId;
+
+        foreach (var run in row.Term)
+        {
+            para.AppendChild(run);
+        }
+
+        tc.Append(para);
+        return tc;
+    }
+
+    private static TableCell CreateRightColumn(DocxDefinitionListRow row, double width)
+    {
+        var tc = new TableCell();
+        var tcp = new TableCellProperties
+        {
+            TableCellWidth = new TableCellWidth
+            {
+                Width = width.ToString("P", CultureInfo.InvariantCulture).Replace(" ", ""), 
+                Type = TableWidthUnitValues.Pct
+            }
+        };
+        tc.Append(tcp);
+
+        foreach (var item in row.Items)
+        {
+
+            var para = new Paragraph();
+
+            // If the paragraph has no ParagraphProperties object, create one.
+            if (!para.Elements<ParagraphProperties>().Any())
+            {
+                para.PrependChild(new ParagraphProperties());
+            }
+
+            // Get a reference to the ParagraphProperties object.
+            para.ParagraphProperties ??= new ParagraphProperties();
+            var pPr = para.ParagraphProperties;
+
+            // If a ParagraphStyleId object doesn't exist, create one.
+            pPr.ParagraphStyleId ??= new ParagraphStyleId();
+
+            // Set the style of the paragraph.
+            pPr.ParagraphStyleId.Val = row.ItemsStyleId;
+
+            foreach (var run in item)
+            {
+                para.AppendChild(run);
+            }
+
+            tc.Append(para);
+        }
+
+        return tc;
     }
 }

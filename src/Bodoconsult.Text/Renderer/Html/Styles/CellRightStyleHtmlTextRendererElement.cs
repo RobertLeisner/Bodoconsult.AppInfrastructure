@@ -7,7 +7,7 @@ namespace Bodoconsult.Text.Renderer.Html.Styles;
 /// <summary>
 /// HTML rendering element for <see cref="CellRightStyle"/> instances
 /// </summary>
-public class CellRightStyleHtmlTextRendererElement : HtmlParagraphStyleTextRendererElementBase
+public class CellRightStyleHtmlTextRendererElement : CellStyleHtmlTextRendererElement
 {
     private readonly CellRightStyle _cellRightStyle;
 

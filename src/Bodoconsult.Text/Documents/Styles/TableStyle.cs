@@ -17,7 +17,6 @@ public class TableStyle : StyleBase, ITypoTableStyle
     {
         TagToUse = "TableStyle";
         Name = TagToUse;
-        
     }
 
     /// <summary>
@@ -31,9 +30,9 @@ public class TableStyle : StyleBase, ITypoTableStyle
     public TypoThickness TypoMargins => Margins;
 
     /// <summary>
-    /// Border spacing in pt
+    /// Border spacing in cm
     /// </summary>
-    public int BorderSpacing { get; set; } = (int)Styleset.DefaultTablePaddingWidth;
+    public double BorderSpacing { get; set; } = Styleset.DefaultTablePaddingWidth;
 
     /// <summary>
     /// Border brush

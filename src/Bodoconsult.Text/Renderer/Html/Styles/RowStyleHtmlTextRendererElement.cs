@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
 using System.Text;
+using Bodoconsult.App.Abstractions.Extensions;
+using Bodoconsult.App.Extensions;
 using Bodoconsult.Text.Documents;
 using Bodoconsult.Text.Interfaces;
 
@@ -28,11 +30,18 @@ public class RowStyleHtmlTextRendererElement : HtmlStyleTextRendererElementBase
     /// <param name="renderer">Current renderer</param>
     public override void RenderIt(ITextDocumentRenderer renderer)
     {
+        //var style = (TableStyle)renderer.Styleset.FindStyle("TableStyle");
+
         var sb = new StringBuilder();
 
         sb.AppendLine($".{_rowStyle.GetType().Name}");
         sb.AppendLine("{");
 
+        //var color = style.BorderBrush.Color.ToHtml();
+        //sb.AppendLine($"\tborder-left: {style.BorderThickness.Left.FromCmToPoint()}pt solid {color};");
+        //sb.AppendLine($"\tborder-top: {style.BorderThickness.Top.FromCmToPoint()}pt solid  {color};");
+        //sb.AppendLine($"\tborder-right: {style.BorderThickness.Right.FromCmToPoint()}pt solid  {color};");
+        //sb.AppendLine($"\tborder-bottom: {style.BorderThickness.Bottom.FromCmToPoint()}pt solid # {color};");
         sb.AppendLine("}");
         renderer.Content.Append(sb);
     }

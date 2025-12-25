@@ -6,6 +6,7 @@ using Bodoconsult.Text.Helpers;
 using DocumentFormat.OpenXml;
 using System;
 using System.Collections.Generic;
+using Bodoconsult.App.Abstractions.Interfaces;
 using Table = Bodoconsult.Text.Documents.Table;
 
 namespace Bodoconsult.Text.Renderer.Docx.Blocks;
@@ -34,6 +35,7 @@ public class TableDocxTextRendererElement : DocxTextRendererElementBase
     public override void RenderIt(DocxTextDocumentRenderer renderer)
     {
 
+        var style = renderer.Styleset.FindStyle(_table.StyleName);
 
         List<OpenXmlElement> runs;
         var rows = new List<DocxTableRow>();
@@ -56,12 +58,11 @@ public class TableDocxTextRendererElement : DocxTextRendererElementBase
                 dataRow.Cells.Add(dataCell);
             }
 
-
             rows.Add(dataRow);
 
         }
 
-        renderer.DocxDocument.AddTable(rows);
+        renderer.DocxDocument.AddTable(rows, (ITypoTableStyle)style);
 
         // Legend
         var childs = new List<Inline>();

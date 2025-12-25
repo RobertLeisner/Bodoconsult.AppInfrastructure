@@ -8,9 +8,9 @@ namespace Bodoconsult.App.Abstractions.Interfaces;
 public interface ITypoTableStyle
 {
     /// <summary>
-    /// Border spacing in pt
+    /// Border spacing in cm
     /// </summary>
-    int BorderSpacing { get; }
+    double BorderSpacing { get; }
 
     /// <summary>
     /// Margins in cm

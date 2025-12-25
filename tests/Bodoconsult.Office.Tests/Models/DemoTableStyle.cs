@@ -8,9 +8,9 @@ namespace Bodoconsult.Office.Tests.Models;
 public class DemoTableStyle : ITypoTableStyle
 {
     /// <summary>
-    /// Border spacing in pt
+    /// Border spacing in cm
     /// </summary>
-    public int BorderSpacing { get; set; } = 3;
+    public double BorderSpacing { get; set; } = 0.1;
 
     /// <summary>
     /// Margins in cm

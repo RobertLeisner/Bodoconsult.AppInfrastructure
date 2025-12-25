@@ -26,8 +26,10 @@ public static class DoubleExtensions
     /// </summary>
     /// <param name="cm">cm</param>
     /// <returns>Point pt</returns>
-    public static int FromCmToPoint(this double cm)
+    public static string FromCmToPoint(this double cm)
     {
-        return (int)Math.Round(MeasurementHelper.GetPtFromCm(cm),0);
+        var raw = MeasurementHelper.GetPtFromCm(cm);
+        var value = Math.Ceiling(raw);
+        return value.ToString("0");
     }
 }

@@ -848,4 +848,67 @@ internal class DocxBuilderTests
 
         FileSystemHelper.RunInDebugMode(path);
     }
+
+    [Test]
+    public void AddDefinitionList_ValidSetupFilePath_DocxCreated()
+    {
+        // Arrange 
+        var path = Path.Combine(FileHelper.TempPath, "test.docx");
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+
+        // Heading 1
+        var styleRunPropertiesH1 = new StyleRunProperties();
+        var color1 = new Color { Val = "2F5496" };
+        // Specify a 16 point size. 16x2 because it’s half-point size
+        var fontSize1 = new FontSize
+        {
+            Val = new StringValue("32")
+        };
+        styleRunPropertiesH1.Append(color1);
+        styleRunPropertiesH1.Append(fontSize1);
+
+        var docx = new DocxBuilder();
+        docx.CreateDocument(path);
+        docx.AddSection();
+        docx.SetBasicPageProperties(21, 29.4, 5, 2, 2, 2);
+        docx.AddNewStyle("heading1", "heading 1", styleRunPropertiesH1, 2);
+        docx.AddParagraph("Heading 1", "heading1");
+
+        // Act  
+        var rows = new List<DocxDefinitionListRow>();
+
+        for (var j = 0; j < 5; j++)
+        {
+            var row = new DocxDefinitionListRow
+            {
+                TermStyleId = "Normal",
+                ItemsStyleId = "Normal"
+            };
+
+            // Term
+            row.Term.Add(DocxBuilder.CreateRun($"Test term {j}"));
+
+            // Items
+            for (var i = 0; i < 5; i++)
+            {
+                var runs = new List<OpenXmlElement> { DocxBuilder.CreateRun($"Term item {j}-{i}") };
+
+                row.Items.Add(runs);
+            }
+
+            rows.Add(row);
+        }
+
+        docx.AddDefinitionList(rows, 3, 9);
+
+        // Assert
+        Assert.That(File.Exists(path));
+        docx.Dispose();
+
+        FileSystemHelper.RunInDebugMode(path);
+    }
 }

@@ -1,54 +1,33 @@
 ﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH.  All rights reserved.
 
-using System.Collections.Generic;
 using System.Text;
+using Bodoconsult.App.Abstractions.Extensions;
 using Bodoconsult.App.Extensions;
 using Bodoconsult.Text.Documents;
-using Bodoconsult.Text.Extensions;
 using Bodoconsult.Text.Interfaces;
 
 namespace Bodoconsult.Text.Renderer.Html.Styles;
 
 /// <summary>
-/// Base class for <see cref="ParagraphStyleBase"/> based styles
+/// HTML rendering element for table cells instances
 /// </summary>
-public class HtmlParagraphStyleTextRendererElementBase: ITextRendererElement
+public abstract class CellStyleHtmlTextRendererElement : HtmlParagraphStyleTextRendererElementBase
 {
-    /// <summary>
-    /// HTML tag to use for rendering
-    /// </summary>
-    protected string TagToUse = "p";
-
-    /// <summary>
-    /// Current block to renderer
-    /// </summary>
-    public ParagraphStyleBase Style { get; private set; }
-
-    /// <summary>
-    /// CSS class name
-    /// </summary>
-    public string ClassName { get; protected set; }
-
-    /// <summary>
-    /// Additonal CSS styling tags
-    /// </summary>
-    public List<string> AdditionalCss { get;  } = new();
-
     /// <summary>
     /// Default ctor
     /// </summary>
-    /// <param name="style">Current paragraph style</param>
-    public HtmlParagraphStyleTextRendererElementBase(ParagraphStyleBase style)
+    protected CellStyleHtmlTextRendererElement(ParagraphStyleBase style) : base(style)
     {
-        Style = style;
     }
 
     /// <summary>
     /// Render the element
     /// </summary>
     /// <param name="renderer">Current renderer</param>
-    public virtual void RenderIt(ITextDocumentRenderer renderer)
+    public override void RenderIt(ITextDocumentRenderer renderer)
     {
+        var tableStyle = (TableStyle)renderer.Styleset.FindStyle("TableStyle");
+
         var sb = new StringBuilder();
 
         sb.AppendLine($".{Style.GetType().Name}");
@@ -65,21 +44,22 @@ public class HtmlParagraphStyleTextRendererElementBase: ITextRendererElement
         {
             sb.AppendLine("     font-style: italic;");
         }
-        
+
         sb.AppendLine($"     margin: {Style.Margins.Top.ToString("0.00")}cm {Style.Margins.Right.ToString("0.00")}cm {Style.Margins.Bottom.ToString("0.00")}cm {Style.Margins.Left.ToString("0.00")}cm;");
         sb.AppendLine($"     padding: {Style.Paddings.Top.ToString("0")}pt {Style.Paddings.Right.ToString("0")}pt {Style.Paddings.Bottom.ToString("0")}pt {Style.Paddings.Left.ToString("0")}pt;");
-        sb.AppendLine($"     border-width: {Style.BorderThickness.Top.FromCmToPoint()}pt {Style.BorderThickness.Right.FromCmToPoint()}pt {Style.BorderThickness.Bottom.FromCmToPoint()}pt {Style.BorderThickness.Left.FromCmToPoint()}pt;");
-        
-        var color = (Color)Style.BorderBrush?.Color;
-        sb.AppendLine($"     border-color: {color?.ToHtml() ?? "#000000"};");
-        sb.AppendLine("     border-style: solid;");
+
+        var color = tableStyle.BorderBrush.Color.ToHtml();
+        sb.AppendLine($"     border-left: {tableStyle.BorderThickness.Left.FromCmToPoint()}pt solid {color};");
+        sb.AppendLine($"     border-top: {tableStyle.BorderThickness.Top.FromCmToPoint()}pt solid  {color};");
+        sb.AppendLine($"     border-right: {tableStyle.BorderThickness.Right.FromCmToPoint()}pt solid  {color};");
+        sb.AppendLine($"     border-bottom: {tableStyle.BorderThickness.Bottom.FromCmToPoint()}pt solid # {color};");
         sb.AppendLine($"     text-align: {Style.TextAlignment.ToString().ToLowerInvariant()};");
 
         foreach (var css in AdditionalCss)
         {
             sb.AppendLine($"     {css}");
         }
-        
+
         sb.AppendLine("}");
         renderer.Content.Append(sb);
     }
